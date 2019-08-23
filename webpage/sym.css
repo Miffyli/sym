@@ -23,10 +23,16 @@
     padding: 48px 5px;
     font-size: 14px;
     font-weight: bold;
+    cursor:default;
 }
 
 .sym-menu > span{
-    padding: 2px 7px;
+    padding: 3px 7px;
+}
+
+.sym-menu > span:hover{
+    cursor: pointer;
+    border-bottom: 1px solid white;
 }
 
 .sym-headerMenu{

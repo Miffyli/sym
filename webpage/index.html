@@ -1,19 +1,30 @@
 <html>
 <head>
+    <!-- DO NOT change the order of tags in the HEAD unless you know what you are doing, order matters! -->
     <title>Sym</title>
     <link rel="stylesheet" href="./sym.css" type="text/css">
+
+    <!-- 3rd Party Libraries -->
+    <script type="text/javascript" src="./lib/jquery-3.4.1.min.js"></script>
+
+    <!-- Custom Sym code/libraries -->
+    <script type="text/javascript" src="./pages/bfv/bfv.js"></script>
+    <script type="text/javascript" src="./pages/bf1/bf1.js"></script>
+    <script type="text/javascript" src="./pages/apex/apex.js"></script>
+    <script type="text/javascript" src="./sym.js"></script>
+
 </head>
 <body class="sym-body">
     <div class="sym-header">
         <img class="sym-banner" src="./img/symBanner.png">
         <div class="sym-menu sym-headerMenu">
-            <span>NEWS</span>
-            <span>FORUMS</span>
-            <span>DISCORD</span>
-            <span>BFV DATA</span>
-            <span>BF1 DATA</span>
-            <span>APEX DATA</span>
-            <span>DATABROWSER</span>
+            <span id="menuNews">NEWS</span>
+            <span id="menuForums">FORUMS</span>
+            <span id="menuDiscord">DISCORD</span>
+            <span id="menuBFV">BFV DATA</span>
+            <span id="menuBF1">BF1 DATA</span>
+            <span id="menuApex">APEX DATA</span>
+            <span id="menuDatabrowser">DATABROWSER</span>
         </div>
     </div>
     <div class="sym-main-content">
@@ -52,10 +63,10 @@
     </div>
     <div class="sym-footer">
         <div class="sym-menu">
-            <span>ABOUT</span>
-            <span>FAQ</span>
-            <span>CONTACT</span>
-            <span>TEAM</span>
+            <span id="menuAbout">ABOUT</span>
+            <span id="menuFAQ">FAQ</span>
+            <span id="menuContact">CONTACT</span>
+            <span id="menuTeam">TEAM</span>
         </div>
     </div>
 </body>
