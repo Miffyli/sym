@@ -253,7 +253,6 @@ function BFVUpdateTTKAndBTKGraphs (selectedWeapons) {
   })
 }
 
-
 /*
   Callback function for when filters change
   (only redo table, not graphs).
