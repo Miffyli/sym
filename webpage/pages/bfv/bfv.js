@@ -1,5 +1,5 @@
 // Path to datafile
-const BFV_DATA = 'pages/bfv/data/bfv_d.json'
+const BFV_DATA = './pages/bfv/data/bfv_E.json'
 
 // Constants for BFV
 // Constants for plotting damage/ttk/etc
@@ -15,28 +15,28 @@ const BFV_MIN_DAMAGE_MULTIPLIER = 1.0
 //  public namespace and may cause collisions
 
 // A flag to tell if we have loaded BFV data already
-var bfvDataLoaded = false
+var BFVDataLoaded = false
 // This will be the main holder of all the weapon data.
 // An array of dictionaries, each of which is a weapon
-var bfvWeaponData = []
+var BFVWeaponData = []
 // This will be similar to data, except
 // keys are the full weapon names (with attachments)
 // and values are the weapons
-var bfvWeaponNameToData = {}
+var BFVWeaponNameToData = {}
 // This will be all the keys available per weapon
 // (i.e. variable names)
-var bfvWeaponKeys = []
+var BFVWeaponKeys = []
 // Variable name -> array, where indexing is same as in
-// bfvWeaponData
-var bfvWeaponKeyToData = {}
+// BFVWeaponData
+var BFVWeaponKeyToData = {}
 
 /*
   Return weapon's damage at given point dist.
   damages and distances specify how much weapon
   does damage at those points, and everything
-  else is interpolated between.
+  else is linearly interpolated between.
 */
-function interpolateDamage (dist, damages, distances) {
+function BFVInterpolateDamage (dist, damages, distances) {
   if (dist <= Math.min.apply(null, distances)) {
     return damages[0]
   } else if (dist >= Math.max.apply(null, distances)) {
@@ -66,14 +66,14 @@ function interpolateDamage (dist, damages, distances) {
   where length of the array is based on constants
   defined above
 */
-function getDamageOverDistance (weapon) {
+function BFVGetDamageOverDistance (weapon) {
   var damages = weapon['Damages']
   var distances = weapon['Dmg_distances']
   var damageOverDistance = []
 
   // Loop over distance and store damages
   for (var dist = BFV_DAMAGE_RANGE_START; dist <= BFV_DAMAGE_RANGE_END; dist += BFV_DAMAGE_RANGE_STEP) {
-    damageOverDistance.push([dist, interpolateDamage(dist, damages, distances)])
+    damageOverDistance.push([dist, BFVInterpolateDamage(dist, damages, distances)])
   }
   return damageOverDistance
 }
@@ -83,7 +83,7 @@ function getDamageOverDistance (weapon) {
   where length of the array is based on constants
   defined above
 */
-function getBTKUpperBoundOverDistance (weapon) {
+function BFVGetBTKUpperBoundOverDistance (weapon) {
   var damages = weapon['Damages']
   var distances = weapon['Dmg_distances']
   var BTKUBOverDistance = []
@@ -91,7 +91,7 @@ function getBTKUpperBoundOverDistance (weapon) {
   // Loop over distance and store damages
   var damageAtDist = 0
   for (var dist = BFV_DAMAGE_RANGE_START; dist <= BFV_DAMAGE_RANGE_END; dist += BFV_DAMAGE_RANGE_STEP) {
-    damageAtDist = interpolateDamage(dist, damages, distances)
+    damageAtDist = BFVInterpolateDamage(dist, damages, distances)
     BTKUBOverDistance.push([dist, Math.ceil(100 / (damageAtDist * BFV_MIN_DAMAGE_MULTIPLIER))])
   }
   return BTKUBOverDistance
@@ -102,7 +102,7 @@ function getBTKUpperBoundOverDistance (weapon) {
   where length of the array is based on constants
   defined above
 */
-function getTTKUpperBoundOverDistance (weapon) {
+function BFVGetTTKUpperBoundOverDistance (weapon) {
   var damages = weapon['Damages']
   var distances = weapon['Dmg_distances']
   var bulletVelocity = weapon['InitialSpeed']
@@ -117,7 +117,7 @@ function getTTKUpperBoundOverDistance (weapon) {
   // Used to track how long bullet has been flying
   var bulletFlightSeconds = 0.0
   for (var dist = BFV_DAMAGE_RANGE_START; dist <= BFV_DAMAGE_RANGE_END; dist += BFV_DAMAGE_RANGE_STEP) {
-    damageAtDist = interpolateDamage(dist, damages, distances)
+    damageAtDist = BFVInterpolateDamage(dist, damages, distances)
     // Floor because we do not need the last bullet
     bulletsToKill = Math.floor(100 / (damageAtDist * BFV_MIN_DAMAGE_MULTIPLIER))
 
@@ -135,59 +135,70 @@ function getTTKUpperBoundOverDistance (weapon) {
 }
 
 /*
+  Display BFV page to user. This should be
+  done after data has been succesfully loaded
+*/
+function openBFVPage () {
+  $('.sym-main-content').empty()
+  // TODO ad-hoc way of loading the comparison
+  //      page and testing it out
+  // $('.sym-main-content').load('./pages/bfv/bfv.html')
+  $('.sym-main-content').load('./pages/bfv/comparison.html', initializeBFVComparison)
+}
+
+/*
   Function to handle JSON data upon receiving it:
   Parse JSON data and preprocess it into different
   arrays.
 */
-function bfvReadyCallback () {
-  // TODO error messages if download / parsing failed.
-  if (this.readyState === 4 && this.status === '200') {
-    bfvWeaponData = JSON.parse(this.response)
-    // Create name_to_data objects
-    for (var i = 0; i < bfvWeaponData.length; i++) {
-      bfvWeaponNameToData[bfvWeaponData[i]['WeapShowName']] = bfvWeaponData[i]
-    }
-    // All weapons should have same keys.
-    // Take keys from the first weapon and store them as keys
-    bfvWeaponKeys = Object.keys(bfvWeaponData[0])
-    // Sort keys for consistency between runs etc
-    bfvWeaponKeys.sort()
-
-    // Create bfvWeaponKeyToData
-    var key
-    for (var keyi = 0; keyi < bfvWeaponKeys.length; keyi++) {
-      key = bfvWeaponKeys[keyi]
-      var dataRow = []
-      for (var weapi = 0; weapi < bfvWeaponData.length; weapi++) {
-        dataRow.push(bfvWeaponData[weapi][key])
-      }
-      bfvWeaponKeyToData[key] = dataRow
-    }
+function BFVLoadSuccessCallback (data) {
+  BFVWeaponData = data
+  // Create name_to_data objects
+  for (var i = 0; i < BFVWeaponData.length; i++) {
+    BFVWeaponNameToData[BFVWeaponData[i]['WeapShowName']] = BFVWeaponData[i]
   }
+  // All weapons should have same keys.
+  // Take keys from the first weapon and store them as keys
+  BFVWeaponKeys = Object.keys(BFVWeaponData[0])
+  // Sort keys for consistency between runs etc
+  BFVWeaponKeys.sort()
+
+  // Create BFVWeaponKeyToData
+  var key
+  for (var keyi = 0; keyi < BFVWeaponKeys.length; keyi++) {
+    key = BFVWeaponKeys[keyi]
+    var dataRow = []
+    for (var weapi = 0; weapi < BFVWeaponData.length; weapi++) {
+      dataRow.push(BFVWeaponData[weapi][key])
+    }
+    BFVWeaponKeyToData[key] = dataRow
+  }
+  BFVDataLoaded = true
+  // Proceed to the BFV webpage
+  openBFVPage()
 }
 
 /*
   Load BFV data from the JSON file, and parse it
   into the global variables
 */
-function bfvLoadWeaponData() {
-  // TODO change to jQuery for simplicity
-  var xobj = new XMLHttpRequest()
-  xobj.overrideMimeType('application/json')
-  xobj.open('GET', BFV_DATA, false)
-  xobj.onreadystatechange = bfvReadyCallback
-  xobj.send(null)
+function BFVLoadWeaponData () {
+  // TODO Add some kind of progress bar here?
+  $.getJSON(BFV_DATA).done(BFVLoadSuccessCallback).fail(function (jqxhr, textStatus, error) {
+    console.log('Loading BFV data failed: ' + textStatus + ' , ' + error)
+  })
 }
 
 /*
-  Entry function for BFV page
+  Entry function for BFV page. Load data first,
+  and then open BFV page for user.
 */
 function initializeBFVPage () {
-  $('.sym-main-content').empty()
-  $('.sym-main-content').load('./pages/bfv/bfv.html')
-  // Load data
-  if (bfvDataLoaded === false) {
-    bfvLoadWeaponData()
-    bfvDataLoaded = true
+  // Attempt loading BFV data. After that is done,
+  // we move onto opening the webpage (`openBFVPage`).
+  if (BFVDataLoaded === false) {
+    BFVLoadWeaponData()
+  } else {
+    openBFVPage()
   }
 }
