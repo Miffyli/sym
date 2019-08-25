@@ -24,9 +24,6 @@ window.onload = function() {
         } else if (clicked == "menuBF1") {
             $(".sym-main-content").empty();
             initializeBF1Page();
-        } else if (clicked == "menuApex") {
-            $(".sym-main-content").empty();
-            initializeApexPage();
         } else if (clicked == "menuDatabrowser") {
             openNewTab(SYM_DATABROWSER_URL);
         } else if (clicked == "menuAbout") {
