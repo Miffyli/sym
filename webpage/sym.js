@@ -9,6 +9,7 @@ const SYM_DATABROWSER_URL = 'https://sym.gg/databrowser'
     to be run when the page loads.
 */
 window.onload = function () {
+  // Handle click events for the header and footer menus
   $('.sym-menu > span').click(function () {
     var clicked = $(this).attr('id')
 
@@ -19,10 +20,8 @@ window.onload = function () {
     } else if (clicked === 'menuDiscord') {
       openNewTab(SYM_DISCORD_URL)
     } else if (clicked === 'menuBFV') {
-      $('.sym-main-content').empty()
       initializeBFVPage()
     } else if (clicked === 'menuBF1') {
-      $('.sym-main-content').empty()
       initializeBF1Page()
     } else if (clicked === 'menuDatabrowser') {
       openNewTab(SYM_DATABROWSER_URL)
@@ -35,6 +34,16 @@ window.onload = function () {
     } else if (clicked === 'menuTeam') {
       /* TODO */
     }
+  })
+
+  // Handle click for the sym logo, return to home when clicked.
+  $('.sym-banner').click(function () {
+    window.location.replace('index.html')
+  })
+
+  // Handle click for 'JUMP IN WITH BFV' button, loads bfv page.
+  $('.sym-home-jumpin-btn').click(function () {
+    initializeBFVPage()
   })
 }
 

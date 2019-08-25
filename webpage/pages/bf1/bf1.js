@@ -1,8 +1,4 @@
 function initializeBF1Page () {
-  $('.sym-main-content').html(
-        "<div style='text-align: center; padding: 150px; margin:auto; width: 400px;'>" +
-            '<h1>Battlefield 1 Stats</h1>' +
-            '<h4>Soon &trade;</h4>' +
-        '</div>'
-    )
+  $('.sym-main-content').empty()
+  $('.sym-main-content').load('./pages/bf1/bf1.html')
 }
