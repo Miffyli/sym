@@ -16,6 +16,7 @@
 
 .sym-banner{
     width: 300px;
+	cursor: pointer;
 }
 
 .sym-menu{
@@ -62,6 +63,7 @@
     display: inline-block;
     background: #000000;
     padding: 20px 30px;
+	cursor: pointer;
 }
 
 .sym-separator {
