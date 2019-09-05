@@ -150,7 +150,8 @@ function BFVUpdateDamageGraph (selectedWeapons) {
     },
 
     tooltip: {
-      shared: true
+      shared: true,
+      valueDecimals: 3
     },
 
     plotOptions: {
@@ -242,7 +243,8 @@ function BFVUpdateTTKAndBTKGraphs (selectedWeapons) {
     },
 
     tooltip: {
-      shared: true
+      shared: true,
+      valueDecimals: 3
     },
 
     plotOptions: {

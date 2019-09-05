@@ -1,0 +1,33 @@
+.bfv-content-comparison {
+    width: 1200px;
+    margin: auto;
+    padding: 75px 0;
+}
+
+.bfv-content-comparison-table table {
+    border-spacing: 0px;
+}
+
+.bfv-content-comparison-table tr:nth-child(even) {
+    background-color: #222;
+}
+
+/* Do not color the first row */
+.bfv-content-comparison-table tr:nth-child(odd):not(:first-child) {
+    background-color: #333;
+}
+
+.bfv-content-comparison-table th {
+    height: 30pt;
+}
+
+.bfv-content-comparison-table td:first-child {
+    padding-right: 30pt
+}
+
+/* Center values in the table, but on the first column (names) */
+.bfv-content-comparison-table td:not(:first-child) {
+    text-align: center;
+    width: 100pt;
+}
+
