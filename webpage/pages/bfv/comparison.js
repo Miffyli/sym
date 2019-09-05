@@ -342,7 +342,7 @@ function initializeBFVComparison () {
 
   // Set oninput for filter elements
   document.getElementById('column_filter').oninput = BFVFilterOnChange
-  document.getElementById('column_onlydiffering').input = BFVFilterOnChange
+  document.getElementById('column_onlydiffering').onclick = BFVFilterOnChange
 
   updateSelectors()
 }
