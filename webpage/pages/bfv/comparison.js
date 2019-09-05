@@ -56,12 +56,16 @@ function BFVGetSelectedWeapons () {
 function BFVFilterTable (variableName, weaponValues, filters, includeOnlyDiffering) {
   var shouldInclude = true
 
+  // Hardcoded: Only include numeric values in the table (including "N/A")
+  // TODO this should be done before-hand
+  shouldInclude = weaponValues.every(weaponValue => (!isNaN(weaponValue) || weaponValue === 'N/A'))
+
   // If we have keywords, check if we match them
   if (filters.length > 0) {
     // Check if variableName is among filters
     var lowercaseVariableName = variableName.toLowerCase()
     // "At least one of the filters is in variableName"
-    shouldInclude = filters.some(filter => lowercaseVariableName.includes(filter))
+    shouldInclude = shouldInclude && filters.some(filter => lowercaseVariableName.includes(filter))
   }
 
   if (includeOnlyDiffering === true) {
