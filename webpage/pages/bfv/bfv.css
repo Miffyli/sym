@@ -12,7 +12,9 @@
     background-color: #222;
 }
 
+
 /* Do not color the first row */
+
 .bfv-content-comparison-table tr:nth-child(odd):not(:first-child) {
     background-color: #333;
 }
@@ -25,9 +27,10 @@
     padding-right: 30pt
 }
 
+
 /* Center values in the table, but on the first column (names) */
+
 .bfv-content-comparison-table td:not(:first-child) {
     text-align: center;
     width: 100pt;
 }
-

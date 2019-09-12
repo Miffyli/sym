@@ -138,8 +138,8 @@ function BFVGetTTKUpperBoundOverDistance (weapon) {
   Display BFV page to user. This should be
   done after data has been succesfully loaded
 */
-function openBFVPage () {
-  $('.sym-main-content').empty()
+function openBFVComparisonPage () {
+  //$('.sym-main-content').empty()
   // TODO ad-hoc way of loading the comparison
   //      page and testing it out
   // $('.sym-main-content').load('./pages/bfv/bfv.html')
@@ -175,7 +175,7 @@ function BFVLoadSuccessCallback (data) {
   }
   BFVDataLoaded = true
   // Proceed to the BFV webpage
-  openBFVPage()
+  openBFVComparisonPage()
 }
 
 /*
@@ -193,12 +193,44 @@ function BFVLoadWeaponData () {
   Entry function for BFV page. Load data first,
   and then open BFV page for user.
 */
-function initializeBFVPage () {
+function initializeBFVComparisonPage () {
   // Attempt loading BFV data. After that is done,
   // we move onto opening the webpage (`openBFVPage`).
   if (BFVDataLoaded === false) {
     BFVLoadWeaponData()
   } else {
-    openBFVPage()
+    openBFVComparisonPage()
   }
+}
+
+/*
+  Load the BFV selector page that contains the buttons to allow
+  the user to select which page to navigate to (chart, comp, etc...)
+*/
+function openBFVSelectionPage () {
+    $('.sym-main-content').load('./pages/bfv/bfv.html', initializeBFVSelectrionPage)
+}
+
+/*
+  Load the BFV selector page that contains the buttons to allow
+  the user to select which page to navigate to (chart, comp, etc...)
+*/
+function openBFVChartPage () {
+    $('.sym-main-content').load('./pages/bfv/bfvchart.html', initializeBFVSelectrionPage)
+}
+
+
+/*
+  Add handlers for the click events for the bfv selector page.
+*/
+function initializeBFVSelectrionPage () {
+  $('.sym-pageSelections > div').click(function () {
+    var clicked = $(this).attr('id')
+
+    if (clicked === 'bfv-chartPageSelector') {
+      openBFVChartPage()
+    } else if (clicked === 'bfv-comparisonPageSelector') {
+      initializeBFVComparisonPage()
+    }
+  })
 }
