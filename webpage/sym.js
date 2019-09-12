@@ -19,8 +19,8 @@ window.onload = function () {
       openNewTab(SYM_FORUMS_URL)
     } else if (clicked === 'menuDiscord') {
       openNewTab(SYM_DISCORD_URL)
-    } else if (clicked === 'menuBFV') {
-      initializeBFVPage()
+    } else if (clicked === 'menuBFV') {      
+      openBFVSelectionPage()
     } else if (clicked === 'menuBF1') {
       initializeBF1Page()
     } else if (clicked === 'menuDatabrowser') {

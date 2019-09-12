@@ -1,69 +1,71 @@
-.sym-body{
+.sym-body {
     background: #191919;
     color: #F0F0F0;
     font-family: "proxima-nova", sans-serif;
 }
 
+
 /***************************/
 /********* Header **********/
 /***************************/
 
-.sym-header{
+.sym-header {
     width: 1000px;
     margin: auto;
     padding-top: 30px;
 }
 
-.sym-banner{
+.sym-banner {
     width: 300px;
-	cursor: pointer;
+    cursor: pointer;
 }
 
-.sym-menu{
+.sym-menu {
     display: inline-block;
     padding: 48px 5px;
     font-size: 14px;
     font-weight: bold;
-    cursor:default;
+    cursor: default;
 }
 
-.sym-menu > span{
+.sym-menu>span {
     padding: 3px 7px;
 }
 
-.sym-menu > span:hover{
+.sym-menu>span:hover {
     cursor: pointer;
     border-bottom: 1px solid white;
 }
 
-.sym-headerMenu{
+.sym-headerMenu {
     float: right;
 }
+
 
 /***************************/
 /***** Main Content ********/
 /***************************/
 
-.sym-main-content-home{
+.sym-main-content-home {
     width: 900px;
     margin: auto;
     padding: 75px 0;
 }
 
-.sym-main-content-home > div {
+.sym-main-content-home>div {
     margin: 15px 0;
 }
 
-.sym-home-motto{
+.sym-home-motto {
     font-size: 60px;
     font-weight: bold;
 }
 
-.sym-home-jumpin-btn{
+.sym-home-jumpin-btn {
     display: inline-block;
     background: #000000;
     padding: 20px 30px;
-	cursor: pointer;
+    cursor: pointer;
 }
 
 .sym-separator {
@@ -71,48 +73,48 @@
     height: 2px;
 }
 
-.sym-main-desc > div{
+.sym-main-desc>div {
     display: inline-block;
     width: 48%;
     vertical-align: middle;
 }
 
-.sym-main-desc-text-block > div{
+.sym-main-desc-text-block>div {
     margin: 15px 0;
     font-size: 14px;
     line-height: 22px;
 }
 
-.sym-main-desc-whatsThat{
-    font-size:28px !important;
+.sym-main-desc-whatsThat {
+    font-size: 28px !important;
     font-weight: bold;
     margin: 20px 0 30px 0 !important;
 }
 
-.sym-main-desc-learnMore-btn{
+.sym-main-desc-learnMore-btn {
     border: 2px solid #B0B0B0;
     background: black;
     display: inline-block;
     padding: 10px 20px;
 }
 
-.sym-main-flask{
+.sym-main-flask {
     width: 400px;
 }
 
-.sym-demize{
+.sym-demize {
     text-align: center;
     font-weight: bold;
     padding: 50px;
 }
 
-.sym-demize-quote{
+.sym-demize-quote {
     font-size: 32px;
     width: 400px;
     margin: auto;
 }
 
-.sym-demize-name{
+.sym-demize-name {
     font-size: 14px;
     margin-top: 20px;
 }
@@ -122,6 +124,23 @@
 /*********** Footer *******************/
 /**************************************/
 
-.sym-footer{
+.sym-footer {
     text-align: center;
+}
+
+
+/**************************************/
+/******** Selectotion Pages ***********/
+/**************************************/
+
+.sym-pageSelections {
+    text-align: center;
+}
+
+.sym-pageSelections>div {
+    display: inline-block;
+    padding: 10px;
+    border: 1px solid white;
+    cursor: pointer;
+    margin: 20px;
 }
