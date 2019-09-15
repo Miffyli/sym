@@ -189,18 +189,24 @@ function initializeBFVComparisonPage () {
 
 /*
   Load the BFV selector page that contains the buttons to allow
-  the user to select which page to navigate to (chart, comp, etc...)
+  the user to select which page to navigate to (chart, comp, etc...).
 */
 function openBFVSelectionPage () {
-    $('.sym-main-content').load('./pages/bfv/bfv.html', initializeBFVSelectrionPage)
+  $('.sym-main-content').load('./pages/bfv/bfv_header.html', initializeBFVSelectrion)
 }
 
 /*
-  Load the BFV selector page that contains the buttons to allow
-  the user to select which page to navigate to (chart, comp, etc...)
+  Load the BFV chart page
 */
 function openBFVChartPage () {
-    $('.bfv-main-content').load('./pages/bfv/bfvchart.html', initializeBFVSelectrionPage)
+  $('.bfv-main-content').load('./pages/bfv/bfv_chart.html')
+}
+
+/*
+  Load the BFV main/entry/index page
+*/
+function openBFVIndexPage () {
+  $('.bfv-main-content').load('./pages/bfv/bfv_index.html')
 }
 
 /*
@@ -208,13 +214,14 @@ function openBFVChartPage () {
   done after data has been succesfully loaded
 */
 function openBFVComparisonPage () {
-  $('.bfv-main-content').load('./pages/bfv/comparison.html', initializeBFVComparison)
+  $('.bfv-main-content').load('./pages/bfv/bfv_comparison.html', initializeBFVComparison)
 }
 
 /*
-  Add handlers for the click events for the bfv selector page.
+  Add handlers for the click events for the bfv selector page and open
+  the entry page for BFV
 */
-function initializeBFVSelectrionPage () {
+function initializeBFVSelectrion () {
   $('.sym-pageSelections > div').click(function () {
     var clicked = $(this).attr('id')
 
@@ -222,6 +229,9 @@ function initializeBFVSelectrionPage () {
       openBFVChartPage()
     } else if (clicked === 'bfv-comparisonPageSelector') {
       initializeBFVComparisonPage()
+    } else if (clicked === 'bfv-mainPageSelector') {
+      openBFVIndexPage()
     }
   })
+  openBFVIndexPage()
 }
