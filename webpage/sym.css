@@ -133,6 +133,11 @@
 /******** Selectotion Pages ***********/
 /**************************************/
 
+.sym-pageHeaderContent {
+  text-align: center;
+  margin: auto;
+}
+
 .sym-pageSelections {
     text-align: center;
 }

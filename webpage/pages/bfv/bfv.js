@@ -10,10 +10,6 @@ const BFV_DAMAGE_RANGE_STEP = 1
 // Minimum damage multiplier (9.1.2018)
 const BFV_MIN_DAMAGE_MULTIPLIER = 1.0
 
-// TODO should these variables be stored here?
-//  They are convenient like this, but pollute
-//  public namespace and may cause collisions
-
 // A flag to tell if we have loaded BFV data already
 var BFVDataLoaded = false
 // This will be the main holder of all the weapon data.
@@ -135,14 +131,6 @@ function BFVGetTTKUpperBoundOverDistance (weapon) {
 }
 
 /*
-  Display BFV page to user. This should be
-  done after data has been succesfully loaded
-*/
-function openBFVComparisonPage () {
-  $('.sym-main-content').load('./pages/bfv/comparison.html', initializeBFVComparison)
-}
-
-/*
   Function to handle JSON data upon receiving it:
   Parse JSON data and preprocess it into different
   arrays.
@@ -212,9 +200,16 @@ function openBFVSelectionPage () {
   the user to select which page to navigate to (chart, comp, etc...)
 */
 function openBFVChartPage () {
-    $('.sym-main-content').load('./pages/bfv/bfvchart.html', initializeBFVSelectrionPage)
+    $('.bfv-main-content').load('./pages/bfv/bfvchart.html', initializeBFVSelectrionPage)
 }
 
+/*
+  Display BFV page to user. This should be
+  done after data has been succesfully loaded
+*/
+function openBFVComparisonPage () {
+  $('.bfv-main-content').load('./pages/bfv/comparison.html', initializeBFVComparison)
+}
 
 /*
   Add handlers for the click events for the bfv selector page.
