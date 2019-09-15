@@ -139,10 +139,6 @@ function BFVGetTTKUpperBoundOverDistance (weapon) {
   done after data has been succesfully loaded
 */
 function openBFVComparisonPage () {
-  //$('.sym-main-content').empty()
-  // TODO ad-hoc way of loading the comparison
-  //      page and testing it out
-  // $('.sym-main-content').load('./pages/bfv/bfv.html')
   $('.sym-main-content').load('./pages/bfv/comparison.html', initializeBFVComparison)
 }
 
