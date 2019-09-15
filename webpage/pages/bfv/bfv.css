@@ -1,7 +1,13 @@
+.bfv-header-content {
+  text-align: center;
+  padding: 100px;
+  margin: auto;
+  width: 400px; 
+}
+
 .bfv-content-comparison {
     width: 1200px;
     margin: auto;
-    padding: 75px 0;
 }
 
 .bfv-content-comparison-table table {
