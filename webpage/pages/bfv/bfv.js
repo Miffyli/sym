@@ -223,6 +223,11 @@ function openBFVComparisonPage () {
 */
 function initializeBFVSelectrion () {
   $('.sym-pageSelections > div').click(function () {
+    // Remove highlights from all elements
+    $(this).siblings().removeClass('selected-selector')
+    // Add highlight to this one
+    $(this).addClass('selected-selector')
+
     var clicked = $(this).attr('id')
 
     if (clicked === 'bfv-chartPageSelector') {

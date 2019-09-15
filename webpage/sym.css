@@ -149,3 +149,12 @@
     cursor: pointer;
     margin: 20px;
 }
+
+.sym-pageSelections>div:hover{
+    background-color: #999900;
+}
+
+.selected-selector {
+    background-color: #A9D852;
+}
+
