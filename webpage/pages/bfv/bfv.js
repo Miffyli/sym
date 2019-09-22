@@ -1,5 +1,5 @@
 // Path to datafile
-const BFV_DATA = './pages/bfv/data/bfv_E.json'
+const BFV_DATA = './pages/bfv/data/bfv_F.json'
 
 // Constants for BFV
 // Constants for plotting damage/ttk/etc
