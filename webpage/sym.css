@@ -48,7 +48,7 @@
 .sym-main-content-home {
     width: 900px;
     margin: auto;
-    padding: 75px 0;
+    padding: 45px 0;
 }
 
 .sym-main-content-home>div {
@@ -116,6 +116,14 @@
 .sym-demize-name {
     font-size: 14px;
     margin-top: 20px;
+}
+
+.sym-main-content-header{
+    width: 900px;
+    margin: auto;
+    font-weight: unset;
+    text-align: center;
+    padding: 40px 0px 0px 0px;
 }
 
 

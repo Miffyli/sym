@@ -14,7 +14,7 @@ window.onload = function () {
     var clicked = $(this).attr('id')
 
     if (clicked === 'menuNews') {
-            /* TODO */
+      loadPageWithHeader('./pages/misc/news.html', '')
     } else if (clicked === 'menuForums') {
       openNewTab(SYM_FORUMS_URL)
     } else if (clicked === 'menuDiscord') {
@@ -26,13 +26,13 @@ window.onload = function () {
     } else if (clicked === 'menuDatabrowser') {
       openNewTab(SYM_DATABROWSER_URL)
     } else if (clicked === 'menuAbout') {
-      /* TODO */
+      loadPageWithHeader('./pages/misc/about.html', 'About')
     } else if (clicked === 'menuFAQ') {
-      /* TODO */
+      loadPageWithHeader('./pages/misc/faq.html', 'Frequently Asked Questions')
     } else if (clicked === 'menuContact') {
-      /* TODO */
+      loadPageWithHeader('./pages/misc/contact.html', 'Contact')
     } else if (clicked === 'menuTeam') {
-      /* TODO */
+      loadPageWithHeader('./pages/misc/team.html', 'Team')
     }
   })
 
@@ -45,6 +45,21 @@ window.onload = function () {
   $('.sym-home-jumpin-btn').click(function () {
     openBFVSelectionPage()
   })
+}
+
+/*
+  Load given page file with header, and finish
+  with callback.
+
+  If callback is undefined, no function is called after
+  this.
+*/
+function loadPageWithHeader (file, header, callback = undefined) {
+  // Set the header
+  $('.sym-main-content-header').html(header)
+  $('.sym-main-content').load(file, callback)
+  // Scroll back up
+  $('html,body').scrollTop(0)
 }
 
 /*
