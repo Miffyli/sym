@@ -131,7 +131,6 @@ function BFVUpdateTable (selectedWeapons, filters, includeOnlyDiffering) {
 
     // Place table to its location
     $('#compare_table').html(tableHtml)
-    // TODO get filtering settings
   }
 }
 
