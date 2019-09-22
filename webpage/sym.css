@@ -137,7 +137,7 @@
 
 
 /**************************************/
-/******** Selection Pages ***********/
+/******** Selection Pages *************/
 /**************************************/
 
 .sym-pageHeaderContent {
@@ -165,3 +165,41 @@
     background-color: #A9D852;
 }
 
+
+/**************************************/
+/******** Static pages ****************/
+/**************************************/
+
+.sym-static-content h2 {
+    font-weight: unset;
+    padding-top: 30px;
+}
+
+.sym-static-content h2:first-child {
+    padding-top: 0px;
+}
+
+.sym-static-content p {
+    padding-left: 20px;
+}
+
+.sym-about h2 {
+    border-bottom: solid 1px #B0B0B0;
+}
+
+.sym-faq h2 {
+    font-style: italic;
+}
+
+.sym-faq p {
+    border-left: 2px solid #A9D852;
+}
+
+.team-member-box {
+    border: 2px solid #505050;
+    border-radius: 10px;
+}
+
+.team-member-box h2 {
+    padding-left: 40px;
+}
