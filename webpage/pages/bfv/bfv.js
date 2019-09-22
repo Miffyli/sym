@@ -10,10 +10,6 @@ const BFV_DAMAGE_RANGE_STEP = 1
 // Minimum damage multiplier (9.1.2018)
 const BFV_MIN_DAMAGE_MULTIPLIER = 1.0
 
-// TODO should these variables be stored here?
-//  They are convenient like this, but pollute
-//  public namespace and may cause collisions
-
 // A flag to tell if we have loaded BFV data already
 var BFVDataLoaded = false
 // This will be the main holder of all the weapon data.
@@ -135,18 +131,6 @@ function BFVGetTTKUpperBoundOverDistance (weapon) {
 }
 
 /*
-  Display BFV page to user. This should be
-  done after data has been succesfully loaded
-*/
-function openBFVComparisonPage () {
-  //$('.sym-main-content').empty()
-  // TODO ad-hoc way of loading the comparison
-  //      page and testing it out
-  // $('.sym-main-content').load('./pages/bfv/bfv.html')
-  $('.sym-main-content').load('./pages/bfv/comparison.html', initializeBFVComparison)
-}
-
-/*
   Function to handle JSON data upon receiving it:
   Parse JSON data and preprocess it into different
   arrays.
@@ -205,32 +189,54 @@ function initializeBFVComparisonPage () {
 
 /*
   Load the BFV selector page that contains the buttons to allow
-  the user to select which page to navigate to (chart, comp, etc...)
+  the user to select which page to navigate to (chart, comp, etc...).
 */
 function openBFVSelectionPage () {
-    $('.sym-main-content').load('./pages/bfv/bfv.html', initializeBFVSelectrionPage)
+  $('.sym-main-content').load('./pages/bfv/bfv_header.html', initializeBFVSelectrion)
 }
 
 /*
-  Load the BFV selector page that contains the buttons to allow
-  the user to select which page to navigate to (chart, comp, etc...)
+  Load the BFV chart page
 */
 function openBFVChartPage () {
-    $('.sym-main-content').load('./pages/bfv/bfvchart.html', initializeBFVSelectrionPage)
+  $('.bfv-main-content').load('./pages/bfv/bfv_chart.html')
 }
 
+/*
+  Load the BFV main/entry/index page
+*/
+function openBFVIndexPage () {
+  $('.bfv-main-content').load('./pages/bfv/bfv_index.html')
+}
 
 /*
-  Add handlers for the click events for the bfv selector page.
+  Display BFV page to user. This should be
+  done after data has been succesfully loaded
 */
-function initializeBFVSelectrionPage () {
+function openBFVComparisonPage () {
+  $('.bfv-main-content').load('./pages/bfv/bfv_comparison.html', initializeBFVComparison)
+}
+
+/*
+  Add handlers for the click events for the bfv selector page and open
+  the entry page for BFV
+*/
+function initializeBFVSelectrion () {
   $('.sym-pageSelections > div').click(function () {
+    // Remove highlights from all elements
+    $(this).siblings().removeClass('selected-selector')
+    // Add highlight to this one
+    $(this).addClass('selected-selector')
+
     var clicked = $(this).attr('id')
 
     if (clicked === 'bfv-chartPageSelector') {
       openBFVChartPage()
     } else if (clicked === 'bfv-comparisonPageSelector') {
       initializeBFVComparisonPage()
+    } else if (clicked === 'bfv-mainPageSelector') {
+      openBFVIndexPage()
     }
   })
+  openBFVIndexPage()
 }
