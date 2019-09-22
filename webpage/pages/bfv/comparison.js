@@ -1,5 +1,13 @@
 // Logic behind comparison pages
 
+// Array used to generate cutomizatinos buttons for each weapon
+// The array is generated in a function below
+var bfvCustomizationsArray = [];
+
+// Used to prepend to id of customization buttons to make them all unique
+// in order to accomodate mulitple instances of the same weapon.
+var addVariantCounter = 0;
+
 /*
   Return list of WeapShowNames of the
   selected weapons.
@@ -35,13 +43,22 @@ function BFVGetSelectedWeapons () {
   //      BFVGetSelectedWeaponShowNames and
   //      BFVGetSelectedAttachments
   var selectedWeapons = []
-  var selectors = $('#selectors')[0].children
-  for (var i = 0; i < selectors.length; i++) {
-    // First item in the list is empty
-    if (selectors[i].selectedIndex !== 0) {
-      selectedWeapons.push(BFVWeaponData[selectors[i].selectedIndex - 1])
+
+  $('.comp-selectorContainer').each(function(){
+    if ($(this).find("select")[0].selectedIndex !== 0){
+        var selectedCusts = $(this).find("select option:selected").text().trim();
+        $(this).find(".custButton").each(function(){
+          if($(this).is(":checked")){
+            selectedCusts += $(this).next("label").data("shortname");
+          }
+        })
+
+        var weaponStats = BFVWeaponData.find(function(element){
+            return element.WeapAttachmentKey == selectedCusts;
+        });
+        selectedWeapons.push(weaponStats)
     }
-  }
+  })
   return selectedWeapons
 }
 
@@ -96,7 +113,7 @@ function BFVUpdateTable (selectedWeapons, filters, includeOnlyDiffering) {
 
     // Now for each row, show variable name and numbers
     for (var variableIndex = 0; variableIndex < BFVWeaponKeys.length; variableIndex++) {
-      // Check filtering: Get variable name and the values, check if want 
+      // Check filtering: Get variable name and the values, check if want
       // to include that variable and then include it
       var variableKey = BFVWeaponKeys[variableIndex]
       var weaponVariables = selectedWeapons.map(weapon => weapon[variableKey])
@@ -278,9 +295,10 @@ function BFVFilterOnChange () {
   (different weapon, different attachments, different
   filters)
 */
-function BFVSelectorsOnChange () {
-  var selectedWeapons = BFVGetSelectedWeapons()
+function BFVSelectorsOnChange (e) {
   updateSelectors()
+  printBFVCustomizationButtons(e)
+  var selectedWeapons = BFVGetSelectedWeapons()
 
   // Get filters for updating the table.
   var filters = $('#column_filter')[0].value.toLowerCase()
@@ -297,23 +315,27 @@ function BFVSelectorsOnChange () {
   and if one of them should be removed
 */
 function updateSelectors () {
-  var selectorParent = $('#selectors')[0]
-  var selectors = selectorParent.children
+  $(".comp-selectorContainer > select").each(function() {
+      if (this.selectedIndex == 0 && $(".comp-selectorContainer > select").length > 1){
+          $(this).parent().remove()
+      }
+  })
 
-  // Remove empty selectors
-  for (var i = 0; i < selectors.length; i++) {
-    // Make sure we are left at least with one selector
-    if (selectors[i].selectedIndex === 0 && selectors.length !== 1) {
-      selectors[i].remove()
+  var emptySelects = 0
+  $(".comp-selectorContainer > select").each(function() {
+    if(this.selectedIndex == 0){
+        emptySelects++
     }
+  })
+
+  if(emptySelects == 0 && $(".comp-selectorContainer").length < 6){
+    $(".comp-selectorContainer").last().after($(".comp-selectorContainer").first().clone(true));
+    $(".comp-selectorContainer").last().children("div").remove();
+    $(".comp-selectorContainer").last().children("select").change(function(e) {
+      BFVSelectorsOnChange(e)
+    });
   }
 
-  // Make sure we have at least one empty selector
-  if (selectors[selectors.length - 1].selectedIndex !== 0) {
-    var clone = selectors[0].cloneNode(true)
-    clone.onchange = BFVSelectorsOnChange
-    selectorParent.appendChild(clone)
-  }
 }
 
 /*
@@ -333,12 +355,14 @@ function initializeBFVComparison () {
   firstSelector.onchange = BFVSelectorsOnChange
   // First add empty option
   var option = document.createElement('option')
-  option.text = ''
+  option.text = 'Select Weapon...'
   firstSelector.add(option)
   for (var i = 0; i < BFVWeaponData.length; i++) {
-    option = document.createElement('option')
-    option.text = BFVWeaponData[i]['WeapShowName'] + ' ' + BFVWeaponData[i]['Attachments_short']
-    firstSelector.add(option)
+    if (BFVWeaponData[i]['Attachments_short'] == ""){
+      option = document.createElement('option')
+      option.text = BFVWeaponData[i]['WeapShowName']
+      firstSelector.add(option)
+    }
   }
   selectorParent.appendChild(firstSelector)
 
@@ -347,4 +371,186 @@ function initializeBFVComparison () {
   document.getElementById('column_onlydiffering').onclick = BFVFilterOnChange
 
   updateSelectors()
+
+  generateBFVCustomizationsArray()
+  $("#selectors > select").addClass("comp-selectors").wrap( "<div class='comp-selectorContainer'></div>" )
+  //$("#column_onlydiffering").checkboxradio();
 }
+
+/*
+  Creates an array used to generate the spec/customization buttons.  Each entry
+  is an array of 4 objects that represent the 4 spec tiers. 'a' is left side,
+  'b' is right side.  Each entry also has a weaponName variable There is one
+  entry per weapon.
+*/
+function generateBFVCustomizationsArray(){
+    $.each(BFVWeaponData, function(key, weapon) {
+        var weaponIndex = getIndexOfWeapon(weapon.WeapShowName, bfvCustomizationsArray)
+        if(weaponIndex < 0){
+            var newWeaponEntry = new Object()
+            newWeaponEntry.weaponName = weapon.WeapShowName
+            newWeaponEntry.customizations = new Array({a:"",b:""}, {a:"",b:""}, {a:"",b:""}, {a:"",b:""});
+            weaponIndex = bfvCustomizationsArray.push(newWeaponEntry) - 1
+        }
+
+        if (weapon.Attachments_short.length > 0){
+            var short_attachments = weapon.Attachments_short.split("+")
+            for (var i = 0; i < short_attachments.length; i++){
+                if ((bfvCustomizationsArray[weaponIndex].customizations[i].a.localeCompare(short_attachments[i]) != 0) && (bfvCustomizationsArray[weaponIndex].customizations[i].b.localeCompare(short_attachments[i]) != 0)){
+                    if (bfvCustomizationsArray[weaponIndex].customizations[i].a.length == 0){
+                        bfvCustomizationsArray[weaponIndex].customizations[i].a = short_attachments[i];
+                    } else {
+                        bfvCustomizationsArray[weaponIndex].customizations[i].b = short_attachments[i];
+                    }
+                }
+            }
+        }
+    })
+}
+
+/*
+    Search the array for the entry with the given weapon name and return
+    the index for it or '-1' if not found.
+*/
+function getIndexOfWeapon(weapon, customizationArray){
+    var weaponIndex = -1;
+    for (var i = 0; i < customizationArray.length; i++){
+        if (customizationArray[i].weaponName == weapon){
+            weaponIndex = i;
+            break;  // I hate breaks but this increases performance
+        }
+    }
+    return weaponIndex;
+}
+
+
+/*
+  Create the html for the customization buttons for the selected weapon
+*/
+function printBFVCustomizationButtons(e){
+  var selectedSelect = ($(e.target).find("option:selected"))
+  var selectedOption = ($(e.target).find("option:selected").text().trim())
+
+  $(selectedSelect).parent().siblings("div").remove()
+  $(selectedSelect).parent().after(printCustomizations(selectedOption))
+  $(selectedSelect).parent().parent().find("input").checkboxradio(
+      {icon:false}
+  );
+  initializeCustomizationButtons($(selectedSelect).parent().parent().find(".custButton"))
+}
+
+
+/*
+  Generates the html used for the customization buttons
+*/
+function printCustomizations(weaponName){
+    var custString = "";
+    var weaponIndex = getIndexOfWeapon(weaponName, bfvCustomizationsArray)
+    var weaponCust = bfvCustomizationsArray[weaponIndex].customizations
+
+    if(weaponCust[0].a != ""){
+        for (var i = 0; i < weaponCust.length; i++){
+            var rowClass = "custRow" + i.toString();
+            custString +="<div>"
+            custString += "<input id='" + addVariantCounter + weaponName + weaponCust[i].a + i.toString() + "' name='" + addVariantCounter + weaponName + i.toString() + "' type='radio' class='custButton " + rowClass + " custCol1'><label data-shortname='" + weaponCust[i].a + "' for='" + addVariantCounter + weaponName + weaponCust[i].a + i.toString() + "'>" + customizationStrings[weaponCust[i].a] + "</label>";
+            custString += "<input id='" + addVariantCounter + weaponName + weaponCust[i].b + i.toString() + "' name='" + addVariantCounter + weaponName + i.toString() + "' type='radio' class='custButton " + rowClass + " custCol2'><label data-shortname='" + weaponCust[i].b + "' for='" + addVariantCounter + weaponName + weaponCust[i].b + i.toString() + "'>" + customizationStrings[weaponCust[i].b] + "</label>";
+            custString += "</div>"
+        }
+    }
+    addVariantCounter++
+
+    return custString;
+}
+
+/*
+  Creates event handlers for the customization buttons so that users are only
+  allowed to click on the appropriate ones. i.e. only click 2nd tier button if
+  a 1st tier button has been selected.
+*/
+function initializeCustomizationButtons(buttonObj){
+    $(buttonObj).change(function(){
+        if ($(this).is(":checked") || $(this).siblings(".custButton").is(":checked")) {
+            if ($(this).hasClass("custRow1")){
+                var thisCol = $(this).hasClass("custCol1") ? ".custCol1" : ".custCol2";
+                $(this).parent().next().children(thisCol).checkboxradio("enable");
+            } else {
+                $(this).parent().next().children(".custButton").checkboxradio("enable");
+            }
+        }
+    });
+
+    $(buttonObj).click(function(){
+        if ($(this).hasClass("custRow1")){
+            $(this).parent().nextAll().children(".custButton").prop("checked", false).change();
+            $(this).parent().nextAll().children(".custButton").checkboxradio("disable");
+        }
+
+        var thisId = $(this).attr("id");
+        if ($(this).siblings("label[for='" + thisId +"']").hasClass("ui-state-active")){
+            $(this).prop("checked", false).change();
+            $(this).parent().nextAll().children(".custButton").prop("checked", false).change();
+            $(this).parent().nextAll().children(".custButton").checkboxradio("disable");
+        } else {
+
+        }
+        this.blur();
+        var selectedCusts = $(this).parentsUntil(".tbody", "tr").find("td.firstColumn > .lblWeaponName").text();
+        $(this).parent().parent().find(".custButton").each(function(){
+            if($(this).is(":checked")){
+                selectedCusts += $(this).next("label").data("shortname");
+            }
+        })
+
+        var selectedWeapons = BFVGetSelectedWeapons()
+
+        // Get filters for updating the table.
+        var filters = $('#column_filter')[0].value.toLowerCase()
+        var includeOnlyDiffering = $('#column_onlydiffering')[0].checked
+        filters = filters.split(',')
+
+        BFVUpdateTable(selectedWeapons, filters, includeOnlyDiffering)
+        BFVUpdateDamageGraph(selectedWeapons)
+        BFVUpdateTTKAndBTKGraphs(selectedWeapons)
+    });
+
+    $(buttonObj).parent().parent().find("div:not(:nth-child(2)) .custButton").checkboxradio("disable");
+}
+
+/* These mappings are used for the labels on the customization buttons
+   These need to be updated if DICE comes out with new customization types.
+*/
+var customizationStrings = new Object();
+customizationStrings.QADS = "Quick Aim";
+customizationStrings.ADSM = "Custom Stock";
+customizationStrings.MoAD = "Lightened Stock";
+customizationStrings.Bayo = "Bayonet";
+customizationStrings.QRel = "Quick Reload";
+customizationStrings.QDep = "Slings and Swivels";
+customizationStrings.QCyc = "Machined Bolt";
+customizationStrings.Zero = "Variable Zeroing";
+customizationStrings.VRec = "Recoil Buffer";
+customizationStrings.ITri = "Trigger Job";
+customizationStrings.Hipf = "Enhanced Grips";
+customizationStrings.IADS = "Barrel Bedding";
+customizationStrings.DMag = "Detachable Magazines";
+customizationStrings.Bipo = "Bipod";
+customizationStrings.FBul = "High Velocity Bullets";
+customizationStrings.Long = "Low Drag Rounds";
+customizationStrings.ADSS = "Barrel Bedding";
+customizationStrings.HRec = "Ported Barrel";
+customizationStrings.Heav = "Heavy Load";
+customizationStrings.Pene = "Penetrating Shot";
+customizationStrings.ExMa = "Extended Magazine";
+customizationStrings.Slug = "Slugs";
+customizationStrings.Head = "Solid Slug";
+customizationStrings.IBip = "Improved Bipod";
+customizationStrings.Flas = "Flashless Propellant";
+customizationStrings.IROF = "Light Bolt";
+customizationStrings.Ince = "Incendiary Bullets";
+customizationStrings.Cool = "Chrome Lining";
+customizationStrings.Magd = "Polished Action";
+customizationStrings.Chok = "Internal Choke";
+customizationStrings.ExBe = "Extended Belt";
+customizationStrings.Drum = "Double Drum Magazine";
+customizationStrings.Gren = "Improved Grenades"
+customizationStrings.APCR = "APCR Bullets"
