@@ -192,7 +192,7 @@ function initializeBFVComparisonPage () {
   the user to select which page to navigate to (chart, comp, etc...).
 */
 function openBFVSelectionPage () {
-  $('.sym-main-content').load('./pages/bfv/bfv_header.html', initializeBFVSelectrion)
+  loadPageWithHeader('./pages/bfv/bfv_header.html', 'Battlefield V Stats', initializeBFVSelectrion)
 }
 
 /*
