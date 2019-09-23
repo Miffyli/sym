@@ -1,0 +1,205 @@
+.sym-body {
+    background: #191919;
+    color: #F0F0F0;
+    font-family: "proxima-nova", sans-serif;
+}
+
+/***************************/
+/********* Header **********/
+/***************************/
+
+.sym-header {
+    width: 1000px;
+    margin: auto;
+    padding-top: 30px;
+}
+
+.sym-banner {
+    width: 300px;
+    cursor: pointer;
+}
+
+.sym-menu {
+    display: inline-block;
+    padding: 48px 5px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: default;
+}
+
+.sym-menu>span {
+    padding: 3px 7px;
+}
+
+.sym-menu>span:hover {
+    cursor: pointer;
+    border-bottom: 1px solid white;
+}
+
+.sym-headerMenu {
+    float: right;
+}
+
+
+/***************************/
+/***** Main Content ********/
+/***************************/
+
+.sym-main-content-home {
+    width: 900px;
+    margin: auto;
+    padding: 45px 0;
+}
+
+.sym-main-content-home>div {
+    margin: 15px 0;
+}
+
+.sym-home-motto {
+    font-size: 60px;
+    font-weight: bold;
+}
+
+.sym-home-jumpin-btn {
+    display: inline-block;
+    background: #000000;
+    padding: 20px 30px;
+    cursor: pointer;
+}
+
+.sym-separator {
+    background: #B0B0B0;
+    height: 2px;
+}
+
+.sym-main-desc>div {
+    display: inline-block;
+    width: 48%;
+    vertical-align: middle;
+}
+
+.sym-main-desc-text-block>div {
+    margin: 15px 0;
+    font-size: 14px;
+    line-height: 22px;
+}
+
+.sym-main-desc-whatsThat {
+    font-size: 28px !important;
+    font-weight: bold;
+    margin: 20px 0 30px 0 !important;
+}
+
+.sym-main-desc-learnMore-btn {
+    border: 2px solid #B0B0B0;
+    background: black;
+    display: inline-block;
+    padding: 10px 20px;
+}
+
+.sym-main-flask {
+    width: 400px;
+}
+
+.sym-demize {
+    text-align: center;
+    font-weight: bold;
+    padding: 50px;
+}
+
+.sym-demize-quote {
+    font-size: 32px;
+    width: 400px;
+    margin: auto;
+}
+
+.sym-demize-name {
+    font-size: 14px;
+    margin-top: 20px;
+}
+
+.sym-main-content-header{
+    width: 900px;
+    margin: auto;
+    font-weight: unset;
+    text-align: center;
+    padding: 40px 0px 0px 0px;
+}
+
+
+/**************************************/
+/*********** Footer *******************/
+/**************************************/
+
+.sym-footer {
+    text-align: center;
+}
+
+
+/**************************************/
+/******** Selection Pages *************/
+/**************************************/
+
+.sym-pageHeaderContent {
+  text-align: center;
+  margin: auto;
+}
+
+.sym-pageSelections {
+    text-align: center;
+}
+
+.sym-pageSelections>div {
+    display: inline-block;
+    padding: 10px;
+    border: 1px solid white;
+    cursor: pointer;
+    margin: 20px;
+}
+
+.sym-pageSelections>div:hover{
+    background-color: #999900;
+}
+
+.selected-selector {
+    background-color: #A9D852;
+}
+
+
+/**************************************/
+/******** Static pages ****************/
+/**************************************/
+
+.sym-static-content h2 {
+    font-weight: unset;
+    padding-top: 30px;
+}
+
+.sym-static-content h2:first-child {
+    padding-top: 0px;
+}
+
+.sym-static-content p {
+    padding-left: 20px;
+}
+
+.sym-about h2 {
+    border-bottom: solid 1px #B0B0B0;
+}
+
+.sym-faq h2 {
+    font-style: italic;
+}
+
+.sym-faq p {
+    border-left: 2px solid #A9D852;
+}
+
+.staff-member-box {
+    border: 2px solid #505050;
+    border-radius: 10px;
+}
+
+.staff-member-box h2 {
+    padding-left: 40px;
+}
