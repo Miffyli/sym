@@ -1,0 +1,104 @@
+.bfv-header-content {
+  text-align: center;
+  padding: 100px;
+  margin: auto;
+  width: 400px; 
+}
+
+.bfv-content-comparison {
+    width: 1200px;
+    margin: auto;
+}
+
+.bfv-content-comparison-table table {
+    border-spacing: 0px;
+}
+
+.bfv-content-comparison-table tr:nth-child(even) {
+    background-color: #222;
+}
+
+
+/* Do not color the first row */
+
+.bfv-content-comparison-table tr:nth-child(odd):not(:first-child) {
+    background-color: #333;
+}
+
+.bfv-content-comparison-table th {
+    height: 30pt;
+}
+
+.bfv-content-comparison-table td:first-child {
+    padding-right: 30pt
+}
+
+
+/* Center values in the table, but on the first column (names) */
+
+.bfv-content-comparison-table td:not(:first-child) {
+    text-align: center;
+    width: 100pt;
+}
+
+.comp-pageTitle{
+    padding: 30px;
+    border-left: 5px solid #FF9000;
+    font-weight: unset;
+    margin-bottom: 60px;
+}
+
+#selectors{
+    margin-bottom: 30px;
+}
+
+.comp-selectorContainer{
+    display: inline-block;
+    vertical-align: top;
+    padding: 19px;
+    background: #222;
+    margin: 4px;
+    border: 1px solid #444;
+    width: 345px;
+    height: 145px;
+}
+
+/*  Customization button */
+.comp-selectorContainer label{
+    font-size: 11px;
+    width: 145px;
+    margin: 1px;
+}
+
+.comp-selectors{
+    color: #444;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.comp-filterContainer{
+    display: inline-block;
+    border-bottom: 1px solid #777;
+    width: 100%;
+    margin: 40px 0;
+}
+
+.comp-filterBorderHeader{
+    border-left: 5px solid #FF9000;
+    padding-left: 10px
+}
+
+.comp-filterInput{
+    display: inline-block;
+    font-style: italic;
+    margin: 0px 50px 0px 10px;
+}
+
+#column_filter{
+    width: 400px;
+}
+
+#compare_table td{
+    padding: 1px 7px;
+}
