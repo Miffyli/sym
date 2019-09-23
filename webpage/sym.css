@@ -163,12 +163,12 @@
     background: #444;
 }
 
-.sym-pageSelections>div:hover{
+.sym-pageSelections > div:hover{
     background-color: #88bb2a;
 }
 
-.selected-selector {
-    background-color: #A9D852;
+.sym-pageSelections > .selected-selector {
+    background-color: #496822;
 }
 
 
