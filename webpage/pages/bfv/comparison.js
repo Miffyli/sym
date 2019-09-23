@@ -1,5 +1,7 @@
 // Logic behind comparison pages
 
+const SELECT_OPTION_0_TEXT = 'Select Weapon...'
+
 // Array used to generate cutomizatinos buttons for each weapon
 // The array is generated in a function below
 var BFVCustomizationsArray = []
@@ -364,7 +366,7 @@ function initializeBFVComparison () {
   firstSelector.onchange = BFVSelectorsOnChange
   // First add empty option
   var option = document.createElement('option')
-  option.text = 'Select Weapon...'
+  option.text = SELECT_OPTION_0_TEXT
   firstSelector.add(option)
   for (var i = 0; i < BFVWeaponData.length; i++) {
     if (BFVWeaponData[i]['Attachments_short'] == ""){
@@ -381,7 +383,7 @@ function initializeBFVComparison () {
 
   updateSelectors()
 
-  BFVerateBFVCustomizationsArray()
+  BFVgenerateBFVCustomizationsArray()
   $('#selectors > select').addClass('comp-selectors').wrap("<div class='comp-selectorContainer'></div>")
 }
 
@@ -391,7 +393,7 @@ function initializeBFVComparison () {
   'b' is right side.  Each entry also has a weaponName variable There is one
   entry per weapon.
 */
-function BFVerateBFVCustomizationsArray () {
+function BFVgenerateBFVCustomizationsArray () {
     $.each(BFVWeaponData, function (key, weapon) {
       var weaponIndex = getIndexOfWeapon(weapon.WeapShowName, BFVCustomizationsArray)
       if (weaponIndex < 0) {
@@ -438,12 +440,16 @@ function printBFVCustomizationButtons (e){
   var selectedSelect = ($(e.target).find('option:selected'))
   var selectedOption = ($(e.target).find('option:selected').text().trim())
 
-  $(selectedSelect).parent().siblings('div').remove()
-  $(selectedSelect).parent().after(printCustomizations(selectedOption))
-  $(selectedSelect).parent().parent().find('input').checkboxradio(
+
+  if(selectedOption.localeCompare(SELECT_OPTION_0_TEXT) != 0){
+    $(selectedSelect).parent().siblings('div').remove()
+    $(selectedSelect).parent().after(printCustomizations(selectedOption))
+    $(selectedSelect).parent().parent().find('input').checkboxradio(
       {icon: false }
-  )
-  initializeCustomizationButtons($(selectedSelect).parent().parent().find('.custButton'))
+    )
+    initializeCustomizationButtons($(selectedSelect).parent().parent().find('.custButton'))
+  }
+
 }
 
 /*

@@ -147,18 +147,24 @@
 
 .sym-pageSelections {
     text-align: center;
+    font-weight: bold;
 }
 
-.sym-pageSelections>div {
+.sym-pageSelections img {
+    width: 100px;
+    margin-bottom: 10px;
+}
+
+.sym-pageSelections > div {
     display: inline-block;
-    padding: 10px;
-    border: 1px solid white;
+    padding: 20px;
     cursor: pointer;
     margin: 20px;
+    background: #444;
 }
 
 .sym-pageSelections>div:hover{
-    background-color: #999900;
+    background-color: #88bb2a;
 }
 
 .selected-selector {
