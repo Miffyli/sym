@@ -26,13 +26,13 @@ window.onload = function () {
     } else if (clicked === 'menuDatabrowser') {
       openNewTab(SYM_DATABROWSER_URL)
     } else if (clicked === 'menuAbout') {
-      loadPageWithHeader('./pages/misc/about.html', 'About')
+      loadPageWithHeader('./pages/misc/about.html', '<b>About Sym</b>')
     } else if (clicked === 'menuFAQ') {
-      loadPageWithHeader('./pages/misc/faq.html', 'Frequently Asked Questions')
+      loadPageWithHeader('./pages/misc/faq.html', '<b>Frequently Asked Questions<b>')
     } else if (clicked === 'menuContact') {
-      loadPageWithHeader('./pages/misc/contact.html', 'Contact')
-    } else if (clicked === 'menuTeam') {
-      loadPageWithHeader('./pages/misc/team.html', 'Team')
+      loadPageWithHeader('./pages/misc/contact.html', '<b>Contact Us</b>')
+    } else if (clicked === 'menuStaff') {
+      loadPageWithHeader('./pages/misc/staff.html', '<b>Site Staff</b>')
     }
   })
 
