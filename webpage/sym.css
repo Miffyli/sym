@@ -202,10 +202,19 @@
 }
 
 .staff-member-box {
-    border: 2px solid #505050;
+    border: 2px solid #333;
     border-radius: 10px;
+}
+
+.staff-member-box b {
+    color: #FF9000;
 }
 
 .staff-member-box h2 {
     padding-left: 40px;
+    font-size: 120%;
+}
+
+.staff-member-box h2>b {
+    font-size: 140%;
 }
