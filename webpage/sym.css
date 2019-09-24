@@ -206,6 +206,11 @@
     border-radius: 10px;
 }
 
+.staff-member-links > img, a {
+	float: right;
+	margin: 10px;
+}
+
 .staff-member-box b {
     color: #FF9000;
 }
