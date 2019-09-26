@@ -368,12 +368,16 @@ function initializeBFVComparison () {
   var option = document.createElement('option')
   option.text = SELECT_OPTION_0_TEXT
   firstSelector.add(option)
-  for (var i = 0; i < BFVWeaponData.length; i++) {
-    if (BFVWeaponData[i]['Attachments_short'] == ""){
-      option = document.createElement('option')
-      option.text = BFVWeaponData[i]['WeapShowName']
-      firstSelector.add(option)
-    }
+  var weaponNames = BFVWeaponData.filter(
+    weapon => weapon['Attachments_short'] == ""
+  ).map(
+    weapon => weapon['WeapShowName']
+  )
+  weaponNames.sort()
+  for (var i = 0; i < weaponNames.length; i++) {
+    option = document.createElement('option')
+    option.text = weaponNames[i]
+    firstSelector.add(option)
   }
   selectorParent.appendChild(firstSelector)
 
