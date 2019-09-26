@@ -1,6 +1,17 @@
 // Logic behind comparison pages
 
+// Text for the "no weapon selected" box
 const SELECT_OPTION_0_TEXT = 'Select Weapon...'
+
+// Color codes for the best/worst value
+const NEUTRAL_VALUE_COLOR = [255, 255, 255]
+const BEST_VALUE_COLOR = [0, 255, 0]
+const WORST_VALUE_COLOR = [255, 0, 0]
+
+// List of variables that are better if lower
+const LOWER_IS_BETTER = new Set([
+  'Dull'
+])
 
 // Array used to generate cutomizatinos buttons for each weapon
 // The array is generated in a function below
@@ -107,6 +118,46 @@ function BFVFilterTable (variableName, weaponValues, filters, includeOnlyDifferi
 }
 
 /*
+  Return an array of color codes, each representing the color to be used
+  for that value. Used in the comparison to color values from best to worse.
+  variableName: Name of the variable
+  weaponValues: List of values for variableName from different weapons
+*/
+function BFVColorVariables(variableName, weaponValues) {
+  var colorCodes
+
+  if (weaponValues.length == 1 || weaponValues.some(weaponValue => isNaN(weaponValue))) {
+    // Only one item in the list or there are non-numeric values
+    // -> Return neutral color
+    colorCodes = weaponValues.map(weaponValue => NEUTRAL_VALUE_COLOR)
+  } else {
+    // Get unique values
+    var uniqueValues = Array.from(new Set(weaponValues))
+    // If we only have , do not bother with coloring
+    if (uniqueValues.length === 1) {
+      colorCodes = weaponValues.map(weaponValue => NEUTRAL_VALUE_COLOR)
+    } else {
+      // Sort by value so that "lower is worse".
+      // TODO reverse if variableName is one of "lower is better"
+      uniqueValues.sort()
+
+      colorCodes = []
+      // Lower rank in uniqueValues -> worse value
+      for (var i = 0; i < weaponValues.length; i++) {
+        // -1 so that final value (best) has BEST_VALUE_COLOR
+        var rankRatio = uniqueValues.indexOf(weaponValues[i]) / (uniqueValues.length - 1)
+        colorCodes.push(
+          BFVInterpolateRGB(WORST_VALUE_COLOR, BEST_VALUE_COLOR, rankRatio)
+        )
+      }
+    }
+  }
+  // Turn RGB arrays to html color code
+  colorCodes = colorCodes.map(colorCode => BFVArrayToRGB(colorCode))
+  return colorCodes
+}
+
+/*
   Update weapon table (i.e. create from scratch)
   with currently selected weapons and filters.
   Takes in a list of selected weapons, filter keywords (list)
@@ -132,10 +183,12 @@ function BFVUpdateTable (selectedWeapons, filters, includeOnlyDiffering) {
       var weaponVariables = selectedWeapons.map(weapon => weapon[variableKey])
 
       if (BFVFilterTable(variableKey, weaponVariables, filters, includeOnlyDiffering) === true) {
+        // Get coloring of the items
+        var variableColoring = BFVColorVariables(variableKey, weaponVariables)
         // Begin row and add variable name
         tableHtml += '<tr><td>' + variableKey + '</td>'
         for (var weaponIndex = 0; weaponIndex < weaponVariables.length; weaponIndex++) {
-          tableHtml += '<td>' + weaponVariables[weaponIndex] + '</td>'
+          tableHtml += `<td style="color: ${variableColoring[weaponIndex]}"> ${weaponVariables[weaponIndex]} </td>`
         }
         tableHtml += '</tr>'
       }

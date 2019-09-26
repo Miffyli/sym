@@ -27,6 +27,22 @@ var BFVWeaponKeys = []
 var BFVWeaponKeyToData = {}
 
 /*
+  Returns html RGB color code for given array
+  Nicked from Stackoverflow #41310869
+*/
+function BFVArrayToRGB(values) {
+  return 'rgb(' + values.join(', ') + ')';
+}
+
+/*
+  Interpolate color between two arrays.
+  `ratio` specifies how much "rgb2" is in the color
+*/
+function BFVInterpolateRGB(rgb1, rgb2, ratio) {
+  return rgb1.map((rgb1Val, i) => rgb1Val + (rgb2[i] - rgb1Val) * ratio)
+}
+
+/*
   Return weapon's damage at given point dist.
   damages and distances specify how much weapon
   does damage at those points, and everything
