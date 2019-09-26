@@ -8,11 +8,6 @@ const NEUTRAL_VALUE_COLOR = [255, 255, 255]
 const BEST_VALUE_COLOR = [0, 255, 0]
 const WORST_VALUE_COLOR = [255, 0, 0]
 
-// List of variables that are better if lower
-const LOWER_IS_BETTER = new Set([
-  'Dull'
-])
-
 // Array used to generate cutomizatinos buttons for each weapon
 // The array is generated in a function below
 var BFVCustomizationsArray = []
