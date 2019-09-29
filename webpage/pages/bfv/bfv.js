@@ -208,7 +208,7 @@ function initializeBFVComparisonPage () {
   the user to select which page to navigate to (chart, comp, etc...).
 */
 function openBFVSelectionPage () {
-  loadPageWithHeader('./pages/bfv/bfv_header.html', 'Battlefield V Stats', initializeBFVSelectrion)
+  loadPageWithHeader('./pages/bfv/bfv_header.html', 'Battlefield V', initializeBFVSelectrion)
 }
 
 /*
@@ -226,11 +226,32 @@ function openBFVIndexPage () {
 }
 
 /*
+  Load the BFV General Info page
+*/
+function openBFVGeneralInfoPage () {
+  $('.bfv-main-content').load('./pages/bfv/bfv_generalinfo.html')
+}
+
+/*
   Display BFV page to user. This should be
   done after data has been succesfully loaded
 */
 function openBFVComparisonPage () {
   $('.bfv-main-content').load('./pages/bfv/bfv_comparison.html', initializeBFVComparison)
+}
+
+/*
+  Load the BFV equipment data page
+*/
+function openBFVEquipmentPage () {
+  $('.bfv-main-content').load('./pages/bfv/bfv_dataEquipment.html')
+}
+
+/*
+  Load the BFV vehicle data page
+*/
+function openBFVVehiclePage () {
+  $('.bfv-main-content').load('./pages/bfv/bfv_dataVehicle.html')
 }
 
 /*
@@ -252,6 +273,12 @@ function initializeBFVSelectrion () {
       initializeBFVComparisonPage()
     } else if (clicked === 'bfv-mainPageSelector') {
       openBFVIndexPage()
+	} else if (clicked === 'bfv-generalinfoPageSelector') {
+      openBFVGeneralInfoPage()  
+	} else if (clicked === 'bfv-equipmentPageSelector') {
+      openBFVEquipmentPage()
+    } else if (clicked === 'bfv-vehiclePageSelector') {
+      openBFVVehiclePage()
     }
   })
   openBFVIndexPage()
