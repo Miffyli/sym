@@ -1,0 +1,471 @@
+body{
+    font-family: Arial;
+    background: #333;
+    color: white;
+    cursor: default;
+}
+
+table {
+    font-size: 14px;
+}
+
+tr {
+    /* background: #444; */
+}
+
+td {
+    padding: 2px 4px !important;
+    border-top: 1px solid #dee2e6;
+}
+
+.tbdBox{
+    width: 243px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    height: 40px;
+}
+
+.robContainer{
+    display: inline-block;
+    text-align: center;
+    padding-left: 35px;
+}
+
+.robLabel{
+    padding: 10px;
+    color: #333;
+    background: #eee;
+    box-shadow: 0px 2px 5px white;
+}
+
+.robLabelRob{
+    font-size: 48px;
+    font-weight: bold;
+}
+
+.robLabelPronounced{
+    font-size: 14px;
+    font-weight: bold;
+    font-style: italic;
+}
+
+.robVersion {
+    float:right;
+    font-size: 10px;
+}
+
+.robVersion img {
+    width: 24px;
+    height: 24px;
+    float: right;
+    margin-top: 30px;
+}
+
+.otherProj {
+    text-align: right;
+    margin-top: 7px;
+}
+
+.otherProj a:visited, .otherProj a:link{
+    color: white;
+    text-decoration: none;
+}
+
+.pageTitleContainer{
+    margin: 40px 10px 20px;
+    border-bottom: 1px solid #eee;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 5px;
+}
+
+.aquiredFrom{
+    border-radius: 5px;
+    margin: 30px auto 10px;
+    font-size: 18px;
+    background: #eee;
+    color: #222;
+    padding: 10px;
+    font-weight: bold;
+    width: 500px;
+    text-align: center;
+}
+
+.feedback{
+    border-radius: 5px;
+    margin: 20px auto 0px;
+    font-size: 14px;
+    background: #eee;
+    color: #222;
+    padding: 5px;
+    font-weight: bold;
+    width: 500px;
+    text-align: center;
+}
+
+.feedback a > img{
+    width: 20px;
+    height: 20px;
+    vertical-align: text-bottom;
+}
+
+.feedback a{
+    color: #222;
+}
+
+.noIE {
+    width: 36px;
+    height: 36px;
+    vertical-align: middle;
+}
+
+.aquiredFrom a{
+    font-size: larger;
+    font-weight: bold;
+    color:green;
+}
+
+.robAccordionsContainer{
+    width: 1280px;
+    margin: auto;
+}
+
+.robAccordion{
+    width: 33%;
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.robAccordion .ui-accordion-content{
+    max-height: 300px;
+}
+
+#showHideStats, #showHideSubCats{
+    font-size: 11px;
+}
+
+#showHideStats > label, #showHideSubCats > label{
+    padding: 5px 7px;
+}
+
+.ui-tooltip{
+    font-size: 12px;
+    box-shadow: 0px 0px 7px #666;
+    background: rgb(25,25,25);
+}
+
+.classTable{
+    margin: 0 auto 40px;
+    width: 1280px;
+    border-bottom: 1px solid #dee2e6;
+    border-top: 15px solid #dee2e6;
+    border-spacing: 0;
+}
+
+.classHeader {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0px auto 10px;
+    width: 1280px;
+}
+
+.classHeader img{
+    width: 48px;
+    height: 48px;
+    margin: 0 5px -15px;
+}
+
+
+/* ************ */
+/* Toolbar      */
+/* ************ */
+#weaponsToolbar{
+    font-size: 14px;
+    width: 1280px;
+    margin: 10px auto;
+    border: 3px solid #26B3F7;
+    background: #171717;
+}
+
+#weaponsToolbar > .toolboxRow > div {
+    margin: 10px;
+    display: inline-block;
+}
+
+.ui-menu{
+    width: 185px;
+}
+
+#showHideCheckboxes img{
+    width: 18px;
+    height: 18px;
+}
+
+/* ************ */
+/* Pre-Chart    */
+/* ************ */
+
+.firstColumn{
+    width: 220px;
+}
+
+.weaponImg{
+    height: 70px;
+    width: auto;
+}
+
+.lblWeaponName {
+    font-size: 18px;
+    /* color: #69e; */
+    /* color: #26b3f7; */
+    color: rgb(59,170,227);
+    font-weight: bold;
+}
+
+.lblWeaponName img{
+    height: 21px;
+    width: 21px;
+    float: right;
+}
+
+.lblRPM {
+    font-size: 20px;
+    color: #C27070;
+    font-weight: bold;
+}
+
+.lblSuffixText {
+    font-size: 10px;
+}
+
+.lblSpeed {
+    font-size: 18px;
+    color: #72c2c2;
+    float: right;
+}
+
+.lblSpeed img{
+    vertical-align: text-bottom;
+}
+
+.lblDragCoe{
+    font-size: 12px;
+    color: white;
+    vertical-align: middle;
+}
+
+/* ************ */
+/* Damage Chart */
+/* ************ */
+.secondColumn{
+    width: 252px;
+}
+
+.damageChartContainer{
+    margin: 4px 0;
+    display: inline-block;
+    border: 1px solid #444;
+}
+
+.damageChart{
+    height:120px;
+}
+
+.chartLabel {
+    font-size: 8px;
+    fill: #555;
+}
+
+.chartLabel200Dist {
+    font-size: 10px;
+    fill: #C27070;
+}
+
+.chartMinMaxLabel{
+    font-size: 12px;
+    fill: #26b3f7;
+    font-weight: bold;
+}
+
+.chartDamageLine{
+    fill:none;
+    stroke:#26b3f7;
+    stroke-width:2;
+}
+
+.gridLineThin {
+    stroke:rgb(125,125,125);
+    stroke-width:.25;
+}
+
+.gridLineFat {
+    stroke:rgb(125,125,125);
+    stroke-width:.5;
+}
+
+fiveMline {
+    stroke:rgb(125,125,125);
+    stroke-width:.25;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        +
+}
+
+/* ************ */
+/* After  Chart */
+/* ************ */
+
+.lblMag {
+    font-size: 24px;
+    padding-right: 2px;
+}
+
+.underMagSection {
+
+}
+
+.underMagSection > div {
+    display: inline-block;
+    vertical-align: text-bottom;
+}
+
+.reloadDataAndMagCount{
+    margin : 0 !important;
+    width: 145px;
+}
+
+.sectionReload{
+    text-align: right;
+    margin-right: 5px;
+    color: #C27070;
+    width: 125px;
+}
+
+.imgReload {
+    width: 24px;
+    vertical-align: text-bottom;
+    margin-right: 10px;
+}
+
+.lblReloadLeft{
+    font-weight: bold;
+    font-size: 20px;
+    padding-top: 20px;
+}
+
+.lblReloadEmpty {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.magGraphicBox {
+    margin-top: 5px;
+}
+
+.recoilValue {
+    font-size: 16px;
+    fill: white;
+}
+
+.spreadLabels {
+    font-weight: bold;
+    font-size: 14px;
+    text-align: right;
+    margin-right: 5px !important;
+    line-height: 25px;
+    width: 40px;
+}
+
+.speadBaseLabel {
+    color: #C8C63A;
+}
+
+.spreadBaseCicle {
+    stroke-width: 4px;
+    stroke: #C8C63A;
+    fill: none;
+}
+
+.spreadBaseLine {
+    stroke-width: 5px;
+    stroke: #C8C63A;
+    fill: none;
+}
+
+.speadMoveLabel {
+    color:  #C27070;
+}
+
+.spreadMoveCicle {
+    stroke-width: 4px;
+    stroke: #C27070;
+    fill: none;
+}
+
+.spreadMoveLine {
+    stroke-width: 10px;
+    stroke: #C27070;
+    fill: none;
+}
+
+.spreadCircles {
+    width:75px;
+    margin: 0 !important;
+}
+
+.hipSpreadContainer{
+    margin: 0 !important;
+}
+
+.hipSpreadLine {
+    stroke: #26b3f7;
+    stroke-width: 5px;
+    fill: none;
+}
+
+.hipSpreadValue {
+    font-weight: bold;
+    font-size: 18px;
+    fill: #26b3f7;
+}
+
+.deployTimeBox {
+    width: 36px;
+}
+
+.custButtons{
+    font-size: 8px;
+}
+
+.custButtons label{
+    margin: 1px;
+    width: 100px;
+}
+
+.afterCustButtons{
+    margin-left: 15px;
+}
+
+.sortDragIcon{
+    width: 45px;
+    margin-bottom: 12px;
+    opacity: .8;
+}
+
+/* Custom Combobox for shortcutCombobox */
+.custom-combobox {
+    position: relative;
+    display: inline-block;
+}
+.custom-combobox-toggle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin-left: -1px;
+    padding: 0;
+}
+.custom-combobox-input {
+    margin: 0;
+    padding: 5px 10px;
+}
+ /* End custom combobox */

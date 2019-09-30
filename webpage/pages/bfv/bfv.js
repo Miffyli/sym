@@ -215,7 +215,7 @@ function openBFVSelectionPage () {
   Load the BFV chart page
 */
 function openBFVChartPage () {
-  $('.bfv-main-content').load('./pages/bfv/bfv_chart.html')
+  $('.bfv-main-content').load('./pages/bfv/bfv_chart.html', initializeChartPage)
 }
 
 /*
@@ -274,7 +274,7 @@ function initializeBFVSelectrion () {
     } else if (clicked === 'bfv-mainPageSelector') {
       openBFVIndexPage()
 	} else if (clicked === 'bfv-generalinfoPageSelector') {
-      openBFVGeneralInfoPage()  
+      openBFVGeneralInfoPage()
 	} else if (clicked === 'bfv-equipmentPageSelector') {
       openBFVEquipmentPage()
     } else if (clicked === 'bfv-vehiclePageSelector') {
