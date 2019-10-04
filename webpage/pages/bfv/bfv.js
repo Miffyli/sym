@@ -223,7 +223,7 @@ function openBFVSelectionPage () {
   Load the BFV main/entry/index page
 */
 function openBFVIndexPage () {
-  $('.bfv-main-content').load('./pages/bfv/bfv_index.html')
+  $('.bfv-main-content').load('./pages/bfv/bfv_index.html', initializeIndexPage)
 }
 
 /*
@@ -307,4 +307,24 @@ function initializeBFVSelectrion () {
     }
   })
   openBFVIndexPage()
+}
+
+/*
+  Add handlers for the click events for the bfv index page
+*/
+function initializeIndexPage(){
+  $('.indexPageItem').click(function () {
+      var itemClicked = $(this).find("h4").text()
+      if (itemClicked === 'Weapon Charts') {
+        openBFVChartPage()
+      } else if (itemClicked === 'Weapon Comparison') {
+        initializeBFVComparisonPage()
+  	  } else if (itemClicked === 'General Information') {
+        openBFVGeneralInfoPage()
+  	  } else if (itemClicked === 'Equipment Data') {
+        openBFVEquipmentPage()
+      } else if (itemClicked === 'Vehicle Data') {
+        openBFVVehiclePage()
+      }
+  })
 }

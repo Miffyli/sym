@@ -161,6 +161,7 @@
     cursor: pointer;
     margin: 20px;
     background: #444;
+    user-select: none;
 }
 
 .sym-pageSelections > div:hover{
