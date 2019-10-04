@@ -2,7 +2,7 @@
   text-align: center;
   padding: 100px;
   margin: auto;
-  width: 400px; 
+  width: 400px;
 }
 
 .bfv-content-comparison {
@@ -101,4 +101,34 @@
 
 #compare_table td{
     padding: 1px 7px;
+}
+
+
+/* Index Page */
+/**************/
+
+.indexPageItemContainer{
+    text-align: center;
+}
+
+.indexPageItem{
+    display: inline-block;
+    width: 300px;
+    height: 200px;
+    vertical-align: top;
+    margin: 30px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.indexPageItem img{
+    width: 75px;
+}
+
+.indexPageItem h4{
+    margin: 10px 0;
+}
+
+.indexPageItem div{
+    color: #ccc;
 }
