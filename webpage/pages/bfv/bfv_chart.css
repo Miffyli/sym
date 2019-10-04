@@ -186,7 +186,6 @@ td {
     font-size: 14px;
     width: 1280px;
     margin: 10px auto;
-    border: 3px solid #26B3F7;
     background: #171717;
 }
 
@@ -218,10 +217,8 @@ td {
 }
 
 .lblWeaponName {
-    font-size: 18px;
-    /* color: #69e; */
-    /* color: #26b3f7; */
-    color: rgb(59,170,227);
+    font-size: 15px;
+    color: #A9D852;
     font-weight: bold;
 }
 
@@ -232,8 +229,8 @@ td {
 }
 
 .lblRPM {
-    font-size: 20px;
-    color: #C27070;
+    font-size: 18px;
+    color: #FF9000;
     font-weight: bold;
 }
 
@@ -242,7 +239,7 @@ td {
 }
 
 .lblSpeed {
-    font-size: 18px;
+    font-size: 16px;
     color: #72c2c2;
     float: right;
 }
@@ -286,13 +283,13 @@ td {
 
 .chartMinMaxLabel{
     font-size: 12px;
-    fill: #26b3f7;
+    fill: #A9D852;
     font-weight: bold;
 }
 
 .chartDamageLine{
     fill:none;
-    stroke:#26b3f7;
+    stroke:#A9D852;
     stroke-width:2;
 }
 
@@ -337,7 +334,7 @@ fiveMline {
 .sectionReload{
     text-align: right;
     margin-right: 5px;
-    color: #C27070;
+    color: #FF9000;
     width: 125px;
 }
 
@@ -349,12 +346,12 @@ fiveMline {
 
 .lblReloadLeft{
     font-weight: bold;
-    font-size: 20px;
+    font-size: 18px;
     padding-top: 20px;
 }
 
 .lblReloadEmpty {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: bold;
 }
 
@@ -377,12 +374,12 @@ fiveMline {
 }
 
 .speadBaseLabel {
-    color: #C8C63A;
+    color: #A9D852;
 }
 
 .spreadBaseCicle {
     stroke-width: 4px;
-    stroke: #C8C63A;
+    stroke: #A9D852;
     fill: none;
 }
 
@@ -393,12 +390,12 @@ fiveMline {
 }
 
 .speadMoveLabel {
-    color:  #C27070;
+    color:  #FF9000;
 }
 
 .spreadMoveCicle {
     stroke-width: 4px;
-    stroke: #C27070;
+    stroke: #FF9000;
     fill: none;
 }
 
@@ -418,7 +415,7 @@ fiveMline {
 }
 
 .hipSpreadLine {
-    stroke: #26b3f7;
+    stroke: white;
     stroke-width: 5px;
     fill: none;
 }
@@ -426,7 +423,7 @@ fiveMline {
 .hipSpreadValue {
     font-weight: bold;
     font-size: 18px;
-    fill: #26b3f7;
+    fill: white;
 }
 
 .deployTimeBox {

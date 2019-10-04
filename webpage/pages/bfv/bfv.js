@@ -25,6 +25,9 @@ var BFVWeaponKeys = []
 // Variable name -> array, where indexing is same as in
 // BFVWeaponData
 var BFVWeaponKeyToData = {}
+// Keeps track of which page to load after the data is loaded.
+var BFVSelectedPage = ""
+
 
 /*
   Returns html RGB color code for given array
@@ -174,8 +177,13 @@ function BFVLoadSuccessCallback (data) {
     BFVWeaponKeyToData[key] = dataRow
   }
   BFVDataLoaded = true
-  // Proceed to the BFV webpage
-  openBFVComparisonPage()
+
+  // Proceed to appropriate page
+  if (BFVSelectedPage === "BFV_CHART"){
+    loadBFVChartPage()
+  } else if (BFVSelectedPage === "BFV_COMPARISON"){
+    loadBFVComparisonPage()
+  }
 }
 
 /*
@@ -212,13 +220,6 @@ function openBFVSelectionPage () {
 }
 
 /*
-  Load the BFV chart page
-*/
-function openBFVChartPage () {
-  $('.bfv-main-content').load('./pages/bfv/bfv_chart.html', initializeChartPage)
-}
-
-/*
   Load the BFV main/entry/index page
 */
 function openBFVIndexPage () {
@@ -233,13 +234,37 @@ function openBFVGeneralInfoPage () {
 }
 
 /*
+  Load the BFV chart page
+*/
+function openBFVChartPage () {
+  if (BFVDataLoaded === false) {
+    BFVSelectedPage = "BFV_CHART"
+    BFVLoadWeaponData()
+  } else {
+    loadBFVChartPage()
+  }
+}
+
+function loadBFVChartPage(){
+    $('.bfv-main-content').load('./pages/bfv/bfv_chart.html', initializeChartPage)
+}
+
+/*
   Display BFV page to user. This should be
   done after data has been succesfully loaded
 */
 function openBFVComparisonPage () {
-  $('.bfv-main-content').load('./pages/bfv/bfv_comparison.html', initializeBFVComparison)
+  if (BFVDataLoaded === false) {
+    BFVSelectedPage === "BFV_COMPARISON"
+    BFVLoadWeaponData()
+  } else {
+    loadBFVComparisonPage()
+  }
 }
 
+function loadBFVComparisonPage(){
+  $('.bfv-main-content').load('./pages/bfv/bfv_comparison.html', initializeBFVComparison)
+}
 /*
   Load the BFV equipment data page
 */
