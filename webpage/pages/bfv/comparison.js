@@ -495,11 +495,11 @@ function printBFVCustomizationButtons (e){
 
   if(selectedOption.localeCompare(SELECT_OPTION_0_TEXT) != 0){
     $(selectedSelect).parent().siblings('div').remove()
-    $(selectedSelect).parent().after(printCustomizations(selectedOption))
+    $(selectedSelect).parent().after(compPrintCustomizations(selectedOption))
     $(selectedSelect).parent().parent().find('input').checkboxradio(
       {icon: false }
     )
-    initializeCustomizationButtons($(selectedSelect).parent().parent().find('.custButton'))
+    compInitializeCustomizationButtons($(selectedSelect).parent().parent().find('.custButton'))
   }
 
 }
@@ -507,7 +507,7 @@ function printBFVCustomizationButtons (e){
 /*
   Generates the html used for the customization buttons
 */
-function printCustomizations (weaponName) {
+function compPrintCustomizations (weaponName) {
   var custString = ''
   var weaponIndex = getIndexOfWeapon(weaponName, BFVCustomizationsArray)
   var weaponCust = BFVCustomizationsArray[weaponIndex].customizations
@@ -531,7 +531,7 @@ function printCustomizations (weaponName) {
   allowed to click on the appropriate ones. i.e. only click 2nd tier button if
   a 1st tier button has been selected.
 */
-function initializeCustomizationButtons (buttonObj) {
+function compInitializeCustomizationButtons (buttonObj) {
     $(buttonObj).change(function () {
       if ($(this).is(':checked') || $(this).siblings('.custButton').is(':checked')) {
         if ($(this).hasClass('custRow1')) {

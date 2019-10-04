@@ -71,6 +71,14 @@ function initializeChartPage() {
         this.blur();
         showHideSubCats();
     });
+
+    $("#shortcutCombobox").combobox({
+        select: function (event, ui) {
+            $("." + this.value.replace(/ |\//g,""))[0].scrollIntoView({
+              behavior: 'smooth'
+            });
+        }
+    });
 }
 
 function showBlank(obj){

@@ -7,55 +7,55 @@ function getWeaponsSubcat(weaponName){
 function initializeSorts(){
     $("#sortRPM").click(function(){
         $("#actionMenu").menu("collapse");
-        weaponStatsArray.sort(compareRPMs);
+        BFVWeaponData.sort(compareRPMs);
         printWeapons();
     });
 
     $("#sortName").click(function(){
         $("#actionMenu").menu("collapse");
-        weaponStatsArray.sort(compareNames);
+        BFVWeaponData.sort(compareNames);
         printWeapons();
     });
 
     $("#sortBulletSpeed").click(function(){
         $("#actionMenu").menu("collapse");
-        weaponStatsArray.sort(compareBulletSpeeds);
+        BFVWeaponData.sort(compareBulletSpeeds);
         printWeapons();
     });
 
     $("#sortMagSize").click(function(){
         $("#actionMenu").menu("collapse");
-        weaponStatsArray.sort(compareMagSizes);
+        BFVWeaponData.sort(compareMagSizes);
         printWeapons();
     });
 
     $("#sortMaxDamage").click(function(){
         $("#actionMenu").menu("collapse");
-        weaponStatsArray.sort(compareMaxDamages);
+        BFVWeaponData.sort(compareMaxDamages);
         printWeapons();
     });
 
     $("#sortInitVertRecoil").click(function(){
         $("#actionMenu").menu("collapse");
-        weaponStatsArray.sort(compareInitVertRecoil);
+        BFVWeaponData.sort(compareInitVertRecoil);
         printWeapons();
     });
 
     $("#sortVertRecoil").click(function(){
         $("#actionMenu").menu("collapse");
-        weaponStatsArray.sort(compareVertRecoil);
+        BFVWeaponData.sort(compareVertRecoil);
         printWeapons();
     });
 
     $("#sortHorRecoil").click(function(){
         $("#actionMenu").menu("collapse");
-        weaponStatsArray.sort(compareHorRecoil);
+        BFVWeaponData.sort(compareHorRecoil);
         printWeapons();
     });
 
     $("#sortDeployTime").click(function(){
         $("#actionMenu").menu("collapse");
-        weaponStatsArray.sort(compareDeployTimes);
+        BFVWeaponData.sort(compareDeployTimes);
         printWeapons();
     });
 }
@@ -315,14 +315,6 @@ $( function() {
                     return false;
                 };
             };
-        }
-    });
-
-    $("#shortcutCombobox").combobox({
-        select: function (event, ui) {
-            $("." + this.value.replace(/ |\//g,""))[0].scrollIntoView({
-              behavior: 'smooth'
-            });
         }
     });
 } );
