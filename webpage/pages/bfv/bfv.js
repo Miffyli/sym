@@ -280,31 +280,57 @@ function openBFVVehiclePage () {
 }
 
 /*
+  Main hub for opening different BFV pages based on their name.
+  Handles coloring of the buttons etc
+*/
+function BFVOpenPageByName(pageName) {
+  // Remove highlighting
+  $('.sym-pageSelections > div').removeClass('selected-selector')
+  // Select right page according to pageName, highlight its
+  // button and open the page
+  if (pageName === 'Weapon Charts') {
+    $('#bfv-chartPageSelector').addClass('selected-selector')
+    openBFVChartPage()
+  } else if (pageName === 'Weapon Comparison') {
+    $('#bfv-comparisonPageSelector').addClass('selected-selector')
+    initializeBFVComparisonPage()
+  } else if (pageName === 'General Information') {
+    $('#bfv-generalinfoPageSelector').addClass('selected-selector')
+    openBFVGeneralInfoPage()
+  } else if (pageName === 'Equipment Data') {
+    $('#bfv-equipmentPageSelector').addClass('selected-selector')
+    openBFVEquipmentPage()
+  } else if (pageName === 'Vehicle Data') {
+    $('#bfv-vehiclePageSelector').addClass('selected-selector')
+    openBFVVehiclePage()
+  } else if (pageName === 'Index') {
+    $('#bfv-mainPageSelector').addClass('selected-selector')
+    openBFVIndexPage()
+  }
+}
+
+/*
   Add handlers for the click events for the bfv selector page and open
   the entry page for BFV
 */
 function initializeBFVSelectrion () {
   $('.sym-pageSelections > div').click(function () {
-    // Remove highlights from all elements
-    $(this).siblings().removeClass('selected-selector')
-    // Add highlight to this one
-    $(this).addClass('selected-selector')
-
     var clicked = $(this).attr('id')
-
+    var pageName
     if (clicked === 'bfv-chartPageSelector') {
-      openBFVChartPage()
+      pageName = 'Weapon Charts'
     } else if (clicked === 'bfv-comparisonPageSelector') {
-      initializeBFVComparisonPage()
+      pageName = 'Weapon Comparison'
     } else if (clicked === 'bfv-mainPageSelector') {
-      openBFVIndexPage()
-	} else if (clicked === 'bfv-generalinfoPageSelector') {
-      openBFVGeneralInfoPage()
-	} else if (clicked === 'bfv-equipmentPageSelector') {
-      openBFVEquipmentPage()
+      pageName = 'Index'
+	  } else if (clicked === 'bfv-generalinfoPageSelector') {
+      pageName = 'General Information'
+	  } else if (clicked === 'bfv-equipmentPageSelector') {
+      pageName = 'Equipment Data'
     } else if (clicked === 'bfv-vehiclePageSelector') {
-      openBFVVehiclePage()
+      pageName = 'Vehicle Data'
     }
+    BFVOpenPageByName(pageName)
   })
   openBFVIndexPage()
 }
@@ -315,16 +341,8 @@ function initializeBFVSelectrion () {
 function initializeIndexPage(){
   $('.indexPageItem').click(function () {
       var itemClicked = $(this).find("h4").text()
-      if (itemClicked === 'Weapon Charts') {
-        openBFVChartPage()
-      } else if (itemClicked === 'Weapon Comparison') {
-        initializeBFVComparisonPage()
-  	  } else if (itemClicked === 'General Information') {
-        openBFVGeneralInfoPage()
-  	  } else if (itemClicked === 'Equipment Data') {
-        openBFVEquipmentPage()
-      } else if (itemClicked === 'Vehicle Data') {
-        openBFVVehiclePage()
-      }
+      // TODO slippery slope: If title on the buttons changes,
+      //                      it will break opening the page
+      BFVOpenPageByName(itemClicked)
   })
 }
