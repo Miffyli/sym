@@ -232,6 +232,7 @@ td {
     font-size: 18px;
     color: #FF9000;
     font-weight: bold;
+    float: right;
 }
 
 .lblSuffixText {
@@ -241,7 +242,6 @@ td {
 .lblSpeed {
     font-size: 16px;
     color: #72c2c2;
-    float: right;
 }
 
 .lblSpeed img{
@@ -313,7 +313,7 @@ fiveMline {
 /* ************ */
 
 .lblMag {
-    font-size: 24px;
+    font-size: 22px;
     padding-right: 2px;
 }
 
@@ -332,7 +332,7 @@ fiveMline {
 }
 
 .sectionReload{
-    text-align: right;
+    text-align: center;
     margin-right: 5px;
     color: #FF9000;
     width: 125px;
@@ -353,6 +353,12 @@ fiveMline {
 .lblReloadEmpty {
     font-size: 15px;
     font-weight: bold;
+    text-align: right;
+}
+
+.bulletSpeedContainer{
+    text-align: center;
+    padding-top: 10px;
 }
 
 .magGraphicBox {

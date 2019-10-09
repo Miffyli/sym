@@ -157,7 +157,7 @@ function printWeaponClass(weaponClass){
 
 function printWeapon(weaponStats){
     var firestormIcon = (firestormWeapons.includes(weaponStats.WeapShowName) ? "<img src='./pages/bfv/img/firestorm.png' " + firestormTooltip + ">" : "");
-    var magCountGraphic = createMagGraphic(weaponStats.MagSize, weaponStats.Ammo.includes("Incendiary") || weaponStats.Ammo.includes("_APCR"));
+    //var magCountGraphic = createMagGraphic(weaponStats.MagSize, weaponStats.Ammo.includes("Incendiary") || weaponStats.Ammo.includes("_APCR"));
     var reloadData = createReloadGraphic(weaponStats.ReloadEmpty, weaponStats.ReloadLeft, weaponStats.MagSize, weaponStats.Ammo);
     var standRecoilData = createRecoilGraphic(weaponStats.ADSStandRecoilLeft, weaponStats.ADSStandRecoilRight, weaponStats.ADSStandRecoilUp, weaponStats.ADSStandRecoilInitialUp);
     var customizationsGraphic = (weaponStats.Class == 8) ? "" : printCustomizations([weaponStats.WeapShowName]);
@@ -166,24 +166,19 @@ function printWeapon(weaponStats){
     var rtnStr = "<tr class='" + weaponStats.WeapShowName.replace(/ |\//g,"") + " sub_" + getWeaponsSubcat(weaponStats.WeapShowName) +"'>" +
                      "<td class='firstColumn'>" +
                          "<div class='lblWeaponName'>" +
-                            "<span>" + weaponStats.WeapShowName + "</span>" +
-                            firestormIcon +
+                            "<span>" + weaponStats.WeapShowName + "</span>" + firestormIcon +
                          "</div>" +
                          "<div class='text-center'>" +
                              "<img class='weaponImg' src='./pages/bfv/img/" + weaponStats.WeapShowName.replace("/","") + ".png' onerror='showBlank(this);'>" +
                          "</div>" +
-                         "<div class='pt-2'>" +
+                         "<div style='line-height: 20px;'>" +
+                             "<span class='lblMagText'>" +
+                                "<span class='lblMag'>" + weaponStats.MagSize + "</span>" +
+                                "<span class='lblSuffixText'> x " + formatAmmoType(weaponStats.Ammo) + "</span>" +
+                             "</span>" +
                              "<span class='lblRPM'>" +
                                  "<span class='lblRPMValue' " + rpmTooltip + ">" + weaponStats.BRoF + "</span>" +
                                  "<span class='lblSuffixText'> rpm</span>" +
-                             "</span>" +
-                             "<span class='pr-3 lblSpeed' " + bulletSpeedTooltip + ">" +
-                                 "<img src='./pages/bfv/img/speed.png'>" +
-                                 "<span class='lblSpeedValue'>" + weaponStats.InitialSpeed + "</span>" +
-                                 "<span class='lblSuffixText'> m/s</span>" +
-                                 "<br>" +
-                                 "<span class='ui-icon ui-icon-arrowthick-1-w'></span>" +
-                                 "<span class='lblDragCoe' " + bulletSpeedTooltip +">" + weaponStats.Drag.toString().substring(1) + "</span>" +
                              "</span>" +
                          "</div>" +
                      "</td>" +
@@ -193,14 +188,8 @@ function printWeapon(weaponStats){
               "</td>" +
 
               "<td>" +
-              // "<div>PostReloadDelay   : " + weaponStats.PostReloadDelay + "</div>" +
-              // "<div>ReloadDelay   : " + weaponStats.ReloadDelay + "</div>" +
-              // "<div>SingleBulletReloadTime   : " + weaponStats.ReloadThrs + "</div>" +
-              // "<div>StripReloadTime   : " + weaponStats.ReloadThrs + "</div>" +
               "<div class='underMagSection'>" +
-                  "<div class='reloadDataAndMagCount'>" + reloadData + "</div>" +
-              //"<div>DMG          : " + formatDamagesOrDistances(weaponStats.Damages) + "</div>" +
-              //"<div>Dis          : " + formatDamagesOrDistances(weaponStats.Dmg_distances) + "</div>" +
+                  "<div class='reloadDataAndMagCount'>" + reloadData + createBulletSpeedGraphic(weaponStats.InitialSpeed, weaponStats.Drag) + "</div>" +
                   "<div>" +
                       "<div class='recoilGraphicBox' " + recoilTooltip + ">" + standRecoilData + "</div>" +
                   "</div>" +
@@ -223,7 +212,7 @@ function printWeapon(weaponStats){
               "</div>" +
 
               //"</div>" +
-              "<div class='magGraphicBox'>" + magCountGraphic + "</div>" +
+              //"<div class='magGraphicBox'>" + magCountGraphic + "</div>" +
               "</td>" +
               //"<div>DeployTime   : " + weaponStats.DeployTime + "</div>" +
               "</tr>";
@@ -239,7 +228,7 @@ function updateWeapon(selectedCustomizations, selectedCustButton){
     $(weaponRow).find(".lblRPMValue").text(weaponStats.BRoF);
     $(weaponRow).find(".lblSpeedValue").text(weaponStats.InitialSpeed);
     $(weaponRow).find(".damageChartContainer").html(createDamageChart(weaponStats.Damages, weaponStats.Dmg_distances, weaponStats.ShotsPerShell))
-    $(weaponRow).find(".magGraphicBox").html(createMagGraphic(weaponStats.MagSize,weaponStats.Ammo.includes("Incendiary")));
+    //$(weaponRow).find(".magGraphicBox").html(createMagGraphic(weaponStats.MagSize,weaponStats.Ammo.includes("Incendiary")));
     $(weaponRow).find(".reloadDataAndMagCount").html(createReloadGraphic(weaponStats.ReloadEmpty, weaponStats.ReloadLeft, weaponStats.MagSize, weaponStats.Ammo));
     $(weaponRow).find(".recoilGraphicBox").html(createRecoilGraphic(weaponStats.ADSStandRecoilLeft, weaponStats.ADSStandRecoilRight, weaponStats.ADSStandRecoilUp, weaponStats.ADSStandRecoilInitialUp));
     $(weaponRow).find(".spreadLabels").html(createSpreadLabels(weaponStats.ADSStandMoveMin, weaponStats.ADSStandBaseMin));
@@ -286,6 +275,7 @@ function printCustomizations(weaponName){
     return custString;
 }
 
+/*
 function createMagGraphic(magSize, isIncendiary){
     var rounds = "";
     var roundColor = isIncendiary ? "#FF5733; stroke-width: 2px;" : "#eee;";
@@ -297,6 +287,20 @@ function createMagGraphic(magSize, isIncendiary){
                      rounds +
                      "</svg>";
     return magGraphic;
+}
+*/
+
+function createBulletSpeedGraphic(initialSpeed, drag){
+    return "<div class='bulletSpeedContainer'>" +
+             "<span class='pr-3 lblSpeed' " + bulletSpeedTooltip + ">" +
+               "<img src='./pages/bfv/img/speed.png'>" +
+               "<span class='lblSpeedValue'>" + initialSpeed + "</span>" +
+               "<span class='lblSuffixText'> m/s</span>" +
+               "<br>" +
+               "<span class='ui-icon ui-icon-arrowthick-1-w'></span>" +
+               "<span class='lblDragCoe' " + bulletSpeedTooltip +">" + drag.toString().substring(1) + "</span>" +
+             "</span>" +
+           "</div>"
 }
 
 function createReloadGraphic(reloadEmpty, reloadLeft, magSize, ammoType){
@@ -326,10 +330,10 @@ function createReloadGraphic(reloadEmpty, reloadLeft, magSize, ammoType){
     } else {
         reloadData += "</div " + magTooltip + ">";
     }
-    return reloadData +  "<span class='lblMagText'>" +
-                             "<span class='lblMag'>" + magSize + "</span>" +
-                             "<span class='lblSuffixText'> x " + formatAmmoType(ammoType) + "</span>" +
-                         "</span>" +
+    return reloadData +  //"<span class='lblMagText'>" +
+                            //"<span class='lblMag'>" + magSize + "</span>" +
+                            //"<span class='lblSuffixText'> x " + formatAmmoType(ammoType) + "</span>" +
+                         //"</span>" +
                      "</div>";
 }
 
