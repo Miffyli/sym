@@ -13,4 +13,26 @@ Traditionally offers information on game mechanics and weapon stats of Battlefie
 
 ## TODOs
 
-* New BFV/BF1 pages for charts and "multi-comparison"
+* Sym.gg basic pages
+* BFV general page
+* BFV Weapon Chart page
+* BFV Weapon Comparison page
+* BFV Equipment Data page
+* BFV Vehicle Data page
+
+## TODO-SOONs
+
+* BF1 Weapon Charts and Comparison Pages
+* BF4 Weapon Charts and Comparison Pages
+* Apex Legends Weapon Charts and Comparison Pages
+
+## TODO-LATERs
+
+* BF1 Vehicle Data page
+* BF4 Vehicle Data page
+* SWBF2 Weapon Charts and Comparison Pages
+* Titanfall 2 Weapon Charts and Comparison Pages
+* BF3 Weapon Charts and Comparison Pages
+* BF3 Vehicle Data page
+* BFH Weapon Charts and Comparison Pages
+* Titanfall 1 Weapon Charts and Comparison Pages
