@@ -14,7 +14,7 @@ Traditionally offers information on game mechanics and weapon stats of Battlefie
 ## TODOs
 
 * Sym.gg basic pages
-* BFV general page
+* BFV general pages
 * BFV Weapon Chart page
 * BFV Weapon Comparison page
 * BFV Equipment Data page
