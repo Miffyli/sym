@@ -95,6 +95,7 @@
     background: black;
     display: inline-block;
     padding: 10px 20px;
+    cursor: pointer;
 }
 
 .sym-main-flask {
@@ -207,7 +208,7 @@
     border-radius: 10px;
 }
 
-.staff-member-links > img, a {
+.staff-member-links > img {
 	float: right;
 	margin: 10px;
 }

@@ -45,6 +45,11 @@ window.onload = function () {
   $('.sym-home-jumpin-btn').click(function () {
     openBFVSelectionPage()
   })
+
+  // Handle click for 'LEARN MORE' button, loads about page
+  $('.sym-main-desc-learnMore-btn').click(function () {
+    loadPageWithHeader('./pages/misc/about.html', '<b>About Sym</b>')
+  })
 }
 
 /*
