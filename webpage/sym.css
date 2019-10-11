@@ -208,7 +208,7 @@
     border-radius: 10px;
 }
 
-.staff-member-links > img {
+.staff-member-links a {
 	float: right;
 	margin: 10px;
 }
