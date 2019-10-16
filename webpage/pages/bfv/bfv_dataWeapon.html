@@ -35,24 +35,14 @@
 	&nbsp; &nbsp; <i><u>Recoil Decrease</u></i>
 		<p>Recoil decrease works as it does in Battlefield 1, persisting even when the gun is not idle, and decelerates as time passes.</p>
 	<img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_QuickADS.svg" style="height:30px"><strong>ADS Speeds</strong>
-		<p>Unfortunatly due to current understanding of the game data, ADS times are not extracted from the data.  Instead, they have been manually collected as accurately as possible by Incarnate, and are recorded in this thread <a href="http://bit.ly/BFVADS" target="_blank">here,</a> along with sight-pictures.</p>
+		<p>Unfortunatly due to current understanding of the game data, ADS times are not extracted from the data.  Instead, they have been manually collected as accurately as possible by Incarnate, and are recorded in <a href="http://bit.ly/BFVADS" target="_blank">this thread,</a> along with sight-pictures.</p>
 	&nbsp; &nbsp; <img src="./pages/bfv/img/NameTag_XPBoost.svg" style="height:30px">&nbsp; <strong>Specialization Effects</strong>
-		<p>The following chart lists all weapon specs currently in <i>Battlefield V</i> with their effects according to the game data, rather than the what the in-game description states briefly.</p>
-		<table style="width:75%"; table align="center">
+		<p>The following chart lists all weapon specs currently in <i>Battlefield V</i> with their effects according to the game data.<br>Some specs are defaulted to certain weapons, like bipods to Anti-Materiel Rifles and MMGs.</p>
+		<table style="width:80%"; table align="center">
 			<tr>
 				<th>Icon</th>
 				<th>Specialization</th>
 				<th>Effect</th>
-			</tr>
-			<tr>
-				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_QuickADS.svg" style="height:50px"></td>
-				<td>Quick Aim</td>
-				<td></td>
-			</tr>
-			<tr>
-				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_DetachableMagazines.svg" style="height:50"></td>
-				<td>Detachable Magazines</td>
-				<td>Replaces a weapon's default reload<br>with a consistent magazine reload</td>
 			</tr>
 			<tr>
 				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_APCR.svg" style="height:50"></td>
@@ -60,23 +50,82 @@
 				<td></td>
 			</tr>
 			<tr>
+				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_ImprovedADS_S.svg" style="height:50"></td>
+				<td>Barrel Bedding</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_ImprovedADS_edited2.svg"></td>
+				<td>Barrel Bedding</td>
+				<td></td>
+			</tr>
+			<tr>
 				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_Bayonet.svg" style="height:50"></td>
 				<td>Bayonet</td>
-				<td></td>
+				<td>Adds a bayonet to the weapon for bayonet charging</td>
 			</tr>
 			<tr>
 				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_Bipod.svg" style="height:50"></td>
-				<td>Bipod</td>
+				<td>Bipod<br>(Anti-Materiel Rifles)</td>
+				<td><br>Adds the following effects when the bipod is deployed:<br>
+					<ul>
+						<li>0x stationary ADS base & max spread</li>
+						<li>0.0833x stationary hip base & max spread</li>
+						<li>0.4x vrec/0.4x pattern yaw when standing</li>
+						<li>0.533x vrec/0.533x pattern yaw when crouching</li>
+						<li>0.666x vrec/0.666x pattern yaw when proning</li>
+					</ul>
+				</td>
+			</tr>
+			<tr>
+				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_Bipod.svg" style="height:50"></td>
+				<td>Bipod<br>(LMGs)<br>(ARs, SLRs, and SMGs when applicable)
+				<td><br>Adds the following effects when the bipod is deployed:<br>
+					<ul>
+						<li>0.8x stationary ADS base/0.5x stationary ADS max spread/0.85x stationary ADS SIPS</li>
+						<li>0.333x stationary hip base & max spread/<br>0.7x stationary hip SIPS</li>
+						<li>0.6x vrec/0.75x hrec/0.6x pattern yaw standing</li>
+						<li>0.8x vrec/0.75x hrec/0.6x pattern yaw when crouching</li>
+						<li>1x vrec/0.75x hrec/0.6x pattern yaw when proning</li>
+					</ul>
+				</td>
+			</tr>
+			<tr>
+				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_Bipod.svg" style="height:50"></td>
+				<td>Bipod<br>(MMGs)</td>
+				<td><br>Adds the following effects when the bipod is deployed:<br>
+					<ul>
+						<li>0.05x stationary ADS base & max spread/1x stationary ADS SIPS</li>
+						<li>0.0833x stationary hip base & max spread/0x stationary hip SIPS</li>
+						<li>0.4x vrec/1x hrec/0.4x pattern yaw when standing</li>
+						<li>0.533x vrec/1x hrec/0.533x pattern yaw when crouching</li>
+						<li>0.533x vrec/1x hrec/0.533x pattern yaw when crouching</li>
+					</ul>
+				</td>
+			</tr>
+			<tr>
+				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_ImprovedCooling.svg" style="height:50"></td>
+				<td>Chrome Lining</td>
 				<td></td>
 			</tr>
 			<tr>
-				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_Choke.svg" style="height:50"></td>
-				<td>Internal Choke</td>
+				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_ImprovedADS_M.svg" style="height:50"></td>
+				<td>Custom Stock</td>
 				<td></td>
+			</tr>
+			<tr>
+				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_DetachableMagazines.svg" style="height:50"></td>
+				<td>Detachable Magazines</td>
+				<td>Replaces a weapon's default reload with a consistent magazine reload</td>
 			</tr>
 			<tr>
 				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_DrumMagazine.svg" style="height:50"></td>
 				<td>Double Drum Magazine</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_ImprovedHipfire.svg" style="height:50"></td>
+				<td>Enhanced Grips</td>
 				<td></td>
 			</tr>
 			<tr>
@@ -90,13 +139,8 @@
 				<td></td>
 			</tr>
 			<tr>
-				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_FastBullets.svg" style="height:50"></td>
-				<td>High Velocity Bullets</td>
-				<td></td>
-			</tr>
-			<tr>
-				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_FastMoveADS.svg" style="height:50"></td>
-				<td>Lightened Stock</td>
+				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_ImprovedFlashHider.svg" style="height:50"></td>
+				<td>Flashless Propellant</td>
 				<td></td>
 			</tr>
 			<tr>
@@ -105,23 +149,8 @@
 				<td></td>
 			</tr>
 			<tr>
-				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_HRecoil.svg" style="height:50"></td>
-				<td>Ported Barrel</td>
-				<td></td>
-			</tr>
-			<tr>
-				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_ImprovedADS_edited2.svg"></td>
-				<td>Barrel Bedding</td>
-				<td></td>
-			</tr>
-			<tr>
-				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_ImprovedADS_M.svg" style="height:50"></td>
-				<td>Custom Stock</td>
-				<td></td>
-			</tr>
-			<tr>
-				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_ImprovedADS_S.svg" style="height:50"></td>
-				<td>Barrel Bedding</td>
+				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_FastBullets.svg" style="height:50"></td>
+				<td>High Velocity Bullets</td>
 				<td></td>
 			</tr>
 			<tr>
@@ -130,38 +159,8 @@
 				<td></td>
 			</tr>
 			<tr>
-				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_ImprovedCooling.svg" style="height:50"></td>
-				<td>Chrome Lining</td>
-				<td></td>
-			</tr>
-			<tr>
-				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_ImprovedFlashHider.svg" style="height:50"></td>
-				<td>Flashless Propellant</td>
-				<td></td>
-			</tr>
-			<tr>
 				<td><img src="./pages/bfv/img/WeaponSpecs/Spectree_Primary_ImprovedGrenades.svg" style="height:50"></td>
 				<td>Improved Grenades</td>
-				<td></td>
-			</tr>
-			<tr>
-				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_ImprovedHeadshotDamage.svg" style="height:50"></td>
-				<td>Solid Slug</td>
-				<td></td>
-			</tr>
-			<tr>
-				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_ImprovedHipfire.svg" style="height:50"></td>
-				<td>Enhanced Grips</td>
-				<td></td>
-			</tr>
-			<tr>
-				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_ImprovedPenetration.svg" style="height:50"></td>
-				<td>Penetrating Shot</td>
-				<td></td>
-			</tr>
-			<tr>
-				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_ImprovedTrigger.svg" style="height:50"></td>
-				<td>Trigger Job</td>
 				<td></td>
 			</tr>
 			<tr>
@@ -170,28 +169,8 @@
 				<td></td>
 			</tr>
 			<tr>
-				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_LongRangeBullet.svg" style="height:50"></td>
-				<td>Low Drag Rounds</td>
-				<td></td>
-			</tr>
-			<tr>
-				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_MagdumpHipfire.svg" style="height:50"></td>
-				<td>Polished Action</td>
-				<td></td>
-			</tr>
-			<tr>
-				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_QuickCycle.svg" style="height:50"></td>
-				<td>Machined Bolt</td>
-				<td></td>
-			</tr>
-			<tr>
-				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_QuickCycleBurst.svg" style="height:50"></td>
-				<td>Light Bolt</td>
-				<td></td>
-			</tr>
-			<tr>
-				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_QuickDeploy.svg" style="height:50"></td>
-				<td>Swings and Swivels</td>
+				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_Choke.svg" style="height:50"></td>
+				<td>Internal Choke</td>
 				<td></td>
 			</tr>
 			<tr>
@@ -200,18 +179,78 @@
 				<td></td>
 			</tr>
 			<tr>
-				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_SelectFire.svg" style="height:50"></td>
-				<td>Select Fire</td>
-				<td>Enables select-fire capability</td>
+				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_QuickCycleBurst.svg" style="height:50"></td>
+				<td>Light Bolt<br>(Breda PG)</td>
+				<td></td>
 			</tr>
 			<tr>
-				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_Slugs.svg" style="height:50"></td>
-				<td>Slugs</td>
-				<td>Replaces the default rounds fired with Slug rounds</td>
+				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_FastMoveADS.svg" style="height:50"></td>
+				<td>Lightened Stock</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_LongRangeBullet.svg" style="height:50"></td>
+				<td>Low Drag Rounds</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_QuickCycle.svg" style="height:50"></td>
+				<td>Machined Bolt</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_ImprovedPenetration.svg" style="height:50"></td>
+				<td>Penetrating Shot</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_MagdumpHipfire.svg" style="height:50"></td>
+				<td>Polished Action</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_HRecoil.svg" style="height:50"></td>
+				<td>Ported Barrel</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_QuickADS.svg" style="height:50px"></td>
+				<td>Quick Aim</td>
+				<td></td>
 			</tr>
 			<tr>
 				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_VRecoil.svg" style="height:50"></td>
 				<td>Recoil Buffer</td>
+				<td>Reduces VRec and pattern yaw by 0.8x</td>
+			</tr>
+			<tr>
+				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_VRecoil.svg" style="height:50"></td>
+				<td>Recoil Buffer<br>(SARs and SLRs)</td>
+				<td>Reduces VRec and pattern yaw by 0.8x</td>
+			</tr>
+			<tr>
+				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_SelectFire.svg" style="height:50"></td>
+				<td>Select Fire</td>
+				<td>Enables selective-fire capability</td>
+			</tr>
+			<tr>
+				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_Slugs.svg" style="height:50"></td>
+				<td>Slugs</td>
+				<td>Replaces the default fired rounds with Slug rounds</td>
+			</tr>
+			<tr>
+				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_ImprovedHeadshotDamage.svg" style="height:50"></td>
+				<td>Solid Slug</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_QuickDeploy.svg" style="height:50"></td>
+				<td>Swings and Swivels</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_ImprovedTrigger.svg" style="height:50"></td>
+				<td>Trigger Job</td>
 				<td></td>
 			</tr>
 			<tr>
