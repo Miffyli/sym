@@ -28,7 +28,6 @@ var BFVWeaponKeyToData = {}
 // Keeps track of which page to load after the data is loaded.
 var BFVSelectedPage = ""
 
-
 /*
   Returns html RGB color code for given array
   Nicked from Stackoverflow #41310869
@@ -237,7 +236,7 @@ function openBFVGeneralInfoPage () {
   Load the BFV weapon data page
 */
 function openBFVWeaponPage () {
-  $('.bfv-main-content').load('./pages/bfv/bfv_dataWeapon.html')
+  $('.bfv-main-content').load('./pages/bfv/bfv_dataWeapon.html', function(){MathJax.typeset()})
 }
 
 /*
