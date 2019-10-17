@@ -20,7 +20,7 @@
 		<p>\[
 			\text{spread}_n \; = \; \text{spread}_{n-1} - \frac{1}{\text{simrate}} \cdot (\text{coef} \cdot (\text{spread}_{n-1} - \text{minspread})^\text{exp} + \text{offset})
 		\]</p>
-		<p>Note: "n" designates the current frame, of which current spread is calculated, simrate = 60, as Battlefield V uses a 60Hz logic loop</p>
+		<p><i>Note: "n" designates the current frame, of which current spread is calculated, simrate = 60, as Battlefield V uses a 60Hz logic loop</i></p>
 		<p>This new system for spread decrease results in a spread curve that is vaguely logarithmic, with diminishing spread penalties for further sustained fire.  ADS (zoomed) spread uses uniform distribution over radius, which features an inner bias. Hipfire uses a uniform distribution over the area meaning that shots are distributed evenly throughout the area of the spread cone. Note that “zoomed hipfire” for the MMGs and AMRs that is used when the guns are aimed without a bipod qualifies as ADS (zoomed) spread and uses an inner bias.</p>
 	<br>
 	&nbsp; &nbsp; <i><u>Idle Spread Decrease</u></i>
@@ -49,22 +49,27 @@
 			<tr>
 				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_APCR.svg" style="height:50"></td>
 				<td>APCR Bullets</td>
-				<td></td>
+				<td>Increases damage to vehicles. Damage increase varies on weapon and opposing vehicle.</td>
 			</tr>
 			<tr>
 				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_ImprovedADS_S.svg" style="height:50"></td>
 				<td>Barrel Bedding</td>
-				<td></td>
+				<td>0.25x stationary ADS base spread.</td>
+			</tr>
+			<tr>
+				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_ImprovedADS_S.svg" style="height:50"></td>
+				<td>Barrel Bedding<br>(SMGs)</td>
+				<td>0.333x stationary ADS base spread.</td>
 			</tr>
 			<tr>
 				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_ImprovedADS_edited2.svg"></td>
-				<td>Barrel Bedding</td>
-				<td></td>
+				<td>Barrel Bedding<br>(SLRs)</td>
+				<td>0.5x moving and stationary ADS base spread.</td>
 			</tr>
 			<tr>
 				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_Bayonet.svg" style="height:50"></td>
 				<td>Bayonet</td>
-				<td>Adds a bayonet to the weapon for bayonet charging</td>
+				<td>Adds a bayonet to the weapon for bayonet charging.</td>
 			</tr>
 			<tr>
 				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_Bipod.svg" style="height:50"></td>
@@ -81,7 +86,7 @@
 			</tr>
 			<tr>
 				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_Bipod.svg" style="height:50"></td>
-				<td>Bipod<br>(LMGs)<br>(ARs, SLRs, and SMGs when applicable)
+				<td>Bipod<br>(LMGs, and select ARs, SLRs, SMGs)
 				<td><br>Adds the following effects when the bipod is deployed:<br>
 					<ul>
 						<li>0.8x stationary ADS base/0.5x stationary ADS max spread/0.85x stationary ADS SIPS</li>
@@ -108,22 +113,27 @@
 			<tr>
 				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_ImprovedCooling.svg" style="height:50"></td>
 				<td>Chrome Lining</td>
-				<td></td>
+				<td>Deacreases the amount of heat generated from each bullet fired by 33%.</td>
 			</tr>
 			<tr>
 				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_ImprovedADS_M.svg" style="height:50"></td>
 				<td>Custom Stock</td>
-				<td></td>
+				<td>0.666x moving ADS base spread.</td>
+			</tr>
+			<tr>
+				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_ImprovedADS_M.svg" style="height:50"></td>
+				<td>Custom Stock<br>(BACs, BARs, and LMGs)</td>
+				<td>0.5x ADS moving base spread.</td>
 			</tr>
 			<tr>
 				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_DetachableMagazines.svg" style="height:50"></td>
 				<td>Detachable Magazines</td>
-				<td>Replaces a weapon's default reload with a consistent magazine reload</td>
+				<td>Replaces a weapon's default reload with a consistent magazine reload.</td>
 			</tr>
 			<tr>
 				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_DrumMagazine.svg" style="height:50"></td>
 				<td>Double Drum Magazine</td>
-				<td></td>
+				<td>Replaces a weapon's default ammo feeding system with a double drum magazine.</td>
 			</tr>
 			<tr>
 				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_ImprovedHipfire.svg" style="height:50"></td>
@@ -133,62 +143,85 @@
 			<tr>
 				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_ExtendedBelt.svg" style="height:50"></td>
 				<td>Extended Belt</td>
-				<td></td>
+				<td>Increases the amount of ammo from a single ammo belt. Increase amount varies by weapon.</td>
 			</tr>
 			<tr>
 				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_ExtendedMagazine.svg" style="height:50"></td>
 				<td>Extended Magazine</td>
-				<td></td>
+				<td>Increases magazine capacity. Increase amount varies by weapon.</td>
 			</tr>
 			<tr>
 				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_ImprovedFlashHider.svg" style="height:50"></td>
 				<td>Flashless Propellant</td>
-				<td></td>
+				<td>Reduces muzzle flash when firing.</td>
 			</tr>
 			<tr>
 				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_HeavyLoad.svg" style="height:50"></td>
 				<td>Heavy Load</td>
-				<td></td>
+				<td>Increases buckshot damage drop distances by 2m.</td>
 			</tr>
 			<tr>
 				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_FastBullets.svg" style="height:50"></td>
 				<td>High Velocity Bullets</td>
-				<td></td>
+				<td>Increases bullet velocity. Velocity increase varies by weapon.<br><i>Read: Not always 10%</i></td>
 			</tr>
 			<tr>
 				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_ImprovedBipod.svg" style="height:50"></td>
 				<td>Improved Bipod</td>
-				<td></td>
+				<td>0.25x stationary ADS base spread when bipod is deployed.</td>
 			</tr>
 			<tr>
 				<td><img src="./pages/bfv/img/WeaponSpecs/Spectree_Primary_ImprovedGrenades.svg" style="height:50"></td>
-				<td>Improved Grenades</td>
-				<td></td>
+				<td>Improved Grenades<br>(M28 con Tromboncino)</td>
+				<td><br>Makes the following changes to launched grenades:<br>
+					<ul>
+						<li>Impact damage from 60 to 90 damage</li>
+						<li>Inner blast radius from 2.0m to 1.5m</li>
+						<li>Max blast damage from 73 to 54.55 damage</li>
+						<li>Max blast radius from 4m to 3m</li>
+					</ul>
+				</td>
 			</tr>
 			<tr>
 				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_IncendiaryBullets.svg" style="height:50"></td>
 				<td>Incendiary Bullets</td>
-				<td></td>
+				<td>Increases bullet damage versus aircraft. Damage increase varies on weapon and opposing vehicle.</td>
 			</tr>
 			<tr>
 				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_Choke.svg" style="height:50"></td>
 				<td>Internal Choke</td>
-				<td></td>
+				<td>Reduces shotgun pellet spread by ~33%.</td>
 			</tr>
 			<tr>
 				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_ROFBoost.svg" style="height:50"></td>
 				<td>Light Bolt</td>
-				<td></td>
+				<td>Increases rate of fire. RoF increase amount varies by weapon.</td>
+			</tr>
+			<tr>
+				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_ROFBoost.svg" style="height:50"></td>
+				<td>Light Bolt<br>(ZK-383)</td>
+				<td><br>Adds the following effects:<br>
+					<ul>
+						<li>Increases rate of fire from 514 to 720rpm</li>
+						<li>Provides .4x vrec, 4.5x hrec, 0.666x pattern yaw</li>
+					</ul>
+				</td>
 			</tr>
 			<tr>
 				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_QuickCycleBurst.svg" style="height:50"></td>
-				<td>Light Bolt<br>(Breda PG)</td>
-				<td></td>
+				<td>Light Bolt<br>(Breda M1935 PG)</td>
+				<td>Increases rate of fire within a burst</td>
 			</tr>
 			<tr>
 				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_FastMoveADS.svg" style="height:50"></td>
 				<td>Lightened Stock</td>
-				<td></td>
+				<td><br>Adds the following effects when aiming down sights:<br>
+					<ul>
+						<li>60% increase in standing ADS movespeed</li>
+						<li>8% increase in crouched ADS movespeed</li>
+						<li>60% increase in proned ADS movespeed</li>
+					</ul>
+				</td>
 			</tr>
 			<tr>
 				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_LongRangeBullet.svg" style="height:50"></td>
@@ -198,7 +231,7 @@
 			<tr>
 				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_QuickCycle.svg" style="height:50"></td>
 				<td>Machined Bolt</td>
-				<td></td>
+				<td>Increases overall rate of fire. RoF increase amount varies by weapon.</td>
 			</tr>
 			<tr>
 				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_ImprovedPenetration.svg" style="height:50"></td>
@@ -218,47 +251,74 @@
 			<tr>
 				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_QuickADS.svg" style="height:50px"></td>
 				<td>Quick Aim</td>
-				<td></td>
+				<td><br>Adds the following effects:<br>
+					<ul>
+						<li>Decreases ADS time, amount varying by weapon.</li>
+						<li>Improves SDec coefficient and offset to 1.75.</li>
+					</ul>
+				</td>
 			</tr>
 			<tr>
 				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_VRecoil.svg" style="height:50"></td>
 				<td>Recoil Buffer</td>
-				<td>Reduces VRec and pattern yaw by 0.8x</td>
+				<td>Reduces VRec and pattern yaw by 0.8x.</td>
 			</tr>
 			<tr>
 				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_VRecoil.svg" style="height:50"></td>
 				<td>Recoil Buffer<br>(SARs and SLRs)</td>
-				<td>Reduces VRec and pattern yaw by 0.8x</td>
+				<td>Reduces VRec and pattern yaw by 0.8x.</td>
 			</tr>
 			<tr>
 				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_SelectFire.svg" style="height:50"></td>
 				<td>Select Fire</td>
-				<td>Enables selective-fire capability</td>
+				<td>Enables selective-fire capability.</td>
 			</tr>
 			<tr>
 				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_Slugs.svg" style="height:50"></td>
 				<td>Slugs</td>
-				<td>Replaces the default fired rounds with Slug rounds</td>
+				<td>Replaces the default fired rounds with Slug rounds.</td>
 			</tr>
 			<tr>
 				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_ImprovedHeadshotDamage.svg" style="height:50"></td>
 				<td>Solid Slug</td>
-				<td></td>
+				<td>Increases headshot damage by 25%</td>
 			</tr>
 			<tr>
 				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_QuickDeploy.svg" style="height:50"></td>
 				<td>Swings and Swivels</td>
-				<td></td>
+				<td><br>Adds the following effects:<br>
+					<ul>
+						<li>Decreases weapon swap time by 15%.</li>
+						<li>Improves sprint out time by 50%.</li>
+						<li>Improves SDec coefficient and offset to 1.67.</li>
+					</ul>
+				</td>
+			</tr>
+			<tr>
+				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_QuickDeploy.svg" style="height:50"></td>
+				<td>Swings and Swivels<br>(SMGs)</td>
+				<td><br>Adds the following effects:<br>
+					<ul>
+						<li>Decreases weapon swap time by 15%.</li>
+						<li>Improves sprint out time by 100%.</li>
+						<li>Improves SDec coefficient and offset to 2.25.</li>
+					</ul>
+				</td>
 			</tr>
 			<tr>
 				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_ImprovedTrigger.svg" style="height:50"></td>
 				<td>Trigger Job</td>
-				<td></td>
+				<td>Increases the maximum potential rate of fire. RoF increase amount varies by weapon.</td>
+			</tr>
+			<tr>
+				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_ImprovedTrigger.svg" style="height:50"></td>
+				<td>Trigger Job<br>(Breda M1935 PG)</td>
+				<td>Increases overall rate of fire by decreasing time between bursts.</td>
 			</tr>
 			<tr>
 				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_Zeroing.svg" style="height:50"></td>
 				<td>Variable Zeroing</td>
-				<td></td>
+				<td>Allows for range zeroing.</td>
 			</tr>
 		</table>
 	</div>
