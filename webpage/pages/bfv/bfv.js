@@ -28,7 +28,6 @@ var BFVWeaponKeyToData = {}
 // Keeps track of which page to load after the data is loaded.
 var BFVSelectedPage = ""
 
-
 /*
   Returns html RGB color code for given array
   Nicked from Stackoverflow #41310869
@@ -234,6 +233,13 @@ function openBFVGeneralInfoPage () {
 }
 
 /*
+  Load the BFV weapon data page
+*/
+function openBFVWeaponPage () {
+  $('.bfv-main-content').load('./pages/bfv/bfv_dataWeapon.html', function(){MathJax.typeset()})
+}
+
+/*
   Load the BFV chart page
 */
 function openBFVChartPage () {
@@ -306,6 +312,9 @@ function BFVOpenPageByName(pageName) {
   } else if (pageName === 'Index') {
     $('#bfv-mainPageSelector').addClass('selected-selector')
     openBFVIndexPage()
+	} else if (pageName === 'Weapon Mechanics') {
+    $('#bfv-weaponPageSelector').addClass('selected-selector')
+    openBFVWeaponPage()
   }
 }
 
@@ -323,10 +332,12 @@ function initializeBFVSelectrion () {
       pageName = 'Weapon Comparison'
     } else if (clicked === 'bfv-mainPageSelector') {
       pageName = 'Index'
-	  } else if (clicked === 'bfv-generalinfoPageSelector') {
+	} else if (clicked === 'bfv-generalinfoPageSelector') {
       pageName = 'General Information'
-	  } else if (clicked === 'bfv-equipmentPageSelector') {
+	} else if (clicked === 'bfv-equipmentPageSelector') {
       pageName = 'Equipment Data'
+	} else if (clicked === 'bfv-weaponPageSelector') {
+      pageName = 'Weapon Mechanics'
     } else if (clicked === 'bfv-vehiclePageSelector') {
       pageName = 'Vehicle Data'
     }

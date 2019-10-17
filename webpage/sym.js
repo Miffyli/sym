@@ -65,6 +65,8 @@ function loadPageWithHeader (file, header, callback = undefined) {
   $('.sym-main-content').load(file, callback)
   // Scroll back up
   $('html,body').scrollTop(0)
+  // Typeset math, if any
+  MathJax.typeset()
 }
 
 /*
