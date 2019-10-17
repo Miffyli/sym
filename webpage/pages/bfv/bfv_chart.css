@@ -1,21 +1,49 @@
-body{
+/*body{
     font-family: Arial;
     background: #333;
     color: white;
     cursor: default;
-}
+} */
 
-table {
+.classTable table {
     font-size: 14px;
 }
 
-tr {
-    /* background: #444; */
+.classTable td {
+    border-top: 1px solid #dee2e6;
+    text-align: center;
 }
 
-td {
-    padding: 2px 4px !important;
-    border-top: 1px solid #dee2e6;
+.spreadTable{
+    font-size: 12px !important;
+}
+
+.spreadTable tr:nth-child(2) td,
+.spreadTable tr:nth-child(5) td,
+.spreadTable tr:nth-child(8) td{
+    padding-top: 7px
+}
+
+.spreadTable tr:nth-child(1) td{
+    font-style: italic;
+}
+
+.spreadTable td {
+    border: none;
+    text-align: left;
+    line-height: 10px;
+}
+
+.spreadTable img{
+    width: 35px;
+}
+
+.scaleIncreaseCell img{
+    width: 15px !important;
+}
+
+.scaleIncreaseCell{
+    text-align: center !important;
 }
 
 .tbdBox{
@@ -209,11 +237,13 @@ td {
 
 .firstColumn{
     width: 220px;
+    text-align: left !important;
 }
 
 .weaponImg{
     height: 70px;
     width: auto;
+    margin: 5px 0;
 }
 
 .lblWeaponName {
@@ -229,7 +259,7 @@ td {
 }
 
 .lblRPM {
-    font-size: 18px;
+    font-size: 16px;
     color: #FF9000;
     font-weight: bold;
     float: right;
@@ -240,7 +270,7 @@ td {
 }
 
 .lblSpeed {
-    font-size: 16px;
+    font-size: 14px;
     color: #72c2c2;
 }
 
@@ -249,7 +279,7 @@ td {
 }
 
 .lblDragCoe{
-    font-size: 12px;
+    font-size: 11px;
     color: white;
     vertical-align: middle;
 }
@@ -303,18 +333,19 @@ td {
     stroke-width:.5;
 }
 
+/*
 fiveMline {
     stroke:rgb(125,125,125);
     stroke-width:.25;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        +
 }
+*/
 
 /* ************ */
 /* After  Chart */
 /* ************ */
 
 .lblMag {
-    font-size: 22px;
-    padding-right: 2px;
+    font-size: 20px;
 }
 
 .underMagSection {
@@ -323,19 +354,17 @@ fiveMline {
 
 .underMagSection > div {
     display: inline-block;
-    vertical-align: text-bottom;
 }
 
 .reloadDataAndMagCount{
     margin : 0 !important;
-    width: 145px;
+    width: 100px;
+    vertical-align: top;
 }
 
 .sectionReload{
     text-align: center;
-    margin-right: 5px;
     color: #FF9000;
-    width: 125px;
 }
 
 .imgReload {
@@ -346,14 +375,13 @@ fiveMline {
 
 .lblReloadLeft{
     font-weight: bold;
-    font-size: 18px;
+    font-size: 16px;
     padding-top: 20px;
 }
 
 .lblReloadEmpty {
-    font-size: 15px;
+    font-size: 12px;
     font-weight: bold;
-    text-align: right;
 }
 
 .bulletSpeedContainer{
@@ -366,13 +394,14 @@ fiveMline {
 }
 
 .recoilValue {
-    font-size: 16px;
+    font-size: 15px;
     fill: white;
 }
 
 .spreadLabels {
+    display: inline-block;
     font-weight: bold;
-    font-size: 14px;
+    font-size: 12px;
     text-align: right;
     margin-right: 5px !important;
     line-height: 25px;
@@ -412,12 +441,13 @@ fiveMline {
 }
 
 .spreadCircles {
-    width:75px;
+    display: inline-block;
     margin: 0 !important;
 }
 
 .hipSpreadContainer{
     margin: 0 !important;
+    text-align: center;
 }
 
 .hipSpreadLine {
@@ -433,10 +463,15 @@ fiveMline {
 }
 
 .deployTimeBox {
-    width: 36px;
+    padding-top: 15px;
+}
+
+.lblDeployTime{
+    font-size: 11px;
 }
 
 .custButtons{
+    width: 260px;
     font-size: 8px;
 }
 
@@ -446,7 +481,6 @@ fiveMline {
 }
 
 .afterCustButtons{
-    margin-left: 15px;
 }
 
 .sortDragIcon{

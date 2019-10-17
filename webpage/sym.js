@@ -80,3 +80,11 @@ function openNewTab (url) {
     alert('Please allow popups for this website')
   }
 }
+
+
+/*
+    Rounds a number to at most 2 decimal places but will not add trailing zeros
+*/
+function roundToTwo(num) {
+    return +(Math.round(num + "e+2")  + "e-2");
+}

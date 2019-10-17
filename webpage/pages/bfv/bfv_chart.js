@@ -160,15 +160,19 @@ function printWeapon(weaponStats){
     //var magCountGraphic = createMagGraphic(weaponStats.MagSize, weaponStats.Ammo.includes("Incendiary") || weaponStats.Ammo.includes("_APCR"));
     var reloadData = createReloadGraphic(weaponStats.ReloadEmpty, weaponStats.ReloadLeft, weaponStats.MagSize, weaponStats.Ammo);
     var standRecoilData = createRecoilGraphic(weaponStats.ADSStandRecoilLeft, weaponStats.ADSStandRecoilRight, weaponStats.ADSStandRecoilUp, weaponStats.ADSStandRecoilInitialUp);
+    var spreadTableGraphic = createSpreadTableGraphic(weaponStats.ADSStandBaseMin,weaponStats.ADSCrouchBaseMin,weaponStats.ADSProneBaseMin,
+                                                      weaponStats.ADSStandMoveMin,weaponStats.ADSCrouchMoveMin,weaponStats.ADSProneMoveMin,
+                                                      weaponStats.HIPStandBaseMin,weaponStats.HIPCrouchBaseMin,weaponStats.HIPProneBaseMin,
+                                                      weaponStats.HIPStandMoveMin,weaponStats.HIPCrouchMoveMin,weaponStats.HIPProneMoveMin,
+                                                      weaponStats.ADSStandBaseSpreadInc, weaponStats.HIPStandBaseSpreadInc)
     var customizationsGraphic = (weaponStats.Class == 8) ? "" : printCustomizations([weaponStats.WeapShowName]);
     var addVariantGraphic = (weaponStats.Class == 8 || addVariantCounter != 0) ? "" : "<button class='variantButton btn btn-outline-light btn-sm' " + variantTooltip + ">+</button>";
-
     var rtnStr = "<tr class='" + weaponStats.WeapShowName.replace(/ |\//g,"") + " sub_" + getWeaponsSubcat(weaponStats.WeapShowName) +"'>" +
                      "<td class='firstColumn'>" +
                          "<div class='lblWeaponName'>" +
                             "<span>" + weaponStats.WeapShowName + "</span>" + firestormIcon +
                          "</div>" +
-                         "<div class='text-center'>" +
+                         "<div>" +
                              "<img class='weaponImg' src='./pages/bfv/img/" + weaponStats.WeapShowName.replace("/","") + ".png' onerror='showBlank(this);'>" +
                          "</div>" +
                          "<div style='line-height: 20px;'>" +
@@ -188,28 +192,35 @@ function printWeapon(weaponStats){
               "</td>" +
 
               "<td>" +
-              "<div class='underMagSection'>" +
-                  "<div class='reloadDataAndMagCount'>" + reloadData + createBulletSpeedGraphic(weaponStats.InitialSpeed, weaponStats.Drag) + "</div>" +
-                  "<div>" +
-                      "<div class='recoilGraphicBox' " + recoilTooltip + ">" + standRecoilData + "</div>" +
-                  "</div>" +
-                  "<div class='spreadLabels' " + adsTooltip + ">" +
-                     createSpreadLabels(weaponStats.ADSStandMoveMin, weaponStats.ADSStandBaseMin) +
-                  "</div>" +
-                  "<div class='spreadCircles' " + adsTooltip + ">" + createSpreadGraphic(weaponStats.ADSStandBaseMin, weaponStats.ADSStandMoveMin) + "</div>" +
-                  "<div class='hipSpreadContainer' " + hipfireTooltip + ">" + createHipSpreadGraphic(weaponStats.HIPStandMoveMin, weaponStats.HorDispersion) + "</div>" +
-                  "<div class='deployTimeBox' " + deployTooltip + "><span class='ui-icon ui-icon-transferthick-e-w'></span><br><span class='lblDeployTime'>" + weaponStats.DeployTime + "<span class='lblSuffixText'> s</span></span></div>" +
+              //"<div class='underMagSection'>" +
+              "<td>" +
+                  "<div class='reloadDataAndMagCount'>" + createBulletSpeedGraphic(weaponStats.InitialSpeed, weaponStats.Drag) + reloadData  + "</div>" +
+              "</td><td>" +
+                  "<div class='recoilGraphicBox' " + recoilTooltip + ">" + standRecoilData + "</div>" +   "<div class='deployTimeBox' " + deployTooltip + "><span class='ui-icon ui-icon-transferthick-e-w'></span><br><span class='lblDeployTime'>" + weaponStats.DeployTime + "<span class='lblSuffixText'> s</span></span></div>" +
+              "</td><td>" +
+                 // "<div>" +
+                      "<div class='hipSpreadContainer' " + hipfireTooltip + ">" + createHipSpreadGraphic(weaponStats.HIPStandMoveMin, weaponStats.HorDispersion) + "</div>" +
+                      "<div>" +
+                          "<div class='spreadLabels' " + adsTooltip + ">" +
+                             createSpreadLabels(weaponStats.ADSStandMoveMin, weaponStats.ADSStandBaseMin) +
+                          "</div>" +
+                          "<div class='spreadCircles' " + adsTooltip + ">" + createSpreadGraphic(weaponStats.ADSStandBaseMin, weaponStats.ADSStandMoveMin) + "</div>" +
+                      "</div>" +
+                 // "</div>" +
+            //  "</td><td>" +
+                //  "<div class='deployTimeBox' " + deployTooltip + "><span class='ui-icon ui-icon-transferthick-e-w'></span><br><span class='lblDeployTime'>" + weaponStats.DeployTime + "<span class='lblSuffixText'> s</span></span></div>" +
+              "</td><td>" +
+                  spreadTableGraphic +
+              "</td><td>" +
                   "<div class='custButtons'>" + customizationsGraphic + "</div>" +
+              "</td><td>" +
                   "<div class='afterCustButtons'>" +
                       "<div>" +
                           "<img class='sortDragIcon' src='./pages/bfv/img/sortDrag.png' " + dragTooltip + ">" +
                       "</div>" +
                       "<div>" + addVariantGraphic + "</div>" +
                   "</div>" +
-                  "<div class='extraStats'>" +
-                   printExtras(weaponStats) +
-                   "</div>" +
-              "</div>" +
+              //"</div>" +
 
               //"</div>" +
               //"<div class='magGraphicBox'>" + magCountGraphic + "</div>" +
@@ -236,28 +247,8 @@ function updateWeapon(selectedCustomizations, selectedCustButton){
     $(weaponRow).find(".hipSpreadContainer").html(createHipSpreadGraphic(weaponStats.HIPStandMoveMin, weaponStats.HorDispersion));
 
     $(weaponRow).find(".lblDeployTime").html(weaponStats.DeployTime + "<span class='lblSuffixText'> s</span>");
-    $(weaponRow).find(".extraStats").html(printExtras(weaponStats));
 
-}
 
-function printExtras(weaponStats){
-    return "";
-
-/*    return "<div>ADSStandRecoilDecExponent   : " + weaponStats.ADSStandRecoilDecExponent + "</div>" +
-    "<div>ADSStandRecoilDecFactor     : " + weaponStats.ADSStandRecoilDecFactor + "</div>" +
-    "<div>ADSStandRecoilDecFactorNorm : " + weaponStats.ADSStandRecoilDecFactorNorm + "</div>" +
-    "<div>ADSStandRecoilDecOffset     : " + weaponStats.ADSStandRecoilDecOffset + "</div>" +
-    "<div>ADSStandRecoilDuration      : " + weaponStats.ADSStandRecoilDuration + "</div>" +
-
-    "<div>ADSStandBaseSpreadDecCoef    : " + weaponStats.ADSStandBaseSpreadDecCoef + "</div>" +
-    "<div>ADSStandBaseSpreadDecExp     : " + weaponStats.ADSStandBaseSpreadDecExp + "</div>" +
-    "<div>ADSStandBaseSpreadDecOffset  : " + weaponStats.ADSStandBaseSpreadDecOffset + "</div>" +
-    "<div>ADSStandBaseSpreadIdleCoef   : " + weaponStats.ADSStandBaseSpreadIdleCoef + "</div>" +
-    "<div>ADSStandBaseSpreadIdleExp    : " + weaponStats.ADSStandBaseSpreadIdleExp + "</div>" +
-    "<div>ADSStandBaseSpreadIdleOffset : " + weaponStats.ADSStandBaseSpreadIdleOffset + "</div>" +
-    "<div>ADSStandBaseSpreadIdleTime   : " + weaponStats.ADSStandBaseSpreadIdleTime + "</div>" +
-    "<div>ADSStandBaseSpreadInc        : " + weaponStats.ADSStandBaseSpreadInc + "</div>";
-*/
 }
 
 function printCustomizations(weaponName){
@@ -274,21 +265,6 @@ function printCustomizations(weaponName){
 
     return custString;
 }
-
-/*
-function createMagGraphic(magSize, isIncendiary){
-    var rounds = "";
-    var roundColor = isIncendiary ? "#FF5733; stroke-width: 2px;" : "#eee;";
-    for(var i = 0; i < magSize; i++){
-        rounds += "<use x='" + (i * 5).toString() +  "' xlink:href='#bulletLine' />";
-    }
-    var magGraphic = "<svg viewbox='0 0 1250 20' style='width: 800px; stroke:" + roundColor + "'>" +
-                     "<defs><polyline id='bulletLine' points='0,18 0,8 1,5 2,2 3,5 4,8 4,18' style='fill:#eee;'/></defs>" +
-                     rounds +
-                     "</svg>";
-    return magGraphic;
-}
-*/
 
 function createBulletSpeedGraphic(initialSpeed, drag){
     return "<div class='bulletSpeedContainer'>" +
@@ -330,11 +306,7 @@ function createReloadGraphic(reloadEmpty, reloadLeft, magSize, ammoType){
     } else {
         reloadData += "</div " + magTooltip + ">";
     }
-    return reloadData +  //"<span class='lblMagText'>" +
-                            //"<span class='lblMag'>" + magSize + "</span>" +
-                            //"<span class='lblSuffixText'> x " + formatAmmoType(ammoType) + "</span>" +
-                         //"</span>" +
-                     "</div>";
+    return reloadData +  "</div>";
 }
 
 function formatAmmoType(ammo){
@@ -359,27 +331,19 @@ function createRecoilGraphic(recoilLeft, recoilRight, recoilUp, recoilInitialUp)
                                 point5inc + oneinc + onepoint5inc +
                                 "<line x1='" + recoilHorLenth1 + "' y1='90' x2='" + recoilHorLenth2 + "' y2='90' style='stroke:white; stroke-width:2'/>" + // Left - Right
                                 "<line x1='60' y1='90' x2='60' y2='" + recoilUpLength + "' style='stroke:white; stroke-width:2'/>" + // Up - Down
-                                "<text x='" + (recoilHorLenth1 - 4).toString() + "' y='95' text-anchor='end' class='recoilValue'>" + recoilLeft + "</text>" +
-                                "<text x='" + (recoilHorLenth2 + 4).toString() + "' y='95' class='recoilValue'>" + Math.abs(recoilRight) + "</text>" +
-                                "<text x='64' y='" + recoilUpTextY + "' text-anchor='start' class='recoilValue'>" + (recoilUp >= 0 ? "+": "") + recoilUp + "</text>" +
-                                "<text x='60' y='" + recoilInitUpTextY + "' text-anchor='middle' class='recoilValue'>" + recoilInitialUp + "</text>" +
+                                "<text x='" + (recoilHorLenth1 - 4).toString() + "' y='95' text-anchor='end' class='recoilValue'>" + recoilLeft + "°</text>" +
+                                "<text x='" + (recoilHorLenth2 + 4).toString() + "' y='95' class='recoilValue'>" + Math.abs(recoilRight) + "°</text>" +
+                                "<text x='64' y='" + recoilUpTextY + "' text-anchor='start' class='recoilValue'>" + (recoilUp >= 0 ? "+": "") + recoilUp + "°</text>" +
+                                "<text x='60' y='" + recoilInitUpTextY + "' text-anchor='middle' class='recoilValue'>" + recoilInitialUp + "°</text>" +
                             "</svg>";
-                        // var recoilGraphic = "<svg viewbox='0 0 100 60' style='width: 100px;'>" +
-                        //                         "<line x1='40' y1='50' x2='60' y2='50' style='stroke:white; stroke-width:2'/>" +
-                        //                         "<line x1='50' y1='50' x2='50' y2='40' style='stroke:white; stroke-width:2'/>" +
-                        //                         "<text x='35' y='55' text-anchor='end' class='recoilValue'>" + recoilLeft + "</text>" +
-                        //                         "<text x='65' y='55' class='recoilValue'>" + Math.abs(recoilRight) + "</text>" +
-                        //                         "<text x='52' y='22' text-anchor='start' class='recoilValue'>" + (recoilUp >= 0 ? "+": "") + recoilUp + "</text>" +
-                        //                         "<text x='50' y='36' text-anchor='middle' class='recoilValue'>" + recoilInitialUp + "</text>" +
-                        //                     "</svg>";
     } else {
         var recoilGraphic = "<svg viewbox='0 0 120 100' style='width: 100px;'>" +
                                 "<line x1='50' y1='90' x2='70' y2='90' style='stroke:#555; stroke-width:2'/>" +
                                 "<line x1='60' y1='90' x2='60' y2='80' style='stroke:#555; stroke-width:2'/>" +
-                                "<text x='44' y='95' text-anchor='end' class='recoilValue'>" + recoilLeft + "</text>" +
-                                "<text x='74' y='95' class='recoilValue'>" + Math.abs(recoilRight) + "</text>" +
-                                "<text x='64' y='64' text-anchor='start' class='recoilValue'>" + (recoilUp >= 0 ? "+": "") + recoilUp + "</text>" +
-                                "<text x='60' y='76' text-anchor='middle' class='recoilValue'>" + recoilInitialUp + "</text>" +
+                                "<text x='44' y='95' text-anchor='end' class='recoilValue'>" + recoilLeft + "°</text>" +
+                                "<text x='74' y='95' class='recoilValue'>" + Math.abs(recoilRight) + "°</text>" +
+                                "<text x='64' y='64' text-anchor='start' class='recoilValue'>" + (recoilUp >= 0 ? "+": "") + recoilUp + "°</text>" +
+                                "<text x='60' y='76' text-anchor='middle' class='recoilValue'>" + recoilInitialUp + "°</text>" +
                             "</svg>";
     }
     return recoilGraphic;
@@ -388,8 +352,8 @@ function createRecoilGraphic(recoilLeft, recoilRight, recoilUp, recoilInitialUp)
 function createSpreadLabels(ADSStandMoveMin, ADSStandBaseMin){
     var rtnStr = "";
     if (ADSStandMoveMin > 0){
-        rtnStr = "<div class='speadMoveLabel'>" + ADSStandMoveMin + "</div>" +
-                 "<div class='speadBaseLabel'>" + ADSStandBaseMin + "</div>";
+        rtnStr = "<div class='speadMoveLabel'>" + ADSStandMoveMin + "°</div>" +
+                 "<div class='speadBaseLabel'>" + ADSStandBaseMin + "°</div>";
     }
     return rtnStr;
 }
@@ -404,19 +368,14 @@ function createSpreadGraphic(ADSBase, ADSMove){
             adsBaseCircle = "<circle cx='0' cy='100' r='4' stroke-width='2' style='fill: none; stroke: #C8C63A; fill: #C8C63A;'></circle>";
         }
 
-        spreadGraphic = "<svg viewBox='0 0 100 100' style='width: 80px;'>" +
+        spreadGraphic = "<svg viewBox='0 0 100 100' style='width: 60px;'>" +
                         "<circle cx='0' cy='100' r='" + (ADSMove * 200).toString() + "' class='spreadMoveCicle'></circle>" +
 	                    adsBaseCircle +
                         "</svg>";
     } else if (ADSMove != 0){
         var standLineOffset = ADSBase * 2;
         var moveLineOffset = ADSMove * 2;
-        spreadGraphic = "<svg viewBox='0 0 100 100' style='width: 80px;'>" +
-                        // "<line x1='50' y1='" + (moveLineOffset + 52) + "' x2='50' y2='" + (moveLineOffset + 65) + "' class='spreadMoveLine'></line>" +
-                        // "<line x1='50' y1='" + (48 - moveLineOffset) + "' x2='50' y2='" + (35 - moveLineOffset) + "' class='spreadMoveLine'></line>" +
-                        //
-                        // "<line y1='50' x1='" + (moveLineOffset + 52) + "' y2='50' x2='" + (moveLineOffset + 65) + "' class='spreadMoveLine'></line>" +
-                        // "<line y1='50' x1='" + (48 - moveLineOffset) + "' y2='50' x2='" + (35 - moveLineOffset) + "' class='spreadMoveLine'></line>" +
+        spreadGraphic = "<svg viewBox='0 0 100 100' style='width: 60px;'>" +
 
                         "<line x1='50' y1='" + (standLineOffset + 52) + "' x2='50' y2='" + (standLineOffset + 65) + "' class='spreadBaseLine'></line>" +
                         "<line x1='50' y1='" + (48 - standLineOffset) + "' x2='50' y2='" + (35 - standLineOffset) + "' class='spreadBaseLine'></line>" +
@@ -441,16 +400,35 @@ function createHipSpreadGraphic(HIPSpread, HorDispersion){
                         "<line y1='50' x1='" + (lineOffset + 52) + "' y2='50' x2='" + (lineOffset + 65) + "' class='hipSpreadLine'></line>" +
                         "<line y1='50' x1='" + (48 - lineOffset) + "' y2='50' x2='" + (35 - lineOffset) + "' class='hipSpreadLine'></line>" +
 
-                        "<text x='5' y='23' class='hipSpreadValue'>" + HIPSpread + "</text>" +
+                        "<text x='5' y='91' class='hipSpreadValue'>" + HIPSpread + "°</text>" +
                         "</svg>";
     } else {
         spreadGraphic = "<svg viewBox='0 0 100 100' style='width: 75px;'>" +
                         "<circle cx='50' cy='50' r='" + (HorDispersion * 10).toString() + "' class='hipSpreadLine'></circle>" +
-                        "<text x='5' y='23' class='hipSpreadValue'>" + HorDispersion + "</text>" +
+                        "<text x='5' y='23' class='hipSpreadValue'>" + HorDispersion + "°</text>" +
                         "</svg>";
     }
     return spreadGraphic;
 }
+
+function createSpreadTableGraphic(ADSStand, ADSCrouch, ADSProne, ADSStandMove, ADSCrouchMove, ADSProneMove,
+                                  HIPStand, HIPCrouch, HIPProne, HIPStandMove, HIPCrouchMove, HIPProneMove,
+                                  ADSIncrease, HIPIncrease){
+    var tableGraphic = "<table class='spreadTable'>" +
+                           "<tr>" + "<td></td><td>ADS</td><td>HIP</td>" + "</tr>" +
+                           "<tr>" + "<td rowspan='3'><img src='./img/standing.png'></td><td>" + roundToTwo(ADSStand) + "</td><td>" + roundToTwo(HIPStand) + "</td>" + //<td rowspan='3'>" + ADSIncrease + "</td>" + "</tr>" +
+                           "<tr>" + "<td>" + roundToTwo(ADSCrouch) + "</td><td>" + roundToTwo(HIPCrouch) + "</td>" + "</tr>" +
+                           "<tr>" + "<td>" + roundToTwo(ADSProne) + "</td><td>" + roundToTwo(HIPProne) + "</td>" + "</tr>" +
+                           "<tr>" + "<td rowspan='3'><img src='./img/moving.png'></td><td>" + roundToTwo(ADSStandMove) + "</td><td>" + roundToTwo(HIPStandMove) + "</td>" + //<td rowspan='3'>" + HIPIncrease + "</td>" + "</tr>" +
+                           "<tr>" + "<td>" + roundToTwo(ADSCrouchMove) + "</td><td>" + roundToTwo(HIPCrouchMove) + "</td>" + "</tr>" +
+                           "<tr>" + "<td>" + roundToTwo(ADSProneMove) + "</td><td>" + roundToTwo(HIPProneMove) + "</td>" + "</tr>" +
+
+                           "<tr>" + "<td class='scaleIncreaseCell'><img src='./img/increase.png'></td><td>" + roundToTwo(ADSIncrease) + "</td><td>" + roundToTwo(HIPIncrease) + "</td>" + "</tr>" +
+
+                       "</table>"
+    return tableGraphic;
+}
+
 
 function formatDamagesOrDistances(dmgArray) {
     var dmgStr = "";
