@@ -2,14 +2,46 @@
     <h1 class="comp-pageTitle">Battlefield V Weapon Mechanics</h1>
     <div class="sym-main-content-home sym-static-content sym-about">
 <h2>Weapon Mechanics</h2>
-	&nbsp; &nbsp;<img src="./pages/bfv/img/OptionsVideo.svg" style="height:30px">&nbsp; &nbsp;<strong>Platform Differences</strong><br>
+	<img src="./pages/bfv/img/INDIRECTFIRESCOPE.svg" style="height:30px"><strong>General Multipliers</strong><br>
 		<br>
-		&nbsp; &nbsp; <i><u>Weapon Recoil</u></i>
-		<p>When using a controller, a player will recieve the following benefits to their weapon's behavior:<br>
+		&nbsp; &nbsp; <i><u>Controller Input</u></i><br>
 		<br>
-		- 0.75x inital vertical recoil<br>
-		- 0.75x recoil pattern yaw</p>
-
+		<td>&nbsp; &nbsp; When using a controller, a player's weapon will recieve the following benefits:<br>
+			<ul>
+				<li>0.5x initial VRec</li>
+				<li>0.75x recoil pattern yaw</li>
+			</ul>
+		</td>
+		<br>
+		&nbsp; &nbsp; <i><u>Selected Semi-automatic Shooting</u></i><br>
+		<br>
+		<td>&nbsp; &nbsp; When using the semi-automatic mode of a select-fire weapon, a player's weapon will recieve the following benefits:<br>
+			</ul><ul>
+				<li>0.5x ADS SIPS</li>
+				<li>0.85x VRec</li>
+				<li>0.5x HRec</li>
+				<li>0.2125x pattern yaw</li>
+			</ul>
+		</td>
+		<br>
+		&nbsp; &nbsp; <i><u>Soldier Stance</u></i><br>
+		<br>
+		<td>&nbsp; &nbsp; A player's weapon will recieve the following benefits depending on their soldier's stance:<br>
+			<ul>
+				<li>Crouched:
+					<ul>
+						<li>0.75x VRec</li>
+						<li>0.75x pattern yaw</li>
+					</ul>
+				</li>
+				<li>Prone:
+					<ul>
+						<li>0.6x VRec</li>
+						<li>0.6x pattern yaw</li>
+					</ul>
+				</li>
+			</ul>
+	<br>
 	<img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_Zeroing.svg" style="height:30px"><strong>Spread</strong><br>
 	<br>
 	&nbsp; &nbsp; <i><u>Spread Increase</u></i>
@@ -26,6 +58,7 @@
 	&nbsp; &nbsp; <i><u>Idle Spread Decrease</u></i>
 		<p>Idle spread decrease is linear (coefficient = 0.0, effectively rendering an exponent of 0.0, leading to no spread decrease acceleration) on all weapons but buckshot shotguns. This is a separate decrease rate that activates after a certain number of frames are surpassed following a shot being fired, and very rapidly decreases spread. Idle spread decrease is only in consideration for transitions in movement or firing state (ADS/zoomed to hipfire/unzoomed), very slowly pacing or tapfiring shots, or while firing the Breda without Trigger Job.</p>
 		<p>The spread decrease offset effectively sets the number of degrees of spread decreased per frame. The idle time dictates the number of frames after a shot is figured that must be surpassed before the idle spread decrease rates are used. Idle spread decrease is effectively fast enough to bring spread down to the designated minimum angle in a single frame in the vast majority of cases.</p>
+	<br>
 	<img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_VRecoil.svg" style="height:30px"><strong>Recoil</strong><br>
 	<br>
 	&nbsp; &nbsp; <i><u>Spread to Recoil Conversion</u></i>
@@ -36,8 +69,10 @@
 		<p>Recoil patterns are designated by an integer RecoilPatternSeed value. Recoil patterns are generated randomly, and the RecoilPatternSeed value acts as a random seed to produce a reproducible result from random generation, allowing recoil patterns to be a fixed, non-randomized value. RecoilPatternYaw dictates the strength of the recoil pattern’s horizontal movement. RecoilPatternPitch exists, which would presumably dictate the strength of a recoil pattern’s vertical movement, but is currently set at 0.0 for all weapons. While the recoil pattern itself is fixed and non-randomized, vertical recoil, horizontal recoil, and spread converted into recoil are imposed atop this system, creating a slight variance in the pattern, which increases with sustained fire with submachine guns and assault rifles. Note that recoil patterns only exist in ADS (zoomed) fire for SMGs, ARs, LMGs, and MMGs only, and cannot be isolated for accurate visualization. </p>
 	&nbsp; &nbsp; <i><u>Recoil Decrease</u></i>
 		<p>Recoil decrease works as it does in Battlefield 1, persisting even when the gun is not idle, and decelerates as time passes.</p>
+	<br>
 	<img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_QuickADS.svg" style="height:30px"><strong>ADS Speeds</strong>
 		<p>Unfortunatly due to current understanding of the game data, ADS times are not extracted from the data.  Instead, they have been manually collected as accurately as possible by Incarnate, and are recorded in <a href="http://bit.ly/BFVADS" target="_blank">this thread,</a> along with sight-pictures.</p>
+	<br>
 	&nbsp; &nbsp; <img src="./pages/bfv/img/NameTag_XPBoost.svg" style="height:30px">&nbsp; <strong>Specialization Effects</strong>
 		<p>The following chart lists all weapon specs currently in <i>Battlefield V</i> with their effects according to the game data.<br>Some specs are defaulted to certain weapons, like bipods to Anti-Materiel Rifles and MMGs.</p>
 		<table style="width:80%"; table align="center">
@@ -163,7 +198,7 @@
 			<tr>
 				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_FastBullets.svg" style="height:50"></td>
 				<td>High Velocity Bullets</td>
-				<td>Increases bullet velocity. Velocity increase varies by weapon.<br><i>Read: Not always 10%</i></td>
+				<td>Increases bullet velocity, amount varies by weapon.<br><i>i.e. Not always 10%</i></td>
 			</tr>
 			<tr>
 				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_ImprovedBipod.svg" style="height:50"></td>
@@ -210,7 +245,7 @@
 			<tr>
 				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_QuickCycleBurst.svg" style="height:50"></td>
 				<td>Light Bolt<br>(Breda M1935 PG)</td>
-				<td>Increases rate of fire within a burst</td>
+				<td>Increases rate of fire within a burst.</td>
 			</tr>
 			<tr>
 				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_FastMoveADS.svg" style="height:50"></td>
@@ -313,12 +348,12 @@
 			<tr>
 				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_ImprovedTrigger.svg" style="height:50"></td>
 				<td>Trigger Job<br>(Breda M1935 PG)</td>
-				<td>Increases overall rate of fire by decreasing time between bursts.</td>
+				<td>Increases overall rate of fire by decreasing time between bursts. Does not modify the RoF within a burst.</td>
 			</tr>
 			<tr>
 				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_Zeroing.svg" style="height:50"></td>
 				<td>Variable Zeroing</td>
-				<td>Allows for range zeroing.</td>
+				<td>Allows for rifle zeroing.</td>
 			</tr>
 		</table>
 	</div>
