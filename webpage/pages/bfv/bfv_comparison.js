@@ -388,7 +388,7 @@ function updateSelectors () {
     }
   })
 
-  if (emptySelects === 0 && $('.comp-selectorContainer').length < 6) {
+  if (emptySelects <= 1 && $('.comp-selectorContainer').length < 6) {
     $('.comp-selectorContainer').last().after($('.comp-selectorContainer').first().clone(true))
     $('.comp-selectorContainer').last().children('div').remove()
     $('.comp-selectorContainer').last().children('select').change(function (e) {
@@ -403,10 +403,6 @@ function updateSelectors () {
 */
 function initializeBFVComparison () {
   var selectorParent = $('#selectors')[0]
-
-  // TODO Create proper selectors
-  //      (one for weapon and another for attachments)
-  //      (Fill in possible weapons etc)
 
   // Create different options (i.e. weapons)
   // and add them to first selector
@@ -427,16 +423,19 @@ function initializeBFVComparison () {
     option.text = weaponNames[i]
     firstSelector.add(option)
   }
+  // Start with two empty choices already
+  // (reminds people of it being a comparison)
   selectorParent.appendChild(firstSelector)
+
 
   // Set oninput for filter elements
   document.getElementById('column_filter').oninput = BFVFilterOnChange
   document.getElementById('column_onlydiffering').onclick = BFVFilterOnChange
 
-  updateSelectors()
 
   BFVgenerateBFVCustomizationsArray()
   $('#selectors > select').addClass('comp-selectors').wrap("<div class='comp-selectorContainer'></div>")
+  updateSelectors()
 }
 
 /*
