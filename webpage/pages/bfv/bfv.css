@@ -10,6 +10,12 @@
     margin: auto;
 }
 
+/* Remove unnecessary paddings */
+.bfv-content-comparison > div {
+    padding: 0px 0px;
+}
+
+
 .bfv-content-comparison-table table {
     border-spacing: 0px;
 }
