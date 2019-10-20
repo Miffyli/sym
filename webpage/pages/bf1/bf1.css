@@ -1,0 +1,47 @@
+.bf1-header-content {
+  text-align: center;
+  padding: 100px;
+  margin: auto;
+  width: 400px;
+}
+
+.bf1-content-comparison {
+    width: 1200px;
+    margin: auto;
+}
+
+/* Remove unnecessary paddings */
+.bf1-content-comparison > div {
+    padding: 0px 0px;
+}
+
+.bf1-content-comparison-table table {
+    border-spacing: 0px;
+}
+
+.bf1-content-comparison-table tr:nth-child(even) {
+    background-color: #222;
+}
+
+
+/* Do not color the first row */
+
+.bf1-content-comparison-table tr:nth-child(odd):not(:first-child) {
+    background-color: #333;
+}
+
+.bf1-content-comparison-table th {
+    height: 30pt;
+}
+
+.bf1-content-comparison-table td:first-child {
+    padding-right: 30pt
+}
+
+
+/* Center values in the table, but on the first column (names) */
+
+.bf1-content-comparison-table td:not(:first-child) {
+    text-align: center;
+    width: 100pt;
+}

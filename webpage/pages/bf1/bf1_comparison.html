@@ -1,0 +1,30 @@
+<div class="bf1-content-comparison">
+    <h1 class="comp-pageTitle">Battlefield 1 Weapon Comparison </h1>
+
+    <div id="selectors"></div>
+
+    <br>
+
+    <div id="graphs">
+        <div style="width:33%; float:left" id="damage_graph"></div>
+        <div style="width:33%; float:left" id="btkub_graph"></div>
+        <div style="width:33%; float:left" id="ttkub_graph"></div>
+    </div>
+	
+
+    <div class="comp-filterContainer">
+        <h3 class="comp-filterBorderHeader">Filters</h3>
+        <div>
+            <div class="comp-filterInput">
+                <label>Keywords (comma-separated)</label><br>
+                <input id="column_filter" type="text" autocomplete="off"  placeholder="BROF,MagSize,etc...">
+            </div>
+            <div class="comp-filterInput" >
+                <input id="column_onlydiffering" type="checkbox">
+                <label>Only include rows with different values</label>
+            </div>
+        </div>
+        <br><br>
+    </div>
+    <div class="bf1-content-comparison-table" id="compare_table"></div>
+</div>
