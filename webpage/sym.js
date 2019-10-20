@@ -22,7 +22,7 @@ window.onload = function () {
     } else if (clicked === 'menuBFV') {
       openBFVSelectionPage()
     } else if (clicked === 'menuBF1') {
-      initializeBF1Page()
+      openBF1SelectionPage()
     } else if (clicked === 'menuDatabrowser') {
       openNewTab(SYM_DATABROWSER_URL)
     } else if (clicked === 'menuAbout') {

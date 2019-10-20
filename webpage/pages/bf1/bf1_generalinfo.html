@@ -1,0 +1,104 @@
+<div class="bf1-content-comparison">
+    <h1 class="comp-pageTitle">Battlefield 1 General Information</h1>
+    <div class="sym-main-content-home sym-static-content sym-about">
+        <p>
+        </p><h2>Recoil</h2>
+		<ul>
+			<li>Each shot adds RecoilUp degrees to vertical aim (pitch)</li>
+			<li>Each shot adds <b><pre style="display:inline">random_uniform(-recoilLeft, recoilRight)</pre></b> to horizontal aim (yaw), positive being clockwise.</li>
+			<li>Recoil decrease per one logical frame per one axis (ver. or hor.) is calculated as follows: </li>
+                <b><pre>    CurrentRecoil = Current amount of recoil (either ver. or hor.)
+    RecoilDecrease = Weapon's recoil decrease value
+    DeltaTime = Time since last logical frame (seconds)
+    TimeSinceLastShot = Time since last fired shot (seconds)
+    C = Some constant (approx. 5.0)
+
+    RecoilTerm = ((abs(CurrentRecoil) / 0.5)^0.6 + .001) 
+    Decrease = RecoilTerm * RecoilDecrease * DeltaTime * TimeSinceLastShot^0.5 * C
+
+    NewRecoil = (CurrentRecoil - Decrease) if CurrentRecoil &gt; 0 else (CurrentRecoil + Decrease)
+</pre></b>
+                
+            <li>Note that vertical and horizontal recoil are independent, and both get decreased with same equation.</li>
+		</ul>
+		
+		<h2>Spread</h2>
+		<ul>
+			<li>If spread &gt; 0.0, shot will have random dispersion from the aimpoint. Spread = radius of the circle used for random selection.</li>
+            <ul>
+                <li>Random dispersion based on current spread value per shot is calculated as follows:</li>
+<b><pre>rand1 = rand(0,1)
+rand2 = rand(0,2*PI)
+horizontal_dispersion = rand1^a * spread * cos(rand2)
+vertical_dispersion   = rand1^a * spread * sin(rand2)</pre></b>
+                <li>Where <b><pre style="display:inline">a = 0.5</pre></b> for all other weapons than shotguns. Shotguns use <b><pre style="display:inline;">a = 1.0</pre></b>.</li>
+                <ul><li> Due to this shotguns' spread focuses in the middle (less affected by spread) while other weapons have evenly spread out dispersion.</li>
+                <li><b>Note:</b> Shotgun pellets still have a = 1.0 and thus are evenly spread out. The center of the pellets will be closer to crosshair's center, but the pellets itself will spread out evenly.</li>
+                </ul>
+            </ul>
+			<li>Each shot adds spreadIncrease to spread.</li>
+			<li>Spread will start to decrease when weapon is ready to fire next shot at the rate of <b>spreadDecrease/second</b>.</li>
+		</ul>
+		
+		<h2>Bullet drop and drag</h2>
+        <ul>
+			<li>Bullet accelerates towards ground at <b>Gravity</b> m/sÂ²</li>
+			<li>Bullet slows down at <b>Bullet_VelocityÂ² * Drag</b> m/s</li>
+		</ul>
+        
+        <h2>"Deploy Time"</h2>
+        <ul>
+			<li><b>Deploy Time</b> is the time it takes to weapon be able to fire after switching to said weapon.</li>
+		</ul>
+        
+    <h2>Body part damage multipliers</h2>
+    <p>
+        </p><p>
+            <span style="font-size:18px;font-weigth:bold;"><b>General Multipliers</b></span><br>
+			<span>For all bullets except ones in special multipliers category</span>
+            </p><div class="sm" style="padding-left:25px;padding-top:10px;">
+                <table>
+                    <tbody><tr><td>Headshot</td><td>1.7x</td></tr>
+                    <tr><td>Upper body</td><td>1.0x</td></tr>
+                    <tr><td>Lower body and upper arms</td><td>0.96x</td></tr>
+                    <tr><td>Legs and forearms</td><td>0.96x</td></tr>
+                </tbody></table>
+            </div>
+        <p></p><br>
+		<p><span style="font-size:18px;font-weigth:bold;"><b>Special multipliers</b></span></p>
+        <p>    
+        <b><i>Slugs, Scout's primary weapons (100 max damage, no M1903 Experimental)</i></b>
+        </p><div style="padding-left:25px">
+            <table>
+                <tbody><tr><td>Headshot</td><td>1.8x</td></tr>
+                <tr><td>Upper body</td><td>1.0x</td></tr>
+                <tr><td>Lower body and upper arms</td><td>0.9x</td></tr>
+                <tr><td>Legs and forearms</td><td>0.75x</td></tr>
+            </tbody></table>
+        </div>
+        <p></p><br>
+		<p>
+            <b><i>Gewehr M.95, Russian 1895 Trench</i></b>
+            </p><div style="padding-left:25px">
+                <table>
+                    <tbody><tr><td>Headshot</td><td>1.8x</td></tr>
+                    <tr><td>Upper body</td><td>1.0x</td></tr>
+                    <tr><td>Lower body and upper arms</td><td>0.93x</td></tr>
+                    <tr><td>Legs and forearms</td><td>0.93x</td></tr>
+                </tbody></table>
+            </div>
+        <p></p><br>
+        <p>
+            <b><i>Shotgun buckshots</i></b>
+            </p><div style="padding-left:25px">
+                <table>
+                    <tbody><tr><td>Headshot</td><td>1.0x</td></tr>
+                    <tr><td>Upper body</td><td>1.0x</td></tr>
+                    <tr><td>Lower body and upper arms</td><td>1.0x</td></tr>
+                    <tr><td>Legs and forearms</td><td>1.0x</td></tr>
+                </tbody></table>
+            </div>
+        <p></p><br>
+    <p></p>
+	</div>
+</div>
