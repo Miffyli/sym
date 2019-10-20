@@ -132,3 +132,54 @@
 .indexPageItem div{
     color: #ccc;
 }
+
+
+/* Index Page */
+/**************/
+
+.bfv-sym-info-page{
+    width: 900px;
+    margin: auto;
+}
+
+.bfv-sym-info-section-header{
+    margin: 70px 0 20px;
+}
+
+.bfv-sym-info-section-header img{
+    height: 50px;
+    vertical-align: middle;
+}
+
+.bfv-sym-info-section-header span{
+    font-size: 40px;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+.bfv-sym-info-subheader{
+    font-size: 24px;
+    font-weight: bold;
+    padding: 20px 19px 0px;
+}
+
+.bfv-info-specHeaderImg{
+    width: 100px;
+    display: inline-block;
+    text-align: center;
+}
+
+.bfv-info-spec-table{
+    border-spacing: 0;
+    margin-top: 35px;
+}
+
+.bfv-info-spec-table td{
+    border-top: 1px solid #444;
+    padding: 10px 0;
+}
+
+.bfv-info-spec-table tr > td:nth-child(2){
+    width: 300px;
+    padding-left: 20px;
+}
