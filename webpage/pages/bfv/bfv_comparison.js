@@ -1,12 +1,12 @@
 // Logic behind comparison pages
 
 // Text for the "no weapon selected" box
-const SELECT_OPTION_0_TEXT = 'Select Weapon...'
+const BFV_SELECT_OPTION_0_TEXT = 'Select Weapon...'
 
 // Color codes for the best/worst value
-const NEUTRAL_VALUE_COLOR = [255, 255, 255]
-const BEST_VALUE_COLOR = [0, 255, 0]
-const WORST_VALUE_COLOR = [255, 0, 0]
+const BFV_NEUTRAL_VALUE_COLOR = [255, 255, 255]
+const BFV_BEST_VALUE_COLOR = [0, 255, 0]
+const BFV_WORST_VALUE_COLOR = [255, 0, 0]
 
 // Array used to generate cutomizatinos buttons for each weapon
 // The array is generated in a function below
@@ -124,13 +124,13 @@ function BFVColorVariables(variableName, weaponValues) {
   if (weaponValues.length == 1 || weaponValues.some(weaponValue => isNaN(weaponValue))) {
     // Only one item in the list or there are non-numeric values
     // -> Return neutral color
-    colorCodes = weaponValues.map(weaponValue => NEUTRAL_VALUE_COLOR)
+    colorCodes = weaponValues.map(weaponValue => BFV_NEUTRAL_VALUE_COLOR)
   } else {
     // Get unique values
     var uniqueValues = Array.from(new Set(weaponValues))
     // If we only have , do not bother with coloring
     if (uniqueValues.length === 1) {
-      colorCodes = weaponValues.map(weaponValue => NEUTRAL_VALUE_COLOR)
+      colorCodes = weaponValues.map(weaponValue => BFV_NEUTRAL_VALUE_COLOR)
     } else {
       // Sort by value so that "lower is worse".
       // TODO reverse if variableName is one of "lower is better"
@@ -139,10 +139,10 @@ function BFVColorVariables(variableName, weaponValues) {
       colorCodes = []
       // Lower rank in uniqueValues -> worse value
       for (var i = 0; i < weaponValues.length; i++) {
-        // -1 so that final value (best) has BEST_VALUE_COLOR
+        // -1 so that final value (best) has BFV_BEST_VALUE_COLOR
         var rankRatio = uniqueValues.indexOf(weaponValues[i]) / (uniqueValues.length - 1)
         colorCodes.push(
-          BFVInterpolateRGB(WORST_VALUE_COLOR, BEST_VALUE_COLOR, rankRatio)
+          BFVInterpolateRGB(BFV_WORST_VALUE_COLOR, BFV_BEST_VALUE_COLOR, rankRatio)
         )
       }
     }
@@ -356,7 +356,7 @@ function BFVFilterOnChange () {
   filters)
 */
 function BFVSelectorsOnChange (e) {
-  updateSelectors()
+  BFVupdateSelectors()
   printBFVCustomizationButtons(e)
   var selectedWeapons = BFVGetSelectedWeapons()
 
@@ -374,7 +374,7 @@ function BFVSelectorsOnChange (e) {
   Check correct number of selectors
   and if one of them should be removed
 */
-function updateSelectors () {
+function BFVupdateSelectors () {
   $('.comp-selectorContainer > select').each(function() {
     if (this.selectedIndex === 0 && $('.comp-selectorContainer > select').length > 1) {
       $(this).parent().remove()
@@ -410,7 +410,7 @@ function initializeBFVComparison () {
   firstSelector.onchange = BFVSelectorsOnChange
   // First add empty option
   var option = document.createElement('option')
-  option.text = SELECT_OPTION_0_TEXT
+  option.text = BFV_SELECT_OPTION_0_TEXT
   firstSelector.add(option)
   var weaponNames = BFVWeaponData.filter(
     weapon => weapon['Attachments_short'] == ""
@@ -435,7 +435,7 @@ function initializeBFVComparison () {
 
   BFVgenerateBFVCustomizationsArray()
   $('#selectors > select').addClass('comp-selectors').wrap("<div class='comp-selectorContainer'></div>")
-  updateSelectors()
+  BFVupdateSelectors()
 }
 
 /*
@@ -446,7 +446,7 @@ function initializeBFVComparison () {
 */
 function BFVgenerateBFVCustomizationsArray () {
     $.each(BFVWeaponData, function (key, weapon) {
-      var weaponIndex = getIndexOfWeapon(weapon.WeapShowName, BFVCustomizationsArray)
+      var weaponIndex = BFVgetIndexOfWeapon(weapon.WeapShowName, BFVCustomizationsArray)
       if (weaponIndex < 0) {
         var newWeaponEntry = new Object()
         newWeaponEntry.weaponName = weapon.WeapShowName
@@ -473,7 +473,7 @@ function BFVgenerateBFVCustomizationsArray () {
     Search the array for the entry with the given weapon name and return
     the index for it or '-1' if not found.
 */
-function getIndexOfWeapon (weapon, customizationArray) {
+function BFVgetIndexOfWeapon (weapon, customizationArray) {
   var weaponIndex = -1
   for (var i = 0; i < customizationArray.length; i++) {
     if (customizationArray[i].weaponName === weapon) {
@@ -492,13 +492,13 @@ function printBFVCustomizationButtons (e){
   var selectedOption = ($(e.target).find('option:selected').text().trim())
 
 
-  if(selectedOption.localeCompare(SELECT_OPTION_0_TEXT) != 0){
+  if(selectedOption.localeCompare(BFV_SELECT_OPTION_0_TEXT) != 0){
     $(selectedSelect).parent().siblings('div').remove()
-    $(selectedSelect).parent().after(compPrintCustomizations(selectedOption))
+    $(selectedSelect).parent().after(BFVcompPrintCustomizations(selectedOption))
     $(selectedSelect).parent().parent().find('input').checkboxradio(
       {icon: false }
     )
-    compInitializeCustomizationButtons($(selectedSelect).parent().parent().find('.custButton'))
+    BFVcompInitializeCustomizationButtons($(selectedSelect).parent().parent().find('.custButton'))
   }
 
 }
@@ -506,9 +506,9 @@ function printBFVCustomizationButtons (e){
 /*
   Generates the html used for the customization buttons
 */
-function compPrintCustomizations (weaponName) {
+function BFVcompPrintCustomizations (weaponName) {
   var custString = ''
-  var weaponIndex = getIndexOfWeapon(weaponName, BFVCustomizationsArray)
+  var weaponIndex = BFVgetIndexOfWeapon(weaponName, BFVCustomizationsArray)
   var weaponCust = BFVCustomizationsArray[weaponIndex].customizations
 
   if (weaponCust[0].a !== '') {
@@ -530,7 +530,7 @@ function compPrintCustomizations (weaponName) {
   allowed to click on the appropriate ones. i.e. only click 2nd tier button if
   a 1st tier button has been selected.
 */
-function compInitializeCustomizationButtons (buttonObj) {
+function BFVcompInitializeCustomizationButtons (buttonObj) {
     $(buttonObj).change(function () {
       if ($(this).is(':checked') || $(this).siblings('.custButton').is(':checked')) {
         if ($(this).hasClass('custRow1')) {
