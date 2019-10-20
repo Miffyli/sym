@@ -304,7 +304,7 @@ function BFVUpdateTTKAndBTKGraphs (selectedWeapons) {
     },
 
     subtitle: {
-      text: 'Based on "RoF". Assumes all shots hit. Includes bullet velocity. Includes multipliers.'
+      text: 'Based on "RoF". Assumes all shots/pellets hit. Includes bullet velocity. Includes multipliers.'
     },
 
     yAxis: {
