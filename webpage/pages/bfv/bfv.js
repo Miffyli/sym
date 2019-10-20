@@ -121,6 +121,7 @@ function BFVGetTTKUpperBoundOverDistance (weapon) {
   var distances = weapon['Dmg_distances']
   var bulletVelocity = weapon['InitialSpeed']
   var bulletDrag = weapon['Drag']
+  var numShots = weapon['ShotsPerShell']
   var msPerShot = 60000 / (weapon['RoF'])
   var TTKUBOverDistance = []
 
@@ -131,7 +132,8 @@ function BFVGetTTKUpperBoundOverDistance (weapon) {
   // Used to track how long bullet has been flying
   var bulletFlightSeconds = 0.0
   for (var dist = BFV_DAMAGE_RANGE_START; dist <= BFV_DAMAGE_RANGE_END; dist += BFV_DAMAGE_RANGE_STEP) {
-    damageAtDist = BFVInterpolateDamage(dist, damages, distances)
+    // Assumption: All shots hit from a weapon with multiple shots
+    damageAtDist = BFVInterpolateDamage(dist, damages, distances) * numShots
     // Floor because we do not need the last bullet
     // Small epsilon is added to fix situation with 100 damage (100 / 100 = 1)
     bulletsToKill = Math.floor(100 / (damageAtDist * BFV_MIN_DAMAGE_MULTIPLIER + 0.00001))

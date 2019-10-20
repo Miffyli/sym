@@ -121,6 +121,7 @@ function BF1GetTTKUpperBoundOverDistance (weapon) {
   var distances = weapon['Dmg_distances']
   var bulletVelocity = weapon['InitialSpeed']
   var bulletDrag = weapon['Drag']
+  var numShots = weapon['ShotsPerShell']
   var msPerShot = 60000 / (weapon['RoF'])
   var TTKUBOverDistance = []
 
@@ -131,7 +132,7 @@ function BF1GetTTKUpperBoundOverDistance (weapon) {
   // Used to track how long bullet has been flying
   var bulletFlightSeconds = 0.0
   for (var dist = BF1_DAMAGE_RANGE_START; dist <= BF1_DAMAGE_RANGE_END; dist += BF1_DAMAGE_RANGE_STEP) {
-    damageAtDist = BF1InterpolateDamage(dist, damages, distances)
+    damageAtDist = BF1InterpolateDamage(dist, damages, distances) * numShots
     // Floor because we do not need the last bullet
     // Small epsilon is added to fix situation with 100 damage (100 / 100 = 1)
     bulletsToKill = Math.floor(100 / (damageAtDist * BF1_MIN_DAMAGE_MULTIPLIER + 0.00001))
