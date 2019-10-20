@@ -197,20 +197,6 @@ function BFVLoadWeaponData () {
 }
 
 /*
-  Entry function for BFV page. Load data first,
-  and then open BFV page for user.
-*/
-function initializeBFVComparisonPage () {
-  // Attempt loading BFV data. After that is done,
-  // we move onto opening the webpage (`openBFVPage`).
-  if (BFVDataLoaded === false) {
-    BFVLoadWeaponData()
-  } else {
-    openBFVComparisonPage()
-  }
-}
-
-/*
   Load the BFV selector page that contains the buttons to allow
   the user to select which page to navigate to (chart, comp, etc...).
 */
@@ -261,7 +247,7 @@ function loadBFVChartPage(){
 */
 function openBFVComparisonPage () {
   if (BFVDataLoaded === false) {
-    BFVSelectedPage === "BFV_COMPARISON"
+    BFVSelectedPage = "BFV_COMPARISON"
     BFVLoadWeaponData()
   } else {
     loadBFVComparisonPage()
@@ -299,7 +285,7 @@ function BFVOpenPageByName(pageName) {
     openBFVChartPage()
   } else if (pageName === 'Weapon Comparison') {
     $('#bfv-comparisonPageSelector').addClass('selected-selector')
-    initializeBFVComparisonPage()
+    openBFVComparisonPage()
   } else if (pageName === 'General Information') {
     $('#bfv-generalinfoPageSelector').addClass('selected-selector')
     openBFVGeneralInfoPage()
@@ -332,11 +318,11 @@ function initializeBFVSelectrion () {
       pageName = 'Weapon Comparison'
     } else if (clicked === 'bfv-mainPageSelector') {
       pageName = 'Index'
-	} else if (clicked === 'bfv-generalinfoPageSelector') {
+	  } else if (clicked === 'bfv-generalinfoPageSelector') {
       pageName = 'General Information'
-	} else if (clicked === 'bfv-equipmentPageSelector') {
+	  } else if (clicked === 'bfv-equipmentPageSelector') {
       pageName = 'Equipment Data'
-	} else if (clicked === 'bfv-weaponPageSelector') {
+	  } else if (clicked === 'bfv-weaponPageSelector') {
       pageName = 'Weapon Mechanics'
     } else if (clicked === 'bfv-vehiclePageSelector') {
       pageName = 'Vehicle Data'
