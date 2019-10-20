@@ -133,7 +133,8 @@ function BFVGetTTKUpperBoundOverDistance (weapon) {
   for (var dist = BFV_DAMAGE_RANGE_START; dist <= BFV_DAMAGE_RANGE_END; dist += BFV_DAMAGE_RANGE_STEP) {
     damageAtDist = BFVInterpolateDamage(dist, damages, distances)
     // Floor because we do not need the last bullet
-    bulletsToKill = Math.floor(100 / (damageAtDist * BFV_MIN_DAMAGE_MULTIPLIER))
+    // Small epsilon is added to fix situation with 100 damage (100 / 100 = 1)
+    bulletsToKill = Math.floor(100 / (damageAtDist * BFV_MIN_DAMAGE_MULTIPLIER + 0.00001))
 
     msToTarget = bulletFlightSeconds * 1000
     // Update bullet velocity and time we are flying
