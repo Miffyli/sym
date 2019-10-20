@@ -197,20 +197,6 @@ function BF1LoadWeaponData () {
 }
 
 /*
-  Entry function for BF1 page. Load data first,
-  and then open BF1 page for user.
-*/
-function initializeBF1ComparisonPage () {
-  // Attempt loading BF1 data. After that is done,
-  // we move onto opening the webpage (`openBF1Page`).
-  if (BF1DataLoaded === false) {
-    BF1LoadWeaponData()
-  } else {
-    openBF1ComparisonPage()
-  }
-}
-
-/*
   Load the BF1 selector page that contains the buttons to allow
   the user to select which page to navigate to (chart, comp, etc...).
 */
@@ -239,7 +225,7 @@ function openBF1GeneralInfoPage () {
 */
 function openBF1ComparisonPage () {
   if (BF1DataLoaded === false) {
-    BF1SelectedPage === "BF1_COMPARISON"
+    BF1SelectedPage = "BF1_COMPARISON"
     BF1LoadWeaponData()
   } else {
     loadBF1ComparisonPage()
@@ -262,7 +248,7 @@ function BF1OpenPageByName(pageName) {
   // button and open the page
   if (pageName === 'Weapon Comparison') {
     $('#bf1-comparisonPageSelector').addClass('selected-selector')
-    initializeBF1ComparisonPage()
+    openBF1ComparisonPage()
   } else if (pageName === 'General Information') {
     $('#bf1-generalinfoPageSelector').addClass('selected-selector')
     openBF1GeneralInfoPage()
