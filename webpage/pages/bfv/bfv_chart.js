@@ -21,7 +21,7 @@ const dragTooltip = "title = 'Manual Sort (Click and Hold to drag)'";
 const variantTooltip = "title = 'Add Variant'";
 
 
-function initializeChartPage() {
+function BFVinitializeChartPage() {
     // Create attachments array for each main weapon
     $.each(BFVWeaponData, function(key, weapon) {
         if(customizations[weapon.WeapShowName] == undefined){

@@ -211,7 +211,7 @@ function openBFVSelectionPage () {
   Load the BFV main/entry/index page
 */
 function openBFVIndexPage () {
-  $('.bfv-main-content').load('./pages/bfv/bfv_index.html', initializeIndexPage)
+  $('.bfv-main-content').load('./pages/bfv/bfv_index.html', BFVinitializeIndexPage)
 }
 
 /*
@@ -241,7 +241,7 @@ function openBFVChartPage () {
 }
 
 function loadBFVChartPage(){
-    $('.bfv-main-content').load('./pages/bfv/bfv_chart.html', initializeChartPage)
+    $('.bfv-main-content').load('./pages/bfv/bfv_chart.html', BFVinitializeChartPage)
 }
 
 /*
@@ -338,7 +338,7 @@ function initializeBFVSelectrion () {
 /*
   Add handlers for the click events for the bfv index page
 */
-function initializeIndexPage(){
+function BFVinitializeIndexPage(){
   $('.indexPageItem').click(function () {
       var itemClicked = $(this).find("h4").text()
       // TODO slippery slope: If title on the buttons changes,
