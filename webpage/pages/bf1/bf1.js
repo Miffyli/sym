@@ -210,7 +210,7 @@ function openBF1SelectionPage () {
   Load the BF1 main/entry/index page
 */
 function openBF1IndexPage () {
-  $('.bf1-main-content').load('./pages/bf1/bf1_index.html', initializeIndexPage)
+  $('.bf1-main-content').load('./pages/bf1/bf1_index.html', BF1initializeIndexPage)
 }
 
 /*
@@ -283,7 +283,7 @@ function initializeBF1Selectrion () {
 /*
   Add handlers for the click events for the bf1 index page
 */
-function initializeIndexPage(){
+function BF1initializeIndexPage(){
   $('.indexPageItem').click(function () {
       var itemClicked = $(this).find("h4").text()
       BF1OpenPageByName(itemClicked)
