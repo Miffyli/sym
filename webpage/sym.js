@@ -23,6 +23,8 @@ window.onload = function () {
       openBFVSelectionPage()
     } else if (clicked === 'menuBF1') {
       openBF1SelectionPage()
+    } else if (clicked === 'menuAPEX') {
+      openAPEXSelectionPage()
     } else if (clicked === 'menuDatabrowser') {
       openNewTab(SYM_DATABROWSER_URL)
     } else if (clicked === 'menuAbout') {

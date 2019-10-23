@@ -1,0 +1,79 @@
+<div class="apex-content-comparison">
+    <h1 class="comp-pageTitle">Apex Legends Weapon Comparison </h1>
+    <div class="toolboxRow">
+        <div>
+            <div id="showHideCheckboxes" title="Show/Hide weapon classes">
+                <input type="checkbox" id="showNormalTTKCheck" name="showNormalTTKCheck" checked>
+                <label for="showNormalTTKCheck"><img src="pages/apex/icons/ammo/bullet.png" alt=""></label>
+
+                <label for="showWhiteTTKCheck"><img src="pages/apex/icons/ammo/highcal.png" alt=""></label>
+                <input type="checkbox" id="showWhiteTTKCheck" name="showWhiteTTKCheck" checked>
+
+                <label for="showBlueTTKCheck"><img src="pages/apex/icons/ammo/shotgun.png" alt=""></label>
+                <input type="checkbox" id="showBlueTTKCheck" name="showBlueTTKCheck" checked>
+
+                <label for="showPurpleTTKCheck"><img src="pages/apex/icons/ammo/special.png" alt=""></label>
+                <input type="checkbox" id="showPurpleTTKCheck" name="showPurpleTTKCheck" checked>
+            </div>
+        </div>
+        <div>
+            <div id="showHideTargetTypes" title="Show/Hide weapon categories">
+                <label for="useFortifiedTarget">AR<img src="pages/apex/icons/ammo/special.png" alt=""></label>
+                <input type="checkbox" id="useFortifiedTarget" name="useFortifiedTarget" checked>
+
+                <label for="useLowProfileTarget">SAR<img src="pages/apex/icons/ammo/special.png" alt=""></label>
+                <input type="checkbox" id="useLowProfileTarget" name="useLowProfileTarget" checked>
+
+<!--                <label for="showSMGCheck">SMG</label>-->
+<!--                <input type="checkbox" id="showSMGCheck" name="showSMGCheck" checked>-->
+
+            </div>
+        </div>
+        <div>
+            <div id="showHideHeadShots" title="Show/Hide weapon categories">
+                <label for="useHeadShotDamage">HS<img src="pages/apex/icons/ammo/special.png" alt=""></label>
+                <input type="checkbox" id="useHeadShotDamage" name="useHeadShotDamage" checked>
+
+                <label for="useLimbShotDamage">Limb</label>
+                <input type="checkbox" id="useLimbShotDamage" name="useLimbShotDamage" checked>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="selectors"></div>
+
+    <br>
+
+    <div id="graphs">
+<!--        <div style="width:33%; float:left" id="damage_graph"></div>-->
+        <div style="width:50%; float:left" id="btkub_graph"></div>
+        <div style="width:50%; float:left" id="ttkub_graph"></div>
+        <br>
+        <div style="width:50%; float:left" id="white_btkub_graph"></div>
+        <div style="width:50%; float:left" id="white_ttkub_graph"></div>
+        <br>
+        <div style="width:50%; float:left" id="blue_btkub_graph"></div>
+        <div style="width:50%; float:left" id="blue_ttkub_graph"></div>
+        <br>
+        <div style="width:50%; float:left" id="purple_btkub_graph"></div>
+        <div style="width:50%; float:left" id="purple_ttkub_graph"></div>
+    </div>
+	
+
+    <div class="comp-filterContainer">
+        <h3 class="comp-filterBorderHeader">Filters</h3>
+        <div>
+            <div class="comp-filterInput">
+                <label>Keywords (comma-separated)</label><br>
+                <input id="column_filter" type="text" autocomplete="off"  placeholder="BROF,ammo_clip_size,etc...">
+            </div>
+            <div class="comp-filterInput" >
+                <input id="column_onlydiffering" type="checkbox">
+                <label>Only include rows with different values</label>
+            </div>
+        </div>
+        <br><br>
+    </div>
+    <div class="apex-content-comparison-table" id="compare_table"></div>
+</div>

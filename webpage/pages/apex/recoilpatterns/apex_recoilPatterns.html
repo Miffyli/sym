@@ -1,0 +1,118 @@
+<div style='text-align: center; padding: 25px; margin:auto; width: 400px;'>
+  <h1>APEX vehicle data page</h1>
+</div>
+<div>
+
+<!--  <script type="text/javascript" src="./pages/apex/recoilpatterns/plotlyjs-bundle.js"></script>-->
+<!--  <script type="text/javascript" src="./pages/apex/recoilpatterns/figure.js"></script>-->
+<!--  <script type="text/javascript" src="/pages/apex/recoilpatterns/plotlyjs-bundle.js"></script>-->
+<!--  <script type="text/javascript" src="/pages/apex/recoilpatterns/figure.js"></script>-->
+<!--  webpage/pages/apex/recoilpatterns/plotlyjs-bundle.js-->
+  <div class="recoilGraph" id="1abf0259-75e8-47b9-96f9-6e32ec35bc8d" style="text-align: center; padding: 25px; margin:auto; width: 1000px; height: 1000px;" class="plotly-graph-div"></div>
+<!--  <script type="text/javascript">-->
+<!--    (function(){-->
+<!--      window.PLOTLYENV={'BASE_URL': 'https://plot.ly'};-->
+
+<!--      var gd = document.getElementById('1abf0259-75e8-47b9-96f9-6e32ec35bc8d')-->
+<!--      var resizeDebounce = null;-->
+
+<!--      function resizePlot() {-->
+<!--        var bb = gd.getBoundingClientRect();-->
+<!--        Plotly.relayout(gd, {-->
+<!--          data: figure.data,-->
+<!--          width: bb.width,-->
+<!--          height: bb.height-->
+<!--        });-->
+<!--      }-->
+
+
+
+
+<!--      Plotly.plot(gd,  {-->
+<!--        data: figure.data,-->
+<!--        layout: figure.layout,-->
+<!--        frames: figure.frames,-->
+<!--        config: {"showLink": true, "linkText": "Export to plot.ly", "mapboxAccessToken": "pk.eyJ1IjoiY2hyaWRkeXAiLCJhIjoiY2lxMnVvdm5iMDA4dnhsbTQ5aHJzcGs0MyJ9.X9o_rzNLNesDxdra4neC_A"}-->
+<!--      });-->
+
+<!--      gd.scrollIntoView({-->
+<!--        behavior: 'smooth',-->
+<!--        block: 'center'-->
+<!--      });-->
+<!--    }());-->
+<!--    // $("#shortcutCombobox").combobox({-->
+<!--    //   select: function (event, ui) {-->
+<!--    //     $("." + this.value.replace(/ |\//g,""))[0].scrollIntoView({-->
+<!--    //       behavior: 'smooth'-->
+<!--    //     });-->
+<!--    //   }-->
+<!--    // });-->
+<!--  </script>-->
+</div>
+
+<!--void function DrawTracerOverTime( vector origin, vector dir, float time )-->
+<!--{-->
+<!--	float frac-->
+<!--	float x-->
+<!--	float y-->
+<!--	float timeFrac-->
+<!--	float interval-->
+<!--	float lastInterval = 0.0-->
+
+<!--	int counter = 1-->
+
+<!--	while ( counter <= 10 )-->
+<!--	{-->
+<!--		frac = counter / 10.0-->
+<!--		x = 1 - frac-->
+<!--		y = x * x * x * x-->
+<!--		frac = 1 - y-->
+<!--		timeFrac = time * frac-->
+<!--		interval = timeFrac - lastInterval-->
+<!--		lastInterval = timeFrac-->
+
+<!--		DebugDrawLine( origin, origin + dir * frac, 255, 255, 150, false, interval + 0.05 )-->
+<!--		Wait( interval )-->
+
+<!--		counter++-->
+<!--	}-->
+<!--}-->
+
+<!-- void function DebugDrawWeapon( entity weapon ) -->
+<!-- { -->
+	<!-- float drawTime 		= 20.0 -->
+	<!-- float radius -->
+
+	<!-- float spreadAngle 	= weapon.GetAttackSpreadAngle() -->
+	<!-- float spreadSin 	= deg_sin( spreadAngle * 0.5 ) -->
+	<!-- float nearDist 		= weapon.GetWeaponSettingFloat( eWeaponVar.damage_near_distance ) -->
+	<!-- float farDist 		= weapon.GetMaxDamageFarDist() -->
+
+	<!-- int nearDmg 		= weapon.GetProjectileWeaponSettingInt( eWeaponVar.damage_near_value ) -->
+	<!-- int farDmg 			= weapon.GetProjectileWeaponSettingInt( eWeaponVar.damage_far_value ) -->
+
+	<!-- vector barrelPos 	= weapon.GetAttackPosition() -->
+	<!-- vector barrelVec 	= weapon.GetAttackDirection() -->
+	<!-- vector circleAng 	= AnglesCompose( VectorToAngles( barrelVec ), <90,0,0> ) -->
+
+	<!-- vector nearPos 		= barrelPos + ( barrelVec * nearDist ) -->
+	<!-- vector farPos 		= barrelPos + ( barrelVec * farDist ) -->
+
+	<!-- // Straight line for center cone -->
+	<!-- DebugDrawLine( barrelPos, nearPos, 255, 0, 0, true, drawTime ) -->
+	<!-- DebugDrawLine( nearPos, farPos, 255, 255, 0, true, drawTime ) -->
+
+	<!-- // Circle representing spread at near distance -->
+	<!-- radius = spreadSin * nearDist -->
+	<!-- array<vector> pointsOnCircleNear = DebugDrawCircle( nearPos, circleAng, radius, 255, 0, 0, true, drawTime ) -->
+	<!-- for ( int i = 0; i < pointsOnCircleNear.len(); i++ ) -->
+		<!-- DebugDrawLine( barrelPos, pointsOnCircleNear[i], 255, 0, 0, true, drawTime ) -->
+	<!-- DebugDrawText( nearPos + <0, 0, radius + 15>, string( nearDmg ), true, drawTime ) -->
+
+	<!-- // Circle representing spread at far distance -->
+	<!-- radius = spreadSin * farDist -->
+	<!-- array<vector> pointsOnCircleFar = DebugDrawCircle( farPos, circleAng, radius, 255, 255, 0, true, drawTime ) -->
+	<!-- for ( int i = 0; i < pointsOnCircleFar.len(); i++ ) -->
+		<!-- DebugDrawLine( pointsOnCircleNear[i], pointsOnCircleFar[i], 255, 255, 0, true, drawTime ) -->
+	<!-- DebugDrawText( farPos + <0, 0, radius + 15>, string( farDmg ), true, drawTime ) -->
+<!-- } -->

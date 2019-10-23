@@ -1,0 +1,141 @@
+.apex-header-content {
+  text-align: center;
+  padding: 100px;
+  margin: auto;
+  width: 400px;
+}
+
+.apex-content-comparison {
+    width: 1200px;
+    margin: auto;
+}
+
+.apex-content-comparison-table table {
+    border-spacing: 0px;
+}
+
+.apex-content-comparison-table tr:nth-child(even) {
+    background-color: #222;
+}
+
+
+/* Do not color the first row */
+
+.apex-content-comparison-table tr:nth-child(odd):not(:first-child) {
+    background-color: #333;
+}
+
+.apex-content-comparison-table th {
+    height: 30pt;
+}
+
+.apex-content-comparison-table td:first-child {
+    padding-right: 30pt
+}
+
+
+/* Center values in the table, but on the first column (names) */
+
+.apex-content-comparison-table td:not(:first-child) {
+    text-align: center;
+    width: 100pt;
+}
+
+.apex_comp-pageTitle{
+    padding: 30px;
+    border-left: 5px solid #FF9000;
+    font-weight: unset;
+    margin-bottom: 60px;
+}
+
+#apex_selectors{
+    margin-bottom: 30px;
+}
+
+.apex_comp-selectorContainer{
+    display: inline-block;
+    vertical-align: top;
+    padding: 19px;
+    background: #222;
+    margin: 4px;
+    border: 1px solid #444;
+    width: 345px;
+    height: 145px;
+}
+
+/*  Customization button */
+.apex_comp-selectorContainer label{
+    font-size: 11px;
+    width: 145px;
+    margin: 1px;
+}
+
+.apex_comp-selectors{
+    color: #444;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.apex_comp-selectors{
+    color: #444;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.apex_comp-filterContainer{
+    display: inline-block;
+    border-bottom: 1px solid #777;
+    width: 100%;
+    margin: 40px 0;
+}
+
+.apex_comp-filterBorderHeader{
+    border-left: 5px solid #FF9000;
+    padding-left: 10px
+}
+
+.apex_comp-filterInput{
+    display: inline-block;
+    font-style: italic;
+    margin: 0px 50px 0px 10px;
+}
+
+#apex_column_filter{
+    width: 400px;
+}
+
+#apex_compare_table td{
+    padding: 1px 7px;
+}
+
+
+/* Index Page */
+/**************/
+
+.apex_indexPageItemContainer{
+    text-align: center;
+}
+
+.apex_indexPageItem{
+    display: inline-block;
+    width: 300px;
+    height: 200px;
+    vertical-align: top;
+    margin: 30px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.apex_indexPageItem img{
+    width: 75px;
+}
+
+.apex_indexPageItem h4{
+    margin: 10px 0;
+}
+
+.apex_indexPageItem div{
+    color: #ccc;
+}

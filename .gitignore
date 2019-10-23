@@ -1,2 +1,3 @@
 # Local data for debugging. Fill be filled on server.
-**/data/**
+**/bfv/data/**
+.idea/*
