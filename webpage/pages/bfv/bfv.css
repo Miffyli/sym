@@ -167,6 +167,7 @@
     font-size: 24px;
     font-weight: bold;
     padding: 20px 19px 0px;
+    border-top: 1px solid #444;
 }
 
 .bfv-info-specHeaderImg{

@@ -340,6 +340,7 @@ function initializeBFVSelectrion () {
 */
 function BFVinitializeIndexPage(){
   $('.indexPageItem').click(function () {
+    console.log("hererere")
       var itemClicked = $(this).find("h4").text()
       // TODO slippery slope: If title on the buttons changes,
       //                      it will break opening the page
