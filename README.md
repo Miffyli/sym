@@ -1,7 +1,7 @@
 # Sym
 Towards more open-source Symthic/Sym pages ( https://sym.gg/ )
 
-Traditionally offers information on game mechanics and weapon stats of Battlefield games. 
+Your one-place-stop for insight on game mechanics. Successor to https://symthic.com .
 
 ## Guidelines
 
@@ -11,6 +11,13 @@ Traditionally offers information on game mechanics and weapon stats of Battlefie
 * Site should be light on the server, thus things should be done on Javascript. Server just serves
   static files, javascripts and any databases in JSON files.
 
+## Design principles
+
+Each section of page has independent code, i.e. no sharing of code between games. This results to code
+duplication and some difficulties in mantaining, but this is done as games can have small or large
+differences in their mechanics, even across titles from same series (e.g. Battlefield 1 vs. Battlefield V)
+2. 
+  
 ## TODOs
 
 * Sym.gg basic pages
@@ -36,3 +43,11 @@ Traditionally offers information on game mechanics and weapon stats of Battlefie
 * BF3 Vehicle Data page
 * BFH Weapon Charts and Comparison Pages
 * Titanfall 1 Weapon Charts and Comparison Pages
+
+## Licensing
+
+Code original to the Sym project is licensed under MIT license. 
+
+Content original to games is used under Fair Use. These are mainly small
+icons and images (e.g. images of weapons and gadgets) taken from the files
+of the corresponding video games (e.g. Battlefield and Apex Legends titles).
