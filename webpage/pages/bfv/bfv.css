@@ -149,7 +149,7 @@
 }
 
 .bfv-sym-info-section-header{
-    margin: 70px 0 20px;
+    margin: 55px 0 20px;
 }
 
 .bfv-sym-info-section-header img{
@@ -163,11 +163,26 @@
     vertical-align: middle;
 }
 
+.bfv-general-info .bfv-sym-info-section-header{
+    margin-top: 55px;
+}
+
 .bfv-sym-info-subheader{
     font-size: 24px;
     font-weight: bold;
-    padding: 20px 19px 0px;
+    padding: 20px 0px 0px;
     border-top: 1px solid #444;
+}
+
+.bfv-sym-info-subheader > img{
+    vertical-align: middle;
+    height: 30px;
+}
+
+.bfv-sym-info-subheader > div{
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 30px;
 }
 
 .bfv-info-specHeaderImg{
@@ -190,6 +205,40 @@
     width: 300px;
     padding-left: 20px;
 }
+
+/* General Info Page Specific */
+
+.bfv-genInfo-table {
+    margin-bottom: 20px;
+    background: #333;
+    border-spacing: 0;
+}
+
+.bfv-genInfo-table caption{
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.bfv-genInfo-table tr:nth-child(even){
+    background: #222;
+}
+
+.bfv-genInfo-table td{
+    padding: 2px 12px;
+    font-size: 16px;
+}
+
+.bfv-genInfo-table tr td:nth-child(1){
+    text-align: right;
+    font-style: italic;
+}
+
+.bfv-genInfo-table tr td:nth-child(2){
+    font-weight: bold;
+}
+
+
+
 
 .ui-widget-shadow{
     box-shadow: 0px 0px 5px #ccc !important;
