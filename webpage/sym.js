@@ -2,6 +2,7 @@
 const SYM_FORUMS_URL = 'https://forum.sym.gg/'
 const SYM_DISCORD_URL = 'https://discord.gg/Z9vcu46'
 const SYM_DATABROWSER_URL = 'https://sym.gg/databrowser'
+const SYM_GITHUB_URL = 'https://github.com/miffyli/sym'
 
 /*
     This code runs after the page loads all resources.
@@ -33,6 +34,8 @@ window.onload = function () {
       loadPageWithHeader('./pages/misc/contact.html', '<b>Contact Us</b>')
     } else if (clicked === 'menuStaff') {
       loadPageWithHeader('./pages/misc/staff.html', '<b>Site Staff</b>')
+    } else if (clicked === 'menuGithub') {
+      openNewTab(SYM_GITHUB_URL)
     }
   })
 
