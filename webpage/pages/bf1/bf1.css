@@ -23,6 +23,16 @@
     background-color: #222;
 }
 
+.bf1-comp-selectorContainer{
+    display: inline-block;
+    vertical-align: top;
+    padding: 19px;
+    background: #222;
+    margin: 4px;
+    border: 1px solid #444;
+    width: 345px;
+    height: 25px;
+}
 
 /* Do not color the first row */
 
