@@ -82,8 +82,14 @@ function BF1ColorVariables(variableName, weaponValues) {
       colorCodes = weaponValues.map(weaponValue => BF1_NEUTRAL_VALUE_COLOR)
     } else {
       // Sort by value so that "lower is worse".
-      // TODO reverse if variableName is one of "lower is better"
       uniqueValues.sort()
+
+      // Values are now "higher is better".
+      // If variable is not in BF1_LOWER_IS_WORSE, then
+      // reverse the list
+      if (!BF1_LOWER_IS_WORSE.has(variableName)) {
+        uniqueValues.reverse()
+      }
 
       colorCodes = []
       // Lower rank in uniqueValues -> worse value

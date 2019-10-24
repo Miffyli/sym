@@ -10,6 +10,52 @@ const BFV_DAMAGE_RANGE_STEP = 1
 // Minimum damage multiplier (9.1.2018)
 const BFV_MIN_DAMAGE_MULTIPLIER = 1.0
 
+// Set of variables that should be considered worse
+// if the number is lower
+const BFV_LOWER_IS_WORSE = new Set([
+  'SDmg',
+  'EDmg',
+  'RoF',
+  'BRoF',
+  'MagSize',
+  'InitialSpeed',
+  'TimeToLive',
+  'MaxDistance',
+  'ADSStandBaseSpreadDecCoef',
+  'HIPStandBaseSpreadDecCoef',
+  'ADSCrouchBaseSpreadDecCoef',
+  'HIPCrouchBaseSpreadDecCoef',
+  'ADSProneBaseSpreadDecCoef',
+  'HIPProneBaseSpreadDecCoef',
+  'ADSStandMoveSpreadDecCoef',
+  'HIPStandMoveSpreadDecCoef',
+  'ADSCrouchMoveSpreadDecCoef',
+  'HIPCrouchMoveSpreadDecCoef',
+  'ADSProneMoveSpreadDecCoef',
+  'HIPProneMoveSpreadDecCoef',
+  'ADSStandBaseSpreadDecCoef',
+  'ADSStandBaseSpreadDecExp',
+  'HIPStandBaseSpreadDecExp',
+  'ADSCrouchBaseSpreadDecExp',
+  'HIPCrouchBaseSpreadDecExp',
+  'ADSProneBaseSpreadDecExp',
+  'HIPProneBaseSpreadDecExp',
+  'ADSStandMoveSpreadDecExp',
+  'HIPStandMoveSpreadDecExp',
+  'ADSCrouchMoveSpreadDecExp',
+  'HIPCrouchMoveSpreadDecExp',
+  'ADSProneMoveSpreadDecExp',
+  'HIPProneMoveSpreadDecExp',
+  'ADSStandBaseSpreadDecExp',
+  'ADSProneRecoilDecExponent',
+  'ADSStandRecoilDecExponent',
+  'ADSCrouchRecoilDecExponent',
+  'ADSProneRecoilDecFactor',
+  'ADSStandRecoilDecFactor',
+  'ADSCrouchRecoilDecFactor',
+  'ShotsPerShell'
+])
+
 // A flag to tell if we have loaded BFV data already
 var BFVDataLoaded = false
 // This will be the main holder of all the weapon data.
