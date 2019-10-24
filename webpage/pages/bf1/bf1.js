@@ -10,6 +10,42 @@ const BF1_DAMAGE_RANGE_STEP = 1
 // Minimum damage multiplier (9.1.2018)
 const BF1_MIN_DAMAGE_MULTIPLIER = 1.0
 
+// Set of variables that should be considered worse
+// if the number is lower
+const BF1_LOWER_IS_WORSE = new Set([
+    'SDmg',
+    'EDmg',
+    'RoF',
+    'BRoF',
+    'MagSize',
+    'InitialSpeed',
+    'TimeToLive',
+    'MaxDistance',
+    'ADSRecoilDec',
+    'HIPRecoilDec',
+    'ADSStandBaseSpreadDec',
+    'HIPStandBaseSpreadDec',
+    'ADSCrouchBaseSpreadDec',
+    'HIPCrouchBaseSpreadDec',
+    'ADSProneBaseSpreadDec',
+    'HIPProneBaseSpreadDec',
+    'ADSStandMoveSpreadDec',
+    'HIPStandMoveSpreadDec',
+    'ADSCrouchMoveSpreadDec',
+    'HIPCrouchMoveSpreadDec',
+    'ADSProneMoveSpreadDec',
+    'HIPProneMoveSpreadDec',
+    "ADSStandBaseSpreadDec",
+    "ADSProneRecoilDec",
+    "ADSStandRecoilDec",
+    "ADSCrouchRecoilDec",
+    "ADSRecoilDec",
+    "HeatClipSize",
+    "FirstShotHIPSpreadMul",
+    "FirstShotADSSpreadMul",
+    "ShotsPerShell"
+])
+
 // A flag to tell if we have loaded BF1 data already
 var BF1DataLoaded = false
 // This will be the main holder of all the weapon data.
