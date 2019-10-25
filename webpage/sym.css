@@ -212,8 +212,9 @@
 }
 
 .staff-member-box {
-    border: 2px solid #333;
-    border-radius: 10px;
+    border-bottom: 1px solid #444;
+    padding: 15px 0;
+    margin: 0 !important;
 }
 
 .staff-member-links a {
@@ -232,4 +233,24 @@
 
 .staff-member-box h2>b {
     font-size: 140%;
+}
+
+
+
+/**************************************/
+/*********** News page ****************/
+/**************************************/
+
+.sym-news-entry{
+    margin: 40px 0;
+}
+
+.sym-news-entry div{
+    font-style: italic;
+    font-weight: bold;
+}
+
+.sym-news-entry p{
+    border-left: 2px solid #A9D852;
+    padding: 0 10px;
 }
