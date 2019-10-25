@@ -155,6 +155,8 @@
 .sym-pageSelections {
     text-align: center;
     font-weight: bold;
+    width: 1575px;
+    margin: auto;
 }
 
 .sym-pageSelections img {
@@ -164,9 +166,9 @@
 
 .sym-pageSelections > div {
     display: inline-block;
-    padding: 20px;
+    padding: 15px;
     cursor: pointer;
-    margin: 20px;
+    margin: 15px;
     background: #444;
     user-select: none;
 }
