@@ -1,9 +1,18 @@
 # Sym
-Towards more open-source Symthic/Sym pages ( https://sym.gg/ )
+Hosted at (sym.gg)[https://sym.gg/].
 
 Your one-place-stop for insight on game mechanics. Successor to https://symthic.com .
 
-## Guidelines
+
+## Contributing and suggestions
+
+All suggestions for new features and reports for bugs should start by creating an 
+[issue](https://github.com/miffyli/sym/issues), where we can discuss the topic further. 
+
+If you spotted a typo or a small bug on site (max .few lines of changes), feel free to make a
+[pull request](https://github.com/miffyli/sym/pulls) out of it.
+
+### Code guidelines
 
 * Javascript should be written according to [JavaScript Standard Style](https://standardjs.com/)
 * For HTML5 follow [W3School's HTML5 style guide](https://www.w3schools.com/html/html5_syntax.asp)
@@ -11,42 +20,29 @@ Your one-place-stop for insight on game mechanics. Successor to https://symthic.
 * Site should be light on the server, thus things should be done on Javascript. Server just serves
   static files, javascripts and any databases in JSON files.
 
+
 ## Design principles
 
 Each section of page has independent code, i.e. no sharing of code between games. This results to code
 duplication and some difficulties in mantaining, but this is done as games can have small or large
-differences in their mechanics, even across titles from same series (e.g. Battlefield 1 vs. Battlefield V)
-2. 
-  
-## TODOs
+differences in their mechanics, even across titles from same series (e.g. Battlefield 1 vs. Battlefield V).
+Game-specific pages can refer to elements from main site, but not the other way around. 
 
-* Sym.gg basic pages
-* BFV general pages
-* BFV Weapon Chart page
-* BFV Weapon Comparison page
-* BFV Equipment Data page
-* BFV Vehicle Data page
 
-## TODO-SOONs
+## Team
 
-* BF1 Weapon Charts and Comparison Pages
-* BF4 Weapon Charts and Comparison Pages
-* Apex Legends Weapon Charts and Comparison Pages
+Currently Sym webpages are mainly developed by [Miffyli](https://github.com/miffyli),
+[Robenter](https://github.com/robenter) and [IncarnateNA](https://github.com/IncarnateNA).
 
-## TODO-LATERs
 
-* BF1 Vehicle Data page
-* BF4 Vehicle Data page
-* SWBF2 Weapon Charts and Comparison Pages
-* Titanfall 2 Weapon Charts and Comparison Pages
-* BF3 Weapon Charts and Comparison Pages
-* BF3 Vehicle Data page
-* BFH Weapon Charts and Comparison Pages
-* Titanfall 1 Weapon Charts and Comparison Pages
+## Contact
+
+You find all current main developers on [Sym Discord server](https://discord.gg/Z9vcu46).
+
 
 ## Licensing
 
-Code original to the Sym project is licensed under MIT license. 
+Code original to the Sym website is licensed under MIT license. 
 
 Content original to games is used under Fair Use. These are mainly small
 icons and images (e.g. images of weapons and gadgets) taken from the files
