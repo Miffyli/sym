@@ -56,14 +56,6 @@ function BFVinitializeChartPage() {
         showHideClasses();
     });
 
-    $("#showHideStats input").checkboxradio(
-        {icon: false}
-    );
-    $("#showHideStats input").change(function(){
-        this.blur();
-        showHideStats();
-    });
-
     $("#showHideSubCats input").checkboxradio(
         {icon: false}
     );
@@ -121,7 +113,6 @@ function printWeapons(){
         initializeCustomizationsRow(newWeaponRowObj);
 
         $(newWeaponRowObj).effect("highlight");
-        showHideStats();
     });
 
     $(document).tooltip({track: true});
@@ -135,7 +126,6 @@ function printWeapons(){
        handle: ".sortDragIcon"
     });
 
-    showHideStats();
     showHideSubCats();
     //cleanUpStuff();
 }
@@ -238,16 +228,19 @@ function updateWeapon(selectedCustomizations, selectedCustButton){
     var weaponRow = $(selectedCustButton).parentsUntil("tbody", "tr");
     $(weaponRow).find(".lblRPMValue").text(weaponStats.BRoF);
     $(weaponRow).find(".lblSpeedValue").text(weaponStats.InitialSpeed);
+    $(weaponRow).find(".lblMag").text(weaponStats.MagSize);
     $(weaponRow).find(".damageChartContainer").html(createDamageChart(weaponStats.Damages, weaponStats.Dmg_distances, weaponStats.ShotsPerShell))
-    //$(weaponRow).find(".magGraphicBox").html(createMagGraphic(weaponStats.MagSize,weaponStats.Ammo.includes("Incendiary")));
-    $(weaponRow).find(".reloadDataAndMagCount").html(createReloadGraphic(weaponStats.ReloadEmpty, weaponStats.ReloadLeft, weaponStats.MagSize, weaponStats.Ammo));
+    $(weaponRow).find(".reloadDataAndMagCount").html(createBulletSpeedGraphic(weaponStats.InitialSpeed, weaponStats.Drag) + createReloadGraphic(weaponStats.ReloadEmpty, weaponStats.ReloadLeft, weaponStats.MagSize, weaponStats.Ammo));
     $(weaponRow).find(".recoilGraphicBox").html(createRecoilGraphic(weaponStats.ADSStandRecoilLeft, weaponStats.ADSStandRecoilRight, weaponStats.ADSStandRecoilUp, weaponStats.ADSStandRecoilInitialUp));
     $(weaponRow).find(".spreadLabels").html(createSpreadLabels(weaponStats.ADSStandMoveMin, weaponStats.ADSStandBaseMin));
     $(weaponRow).find(".spreadCircles").html(createSpreadGraphic(weaponStats.ADSStandBaseMin, weaponStats.ADSStandMoveMin));
     $(weaponRow).find(".hipSpreadContainer").html(createHipSpreadGraphic(weaponStats.HIPStandMoveMin, weaponStats.HorDispersion));
-
     $(weaponRow).find(".lblDeployTime").html(weaponStats.DeployTime + "<span class='lblSuffixText'> s</span>");
-
+    $(weaponRow).find(".spreadTable").replaceWith(createSpreadTableGraphic(weaponStats.ADSStandBaseMin,weaponStats.ADSCrouchBaseMin,weaponStats.ADSProneBaseMin,
+                                                  weaponStats.ADSStandMoveMin,weaponStats.ADSCrouchMoveMin,weaponStats.ADSProneMoveMin,
+                                                  weaponStats.HIPStandBaseMin,weaponStats.HIPCrouchBaseMin,weaponStats.HIPProneBaseMin,
+                                                  weaponStats.HIPStandMoveMin,weaponStats.HIPCrouchMoveMin,weaponStats.HIPProneMoveMin,
+                                                  weaponStats.ADSStandBaseSpreadInc, weaponStats.HIPStandBaseSpreadInc));
 
 }
 
@@ -310,7 +303,7 @@ function createReloadGraphic(reloadEmpty, reloadLeft, magSize, ammoType){
 }
 
 function formatAmmoType(ammo){
-    var newAmmo = ammo.replace("Carcano65x52mm", "6.5x52mm Carcano").replace("_Semi", "").replace("_SMG", "").replace("_Heavy", "").replace("_Pistol", "").replace("_Bolt", " ").replace("_SLR", " ").replace("Mauser", "Mauser ").replace("303", ".303").replace("792", "7.92").replace("Carbine", "").replace("Heavy", "").replace("Sniper", "");
+    var newAmmo = ammo.replace("Carcano65x52mm", "6.5x52mm Carcano").replace("_Semi", "").replace("_SMG", "").replace("_Heavy", "").replace("_Pistol", "").replace("_Bolt", " ").replace("_SLR", " ").replace("Mauser", "Mauser ").replace("303", ".303").replace("792", "7.92").replace("Carbine", "").replace("Heavy", "").replace("Sniper", "").replace("_ShortBarrel", "");
     newAmmo = newAmmo.replace("75", "7.5").replace("351W", ".351 W").replace("35R", ".35 R").replace("_Fast", "").replace("_A5", "").replace("_Drilling", "").replace("_Improved", "").replace("_1897", "").replace("Incendiary", "").replace("LongRange", "").replace("_LowDrag", "").replace("Rifle", "").replace("_Aero", " ").replace("_", " ");
     return newAmmo;
 }
@@ -416,14 +409,14 @@ function createSpreadTableGraphic(ADSStand, ADSCrouch, ADSProne, ADSStandMove, A
                                   ADSIncrease, HIPIncrease){
     var tableGraphic = "<table class='spreadTable'>" +
                            "<tr>" + "<td></td><td>ADS</td><td>HIP</td>" + "</tr>" +
-                           "<tr>" + "<td rowspan='3'><img src='./img/standing.png'></td><td>" + roundToTwo(ADSStand) + "</td><td>" + roundToTwo(HIPStand) + "</td>" + //<td rowspan='3'>" + ADSIncrease + "</td>" + "</tr>" +
-                           "<tr>" + "<td>" + roundToTwo(ADSCrouch) + "</td><td>" + roundToTwo(HIPCrouch) + "</td>" + "</tr>" +
-                           "<tr>" + "<td>" + roundToTwo(ADSProne) + "</td><td>" + roundToTwo(HIPProne) + "</td>" + "</tr>" +
-                           "<tr>" + "<td rowspan='3'><img src='./img/moving.png'></td><td>" + roundToTwo(ADSStandMove) + "</td><td>" + roundToTwo(HIPStandMove) + "</td>" + //<td rowspan='3'>" + HIPIncrease + "</td>" + "</tr>" +
-                           "<tr>" + "<td>" + roundToTwo(ADSCrouchMove) + "</td><td>" + roundToTwo(HIPCrouchMove) + "</td>" + "</tr>" +
-                           "<tr>" + "<td>" + roundToTwo(ADSProneMove) + "</td><td>" + roundToTwo(HIPProneMove) + "</td>" + "</tr>" +
+                           "<tr>" + "<td rowspan='3'><img src='./img/standing.png'></td><td>" + roundToTwo(ADSStand) + "°</td><td>" + roundToTwo(HIPStand) + "°</td>" +
+                           "<tr>" + "<td>" + roundToTwo(ADSCrouch) + "°</td><td>" + roundToTwo(HIPCrouch) + "°</td>" + "</tr>" +
+                           "<tr>" + "<td>" + roundToTwo(ADSProne) + "°</td><td>" + roundToTwo(HIPProne) + "°</td>" + "</tr>" +
+                           "<tr>" + "<td rowspan='3'><img src='./img/moving.png'></td><td>" + roundToTwo(ADSStandMove) + "°</td><td>" + roundToTwo(HIPStandMove) + "°</td>" +
+                           "<tr>" + "<td>" + roundToTwo(ADSCrouchMove) + "°</td><td>" + roundToTwo(HIPCrouchMove) + "°</td>" + "</tr>" +
+                           "<tr>" + "<td>" + roundToTwo(ADSProneMove) + "°</td><td>" + roundToTwo(HIPProneMove) + "°</td>" + "</tr>" +
 
-                           "<tr>" + "<td class='scaleIncreaseCell'><img src='./img/increase.png'></td><td>" + roundToTwo(ADSIncrease) + "</td><td>" + roundToTwo(HIPIncrease) + "</td>" + "</tr>" +
+                           "<tr>" + "<td class='scaleIncreaseCell'><img src='./img/increase.png'></td><td>" + roundToTwo(ADSIncrease) + "°</td><td>" + roundToTwo(HIPIncrease) + "°</td>" + "</tr>" +
 
                        "</table>"
     return tableGraphic;
@@ -746,67 +739,7 @@ function showHideSubCats(){
     }
 }
 
-function showHideStats(){
-    if ($("#showROFCheck").is(":checked")){
-        $(".lblRPM").css("visibility","unset");
-    } else {
-        $(".lblRPM").css("visibility","hidden");
-    }
-    if ($("#showSpeedCheck").is(":checked")){
-        $(".lblSpeed").css("visibility","unset");
-    } else {
-        $(".lblSpeed").css("visibility","hidden");
-    }
-    if ($("#showDamageCheck").is(":checked")){
-        $(".damageChartContainer").css("visibility","unset");
-    } else {
-        $(".damageChartContainer").css("visibility","hidden");
-    }
-    if ($("#showReloadCheck").is(":checked")){
-        $(".sectionReload").css("visibility","unset");
-    } else {
-        $(".sectionReload").css("visibility","hidden");
-    }
-    if ($("#showAmmoCheck").is(":checked")){
-        $(".lblMagText").css("visibility","unset");
-    } else {
-        $(".lblMagText").css("visibility","hidden");
-    }
-    if ($("#showAmmoGrahicCheck").is(":checked")){
-        $(".magGraphicBox").css("visibility","unset");
-    } else {
-        $(".magGraphicBox").css("visibility","hidden");
-    }
-    if ($("#showRecoilCheck").is(":checked")){
-        $(".recoilGraphicBox").css("visibility","unset");
-    } else {
-        $(".recoilGraphicBox").css("visibility","hidden");
-    }
-    if ($("#showSpreadCheck").is(":checked")){
-        $(".spreadLabels").css("visibility","unset");
-        $(".spreadCircles").css("visibility","unset");
-    } else {
-        $(".spreadLabels").css("visibility","hidden");
-        $(".spreadCircles").css("visibility","hidden");
-    }
-    if ($("#showHipSpreadCheck").is(":checked")){
-        $(".hipSpreadContainer").css("visibility","unset");
-    } else {
-        $(".hipSpreadContainer").css("visibility","hidden");
-    }
-    if ($("#showDeployCheck").is(":checked")){
-        $(".deployTimeBox").css("visibility","unset");
-    } else {
-        $(".deployTimeBox").css("visibility","hidden");
-    }
-    if ($("#showToolsCheck").is(":checked")){
-        $(".custButtons").css("visibility","unset");
-        $(".afterCustButtons").css("visibility","unset");
-    } else {
-        $(".custButtons").css("visibility","hidden");
-        $(".afterCustButtons").css("visibility","hidden");
-    }
-}
+
 
 var weaponSubCats = new Object();
 

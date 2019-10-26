@@ -26,6 +26,15 @@
 
 .spreadTable tr:nth-child(1) td{
     font-style: italic;
+    text-align: center;
+}
+
+.spreadTable tr:nth-child(2) td:nth-child(2){
+    color: #A9D852;
+}
+
+.spreadTable tr:nth-child(5) td:nth-child(2){
+    color: #FF9000;
 }
 
 .spreadTable td {
@@ -214,21 +223,33 @@
     font-size: 14px;
     width: 1280px;
     margin: 10px auto;
-    background: #171717;
 }
 
 #weaponsToolbar > .toolboxRow > div {
-    margin: 10px;
+    margin: 10px 40px;
+    text-align: center;
+}
+
+.bfvChart-dropdownRow > div{
     display: inline-block;
+}
+
+.bfvChart-dropdownRow{
+    text-align: center;
 }
 
 .ui-menu{
     width: 185px;
 }
 
+#showHideCheckboxes label {
+    width: 100px;
+    margin-bottom: 8px;
+}
+
 #showHideCheckboxes img{
-    width: 18px;
-    height: 18px;
+    width: 40px;
+    height: 40px;
 }
 
 /* ************ */
@@ -271,7 +292,6 @@
 
 .lblSpeed {
     font-size: 14px;
-    color: #72c2c2;
 }
 
 .lblSpeed img{
@@ -368,7 +388,7 @@ fiveMline {
 }
 
 .imgReload {
-    width: 24px;
+    width: 16px;
     vertical-align: text-bottom;
     margin-right: 10px;
 }
@@ -467,7 +487,7 @@ fiveMline {
 }
 
 .lblDeployTime{
-    font-size: 11px;
+    font-size: 13px;
 }
 
 .custButtons{
@@ -477,7 +497,7 @@ fiveMline {
 
 .custButtons label{
     margin: 1px;
-    width: 100px;
+    width: 105px;
 }
 
 .afterCustButtons{
@@ -495,7 +515,7 @@ fiveMline {
     display: inline-block;
 }
 .custom-combobox-toggle {
-    position: absolute;
+    position: absolute !important;
     top: 0;
     bottom: 0;
     margin-left: -1px;
