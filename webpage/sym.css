@@ -126,7 +126,7 @@
 .sym-main-content-header{
     width: 900px;
     margin: auto;
-    font-weight: unset;
+    font-weight: bold;
     text-align: center;
     padding: 40px 0px 0px 0px;
 }

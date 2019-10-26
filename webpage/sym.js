@@ -15,7 +15,7 @@ window.onload = function () {
     var clicked = $(this).attr('id')
 
     if (clicked === 'menuNews') {
-      loadPageWithHeader('./pages/misc/news.html', '')
+      loadPageWithHeader('./pages/misc/news.html', 'News')
     } else if (clicked === 'menuForums') {
       openNewTab(SYM_FORUMS_URL)
     } else if (clicked === 'menuDiscord') {
@@ -27,13 +27,13 @@ window.onload = function () {
     } else if (clicked === 'menuDatabrowser') {
       openNewTab(SYM_DATABROWSER_URL)
     } else if (clicked === 'menuAbout') {
-      loadPageWithHeader('./pages/misc/about.html', '<b>About Sym</b>')
+      loadPageWithHeader('./pages/misc/about.html', 'About Sym')
     } else if (clicked === 'menuFAQ') {
-      loadPageWithHeader('./pages/misc/faq.html', '<b>Frequently Asked Questions<b>')
+      loadPageWithHeader('./pages/misc/faq.html', 'Frequently Asked Questions')
     } else if (clicked === 'menuContact') {
-      loadPageWithHeader('./pages/misc/contact.html', '<b>Contact Us</b>')
+      loadPageWithHeader('./pages/misc/contact.html', 'Contact Us')
     } else if (clicked === 'menuStaff') {
-      loadPageWithHeader('./pages/misc/staff.html', '<b>Site Staff</b>')
+      loadPageWithHeader('./pages/misc/staff.html', 'Site Staff')
     } else if (clicked === 'menuGithub') {
       openNewTab(SYM_GITHUB_URL)
     }
@@ -51,7 +51,7 @@ window.onload = function () {
 
   // Handle click for 'LEARN MORE' button, loads about page
   $('.sym-main-desc-learnMore-btn').click(function () {
-    loadPageWithHeader('./pages/misc/about.html', '<b>About Sym</b>')
+    loadPageWithHeader('./pages/misc/about.html', 'About Sym')
   })
 }
 
