@@ -1,7 +1,7 @@
 # Sym
-Hosted at (sym.gg)[https://sym.gg/].
+Hosted at [sym.gg](https://sym.gg).
 
-Your one-place-stop for insight on game mechanics. Successor to https://symthic.com .
+Your one-place-stop for insight on game mechanics. Successor to [symthic.com](https://symthic.com).
 
 
 ## Contributing and suggestions
