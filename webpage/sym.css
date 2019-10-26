@@ -239,6 +239,12 @@
     font-size: 140%;
 }
 
+.sym-info-section-header span{
+    font-size: 40px;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
 /**************************************/
 /*********** News page ****************/
 /**************************************/
