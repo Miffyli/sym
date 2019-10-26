@@ -131,6 +131,12 @@
     padding: 40px 0px 0px 0px;
 }
 
+.sym-loading{
+    text-align: center;
+    font-size: 40px;
+    font-weight: bold;
+    padding: 100px;
+}
 
 /**************************************/
 /*********** Footer *******************/
@@ -153,6 +159,8 @@
 .sym-pageSelections {
     text-align: center;
     font-weight: bold;
+    width: 1575px;
+    margin: auto;
 }
 
 .sym-pageSelections img {
@@ -162,9 +170,9 @@
 
 .sym-pageSelections > div {
     display: inline-block;
-    padding: 20px;
+    padding: 15px;
     cursor: pointer;
-    margin: 20px;
+    margin: 15px;
     background: #444;
     user-select: none;
 }
@@ -208,8 +216,9 @@
 }
 
 .sym-staff-member-box {
-    border: 2px solid #333;
-    border-radius: 10px;
+    border-bottom: 1px solid #444;
+    padding: 15px 0;
+    margin: 0 !important;
 }
 
 .sym-staff-member-links a {
@@ -230,6 +239,10 @@
     font-size: 140%;
 }
 
+/**************************************/
+/*********** News page ****************/
+/**************************************/
+
 .sym-news-entry-date {
 	padding: 0 10px;
 	font-style: italic;
@@ -248,3 +261,4 @@
 	border-top: 2px solid #333;
 	padding-top: 20px;
 }
+
