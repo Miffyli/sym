@@ -4,6 +4,11 @@ const SYM_DISCORD_URL = 'https://discord.gg/Z9vcu46'
 const SYM_DATABROWSER_URL = 'https://sym.gg/databrowser'
 const SYM_GITHUB_URL = 'https://github.com/miffyli/sym'
 
+// Number of news items available, stored under
+// misc/news_items/#.html . This value should be updated
+// when new entries for News are made
+const SYM_NUM_NEWS_ITEMS = 1
+
 /*
     This code runs after the page loads all resources.
     Used to set up events and widgets and any other code that needs
@@ -15,7 +20,8 @@ window.onload = function () {
     var clicked = $(this).attr('id')
 
     if (clicked === 'menuNews') {
-      loadPageWithHeader('./pages/misc/news.html', 'News')
+      // Only load three latest news for now
+      loadPageWithHeader('./pages/misc/news.html', 'News', function() { loadNewestNewsItems(1, 3) })
     } else if (clicked === 'menuForums') {
       openNewTab(SYM_FORUMS_URL)
     } else if (clicked === 'menuDiscord') {
@@ -68,8 +74,6 @@ function loadPageWithHeader (file, header, callback = undefined) {
   $('.sym-main-content').load(file, callback)
   // Scroll back up
   $('html,body').scrollTop(0)
-  // Typeset math, if any
-  MathJax.typeset()
 }
 
 /*
@@ -86,10 +90,37 @@ function openNewTab (url) {
   }
 }
 
+/*
+    On new's page, load numItems amount of newest articles
+    starting from itemIndex to show on the page
+*/
+function loadNewestNewsItems (itemIndex, numItems) {
+  // Check if we should even load any items
+  if (numItems == 0) {
+    return
+  }
+
+  // Sanity check: Do not load items that do not exist
+  if (itemIndex < 1 || itemIndex > SYM_NUM_NEWS_ITEMS) {
+    return
+  }
+
+  // Setup AJAX request to load and include data
+  $.ajax({
+    type: 'GET',   
+    url: `./pages/misc/news_items/${itemIndex}.html`,
+    success : function (data, states, jqXHR)
+    {
+      $('.sym-news').append(jqXHR.responseText);
+      // Recursively load next news items
+      loadNewestNewsItems(itemIndex + 1, numItems - 1)
+    }
+  })
+}
 
 /*
     Rounds a number to at most 2 decimal places but will not add trailing zeros
 */
 function roundToTwo(num) {
-    return +(Math.round(num + "e+2")  + "e-2");
+  return +(Math.round(num + 'e+2')  + 'e-2');
 }

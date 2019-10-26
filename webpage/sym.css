@@ -229,3 +229,22 @@
 .sym-staff-member-box h2>b {
     font-size: 140%;
 }
+
+.sym-news-entry-date {
+	padding: 0 10px;
+	font-style: italic;
+	font-size: large;
+}
+
+.sym-news-entry > * {
+	padding: 0 20px;
+}
+
+.sym-news-entry > h1 {
+	padding: 0 0;
+}
+
+.sym-news div:not(:first-child) {
+	border-top: 2px solid #333;
+	padding-top: 20px;
+}
