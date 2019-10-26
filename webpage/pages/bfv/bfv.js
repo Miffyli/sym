@@ -327,6 +327,7 @@ function openBFVVehiclePage () {
 function BFVOpenPageByName(pageName) {
   // Remove highlighting
   $('.sym-pageSelections > div').removeClass('selected-selector')
+  $('.bfv-main-content').html("<div class='sym-loading'>Loading...</div>")
   // Select right page according to pageName, highlight its
   // button and open the page
   if (pageName === 'Weapon Charts') {
@@ -386,6 +387,7 @@ function initializeBFVSelectrion () {
 */
 function BFVinitializeIndexPage(){
   $('.indexPageItem').click(function () {
+    console.log("hererere")
       var itemClicked = $(this).find("h4").text()
       // TODO slippery slope: If title on the buttons changes,
       //                      it will break opening the page
