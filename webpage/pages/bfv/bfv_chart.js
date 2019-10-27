@@ -81,11 +81,11 @@ function showBlank(obj){
 function printWeapons(){
     var statsHtml = "";
 
-    statsHtml += printWeaponClass(8);
     statsHtml += printWeaponClass(2);
     statsHtml += printWeaponClass(1);
     statsHtml += printWeaponClass(3);
     statsHtml += printWeaponClass(4);
+    statsHtml += printWeaponClass(8);
 
     $("#pageBody").html(statsHtml);
     showHideClasses();
