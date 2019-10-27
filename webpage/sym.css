@@ -126,7 +126,7 @@
 .sym-main-content-header{
     width: 900px;
     margin: auto;
-    font-weight: unset;
+    font-weight: bold;
     text-align: center;
     padding: 40px 0px 0px 0px;
 }
@@ -215,46 +215,62 @@
     border-left: 2px solid #A9D852;
 }
 
-.staff-member-box {
+.sym-staff-member-box {
     border-bottom: 1px solid #444;
     padding: 15px 0;
     margin: 0 !important;
 }
 
-.staff-member-links a {
+.sym-staff-member-links a {
 	float: right;
 	margin: 10px;
 }
 
-.staff-member-box b {
+.sym-staff-member-box b {
     color: #FF9000;
 }
 
-.staff-member-box h2 {
+.sym-staff-member-box h2 {
     padding-left: 40px;
     font-size: 120%;
 }
 
-.staff-member-box h2>b {
+.sym-staff-member-box h2>b {
     font-size: 140%;
 }
 
-
+.sym-info-section-header span{
+    font-size: 40px;
+    font-weight: bold;
+    vertical-align: middle;
+}
 
 /**************************************/
 /*********** News page ****************/
 /**************************************/
 
-.sym-news-entry{
-    margin: 40px 0;
+.sym-news-entry-date {
+    line-height: 200%;
+	padding: 0 10px;
+	font-style: italic;
+	font-size: large;
+    float: right;
 }
 
-.sym-news-entry div{
-    font-style: italic;
-    font-weight: bold;
+.sym-news-entry-content {
+    padding: 0 40px;
 }
 
-.sym-news-entry p{
-    border-left: 2px solid #A9D852;
-    padding: 0 10px;
+.sym-news-entry > h1 {
+	padding: 0 0;
 }
+
+.sym-news > div {
+    margin-bottom: 30px;
+}
+
+.sym-news > div:not(:first-child) {
+	border-top: 5px solid #999;
+	padding-top: 20px;
+}
+
