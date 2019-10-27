@@ -250,21 +250,27 @@
 /**************************************/
 
 .sym-news-entry-date {
+    line-height: 200%;
 	padding: 0 10px;
 	font-style: italic;
 	font-size: large;
+    float: right;
 }
 
-.sym-news-entry > * {
-	padding: 0 20px;
+.sym-news-entry-content {
+    padding: 0 40px;
 }
 
 .sym-news-entry > h1 {
 	padding: 0 0;
 }
 
-.sym-news div:not(:first-child) {
-	border-top: 2px solid #333;
+.sym-news > div {
+    margin-bottom: 30px;
+}
+
+.sym-news > div:not(:first-child) {
+	border-top: 5px solid #999;
 	padding-top: 20px;
 }
 
