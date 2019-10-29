@@ -65,7 +65,8 @@
 }
 
 .sym-home-jumpin-btn {
-    display: inline-block;
+    border: 2px solid #B0B0B0;
+	display: inline-block;
     background: #000000;
     padding: 20px 30px;
     cursor: pointer;
@@ -259,6 +260,10 @@
 
 .sym-news-entry-content {
     padding: 0 40px;
+}
+
+.sym-news-entry-content > p{
+	padding-left: 0;
 }
 
 .sym-news-entry > h1 {
