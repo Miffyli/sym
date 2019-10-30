@@ -18,6 +18,11 @@ var addVariantCounter = 0;
 const apex_rpmTooltip = "title = 'Rounds/Minute'";
 const apex_burstTooltip = "title = 'Rounds Per Burst'";
 const apex_chargeTooltip = "title = 'Charge: Up Time - Cooldown Delay - Cooldown Time'";
+const apex_chargeUpTooltip = "title = 'Charge Up Time'";
+const apex_chargeCooldownDelayTooltip = "title = 'Charge Cooldown Delay'";
+const apex_chargeCooldownTimeTooltip = "title = 'Charge Cooldown Time'";
+const apex_chargeSpinUpTooltip = "title = 'Charge Spin Up Time'";
+const apex_chargeSpinUpCooldownTooltip = "title = 'Charge Spin Up Cooldown Time'";
 const apex_bulletSpeedTooltip = "title = 'Bullet Speed and Drag Coefficient'";
 const apex_damageTooltip = "title = 'Leg/Normal/Headshot Damage'";
 const apex_damageModsHSTooltip = "title = 'Headshot Multi - Max Headshot Distance'";
@@ -287,14 +292,14 @@ function apex_printWeapon(weaponStats, key) {
     var apex_spreadTableGraphic = apex_createSpreadTableGraphic(weaponStats.spread_stand_ads, weaponStats.spread_stand_hip, weaponStats.spread_stand_hip_run, weaponStats.spread_stand_hip_sprint, weaponStats.spread_crouch_ads, weaponStats.spread_crouch_hip, weaponStats.spread_air_ads, weaponStats.spread_air_hip, weaponStats.spread_kick_on_fire_stand_ads, weaponStats.spread_kick_on_fire_stand_hip, weaponStats.spread_kick_on_fire_crouch_ads, weaponStats.spread_kick_on_fire_crouch_hip, weaponStats.spread_kick_on_fire_air_ads, weaponStats.spread_kick_on_fire_air_hip, weaponStats.spread_decay_delay, weaponStats.spread_moving_decay_rate, weaponStats.spread_decay_rate, weaponStats.spread_moving_increase_rate);
     var attachmentGraphic = (weaponStats.menu_category == 8) ? "" : apex_printAttachments([formatWeaponName(weaponStats.printname)], weaponStats.ammo_pool_type);
     var addVariantGraphic = (weaponStats.menu_category === 8 || addVariantCounter !== 0) ? "" : "<button class='variantButton btn btn-outline-light btn-sm' " + apex_variantTooltip + ">+</button>";
-    var charge_string = "";
-    if (weaponStats['charge_time'] !== undefined && parseFloat(weaponStats['charge_time']) > 0.0){
-        charge_string = "<span class=\"ui-icon ui-icon-arrowthick-1-n\"></span>" + weaponStats['charge_time'] + "<span class='apex_lblSuffixText'> s</span>" +
-            "<span class=\"ui-icon ui-icon-transferthick-e-w\"></span><span>" + weaponStats['charge_cooldown_delay'] + "</span><span class='apex_lblSuffixText'> s</span>" +
-            "<span class=\"ui-icon ui-icon-arrowthick-1-s\"></span><span>" + weaponStats['charge_cooldown_time'] +"</span><span class='apex_lblSuffixText'> s</span></span>";
-    } else {
-        charge_string = "    ";
-    }
+    var charge_string = apex_createChargeSpinUpLabels(weaponStats);
+    // if (weaponStats['charge_time'] !== undefined && parseFloat(weaponStats['charge_time']) > 0.0){
+    //     charge_string = "<span class=\"ui-icon ui-icon-arrowthick-1-n\"></span>" + weaponStats['charge_time'] + "<span class='apex_lblSuffixText'> s</span>" +
+    //         "<span class=\"ui-icon ui-icon-transferthick-e-w\"></span><span>" + weaponStats['charge_cooldown_delay'] + "</span><span class='apex_lblSuffixText'> s</span>" +
+    //         "<span class=\"ui-icon ui-icon-arrowthick-1-s\"></span><span>" + weaponStats['charge_cooldown_time'] +"</span><span class='apex_lblSuffixText'> s</span></span>";
+    // } else {
+    //     charge_string = "    ";
+    // }
     var rtnStr = "<tr class='" + weaponStats.printname.replace(/ |\//g,"") + " sub_" + getAPEXWeaponsSubcat(weaponStats.printname) +"'>" +
         "<td class='apex_firstColumn'>" +
         "<div class='apex_lblWeaponName'>" +
@@ -311,16 +316,16 @@ function apex_printWeapon(weaponStats, key) {
         "<span class='apex_lblBurstCount' "+ apex_burstTooltip +">"+ apex_createBurstLabels(weaponStats.burst_fire_count, weaponStats.burst_fire_delay)  + "<br></span>" +
         "<span><br></span>" +
         "<span class='apex_lblRPM'>" +
-        "<span class='apex_lblRPMValue' " + apex_rpmTooltip + ">" + weaponStats['effective_fire_rate'] + "</span>" +
+        "<span class='apex_lblRPMValue' " + apex_rpmTooltip + ">" + apex_createFireRateLabels(weaponStats) + "</span>" +
         "<span class='apex_lblSuffixText'> rpm</span>" +
         "</span>" +
         "</div>" +
-        "<div class='apex_lblChargeValue' " + apex_chargeTooltip + ">"+ charge_string +
+        "<div class='apex_lblChargeValue'>"+ charge_string +
         "</div>" +
         "</td>" +
         "<td class='apex_secondColumn'>" +
         "<div class='apex_damageChartContainer' " + apex_damageTooltip + ">" + apex_createDamageChart(weaponStats.printname, weaponStats.damage_array, weaponStats.damage_distance_array_m, weaponStats.projectiles_per_shot, weaponStats.damage_headshot_scale, weaponStats.damage_leg_scale, weaponStats.allow_headshots, weaponStats.headshot_distance ) + "</div>" +
-        "<div class='apex_headShotDamageDistanceContainer' " + apex_damageModsHSTooltip + ">" + "<span class='apex_lblSuffixText'> " + "<img src='./pages/apex/icons/rui/misc/hs_skull_M.png' alt=''>x</span>" + weaponStats.damage_headshot_scale + " - " + weaponStats.headshot_distance_m + "m</div>" +
+        "<div class='apex_headShotDamageDistanceContainer' " + apex_damageModsHSTooltip + ">" + "<span class='apex_lblSuffixText'> " + "<img src='./pages/apex/icons/rui/misc/hs_skull_M.png' alt=''>x</span>" + weaponStats.damage_headshot_scale + " - " + weaponStats.headshot_distance_m + "m </div>" +
         "<div class='apex_legShotDamageDistanceContainer' " + apex_damageModsLSTooltip + ">" + "<span class='apex_lblSuffixText'> " + "<img src='./pages/apex/icons/rui/misc/octanes_real_legs.png' alt=''> x</span>" + weaponStats.damage_leg_scale + "</div>" +
         "</td>" +
         "<td>" +
@@ -417,15 +422,8 @@ function apex_updateWeapon(selectedCustomizations, selectedCustButton) {
             } else {
                 $(weaponRow).find(".apex_recoilGraphBox").html(apex_createNewRecoilGraphic(weaponStats.viewkick_pattern_data_y_avg, weaponStats.viewkick_pattern_data_x_avg, weaponStats.viewkick_pattern_data_x_min, weaponStats.viewkick_pattern_data_x_max, weaponStats.viewkick_pattern_data_sizex_avg, weaponStats.viewkick_pattern_data_sizey_avg, parseFloat(weaponStats.viewkick_pitch_base), parseFloat(weaponStats.viewkick_pitch_random), parseFloat(weaponStats.viewkick_yaw_base), parseFloat(weaponStats.viewkick_yaw_random)));
             }
-            var charge_string = "";
-            if (weaponStats['charge_time'] !== undefined && parseFloat(weaponStats['charge_time']) > 0.0){
-                charge_string = "<span class=\"ui-icon ui-icon-arrowthick-1-n\"></span>" + weaponStats['charge_time'] + "<span class='apex_lblSuffixText'> s</span>" +
-                    "<span class=\"ui-icon ui-icon-transferthick-e-w\"></span><span>" + weaponStats['charge_cooldown_delay'] + "</span><span class='apex_lblSuffixText'> s</span>" +
-                    "<span class=\"ui-icon ui-icon-arrowthick-1-s\"></span><span>" + weaponStats['charge_cooldown_time'] +"</span><span class='apex_lblSuffixText'> s</span>";
-            } else {
-                charge_string = "    ";
-            }
-            $(weaponRow).find(".apex_lblRPMValue").text(weaponStats['effective_fire_rate']);
+            var charge_string = apex_createChargeSpinUpLabels(weaponStats);
+            $(weaponRow).find(".apex_lblRPMValue").text( apex_createFireRateLabels(weaponStats));
 
             $(weaponRow).find(".apex_lblBurstCount").html(apex_createBurstLabels(weaponStats.burst_fire_count, weaponStats.burst_fire_delay)  + "<br></span>");
             $(weaponRow).find(".apex_lblChargeValue").html(charge_string);
@@ -433,8 +431,8 @@ function apex_updateWeapon(selectedCustomizations, selectedCustButton) {
             $(weaponRow).find(".apex_damageChartContainer").html(apex_createDamageChart(weaponStats.printname, weaponStats.damage_array, weaponStats.damage_distance_array_m, weaponStats.projectiles_per_shot, weaponStats.damage_headshot_scale, weaponStats.damage_leg_scale, weaponStats.allow_headshots, weaponStats.headshot_distance));
             // "<div class='apex_damageChartContainer' " + apex_damageTooltip + ">" + apex_createDamageChart(weaponStats.printname, weaponStats.damage_array, weaponStats.damage_distance_array_m, weaponStats.projectiles_per_shot, weaponStats.damage_headshot_scale, weaponStats.damage_leg_scale, weaponStats.allow_headshots, weaponStats.headshot_distance ) + "</div>" +
 
-            $(weaponRow).find(".apex_headShotDamageDistanceContainer").html("<div class='apex_headShotDamageDistanceContainer' " + apex_damageModsHSTooltip + ">" + "<span class='apex_lblSuffixText'> " + "<img src='./pages/apex/icons/rui/misc/hs_skull_M.png' alt=''>x</span>" + weaponStats.damage_headshot_scale + " - " + weaponStats.headshot_distance_m + "m</div>");
-            $(weaponRow).find(".apex_legShotDamageDistanceContainer").html("<div class='apex_legShotDamageDistanceContainer' " + apex_damageModsLSTooltip + ">" + "<span class='apex_lblSuffixText'> " + "<img src='./pages/apex/icons/rui/misc/octanes_real_legs.png' alt=''> x</span>" + weaponStats.damage_leg_scale + "</div>");
+            $(weaponRow).find(".apex_headShotDamageDistanceContainer").html("<span class='apex_lblSuffixText'> " + "<img src='./pages/apex/icons/rui/misc/hs_skull_M.png' alt=''>x</span>" + weaponStats.damage_headshot_scale + " - " + weaponStats.headshot_distance_m + "m");
+            $(weaponRow).find(".apex_legShotDamageDistanceContainer").html("<span class='apex_lblSuffixText'> " + "<img src='./pages/apex/icons/rui/misc/octanes_real_legs.png' alt=''> x</span>" + weaponStats.damage_leg_scale+"");
 
             $(weaponRow).find(".apex_reloadDataAndMagCount").html(apex_createBulletSpeedGraphic(Math.round(weaponStats['projectile_launch_speed_m']), weaponStats.projectile_drag_coefficient) + apex_createReloadGraphic(weaponStats.reloadempty_time, weaponStats.reload_time, weaponStats.ammo_clip_size, weaponStats.Mods.survival_finite_ammo.ammo_stockpile_max));
             $(weaponRow).find(".apex_spreadLabels").html(apex_createSpreadLabels(weaponStats.ads_move_speed_scale, weaponStats.zoom_time_in, weaponStats.zoom_time_out, weaponStats.zoom_fov));
@@ -727,6 +725,7 @@ function apex_createNonPatternRecoilGraphic(viewkick_pattern_data_y_avg, viewkic
     return apex_recoilGraphic;
 
 }
+
 function apex_createNewRecoilGraphic(viewkick_pattern_data_y_avg, viewkick_pattern_data_x_avg, viewkick_pattern_data_x_min,
                                      viewkick_pattern_data_x_max, viewkick_pattern_data_sizex_avg, viewkick_pattern_data_sizey_avg,
                                      viewkick_pitch_base, viewkick_pitch_random, viewkick_yaw_base, viewkick_yaw_random){
@@ -783,6 +782,7 @@ function apex_createADSZoom(ads_move_speed_scale, zoom_time_in, zoom_time_out, z
     // rtnStr += "span class='apex_lblDeployTime'>" + weaponStats.deployfirst_time + "<span class='apex_lblSuffixText'> s</span><img class='apex_wpnSwitchImg' src='./pages/apex/icons/weapon_switch_small.png' alt=''><span class='apex_lblDeployTime'>" + weaponStats.deploy_time + "<span class='apex_lblSuffixText'>s</span><br><br><br><span class='apex_lblDeployTime_2'>" + formatWeaponValue(weaponStats.raise_time) + "<span class='apex_lblSuffixText'> s</span></span></span><span class='apex_lblDeployTime_4'>" + weaponStats.holster_time + "<span class='apex_lblSuffixText'>s</span></span></span>"
 
 }
+
 function apex_createSpreadGraphic(spread_stand_ads, ADSSpreadAir){
     var spreadGraphic = "";
     if (spread_stand_ads < 10.0 && ADSSpreadAir !== 0){//.4
@@ -900,8 +900,6 @@ function apex_createSpreadTableGraphic(spread_stand_ads, spread_stand_hip, sprea
         "<tr>" + "<td class='scaleIncreaseCell'><img src='./img/increase.png' alt=''></td><td class='apex_spreadLabel10' " + apex_bulletSpeed09Tooltip + ">" + spread_decay_delay + "</td><td>" + spread_decay_rate + "</td>" + "</tr>" +
         "<tr>" + "<td class='scaleIncreaseCell'><img src='./img/increase.png' alt=''></td><td class='apex_spreadLabel10' " + apex_bulletSpeed10Tooltip + ">" + spread_moving_increase_rate + "</td><td>" + spread_moving_decay_rate + "</td>" + "</tr>" +
         "</table>";
-
-
 }
 
 function apex_createBurstLabels(burst_fire_count, burst_fire_delay) {
@@ -912,6 +910,30 @@ function apex_createBurstLabels(burst_fire_count, burst_fire_delay) {
     }
 
 }
+
+function apex_createChargeSpinUpLabels(weaponStats){
+    if (weaponStats['charge_time'] !== undefined && parseFloat(weaponStats['charge_time']) > 0.0){
+        return "<span "+ apex_chargeUpTooltip +"><span class=\"ui-icon ui-icon-arrowthick-1-n\"></span>" + weaponStats['charge_time'] + "<span class='apex_lblSuffixText'> s</span></span>" +
+            "<span "+ apex_chargeCooldownDelayTooltip +"><span class=\"ui-icon ui-icon-transferthick-e-w\"></span><span>" + weaponStats['charge_cooldown_delay'] + "</span><span class='apex_lblSuffixText'> s</span></span>" +
+            "<span "+ apex_chargeCooldownTimeTooltip +"><span class=\"ui-icon ui-icon-arrowthick-1-s\"></span><span>" + weaponStats['charge_cooldown_time'] +"</span><span class='apex_lblSuffixText'> s</span></span>";
+    } else if (weaponStats['fire_rate_max_time_speedup'] !== undefined && parseFloat(weaponStats['fire_rate_max_time_speedup']) > 0.0){
+        return "<span "+ apex_chargeSpinUpTooltip +"><span class=\"ui-icon ui-icon-arrowthick-1-n\"></span>" + weaponStats['fire_rate_max_time_speedup'] + "<span class='apex_lblSuffixText'> s</span></span>" +
+            "<span "+ apex_chargeSpinUpCooldownTooltip +"><span class=\"ui-icon ui-icon-arrowthick-1-s\"></span><span>" + weaponStats['fire_rate_max_time_cooldown'] +"</span><span class='apex_lblSuffixText'> s</span></span>";
+    } else {
+        return " ";
+    }
+}
+
+function apex_createFireRateLabels(weaponStats) {
+    if(weaponStats['fire_rate_max'] === undefined) {
+        return ""+weaponStats['effective_fire_rate'] +"";
+    } else {
+        var max_effective_rof = parseFloat(weaponStats['fire_rate_max']) * 60;
+        var min_effective_rof = parseFloat(weaponStats['fire_rate']) * 60;
+        return ""+ min_effective_rof +" - " + max_effective_rof +"";
+    }
+}
+
 
 // TODO: Actually make the damage charts make sense. At  the momment a lot of stuff is just hard set to make work with what exists.
 function apex_createDamageChart(printname, damageArr, distanceArr, numOfPellets, hs_multi, ls_multi, allow_hs, max_hs_distance){
