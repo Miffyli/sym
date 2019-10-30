@@ -2,3 +2,9 @@
 **/bfv/data/**
 .idea/*
 *.psd
+.idea/modules.xml
+.idea/misc.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/sym.iml
+.idea/vcs.xml
