@@ -1,42 +1,62 @@
 <div class="apex-content-comparison">
     <h1 class="comp-pageTitle">Apex Legends Weapon Comparison </h1>
-    <div class="toolboxRow">
-        <div>
-            <div id="showHideCheckboxes" title="Show/Hide weapon classes">
-                <input type="checkbox" id="showNormalTTKCheck" name="showNormalTTKCheck" checked>
-                <label for="showNormalTTKCheck"><img src="pages/apex/icons/ammo/bullet.png" alt=""></label>
+    <div id ="ttkToolBar">
+        <div class="apex_toolboxRow">
+            <div class="TTKtoolbarRowContainer">
+                <div id="apex_showHideShieldTypes" title="Show/Hide Shield Types">
+<!--                    <input type="checkbox" id="showNormalTTKCheck" name="showNormalTTKCheck" checked>-->
+<!--                    <label for="showNormalTTKCheck"><img src="pages/apex/icons/rui/gear_icons/armor/armor_none.png" alt=""></label>-->
 
-                <label for="showWhiteTTKCheck"><img src="pages/apex/icons/ammo/highcal.png" alt=""></label>
-                <input type="checkbox" id="showWhiteTTKCheck" name="showWhiteTTKCheck" checked>
+                    <label for="showWhiteTTKCheck"><img src="pages/apex/icons/rui/gear_icons/armor/armor_white.png" alt=""></label>
+                    <input type="checkbox" id="showWhiteTTKCheck" name="showWhiteTTKCheck" checked>
 
-                <label for="showBlueTTKCheck"><img src="pages/apex/icons/ammo/shotgun.png" alt=""></label>
-                <input type="checkbox" id="showBlueTTKCheck" name="showBlueTTKCheck" checked>
+                    <label for="showBlueTTKCheck"><img src="pages/apex/icons/rui/gear_icons/armor/armor_blue.png" alt=""></label>
+                    <input type="checkbox" id="showBlueTTKCheck" name="showBlueTTKCheck" checked>
 
-                <label for="showPurpleTTKCheck"><img src="pages/apex/icons/ammo/special.png" alt=""></label>
-                <input type="checkbox" id="showPurpleTTKCheck" name="showPurpleTTKCheck" checked>
+                    <label for="showPurpleTTKCheck"><img src="pages/apex/icons/rui/gear_icons/armor/armor_purple.png" alt=""></label>
+                    <input type="checkbox" id="showPurpleTTKCheck" name="showPurpleTTKCheck" checked>
+
+                    <label for="showGoldTTKCheck"><img src="pages/apex/icons/rui/gear_icons/armor/armor_gold.png" alt=""></label>
+                    <input type="checkbox" id="showGoldTTKCheck" name="showGoldTTKCheck" checked>
+<!--                </div>-->
+<!--                <div id="apex_showHideHelmTypes" title="Show/Hide Shield Types">-->
+                    <!--                    <input type="checkbox" id="showNormalTTKCheck" name="showNormalTTKCheck" checked>-->
+                    <!--                    <label for="showNormalTTKCheck"><img src="pages/apex/icons/rui/gear_icons/armor/armor_none.png" alt=""></label>-->
+
+                    <label for="showWhiteHelmTTKCheck"><img src="pages/apex/icons/rui/gear_icons/helmet/helmet_white.png" alt=""></label>
+                    <input type="checkbox" id="showWhiteHelmTTKCheck" name="showHelmModifier" >
+
+                    <label for="showBlueHelmTTKCheck"><img src="pages/apex/icons/rui/gear_icons/helmet/helmet_blue.png" alt=""></label>
+                    <input type="checkbox" id="showBlueHelmTTKCheck" name="showHelmModifier" >
+
+                    <label for="showPurpleHelmTTKCheck"><img src="pages/apex/icons/rui/gear_icons/helmet/helmet_purple.png" alt=""></label>
+                    <input type="checkbox" id="showPurpleHelmTTKCheck" name="showHelmModifier">
+
+                    <label for="showGoldHelmTTKCheck"><img src="pages/apex/icons/rui/gear_icons/helmet/helmet_gold.png" alt=""></label>
+                    <input type="checkbox" id="showGoldHelmTTKCheck" name="showHelmModifier">
+                </div>
             </div>
         </div>
-        <div>
-            <div id="showHideTargetTypes" title="Show/Hide weapon categories">
-                <label for="useFortifiedTarget">AR<img src="pages/apex/icons/ammo/special.png" alt=""></label>
-                <input type="checkbox" id="useFortifiedTarget" name="useFortifiedTarget" checked>
+        <div class="apex_toolboxRow2">
+            <div>
+                <div id="apex_showHideTargetTypes" title="Show/Hide target types">
+                    <label for="useFortifiedTarget"><img src="pages/apex/icons/rui/Fortified.png" alt=""></label>
+                    <input type="checkbox" id="useFortifiedTarget" name="fortified_lowprofile_toggle">
 
-                <label for="useLowProfileTarget">SAR<img src="pages/apex/icons/ammo/special.png" alt=""></label>
-                <input type="checkbox" id="useLowProfileTarget" name="useLowProfileTarget" checked>
-
-<!--                <label for="showSMGCheck">SMG</label>-->
-<!--                <input type="checkbox" id="showSMGCheck" name="showSMGCheck" checked>-->
-
+                    <label for="useLowProfileTarget"><img src="pages/apex/icons/rui/Low_Profile.png" alt=""></label>
+                    <input type="checkbox" id="useLowProfileTarget" name="fortified_lowprofile_toggle">
+                </div>
             </div>
         </div>
-        <div>
-            <div id="showHideHeadShots" title="Show/Hide weapon categories">
-                <label for="useHeadShotDamage">HS<img src="pages/apex/icons/ammo/special.png" alt=""></label>
-                <input type="checkbox" id="useHeadShotDamage" name="useHeadShotDamage" checked>
+        <div class="apex_toolboxRow3">
+            <div>
+                <div id="apex_showHideHeadShots" title="Show/Hide HS / LIMP">
+                    <label for="useHeadShotDamage"><img src="pages/apex/icons/rui/misc/hs_skull_M.png" alt=""></label>
+                    <input type="checkbox" id="useHeadShotDamage" name="head_limbs_toggle">
 
-                <label for="useLimbShotDamage">Limb</label>
-                <input type="checkbox" id="useLimbShotDamage" name="useLimbShotDamage" checked>
-
+                    <label for="useLimbShotDamage"><img src="pages/apex/icons/rui/misc/octanes_real_legs.png" alt=""></label>
+                    <input type="checkbox" id="useLimbShotDamage" name="head_limbs_toggle">
+                </div>
             </div>
         </div>
     </div>
@@ -46,18 +66,18 @@
     <br>
 
     <div id="graphs">
-<!--        <div style="width:33%; float:left" id="damage_graph"></div>-->
-        <div style="width:50%; float:left" id="btkub_graph"></div>
-        <div style="width:50%; float:left" id="ttkub_graph"></div>
+        <div style="width:33%; float:left" id="damage_graph"></div>
+        <div style="width:33%; float:left" id="btkub_graph"></div>
+        <div style="width:33%; float:left" id="ttkub_graph"></div>
         <br>
-        <div style="width:50%; float:left" id="white_btkub_graph"></div>
-        <div style="width:50%; float:left" id="white_ttkub_graph"></div>
+        <div style="width:33%; float:left" id="white_btkub_graph"></div>
+        <div style="width:33%; float:left" id="white_ttkub_graph"></div>
         <br>
-        <div style="width:50%; float:left" id="blue_btkub_graph"></div>
-        <div style="width:50%; float:left" id="blue_ttkub_graph"></div>
+        <div style="width:33%; float:left" id="blue_btkub_graph"></div>
+        <div style="width:33%; float:left" id="blue_ttkub_graph"></div>
         <br>
-        <div style="width:50%; float:left" id="purple_btkub_graph"></div>
-        <div style="width:50%; float:left" id="purple_ttkub_graph"></div>
+        <div style="width:33%; float:left" id="purple_btkub_graph"></div>
+        <div style="width:33%; float:left" id="purple_ttkub_graph"></div>
     </div>
 	
 

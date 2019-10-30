@@ -1,5 +1,10 @@
 // Logic behind comparison pages
 
+//bool for using HS/Limp multis
+let use_hs_multi_calculations = false;
+let use_ls_multi_calculations = false;
+let use_lowprofile_calculations = false;
+let use_fortified_calculations = false;
 // Text for the "no weapon selected" box
 const SELECT_OPTION_1_TEXT = 'Select Weapon...';
 
@@ -15,6 +20,8 @@ const APEXCustomizationsArray = [];
 // Used to prepend to id of customization buttons to make them all unique
 // in order to accommodate multiple instances of the same weapon.
 let APEXAddVariantCounter = 0;
+
+let use_headshot_calculations = false;
 
 /* These mappings are used for the labels on the customization buttons
    These need to be updated if DICE comes out with new customization types.
@@ -239,7 +246,7 @@ function APEXUpdateTable (selectedWeapons, filters, includeOnlyDiffering) {
     var tableHtml = '<table><tr><th></th>';
     for (var i = 0; i < selectedWeapons.length; i++) {
       // Also add weapon name to table headers
-      tableHtml += '<th>' + selectedWeapons[i]['printname'] + '</th>'
+      tableHtml += '<th>' + selectedWeapons[i]['custom_name'] + '</th>'
     }
     tableHtml += '</tr>';
 
@@ -277,7 +284,7 @@ function APEXUpdateDamageGraph (selectedWeapons) {
   for (var i = 0; i < selectedWeapons.length; i++) {
     var weapon = selectedWeapons[i];
     series.push({
-      name: weapon['printname'],
+      name: weapon['custom_name'],
       data: APEXGetDamageOverDistance(weapon)
     })
   }
@@ -341,35 +348,35 @@ function APEXUpdateTTKAndBTKGraphs (selectedWeapons) {
   for (let i = 0; i < selectedWeapons.length; i++) {
     const weapon = selectedWeapons[i];
     btk_white_series.push({
-      name: weapon['printname'],
+      name: weapon['custom_name'],
       data: APEXGetWhiteBTKUpperBoundOverDistance(weapon)
     });
     ttk_white_series.push({
-      name: weapon['printname'],
+      name: weapon['custom_name'],
       data: APEXGetWhiteTTKUpperBoundOverDistance(weapon)
     });
     btk_blue_series.push({
-      name: weapon['printname'],
+      name: weapon['custom_name'],
       data: APEXGetBlueBTKUpperBoundOverDistance(weapon)
     });
     ttk_blue_series.push({
-      name: weapon['printname'],
+      name: weapon['custom_name'],
       data: APEXGetBlueTTKUpperBoundOverDistance(weapon)
     });
     btk_purple_series.push({
-      name: weapon['printname'],
+      name: weapon['custom_name'],
       data: APEXGetPurpleBTKUpperBoundOverDistance(weapon)
     });
     ttk_purple_series.push({
-      name: weapon['printname'],
+      name: weapon['custom_name'],
       data: APEXGetPurpleTTKUpperBoundOverDistance(weapon)
     });
     btk_series.push({
-      name: weapon['printname'],
+      name: weapon['custom_name'],
       data: APEXGetBTKUpperBoundOverDistance(weapon)
     });
     ttk_series.push({
-      name: weapon['printname'],
+      name: weapon['custom_name'],
       data: APEXGetTTKUpperBoundOverDistance(weapon)
     })
   }
@@ -761,6 +768,18 @@ function APEXFilterOnChange () {
   APEXUpdateTable(selectedWeapons, filters, includeOnlyDiffering)
 }
 
+function APEXUpdateFromToolBar(){
+  var selectedWeapons = APEXGetSelectedWeapons();
+
+  // Get filters for updating the table.
+  let filters = $('#column_filter')[0].value.toLowerCase();
+  let includeOnlyDiffering = $('#column_onlydiffering')[0].checked;
+  filters = filters.split(',');
+
+  APEXUpdateTable(selectedWeapons, filters, includeOnlyDiffering);
+  APEXUpdateDamageGraph(selectedWeapons);
+  APEXUpdateTTKAndBTKGraphs(selectedWeapons)
+}
 /*
   Callback function for when one of the UI selectors changes
   (different weapon, different attachments, different
@@ -777,7 +796,7 @@ function APEXSelectorsOnChange (e) {
   filters = filters.split(',');
 
   APEXUpdateTable(selectedWeapons, filters, includeOnlyDiffering);
-  // APEXUpdateDamageGraph(selectedWeapons);
+  APEXUpdateDamageGraph(selectedWeapons);
   APEXUpdateTTKAndBTKGraphs(selectedWeapons)
 }
 
@@ -852,30 +871,81 @@ function initializeAPEXComparison () {
 
   apex_updateSelectors();
 
-  $("#showHideCheckboxes input").checkboxradio(
+  $("#apex_showHideShieldTypes input").checkboxradio(
       {icon:false}
   );
-  $("#showHideCheckboxes input").change(function(){
+  $("#apex_showHideShieldTypes input").change(function(){
     this.blur();
     showHideGraphs();
   });
-  $("#showHideTargetTypes input").checkboxradio(
+  $("#apex_showHideTargetTypes input").checkboxradio(
       {icon:false}
   );
-  $("#showHideTargetTypes input").change(function(){
+  $("#apex_showHideTargetTypes input").change(function(){
+    this.blur();
+  });
+  $("#apex_showHideTargetTypes input").click(function(){
+    var thisId = $(this).attr("id");
+    if (thisId === "useLowProfileTarget" && use_fortified_calculations == true) {
+      $(this).parent().children().prop("checked", false).change();
+      $(this).prop("checked", true).change();
+    } else if (thisId === "useFortifiedTarget" && use_lowprofile_calculations == true) {
+      $(this).parent().children().prop("checked", false).change();
+      $(this).prop("checked", true).change();
+    } else if (thisId === "useFortifiedTarget" && use_fortified_calculations == true) {
+      $(this).parent().children().prop("checked", false).change();
+      $(this).prop("checked", false).change();
+    } else if (thisId === "useLowProfileTarget" && use_lowprofile_calculations == true) {
+      $(this).parent().children().prop("checked", false).change();
+      $(this).prop("checked", false).change();
+    }
     this.blur();
     updateGraphsForTargetType();
   });
-  $("#showHideHeadShots input").checkboxradio(
+  $("#apex_showHideHeadShots input").checkboxradio(
       {icon:false}
   );
-  $("#showHideHeadShots input").change(function(){
+  $("#apex_showHideHeadShots input").change(function(){
+    this.blur();
+  });
+  $("#apex_showHideHeadShots input").click(function(){
+    var thisId = $(this).attr("id");
+    if (thisId === "useLimbShotDamage" && use_headshot_calculations == true) {
+      $(this).parent().children().prop("checked", false).change();
+      $(this).prop("checked", true).change();
+    } else if (thisId === "useHeadShotDamage" && use_ls_multi_calculations == true) {
+      $(this).parent().children().prop("checked", false).change();
+      $(this).prop("checked", true).change();
+    } else if (thisId === "useHeadShotDamage" && use_headshot_calculations == true) {
+      $(this).parent().children().prop("checked", false).change();
+      $(this).prop("checked", false).change();
+    } else if (thisId === "useLimbShotDamage" && use_ls_multi_calculations == true) {
+      $(this).parent().children().prop("checked", false).change();
+      $(this).prop("checked", false).change();
+    }
     this.blur();
     updateGraphsForHeadShots();
   });
 
   APEXgenerateAPEXCustomizationsArray();
   $('#selectors > select').addClass('apex_comp-selectors').wrap("<div class='apex_comp-selectorContainer'></div>")
+}
+
+function updateGraphsForHeadShots(){
+  if ($("#useHeadShotDamage").is(":checked")){
+    console.log("useHeadShotDamage is checked");
+    use_headshot_calculations = true;
+    use_ls_multi_calculations = false;
+  } else if ($("#useLimbShotDamage").is(":checked")){
+    console.log("useLimbShotDamage is checked");
+    use_headshot_calculations = false;
+    use_ls_multi_calculations = true;
+  } else {
+    use_headshot_calculations = false;
+    use_ls_multi_calculations = false;
+  }
+  console.log("use_headshot_calculations ", use_headshot_calculations, " use_ls_multi_calculations ", use_ls_multi_calculations, " button pressed");
+  APEXUpdateFromToolBar();
 }
 
 /*
@@ -1011,7 +1081,7 @@ function apex_compInitializeCustomizationButtons (buttonObj) {
       filters = filters.split(',');
 
       APEXUpdateTable(selectedWeapons, filters, includeOnlyDiffering);
-      // APEXUpdateDamageGraph(selectedWeapons);
+      APEXUpdateDamageGraph(selectedWeapons);
       APEXUpdateTTKAndBTKGraphs(selectedWeapons)
     });
 
@@ -1020,6 +1090,7 @@ function apex_compInitializeCustomizationButtons (buttonObj) {
 
 function showHideGraphs(){
   if ($("#showNormalBTKCheck").is(":checked")){
+    $("#damage_graph").show(0);
     $("#btkub_graph").show(0);
   } else {
     $("#btkub_graph").hide(0);
@@ -1074,9 +1145,19 @@ function showHideGraphs(){
 }
 
 function updateGraphsForTargetType(){
-  console.log("target type button pressed");
+  if ($("#useFortifiedTarget").is(":checked")){
+    console.log("useFortifiedTarget is checked");
+    use_fortified_calculations = true;
+    use_lowprofile_calculations = false;
+  } else if ($("#useLowProfileTarget").is(":checked")){
+    console.log("useLowProfileTarget is checked");
+    use_fortified_calculations = false;
+    use_lowprofile_calculations = true;
+  } else {
+    use_fortified_calculations = false;
+    use_lowprofile_calculations = false;
+  }
+  console.log("use_fortified_calculations ", use_fortified_calculations, " use_lowprofile_calculations ", use_lowprofile_calculations, " button pressed");
+  APEXUpdateFromToolBar();
 }
 
-function updateGraphsForHeadShots(){
-  console.log("headshot button pressed");
-}

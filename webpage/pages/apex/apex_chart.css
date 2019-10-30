@@ -4,76 +4,12 @@
     color: white;
     cursor: default;
 } */
-
-.apex_dropbtn {
-    background-color: #3498DB;
-    color: white;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-}
-
-.apex_dropbtn:hover, .dropbtn:focus {
-    background-color: #2980B9;
-}
-
-.apex_dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.apex_dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f1f1f1;
-    min-width: 160px;
-    overflow: auto;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-}
-
-.apex_dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
-
-.apex_dropdown a:hover {background-color: #ddd;}
-
-.apex_show {display: block;}
-
-.attachment_box
-{
-    visibility: hidden;
-}
-
-.apex_mydivx
-{
-    cursor: none;
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    width:1000px;
-    height: 1000px;
-    background-color: red;
-}
-
-.apex_mycanvasx
-{
-    position: fixed;
-    /*top: 0px;*/
-    /*left: 0px;*/
-    background: url(https://i.imgur.com/jTBya7J.png) no-repeat;
-}
-
-.apex_mycanvas
-{
-    position: fixed;
-    /*top: 0px;*/
-    /*left: 0px;*/
-    background: url(https://i.imgur.com/jTBya7J.png) no-repeat;
+body {background-color: #191919;}
+.container{
+    width: 690px;
+    padding-top:10px;
+    padding-left:10px;
+    padding-right:10px;
 }
 
 .apex_classTable table {
@@ -85,37 +21,7 @@
     text-align: center;
 }
 
-.apex_spreadTable{
-    font-size: 12px !important;
-}
 
-.apex_spreadTable tr:nth-child(2) td,
-.apex_spreadTable tr:nth-child(5) td,
-.apex_spreadTable tr:nth-child(8) td{
-    padding-top: 4px
-}
-
-.apex_spreadTable tr:nth-child(1) td{
-    font-style: italic;
-}
-
-.apex_spreadTable td {
-    border: none;
-    text-align: left;
-    line-height: 10px;
-}
-
-.apex_spreadTable img{
-    width: 5px;
-}
-
-.apex_scaleIncreaseCell img{
-    width: 15px !important;
-}
-
-.apex_scaleIncreaseCell{
-    text-align: center !important;
-}
 
 .apex_tbdBox{
     width: 243px;
@@ -302,15 +208,91 @@
 /* ************ */
 /* Toolbar      */
 /* ************ */
-#weaponsToolbar{
+#apex_weaponsToolbar{
+    font-size: 14px;
+    width: 1280px;
+    margin: 10px auto;
+}
+
+#apex_weaponsToolbar > .apex_toolboxRow > div {
+    margin: 10px 40px;
+    text-align: center;
+}
+
+.apexChart-dropdownRow > div{
+    display: inline-block;
+}
+
+.apexChart-dropdownRow{
+    text-align: center;
+}
+
+.ui-menu{
+    width: 185px;
+}
+
+#apex_showHideCheckboxes label {
+    width: 100px;
+    margin-bottom: 8px;
+}
+
+#apex_showHideCheckboxes img{
+    width: 18px;
+    height: 18px;
+}
+
+#showHideCheckboxes img{
+    width: 18px;
+    height: 18px;
+}
+
+/* ************ */
+/* TTK Toolbar      */
+/* ************ */
+
+#ttkToolBar{
+    text-align: center;
     font-size: 14px;
     width: 1280px;
     margin: 10px auto;
     background: #171717;
+    alignment: center;
 }
 
-#weaponsToolbar > .toolboxRow > div {
-    margin: 10px;
+#ttkToolBar > .apex_toolboxRow > div {
+    margin: 5px;
+    /*display: inline-block;*/
+    /*margin-left: auto;*/
+    /*margin-right: auto;*/
+    /*margin-left: 300px;*/
+
+}
+
+#ttkToolBar > .apex_toolboxRow2 > div {
+    margin: 5px;
+    margin-left: 475px;
+    /*display: inline-block;*/
+    /*margin-right: auto;*/
+    /*margin-left: 300px;*/
+
+}
+
+#ttkToolBar > .apex_toolboxRow3 > div {
+    margin: 5px;
+    margin-right: 475px;
+    margin-top: -52px;
+    /*display: unset;*/
+    /*display: inline-block;*/
+    /*margin-right: auto;*/
+    /*!*margin-top: -53px;*!*/
+    /*!*margin-left: 300px;*!*/
+
+}
+
+
+.TTKtoolbarRowContainer {
+    /*width: 100px;*/
+    /*height: 100px;*/
     display: inline-block;
 }
 
@@ -318,9 +300,36 @@
     width: 185px;
 }
 
-#showHideCheckboxes img{
-    width: 18px;
-    height: 18px;
+#apex_showHideShieldTypes img{
+    width: 40px;
+    /*height: 20px;*/
+    /*text-align: center;*/
+    /*margin-left: auto;*/
+    /*margin-right: auto;*/
+    /*width: 100%;*/
+}
+
+#apex_showHideTargetTypes img{
+    display: inline-block;
+
+    /*width: 18px;*/
+    width: 40px;
+}
+
+#apex_showHideHeadShots img{
+    width: 40px;
+}
+
+#fortified_lowprofile_toggle {
+    width: 200px ;
+}
+
+.fortified_lowprofile_toggle{
+    width: 200px ;
+}
+
+.apex_lblSuffixText {
+    font-size: 10px;
 }
 
 /* ************ */
@@ -332,23 +341,17 @@
     text-align: left !important;
 }
 
-.apexweaponImg{
-    height: 70px;
-    width: auto;
-    max-width: 265px;
-    margin: 5px 0;
-}
+/*.apexweaponImg{*/
+/*    height: 70px;*/
+/*    width: auto;*/
+/*    max-width: 265px;*/
+/*    margin: 5px 0;*/
+/*}*/
 
 .apex_weaponImg{
     height: 70px;
     width: auto;
     max-width: 265px;
-    margin: 5px 0;
-}
-
-.apex_wpnSwitchImg{
-    height: 20px;
-    width: auto;
     margin: 5px 0;
 }
 
@@ -364,30 +367,28 @@
     float: right;
 }
 
-.apex_lblRPM {
+.apex_lblBurstCount{
+    margin-top: -8px;
     font-size: 16px;
     color: #FF9000;
     font-weight: bold;
     float: right;
 }
 
-.apex_lblSuffixText {
-    font-size: 10px;
+.apex_lblChargeValue {
+    margin-right: -45px;
+    font-size: 12px;
+    color: #FF9000;
+    font-weight: bold;
+    float: right;
 }
 
-.apex_lblSpeed {
-    font-size: 14px;
-    color: #72c2c2;
-}
-
-.apex_lblSpeed img{
-    vertical-align: text-bottom;
-}
-
-.apex_lblDragCoe{
-    font-size: 11px;
-    color: white;
-    vertical-align: middle;
+.apex_lblRPM {
+    margin-top: -18px;
+    font-size: 16px;
+    color: #FF9000;
+    font-weight: bold;
+    float: right;
 }
 
 /* ************ */
@@ -423,9 +424,33 @@
     font-weight: bold;
 }
 
+.apex_hs_chartMinMaxLabel{
+    font-size: 13px;
+    fill: #ff9000;
+    font-weight: bold;
+}
+
+.apex_ls_chartMinMaxLabel{
+    font-size: 11px;
+    fill: #666666;
+    font-weight: bold;
+}
+
 .apex_chartDamageLine{
     fill:none;
     stroke:#A9D852;
+    stroke-width:2;
+}
+
+.apex_hs_chartDamageLine{
+    fill:none;
+    stroke: #ff9000;
+    stroke-width:2;
+}
+
+.apex_ls_chartDamageLine{
+    fill:none;
+    stroke: #666666;
     stroke-width:2;
 }
 
@@ -449,7 +474,44 @@ fiveMline {
 /* ************ */
 /* After  Chart */
 /* ************ */
+.apex_headShotDamageDistanceContainer{
+    margin: 4px 0;
+    display: inline-block;
+    /*border: 1px solid #444;*/
+}
+
+.apex_headShotDamageDistanceContainer img{
+    height: 20px;
+    width: 25px;
+}
+
+.apex_legShotDamageDistanceContainer{
+    margin: 4px 0;
+    display: inline-block;
+    padding-left: 8px;
+    /*border: 1px solid #444;*/
+}
+
+.apex_legShotDamageDistanceContainer img{
+    height: 20px;
+}
+
 .apex_thirdColumn{
+}
+
+.apex_lblSpeed {
+    font-size: 14px;
+    color: #72c2c2;
+}
+
+.apex_lblSpeed img{
+    vertical-align: text-bottom;
+}
+
+.apex_lblDragCoe{
+    font-size: 11px;
+    color: white;
+    vertical-align: middle;
 }
 
 .apex_fourthColumn{
@@ -459,6 +521,251 @@ fiveMline {
 }
 
 .apex_sixthColumn{
+}
+
+/* **************/
+/* Spread Table */
+/* *********** **/
+
+.apex_spreadTable{
+    font-size: 12px !important;
+}
+
+.apex_spreadTable tr:nth-child(2) td,
+.apex_spreadTable tr:nth-child(5) td,
+.apex_spreadTable tr:nth-child(8) td{
+    padding-top: 4px
+}
+
+.apex_spreadTable tr:nth-child(1) td{
+    font-style: italic;
+}
+
+.apex_spreadTable td {
+    border: none;
+    text-align: left;
+    line-height: 10px;
+}
+
+.apex_spreadTable img{
+    width: 25px;
+}
+
+.apex_scaleIncreaseCell img{
+    width: 15px !important;
+}
+
+.apex_scaleIncreaseCell{
+    text-align: center !important;
+}
+
+.apex_seventhColum {
+}
+
+/* ******************/
+/* Attachment Slots */
+/* ******************/
+
+.barrel_stabilizer_l0{
+    position: absolute;
+    top: 60px;
+    left: 26px;
+    width: 100px;
+    filter: grayscale(1) saturate(500%) brightness(500%) opacity(.03);
+
+}
+.barrel_stabilizer_l1 {
+    position: absolute;
+    top: 60px;
+    left: 156px;
+    width: 100px;
+    filter: grayscale(1) saturate(500%) brightness(500%);
+}
+.barrel_stabilizer_l2 {
+    position: absolute;
+    top: 60px;
+    left: 287px;
+    width: 100px;
+}
+.barrel_stabilizer_l3 {
+    position: absolute;
+    top: 60px;
+    left: 418px;
+    width: 100px;
+    filter: hue-rotate(51.5deg) saturate(112.5%) brightness(113%);
+}
+.barrel_stabilizer_l4_flash_hider {
+    position: absolute;
+    top: 60px;
+    left: 549px;
+    width: 100px;
+}
+.apex_slot_0{
+    background:url(https://i.imgur.com/1bw3xpO.png) no-repeat;
+    float:left;
+    width:128px;
+    padding-right: 3px;
+    height:128px;
+    left: 100px;
+}
+.apex_slot_1{
+    background:url(https://i.imgur.com/1bw3xpO.png) no-repeat;
+    float:left;
+    padding-right: 3px;
+    width:128px;
+    height:128px;
+    left: 100px;
+}
+.apex_slot_2{
+    background:url(https://i.imgur.com/1bw3xpO.png) no-repeat;
+    float:left;
+    width:128px;
+    height:128px;
+    left: 100px;
+}
+.apex_slot_3{
+    background:url(https://i.imgur.com/1bw3xpO.png) no-repeat;
+    float:left;
+    margin-left: 131px;
+    width:128px;
+    height:128px;
+    left: 100px;
+}
+.apex_slot_4{
+    background:url(https://i.imgur.com/1bw3xpO.png) no-repeat;
+    float:left;
+    margin-left: 131px;
+    width:128px;
+    height:128px;
+    left: 100px;
+}
+.aa {
+    margin-left: -2px;
+}
+.attachment_slot_menu{}
+.attachment_slot_menu td.top{background: #191919; color: #3cff00; text-align:center}
+.attachment_slot_menu td{background:#ff0000; color: #ff000a; text-align:left}
+.attachment_slot_menu td.title{background:#00ff11; color: #c323ae; text-align:left}
+.attachment_slot_menu td a, .attachment_slot_menu td a:visited{color: #191919;}
+.attachment_slot_menu td.active{background:#191919; color:#333}
+.attachment_slot_menu td.active a, .attachment_slot_menu td.active a:visited{color: #191919; text-decoration:none}
+.tbl_attachmentslot{background:#191919}
+pre{overflow-x:auto; overflow-y:hidden; background: #17ff05; color: #32ff00; margin:0; padding:20px; max-width:50px}
+.hide, .hidden{display:none}
+
+.borderRadius{-moz-border-radius:0; border-radius:0;color: #191919; }
+.borderRadiusTp{-moz-border-radius:0 0 0 0; border-radius:0 0 0 0; background-color: #191919;}
+.borderRadiusBtm{-moz-border-radius:0 0 0 0 ; border-radius:0 0 0 0;}
+
+.ddcommon {position:relative;display:-moz-inline-stack; zoom:1; display:inline-block; *display:inline; cursor:default;}
+.ddcommon ul{padding:0;margin:0;}
+.ddcommon ul li{list-style-type:none;}
+.borderRadiusTp ul li:last-child{-moz-border-radius:0 0 0 0 ; border-radius:0 0 0 0;border-bottom:0 none #191919; }
+.borderRadiusBtm ul li:first-child{-moz-border-radius:0 0 0 0; border-radius:0 0 0 0 ;border-bottom:0 solid #191919; }
+
+.ddcommon .disabled img, .ddcommon .disabled span, .ddcommon.disabledAll{
+    opacity: .5; /* standard: ff gt 1.5, opera, safari */
+    -ms-filter:"alpha(opacity=50)"; /* ie 8 */
+    filter:alpha(opacity=50); /* ie lt 7 */
+    -khtml-opacity:.5; /* safari 1.x */
+    -moz-opacity:.5; /* ff lt 1.5, netscape */
+    color: #191919;
+}
+.ddcommon .clear{clear:both}
+.ddcommon .shadow{-moz-box-shadow:0 0 0 -0 #191919;-webkit-box-shadow:0 0 0 0 #191919;box-shadow: 0 0 0 0 #191919;}
+.ddcommon input.text{color: #191919;padding:0 0 0 0; position:absolute; background: #191919; display:block; width:98%; height:98%; left:2px; top:0; border:none;}
+.ddOutOfVision{position:relative; display:-moz-inline-stack; display:inline-block; zoom:1; *display:inline;}
+.borderRadius .shadow{-moz-box-shadow:0 0 0 0 #191919;-webkit-box-shadow:0 0 0 0 #191919;box-shadow: 0 0 0 0 #191919;}
+.borderRadiusBtm .shadow{-moz-box-shadow:0 0 0 0 #191919;-webkit-box-shadow:0 0 0 0 #191919;box-shadow: 0 0 0 0 #191919}
+.borderRadiusTp .border, .borderRadius .border{-moz-border-radius:0 0 0 0 ; border-radius:0 0 0 0;}
+.borderRadiusBtm .border{-moz-border-radius:0 0 0 0; border-radius:0 0 0 0;}
+img.fnone{width: 59px; height: 59px;float:none !important}
+.ddcommon .divider{width:0; height:100%; position:absolute;}
+/*.ddcommon .ddArrow{display:inline-block; position:absolute; top:50%; right:4;}*/
+/*.ddcommon .ddArrow:hover{background-position:0 100%;}*/
+.ddcommon .ddTitle{padding:0; position:relative; display:inline-block; width:100%}
+.ddcommon .ddTitle .ddTitleText{display:block;}
+.ddcommon .ddTitle .ddTitleText .ddTitleText{padding:0;}
+.ddcommon .ddTitle .description{display:block;}
+.ddcommon .ddTitle .ddTitleText img{position:relative; vertical-align:middle; float:left}
+.ddcommon .ddChild{position:absolute;display:none;width:100%;overflow-y:auto; overflow-x:hidden; zoom:1; z-index:9999}
+.ddcommon .ddChild li{clear:both;}
+.ddcommon .ddChild li .description{display:block;}
+.ddcommon .ddChild li img{border:0 none; position:relative;vertical-align:middle;float:left}
+.ddcommon .ddChild li.optgroup{padding:0;}
+.ddcommon .ddChild li.optgroup .optgroupTitle{padding:0 0; font-weight:bold; font-style:italic}
+.ddcommon .ddChild li.optgroup ul li{padding:0 0 0 0
+}
+.ddcommon .noBorderTop{border-top:none 0  !important; padding:0; margin:0;}
+
+/*************** default theme **********************/
+.dd{border:0 solid #191919;}
+.dd .divider{border-left:0 solid #191919; border-right:0 solid #191919;; right:0;}
+.dd .ddArrow:hover{background-position:0 100%;}
+/*.dd .ddTitle{color:#00ff11;background: #191919 url(../../images/msdropdown/skin1/title-bg.gif) repeat-x left top;}*/
+.dd .ddTitle{color:#191919;background: #191919;}
+.dd .ddTitle .ddTitleText{padding:0 0 0 0;}
+.dd .ddTitle .ddTitleText .ddTitleText{padding:0;}
+.dd .ddTitle .description{font-size:12px; color: #191919
+}
+.dd .ddTitle .ddTitleText img{padding-right:0;}
+.dd .ddChild{border:0 solid #191919; background-color:#191919; left:0;}
+/*background for dropdown options*/
+.dd .ddChild li{padding-top: 5px;padding-bottom: 5px; background-color: #191919; border-bottom:0 solid #191919;}
+.dd .ddChild li .description{color: #191919;}
+.dd .ddChild li .ddlabel{color:#333;}
+.dd .ddChild li.hover{background-color: #191919;}
+.dd .ddChild li img{padding:0 6px 0 0;}
+.dd .ddChild li.optgroup{padding:0;}
+.dd .ddChild li.optgroup .optgroupTitle{padding:0 0; font-weight:bold; font-style:italic}
+.dd .ddChild li.optgroup ul li{padding:0 0 0 10px}
+.dd .ddChild li.selected{background-color: #ff9000; color: #25c33f;}
+
+#barrel_stabilizers_child li.selected {
+    background: #191919;
+}
+.apex_dropbtn {
+    background-color: #191919;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.apex_dropbtn:hover, .dropbtn:focus {
+    background-color: #191919;
+}
+
+.apex_dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.apex_dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.apex_dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.apex_dropdown a:hover {background-color: #ddd;}
+
+.apex_show {display: block;}
+
+.attachment_box
+{
+    visibility: hidden;
 }
 
 .apex_lblMag {
@@ -480,6 +787,10 @@ fiveMline {
     vertical-align: top;
 }
 
+.apex_recoilGraphBox{
+    height: 101px;
+    margin-top: -25px;
+}
 .apex_sectionReload{
     text-align: center;
     color: #FF9000;
@@ -516,14 +827,21 @@ fiveMline {
     fill: white;
 }
 
+.apex_wpnSwitchImg{
+    height: 20px;
+    width: auto;
+    margin: 5px 0;
+}
+
 .apex_spreadLabels {
     display: inline-block;
     font-weight: bold;
     font-size: 12px;
-    text-align: right;
+    text-align: center;
     margin-right: 5px !important;
     line-height: 25px;
-    width: 40px;
+    width: 70px;
+    padding-top: 20px;
 }
 
 .apex_speadBaseLabel {
@@ -610,7 +928,7 @@ fiveMline {
 }
 .apex_hipSpreadValue {
     font-weight: bold;
-    font-size: 18px;
+    font-size: 16px;
     fill: white;
     text-align: center;
 }
@@ -657,7 +975,7 @@ fiveMline {
 
 }
 .apex_custButtonsApex{
-    width: 290px;
+    width: 298px;
     font-size: 8px;
 }
 .apex_custButtonsApex label{

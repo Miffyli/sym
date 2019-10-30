@@ -17,7 +17,7 @@ const BF1_WORST_VALUE_COLOR = [255, 0, 0]
 function BF1GetSelectedWeapons () {
   var selectedWeapons = []
 
-  $('.comp-selectorContainer').each(function () {
+  $('.bf1-comp-selectorContainer').each(function () {
     if ($(this).find('select')[0].selectedIndex !== 0) {
       var selectedWeapName = $(this).find('select option:selected').text().trim()
 
@@ -82,8 +82,14 @@ function BF1ColorVariables(variableName, weaponValues) {
       colorCodes = weaponValues.map(weaponValue => BF1_NEUTRAL_VALUE_COLOR)
     } else {
       // Sort by value so that "lower is worse".
-      // TODO reverse if variableName is one of "lower is better"
       uniqueValues.sort()
+
+      // Values are now "higher is better".
+      // If variable is not in BF1_LOWER_IS_WORSE, then
+      // reverse the list
+      if (!BF1_LOWER_IS_WORSE.has(variableName)) {
+        uniqueValues.reverse()
+      }
 
       colorCodes = []
       // Lower rank in uniqueValues -> worse value
@@ -323,23 +329,23 @@ function BF1SelectorsOnChange (e) {
   and if one of them should be removed
 */
 function BF1updateSelectors () {
-  $('.comp-selectorContainer > select').each(function() {
-    if (this.selectedIndex === 0 && $('.comp-selectorContainer > select').length > 1) {
+  $('.bf1-comp-selectorContainer > select').each(function() {
+    if (this.selectedIndex === 0 && $('.bf1-comp-selectorContainer > select').length > 1) {
       $(this).parent().remove()
     }
   })
 
   var emptySelects = 0
-  $('.comp-selectorContainer > select').each(function() {
+  $('.bf1-comp-selectorContainer > select').each(function() {
     if (this.selectedIndex === 0) {
       emptySelects++
     }
   })
 
-  if (emptySelects <= 1 && $('.comp-selectorContainer').length < 6) {
-    $('.comp-selectorContainer').last().after($('.comp-selectorContainer').first().clone(true))
-    $('.comp-selectorContainer').last().children('div').remove()
-    $('.comp-selectorContainer').last().children('select').change(function (e) {
+  if (emptySelects <= 1 && $('.bf1-comp-selectorContainer').length < 6) {
+    $('.bf1-comp-selectorContainer').last().after($('.bf1-comp-selectorContainer').first().clone(true))
+    $('.bf1-comp-selectorContainer').last().children('div').remove()
+    $('.bf1-comp-selectorContainer').last().children('select').change(function (e) {
       BF1SelectorsOnChange(e)
     })
   }
@@ -378,6 +384,6 @@ function initializeBF1Comparison () {
   document.getElementById('column_filter').oninput = BF1FilterOnChange
   document.getElementById('column_onlydiffering').onclick = BF1FilterOnChange
 
-  $('#selectors > select').addClass('comp-selectors').wrap("<div class='comp-selectorContainer'></div>")
+  $('#selectors > select').addClass('comp-selectors').wrap("<div class='bf1-comp-selectorContainer'></div>")
   BF1updateSelectors()
 }

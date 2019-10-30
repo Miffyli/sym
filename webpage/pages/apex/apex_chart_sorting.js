@@ -1,7 +1,7 @@
 
 
-function getWeaponsSubcat(weaponName){
-    return weaponSubCats["_" + weaponName.replace(/ |\/|-/g,"")];
+function getAPEXWeaponsSubcat(weapon_name){
+    return apex_weaponSubCats["_" + weapon_name.replace(/ |\/|-/g,"")];
 }
 
 function initializeSorts(){

@@ -10,6 +10,52 @@ const BFV_DAMAGE_RANGE_STEP = 1
 // Minimum damage multiplier (9.1.2018)
 const BFV_MIN_DAMAGE_MULTIPLIER = 1.0
 
+// Set of variables that should be considered worse
+// if the number is lower
+const BFV_LOWER_IS_WORSE = new Set([
+  'SDmg',
+  'EDmg',
+  'RoF',
+  'BRoF',
+  'MagSize',
+  'InitialSpeed',
+  'TimeToLive',
+  'MaxDistance',
+  'ADSStandBaseSpreadDecCoef',
+  'HIPStandBaseSpreadDecCoef',
+  'ADSCrouchBaseSpreadDecCoef',
+  'HIPCrouchBaseSpreadDecCoef',
+  'ADSProneBaseSpreadDecCoef',
+  'HIPProneBaseSpreadDecCoef',
+  'ADSStandMoveSpreadDecCoef',
+  'HIPStandMoveSpreadDecCoef',
+  'ADSCrouchMoveSpreadDecCoef',
+  'HIPCrouchMoveSpreadDecCoef',
+  'ADSProneMoveSpreadDecCoef',
+  'HIPProneMoveSpreadDecCoef',
+  'ADSStandBaseSpreadDecCoef',
+  'ADSStandBaseSpreadDecExp',
+  'HIPStandBaseSpreadDecExp',
+  'ADSCrouchBaseSpreadDecExp',
+  'HIPCrouchBaseSpreadDecExp',
+  'ADSProneBaseSpreadDecExp',
+  'HIPProneBaseSpreadDecExp',
+  'ADSStandMoveSpreadDecExp',
+  'HIPStandMoveSpreadDecExp',
+  'ADSCrouchMoveSpreadDecExp',
+  'HIPCrouchMoveSpreadDecExp',
+  'ADSProneMoveSpreadDecExp',
+  'HIPProneMoveSpreadDecExp',
+  'ADSStandBaseSpreadDecExp',
+  'ADSProneRecoilDecExponent',
+  'ADSStandRecoilDecExponent',
+  'ADSCrouchRecoilDecExponent',
+  'ADSProneRecoilDecFactor',
+  'ADSStandRecoilDecFactor',
+  'ADSCrouchRecoilDecFactor',
+  'ShotsPerShell'
+])
+
 // A flag to tell if we have loaded BFV data already
 var BFVDataLoaded = false
 // This will be the main holder of all the weapon data.
@@ -281,6 +327,7 @@ function openBFVVehiclePage () {
 function BFVOpenPageByName(pageName) {
   // Remove highlighting
   $('.sym-pageSelections > div').removeClass('selected-selector')
+  $('.bfv-main-content').html("<div class='sym-loading'>Loading...</div>")
   // Select right page according to pageName, highlight its
   // button and open the page
   if (pageName === 'Weapon Charts') {
@@ -340,6 +387,7 @@ function initializeBFVSelectrion () {
 */
 function BFVinitializeIndexPage(){
   $('.indexPageItem').click(function () {
+    console.log("hererere")
       var itemClicked = $(this).find("h4").text()
       // TODO slippery slope: If title on the buttons changes,
       //                      it will break opening the page

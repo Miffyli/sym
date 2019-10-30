@@ -1,26 +1,23 @@
-<canvas id="mycanvas">
-    <img src="pages/apex/icons/ammo/special.png" alt="AAAAAAAAAA">
-</canvas>
 <div>
     <h1 class="comp-pageTitle" style="width: 1200px; margin: 21px auto 60px;">Apex Legends Weapon Charts</h1>
-    <div id="weaponsToolbar">
-        <div class="toolboxRow">
+    <div id="apex_weaponsToolbar">
+        <div class="apex_toolboxRow">
             <div>
                 <div id="showHideCheckboxes" title="Show/Hide weapon classes">
-                    <input type="checkbox" id="showSidearmsCheck" name="showSidearmsCheck" checked>
-                    <label for="showSidearmsCheck"><img src="pages/apex/icons/ammo/bullet.png" alt=""></label>
+                    <input type="checkbox" id="showLightAmmoCheck" name="showLightAmmoCheck" checked>
+                    <label for="showLightAmmoCheck"><img src="pages/apex/icons/ammo/bullet.png" alt=""></label>
 
-                    <label for="showAssaultCheck"><img src="pages/apex/icons/ammo/highcal.png" alt=""></label>
-                    <input type="checkbox" id="showAssaultCheck" name="showAssaultCheck" checked>
+                    <label for="showHeavyAmmoCheck"><img src="pages/apex/icons/ammo/highcal.png" alt=""></label>
+                    <input type="checkbox" id="showHeavyAmmoCheck" name="showHeavyAmmoCheck" checked>
 
-                    <label for="showMedicCheck"><img src="pages/apex/icons/ammo/shotgun.png" alt=""></label>
-                    <input type="checkbox" id="showMedicCheck" name="showMedicCheck" checked>
+                    <label for="showShotgunAmmoCheck"><img src="pages/apex/icons/ammo/shotgun.png" alt=""></label>
+                    <input type="checkbox" id="showShotgunAmmoCheck" name="showShotgunAmmoCheck" checked>
 
-                    <label for="showSupportCheck"><img src="pages/apex/icons/ammo/special.png" alt=""></label>
-                    <input type="checkbox" id="showSupportCheck" name="showSupportCheck" checked>
+                    <label for="showSpecialAmmoCheck"><img src="pages/apex/icons/ammo/special.png" alt=""></label>
+                    <input type="checkbox" id="showSpecialAmmoCheck" name="showSpecialAmmoCheck" checked>
 
-                    <label for="showReconCheck"><img src="pages/apex/icons/ammo/special_highcal.png" alt=""></label>
-                    <input type="checkbox" id="showReconCheck" name="showReconCheck" checked>
+                    <label for="showSpecialHeavyAmmoCheck"><img src="pages/apex/icons/ammo/special_highcal.png" alt=""></label>
+                    <input type="checkbox" id="showSpecialHeavyAmmoCheck" name="showSpecialHeavyAmmoCheck" checked>
                 </div>
             </div>
 
@@ -29,14 +26,8 @@
                     <label for="showARCheck">AR</label>
                     <input type="checkbox" id="showARCheck" name="showARCheck" checked>
 
-<!--                    <label for="showSARCheck">SAR</label>-->
-<!--                    <input type="checkbox" id="showSARCheck" name="showSARCheck" checked>-->
-
                     <label for="showSMGCheck">SMG</label>
                     <input type="checkbox" id="showSMGCheck" name="showSMGCheck" checked>
-
-<!--                    <label for="showBACarbineCheck">BA Carbine</label>-->
-<!--                    <input type="checkbox" id="showBACarbineCheck" name="showBACarbineCheck" checked>-->
 
                     <label for="showShotgunCheck">Shotgun</label>
                     <input type="checkbox" id="showShotgunCheck" name="showShotgunCheck" checked>
@@ -44,73 +35,67 @@
                     <label for="showLMGCheck">LMG</label>
                     <input type="checkbox" id="showLMGCheck" name="showLMGCheck" checked>
 
-<!--                    <label for="showMMGCheck">MMG</label>-->
-<!--                    <input type="checkbox" id="showMMGCheck" name="showMMGCheck" checked>-->
+                    <label for="showSNIPERCheck">Sniper</label>
+                    <input type="checkbox" id="showSNIPERCheck" name="showSNIPERCheck" checked>
 
-                    <label for="showBACheck">Sniper</label>
-                    <input type="checkbox" id="showBACheck" name="showBACheck" checked>
+                    <label for="showSPECIALCheck">Special</label>
+                    <input type="checkbox" id="showSPECIALCheck" name="showSPECIALCheck">
 
-<!--                    <label for="showSLRCheck">SLR</label>-->
-<!--                    <input type="checkbox" id="showSLRCheck" name="showSLRCheck" checked>-->
-
-                    <label for="showAMCheck">Special</label>
-                    <input type="checkbox" id="showAMCheck" name="showAMCheck" checked>
-
-                    <label for="showPCCheck">Pistol</label>
-                    <input type="checkbox" id="showPCCheck" name="showPCCheck" checked>
+                    <label for="showPISTOLCheck">Pistol</label>
+                    <input type="checkbox" id="showPISTOLCheck" name="showPISTOLCheck" checked>
                 </div>
             </div>
         </div>
-        <div class="toolboxRow">
-            <div>
-                <div id="showHideStats" title="Show/Hide stats categories">
+<!--        <div class="apex_toolboxRow">-->
+<!--            <div>-->
+<!--                <div id="showHideStats" title="Show/Hide stats categories">-->
 
-                    <label for="showROFCheck">ROF</label>
-                    <input type="checkbox" id="showROFCheck" name="showROFCheck" checked>
+<!--                    <label for="showROFCheck">ROF</label>-->
+<!--                    <input type="checkbox" id="showROFCheck" name="showROFCheck" checked>-->
 
-                    <label for="showSpeedCheck">Bullet Speed</label>
-                    <input type="checkbox" id="showSpeedCheck" name="showSpeedCheck" checked>
+<!--                    <label for="showSpeedCheck">Bullet Speed</label>-->
+<!--                    <input type="checkbox" id="showSpeedCheck" name="showSpeedCheck" checked>-->
 
-                    <label for="showDamageCheck">Damage</label>
-                    <input type="checkbox" id="showDamageCheck" name="showDamageCheck" checked>
+<!--                    <label for="showDamageCheck">Damage</label>-->
+<!--                    <input type="checkbox" id="showDamageCheck" name="showDamageCheck" checked>-->
 
-                    <label for="showReloadCheck">Reload</label>
-                    <input type="checkbox" id="showReloadCheck" name="showReloadCheck" checked>
+<!--                    <label for="showReloadCheck">Reload</label>-->
+<!--                    <input type="checkbox" id="showReloadCheck" name="showReloadCheck" checked>-->
 
-                    <label for="showAmmoCheck">Ammo</label>
-                    <input type="checkbox" id="showAmmoCheck" name="showAmmoCheck" checked>
+<!--                    <label for="showAmmoCheck">Ammo</label>-->
+<!--                    <input type="checkbox" id="showAmmoCheck" name="showAmmoCheck" checked>-->
 
-                    <label for="showAmmoGrahicCheck">Ammo Graphic</label>
-                    <input type="checkbox" id="showAmmoGrahicCheck" name="showAmmoGrahicCheck" checked>
+<!--                    <label for="showAmmoGrahicCheck">Ammo Graphic</label>-->
+<!--                    <input type="checkbox" id="showAmmoGrahicCheck" name="showAmmoGrahicCheck" checked>-->
 
-                    <label for="showRecoilCheck">Recoil</label>
-                    <input type="checkbox" id="showRecoilCheck" name="showRecoilCheck" checked>
+<!--                    <label for="showRecoilCheck">Recoil</label>-->
+<!--                    <input type="checkbox" id="showRecoilCheck" name="showRecoilCheck" checked>-->
 
-                    <label for="showSpreadCheck">ADS</label>
-                    <input type="checkbox" id="showSpreadCheck" name="showSpreadCheck" checked>
+<!--                    <label for="showSpreadCheck">ADS</label>-->
+<!--                    <input type="checkbox" id="showSpreadCheck" name="showSpreadCheck" checked>-->
 
-                    <label for="showHipSpreadCheck">Hip</label>
-                    <input type="checkbox" id="showHipSpreadCheck" name="showHipSpreadCheck" checked>
+<!--                    <label for="showHipSpreadCheck">Hip</label>-->
+<!--                    <input type="checkbox" id="showHipSpreadCheck" name="showHipSpreadCheck" checked>-->
 
-                    <label for="showDeployCheck">Deploy</label>
-                    <input type="checkbox" id="showDeployCheck" name="showDeployCheck" checked>
+<!--                    <label for="showDeployCheck">Deploy</label>-->
+<!--                    <input type="checkbox" id="showDeployCheck" name="showDeployCheck" checked>-->
 
-                    <label for="showToolsCheck">Tools</label>
-                    <input type="checkbox" id="showToolsCheck" name="showToolsCheck" checked>
-                </div>
-            </div>
-        </div>
-        <div class="toolboxRow">
+<!--                    <label for="showToolsCheck">Tools</label>-->
+<!--                    <input type="checkbox" id="showToolsCheck" name="showToolsCheck" checked>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+        <div class="apex_toolboxRow apexChart-dropdownRow">
             <div>
                 <ul id="actionMenu">
                     <li><div>Sort By                                  </div>
                         <ul>
                             <li><div id="sortRPM">RPM</div></li>
                             <li><div id="sortName">Name</div></li>
-                            <li><div id="sortBulletSpeed">Projectile Speed</div></li>
+                            <li><div id="sortBulletSpeed">Bullet Speed</div></li>
                             <li><div id="sortMagSize">Magazine Size</div></li>
                             <li><div id="sortMaxDamage">Max Damage</div></li>
-<!--                            <li><div id="sortInitVertRecoil">Initial Vertical Recoil</div></li>-->
+                            <li><div id="sortInitVertRecoil">Initial Vertical Recoil</div></li>
                             <li><div id="sortVertRecoil">Vertical Recoil</div></li>
                             <li><div id="sortHorRecoil">Horizontal Recoil</div></li>
                             <li><div id="sortDeployTime">Deploy Time</div></li>
@@ -121,68 +106,33 @@
 
             <div class="ui-widget">
                 <label>Jump to: </label>
-                <label for="shortcutCombobox"></label><select id="shortcutCombobox">
+                <select id="shortcutCombobox">
                     <option></option>
-                    <option>Liberator</option>
-                    <option>M1911</option>
-                    <option>Mk VI Revolver</option>
-                    <option>P08 Pistol</option>
-                    <option>P38 Pistol</option>
-                    <option>Repetierpistole M1912</option>
-                    <option>Ruby</option>
+                    <option>Alternator SMG</option>
+                    <option>B3</option>
+                    <option>Wingman</option>
+                    <option>Charge Rifle</option>
+                    <option>Devotion LMG</option>
+                    <option>EVA-8 Auto</option>
+                    <option>G7 Scout</option>
+                    <option>HAVOC Rifle</option>
+                    <option>Hemlok Burst AR</option>
                     <option>-</option>
-                    <option>AG M/42</option>
-                    <option>Breda M1935 PG</option>
-                    <option>Gewehr 1-5</option>
-                    <option>Gewehr 43</option>
-                    <option>Karabin 1938M</option>
-                    <option>M1907 SF</option>
-                    <option>M1A1 Carbine</option>
-                    <option>Modele 1944</option>
-                    <option>Ribeyrolles</option>
-                    <option>Selbstlader 1916</option>
-                    <option>StG 44</option>
-                    <option>Sturmgewehr 1-5</option>
-                    <option>Turner SMLE</option>
+                    <option>Kraber .50-Cal Sniper</option>
+                    <option>L-STAR EMG</option>
+                    <option>Longbow DMR</option>
+                    <option>M600 Spitfire</option>
+                    <option>Mastiff Shotgun</option>
+                    <option>Mozambique Shotgun</option>
+                    <option>P2020</option>
                     <option>-</option>
-                    <option>De Lisle Commando</option>
-                    <option>EMP</option>
-                    <option>M1928A1</option>
-                    <option>M28 Tromboncino</option>
-                    <option>MAB 38</option>
-                    <option>MP28</option>
-                    <option>MP34</option>
-                    <option>MP40</option>
-                    <option>STEN</option>
-                    <option>Suomi KP/-31</option>
-                    <option>Zk-383</option>
-                    <option>-</option>
-                    <option>12g Automatic</option>
-                    <option>Bren Gun</option>
-                    <option>FG-42</option>
-                    <option>KE7</option>
-                    <option>Lewis Gun</option>
-                    <option>LS/26<option>
-                    <option>M1922 MMG</option>
-                    <option>M30 Drilling</option>
-                    <option>M97</option>
-                    <option>MG34</option>
-                    <option>MG42</option>
-                    <option>S2-200</option>
-                    <option>VGO</option>
-                    <option>-</option>
-                    <option>Boys AT Rifle</option>
-                    <option>Gewehr M95/30</option>
-                    <option>Kar98k</option>
-                    <option>Krag-Jorgensen</option>
-                    <option>Lee-Enfield No4 Mk1</option>
-                    <option>Model 8</option>
-                    <option>P08 Carbine</option>
-                    <option>Panzerbüchse 39</option>
-                    <option>RSC</option>
-                    <option>Ross Rifle Mk III</option>
-                    <option>Selbstlader 1906</option>
-                    <option>ZH-29</option>
+                    <option>Peacekeeper</option>
+                    <option>Prowler Burst PDW</option>
+                    <option>R-301 Carbine</option>
+                    <option>R-99 SMG</option>
+                    <option>RE-45 Auto</option>
+                    <option>Triple Take</option>
+                    <option>VK-47 Flatline</option>
                 </select>
             </div>
         </div>

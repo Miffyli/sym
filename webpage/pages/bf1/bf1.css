@@ -23,6 +23,16 @@
     background-color: #222;
 }
 
+.bf1-comp-selectorContainer{
+    display: inline-block;
+    vertical-align: top;
+    padding: 19px;
+    background: #222;
+    margin: 4px;
+    border: 1px solid #444;
+    width: 345px;
+    height: 25px;
+}
 
 /* Do not color the first row */
 
@@ -44,4 +54,41 @@
 .bf1-content-comparison-table td:not(:first-child) {
     text-align: center;
     width: 100pt;
+}
+
+
+.bf1-sym-info-subheader{
+    font-size: 24px;
+    font-weight: bold;
+    padding: 20px 0px 0px;
+    border-top: 1px solid #444;
+}
+
+.bf1-genInfo-table {
+    margin-bottom: 20px;
+    background: #333;
+    border-spacing: 0;
+}
+
+.bf1-genInfo-table caption{
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.bf1-genInfo-table tr:nth-child(even){
+    background: #222;
+}
+
+.bf1-genInfo-table td{
+    padding: 2px 12px;
+    font-size: 16px;
+}
+
+.bf1-genInfo-table tr td:nth-child(1){
+    text-align: right;
+    font-style: italic;
+}
+
+.bf1-genInfo-table tr td:nth-child(2){
+    font-weight: bold;
 }

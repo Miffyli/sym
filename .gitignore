@@ -1,3 +1,4 @@
 # Local data for debugging. Fill be filled on server.
 **/bfv/data/**
 .idea/*
+*.psd

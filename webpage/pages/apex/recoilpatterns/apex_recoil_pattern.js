@@ -87,6 +87,8 @@ function replacedata(){
         figure.data[i].size = size_vals;
         // figure.data[i].x = x_vals;
         figure.data[i].name = weaponswithViewkick[i]['custom_name'];
+        console.log(weaponswithViewkick[i]['custom_name'] + ", X:" + figure.data[i].x + ", Y:" + figure.data[i].y + ", Size: " + figure.data[i].size );
+
     }
     console.log("DONE");
 

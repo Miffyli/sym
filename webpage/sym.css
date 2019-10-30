@@ -4,6 +4,10 @@
     font-family: "Arial", sans-serif;
 }
 
+.sym-body a {
+	color: #A9D852;
+}
+
 /***************************/
 /********* Header **********/
 /***************************/
@@ -61,6 +65,7 @@
 }
 
 .sym-home-jumpin-btn {
+	border: 2px solid #B0B0B0;
     display: inline-block;
     background: #000000;
     padding: 20px 30px;
@@ -122,11 +127,17 @@
 .sym-main-content-header{
     width: 900px;
     margin: auto;
-    font-weight: unset;
+    font-weight: bold;
     text-align: center;
     padding: 40px 0px 0px 0px;
 }
 
+.sym-loading{
+    text-align: center;
+    font-size: 40px;
+    font-weight: bold;
+    padding: 100px;
+}
 
 /**************************************/
 /*********** Footer *******************/
@@ -149,6 +160,8 @@
 .sym-pageSelections {
     text-align: center;
     font-weight: bold;
+    width: 1575px;
+    margin: auto;
 }
 
 .sym-pageSelections img {
@@ -158,9 +171,9 @@
 
 .sym-pageSelections > div {
     display: inline-block;
-    padding: 20px;
+    padding: 15px;
     cursor: pointer;
-    margin: 20px;
+    margin: 15px;
     background: #444;
     user-select: none;
 }
@@ -203,25 +216,66 @@
     border-left: 2px solid #A9D852;
 }
 
-.staff-member-box {
-    border: 2px solid #333;
-    border-radius: 10px;
+.sym-staff-member-box {
+    border-bottom: 1px solid #444;
+    padding: 15px 0;
+    margin: 0 !important;
 }
 
-.staff-member-links a {
+.sym-staff-member-links a {
 	float: right;
 	margin: 10px;
 }
 
-.staff-member-box b {
+.sym-staff-member-box b {
     color: #FF9000;
 }
 
-.staff-member-box h2 {
+.sym-staff-member-box h2 {
     padding-left: 40px;
     font-size: 120%;
 }
 
-.staff-member-box h2>b {
+.sym-staff-member-box h2>b {
     font-size: 140%;
 }
+
+.sym-info-section-header span{
+    font-size: 40px;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+/**************************************/
+/*********** News page ****************/
+/**************************************/
+
+.sym-news-entry-date {
+    line-height: 200%;
+	padding: 0 10px;
+	font-style: italic;
+	font-size: large;
+    float: right;
+}
+
+.sym-news-entry-content {
+    padding: 0 40px;
+}
+
+.sym-news-entry-content > p{
+	padding-left: 0;
+}
+
+.sym-news-entry > h1 {
+	padding: 0 0;
+}
+
+.sym-news > div {
+    margin-bottom: 30px;
+}
+
+.sym-news > div:not(:first-child) {
+	border-top: 5px solid #999;
+	padding-top: 20px;
+}
+

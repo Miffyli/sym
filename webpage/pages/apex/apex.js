@@ -1,6 +1,7 @@
 // Path to datafile
 // const APEX_DATA = './pages/apex/data/apex_B.json'
-const APEX_DATA = './pages/apex/data/apex_test.json';
+// const APEX_DATA = './pages/apex/data/apex_test.json';
+const APEX_DATA = './pages/apex/data/apex_test_2.json';
 // Constants for APEX
 // Constants for plotting damage/ttk/etc
 const APEX_DAMAGE_RANGE_START = 0;
@@ -15,6 +16,7 @@ var APEXDataLoaded = false;
 // This will be the main holder of all the weapon data.
 // An array of dictionaries, each of which is a weapon
 var APEXWeaponData = [];
+var APEXWeaponData_orig = [];
 // This will be similar to data, except
 // keys are the full weapon names (with attachments)
 // and values are the weapons
@@ -28,26 +30,52 @@ var APEXWeaponKeyToData = {};
 // Keeps track of which page to load after the data is loaded.
 var APEXSelectedPage = "";
 
-function Thing(x, y)
-{
-  this.x = x;
-  this.y = y;
-}
-
-var mousePos = new Thing(0, 0);
-// document.getElementsByClassName()
-// mydiv = document.getElementsByClassName("apex-main-content");
-// mycanvas = document.getElementById("mycanvas");
-//
-// mydiv.addEventListener('mousemove', function(event)
-// {
-//   mousePos.x = event.clientX;
-//   mousePos.y = event.clientY;
-//
-//   mycanvas.style.top = mousePos.y + "px";
-//   mycanvas.style.left = mousePos.x + "px";
-//   console.log(mycanvas.style);
-// }, false);
+const apex_weapon_name_dict = {
+  "Alternator SMG": "WPN_ALTERNATOR_SMG",
+  "B3": "WPN_WINGMAN",
+  "Wingman": "WPN_WINGMAN",
+  "Charge Rifle": "WPN_CHARGE_RIFLE",
+  "Devotion LMG": "WPN_ESAW",
+  "EVA-8 Auto": "WPN_SHOTGUN",
+  "G7 Scout": "WPN_G2",
+  "HAVOC Rifle": "WPN_ENERGY_AR",
+  "Hemlok Burst AR": "WPN_HEMLOK",
+  "Kraber .50-Cal Sniper": "WPN_SNIPER",
+  "L-STAR EMG": "WPN_LSTAR",
+  "Longbow DMR": "WPN_DMR",
+  "M600 Spitfire": "WPN_LMG",
+  "Mastiff Shotgun": "WPN_MASTIFF",
+  "Mozambique Shotgun": "WPN_SHOTGUN_PISTOL",
+  "P2020": "WPN_P2011",
+  "Peacekeeper": "WPN_ENERGY_SHOTGUN",
+  "Prowler Burst PDW": "WPN_PDW",
+  "R-301 Carbine": "WPN_RSPN101",
+  "R-99 SMG": "WPN_R97",
+  "RE-45 Auto": "WPN_RE45_AUTOPISTOL",
+  "Triple Take": "WPN_DOUBLETAKE",
+  "VK-47 Flatline": "WPN_VINSON",
+  "WPN_ALTERNATOR_SMG": "Alternator SMG",
+  "WPN_WINGMAN": "Wingman",
+  "WPN_CHARGE_RIFLE": "Charge Rifle",
+  "WPN_ESAW": "Devotion LMG",
+  "WPN_SHOTGUN": "EVA-8 Auto",
+  "WPN_G2": "G7 Scout",
+  "WPN_ENERGY_AR": "HAVOC Rifle",
+  "WPN_HEMLOK": "Hemlok Burst AR",
+  "WPN_SNIPER": "Kraber .50-Cal Sniper",
+  "WPN_LSTAR": "L-STAR EMG",
+  "WPN_DMR": "Longbow DMR",
+  "WPN_LMG": "M600 Spitfire",
+  "WPN_MASTIFF": "Mastiff Shotgun",
+  "WPN_SHOTGUN_PISTOL": "Mozambique Shotgun",
+  "WPN_P2011": "P2020",
+  "WPN_ENERGY_SHOTGUN": "Peacekeeper",
+  "WPN_PDW": "Prowler Burst PDW",
+  "WPN_RSPN101": "R-301 Carbine",
+  "WPN_R97": "R-99 SMG",
+  "WPN_RE45_AUTOPISTOL": "RE-45 Auto",
+  "WPN_DOUBLETAKE": "Triple Take",
+  "WPN_VINSON": "VK-47 Flatline"};
 
 /*
   Returns html RGB color code for given array
@@ -65,29 +93,116 @@ function APEXInterpolateRGB(rgb1, rgb2, ratio) {
   return rgb1.map((rgb1Val, i) => rgb1Val + (rgb2[i] - rgb1Val) * ratio)
 }
 
+function getHSMulti(weapon) {
+  if ( weapon.allow_headshots === "1" && use_headshot_calculations ) {
+    return weapon.damage_headshot_scale;
+  } else {
+    return 1.0;
+  }
+}
+
+function getMaxHSDist(weapon) {
+  let hs_dist_float = weapon.headshot_distance / 39.3701;
+  if(hs_dist_float !== undefined) {
+    return hs_dist_float
+  } else {
+    return 10000.0
+  }
+}
+
+function getLimbMulti(weapon) {
+  if ( use_ls_multi_calculations ) {
+    return weapon.damage_leg_scale;
+  } else {
+    return 1.0;
+  }
+}
+
+function getDamageScaleMulti(){
+  if (use_fortified_calculations) {
+    return 0.85
+  } else if ( use_lowprofile_calculations) {
+    return 1.05
+  } else {
+    return 1.0
+  }
+}
+
+function getProjectileScaleMulti(){
+    return 1.0
+
+}
+
+function getHelmMulti(){
+  return 1.0
+}
+
 /*
   Return weapon's damage at given point dist.
   damages and distances specify how much weapon
   does damage at those points, and everything
   else is linearly interpolated between.
 */
-function APEXInterpolateDamage (dist, damages, distances) {
+function APEXInterpolateDamage2 (dist, damages, distances, hs_multi, hs_dist) {
   if (dist <= Math.min.apply(null, distances)) {
     return damages[0]
   } else if (dist >= Math.max.apply(null, distances)) {
     return damages[damages.length - 1]
   } else {
-    // Find the neighboring points
-    var prevDist = undefined;
-    var nextDist = undefined;
-    var prevDmg = undefined;
-    var nextDmg = undefined;
+    var prevDist = undefined
+    var nextDist = undefined
+    var prevDmg = undefined
+    var nextDmg = undefined
     for (var i = 0; i < distances.length; i++) {
       if (dist >= distances[i]) {
-        prevDist = distances[i];
-        prevDmg = damages[i];
-        nextDist = distances[i + 1];
+        prevDist = distances[i]
+        prevDmg = damages[i]
+        nextDist = distances[i + 1]
         nextDmg = damages[i + 1]
+      }
+    }
+    // Interpolate the two
+    var interpolated = prevDmg + ((dist - prevDist) / (nextDist - prevDist)) * (nextDmg - prevDmg);
+    return interpolated
+  }
+}
+
+function APEXInterpolateDamage (dist, damages, distances, hs_multi, hs_dist) {
+  if (dist <= Math.min.apply(null, distances)) {
+    if(dist < hs_dist) {
+      return damages[0] * hs_multi
+    } else {
+      return damages[0]
+    }
+  } else if (dist >= Math.max.apply(null, distances)) {
+    if(dist < hs_dist) {
+      return damages[damages.length - 1] * hs_multi
+    } else {
+      return damages[damages.length - 1]
+    }
+  } else {
+    var prevDist = undefined
+    var nextDist = undefined
+    var prevDmg = undefined
+    var nextDmg = undefined
+    var hs_prevDmg = undefined
+    var hs_nextDmg = undefined
+    for (var i = 0; i < distances.length; i++) {
+      if (dist >= distances[i]) {
+        prevDist = distances[i]
+
+        hs_prevDmg = damages[i]
+        if ( distances[i] < hs_dist) {
+          hs_prevDmg = hs_prevDmg * hs_multi
+        }
+        prevDmg = hs_prevDmg
+
+        nextDist = distances[i + 1]
+        hs_nextDmg = damages[i + 1]
+        if ( distances[i + 1] < hs_dist) {
+          hs_nextDmg = hs_nextDmg * hs_multi
+        }
+        nextDmg = hs_nextDmg
       }
     }
     // Interpolate the two
@@ -102,13 +217,30 @@ function APEXInterpolateDamage (dist, damages, distances) {
   defined above
 */
 function APEXGetDamageOverDistance (weapon) {
+  let hs_multi;
+  hs_multi = getHSMulti(weapon);
+  let hs_dist;
+  hs_dist = getMaxHSDist(weapon);
+  let ls_multi = getLimbMulti(weapon);
+  let fort_mutli = getDamageScaleMulti();
+  let helm_multi = getHelmMulti();
+  let projectile_multi = getProjectileScaleMulti();
+  let unmodified_damage;
+  let damage_out;
   var damages = weapon['damage_array'];
   var distances = weapon['damage_distance_array_m'];
   var damageOverDistance = [];
 
   // Loop over distance and store damages
   for (var dist = APEX_DAMAGE_RANGE_START; dist <= APEX_DAMAGE_RANGE_END; dist += APEX_DAMAGE_RANGE_STEP) {
-    damageOverDistance.push([dist, APEXInterpolateDamage(dist, damages, distances)])
+    unmodified_damage = APEXInterpolateDamage2(dist, damages, distances, hs_multi, hs_dist);
+    if ( dist > hs_dist) {
+      hs_multi = 1.0;
+    }
+    damage_out = (((((unmodified_damage * projectile_multi) * fort_mutli) * hs_multi) * helm_multi) * ls_multi);
+
+    console.log("DOST ", dist, " - ", hs_dist, "dmg, ", damage_out);
+    damageOverDistance.push([dist, damage_out])
   }
   return damageOverDistance
 }
@@ -119,6 +251,16 @@ function APEXGetDamageOverDistance (weapon) {
   defined above
 */
 function APEXGetBTKUpperBoundOverDistance (weapon) {
+  let hs_multi;
+  hs_multi = getHSMulti(weapon);
+  let hs_dist;
+  hs_dist = getMaxHSDist(weapon);
+  let ls_multi = getLimbMulti(weapon);
+  let fort_mutli = getDamageScaleMulti();
+  let helm_multi = getHelmMulti();
+  let projectile_multi = getProjectileScaleMulti();
+  let unmodified_damage;
+  let damage_out;
   var damages = weapon['damage_array'];
   var distances = weapon['damage_distance_array_m'];
   var BTKUBOverDistance = [];
@@ -126,13 +268,34 @@ function APEXGetBTKUpperBoundOverDistance (weapon) {
   // Loop over distance and store damages
   var damageAtDist = 0;
   for (var dist = APEX_DAMAGE_RANGE_START; dist <= APEX_DAMAGE_RANGE_END; dist += APEX_DAMAGE_RANGE_STEP) {
-    damageAtDist = APEXInterpolateDamage(dist, damages, distances);
+    unmodified_damage = APEXInterpolateDamage2(dist, damages, distances, hs_multi, hs_dist);
+    if ( dist > hs_dist) {
+      hs_multi = 1.0;
+    }
+    damage_out = (((((unmodified_damage * projectile_multi) * fort_mutli) * hs_multi) * helm_multi) * ls_multi);
+
+    damageAtDist = damage_out; // damageAtDist = APEXInterpolateDamage2(dist, damages, distances, hs_multi, hs_dist);
+    if (dist > hs_dist) {
+      hs_multi = 1.0
+    }
     BTKUBOverDistance.push([dist, Math.ceil(100 / (damageAtDist * APEX_MIN_DAMAGE_MULTIPLIER))])
   }
   return BTKUBOverDistance
 }
 
 function APEXGetWhiteBTKUpperBoundOverDistance (weapon) {
+  let hs_multi;
+  hs_multi = getHSMulti(weapon);
+  let hs_dist;
+  hs_dist = getMaxHSDist(weapon);
+  let ls_multi = getLimbMulti(weapon);
+  let fort_mutli = getDamageScaleMulti();
+  let helm_multi = getHelmMulti();
+  let projectile_multi = getProjectileScaleMulti();
+  let unmodified_damage;
+  let damage_out;
+
+
   var damages = weapon['damage_array'];
   var distances = weapon['damage_distance_array_m'];
   var WhiteBTKUBOverDistance = [];
@@ -140,13 +303,32 @@ function APEXGetWhiteBTKUpperBoundOverDistance (weapon) {
   // Loop over distance and store damages
   var damageAtDist = 0;
   for (var dist = APEX_DAMAGE_RANGE_START; dist <= APEX_DAMAGE_RANGE_END; dist += APEX_DAMAGE_RANGE_STEP) {
-    damageAtDist = APEXInterpolateDamage(dist, damages, distances);
+    unmodified_damage = APEXInterpolateDamage2(dist, damages, distances, hs_multi, hs_dist);
+    if ( dist > hs_dist) {
+      hs_multi = 1.0;
+    }
+    damage_out = (((((unmodified_damage * projectile_multi) * fort_mutli) * hs_multi) * helm_multi) * ls_multi);
+
+    damageAtDist = damage_out; // damageAtDist = APEXInterpolateDamage2(dist, damages, distances, hs_multi, hs_dist);
+    if (dist > hs_dist) {
+      hs_multi = 1.0
+    }
     WhiteBTKUBOverDistance.push([dist, Math.ceil(150 / (damageAtDist * APEX_MIN_DAMAGE_MULTIPLIER))])
   }
   return WhiteBTKUBOverDistance
 }
 
 function APEXGetBlueBTKUpperBoundOverDistance (weapon) {
+  let hs_multi;
+  hs_multi = getHSMulti(weapon);
+  let hs_dist;
+  hs_dist = getMaxHSDist(weapon);
+  let ls_multi = getLimbMulti(weapon);
+  let fort_mutli = getDamageScaleMulti();
+  let helm_multi = getHelmMulti();
+  let projectile_multi = getProjectileScaleMulti();
+  let unmodified_damage;
+  let damage_out;
   var damages = weapon['damage_array'];
   var distances = weapon['damage_distance_array_m'];
   var BlueBTKUBOverDistance = [];
@@ -154,13 +336,32 @@ function APEXGetBlueBTKUpperBoundOverDistance (weapon) {
   // Loop over distance and store damages
   var damageAtDist = 0;
   for (var dist = APEX_DAMAGE_RANGE_START; dist <= APEX_DAMAGE_RANGE_END; dist += APEX_DAMAGE_RANGE_STEP) {
-    damageAtDist = APEXInterpolateDamage(dist, damages, distances);
+    unmodified_damage = APEXInterpolateDamage2(dist, damages, distances, hs_multi, hs_dist);
+    if ( dist > hs_dist) {
+      hs_multi = 1.0;
+    }
+    damage_out = (((((unmodified_damage * projectile_multi) * fort_mutli) * hs_multi) * helm_multi) * ls_multi);
+
+    damageAtDist = damage_out; // damageAtDist = APEXInterpolateDamage2(dist, damages, distances, hs_multi, hs_dist);
+    if (dist > hs_dist) {
+      hs_multi = 1.0
+    }
     BlueBTKUBOverDistance.push([dist, Math.ceil(175 / (damageAtDist * APEX_MIN_DAMAGE_MULTIPLIER))])
   }
   return BlueBTKUBOverDistance
 }
 
 function APEXGetPurpleBTKUpperBoundOverDistance (weapon) {
+  let hs_multi;
+  hs_multi = getHSMulti(weapon);
+  let hs_dist;
+  hs_dist = getMaxHSDist(weapon);
+  let ls_multi = getLimbMulti(weapon);
+  let fort_mutli = getDamageScaleMulti();
+  let helm_multi = getHelmMulti();
+  let projectile_multi = getProjectileScaleMulti();
+  let unmodified_damage;
+  let damage_out;
   var damages = weapon['damage_array'];
   var distances = weapon['damage_distance_array_m'];
   var PurpleBTKUBOverDistance = [];
@@ -168,7 +369,16 @@ function APEXGetPurpleBTKUpperBoundOverDistance (weapon) {
   // Loop over distance and store damages
   var damageAtDist = 0;
   for (var dist = APEX_DAMAGE_RANGE_START; dist <= APEX_DAMAGE_RANGE_END; dist += APEX_DAMAGE_RANGE_STEP) {
-    damageAtDist = APEXInterpolateDamage(dist, damages, distances);
+    unmodified_damage = APEXInterpolateDamage2(dist, damages, distances, hs_multi, hs_dist);
+    if ( dist > hs_dist) {
+      hs_multi = 1.0;
+    }
+    damage_out = (((((unmodified_damage * projectile_multi) * fort_mutli) * hs_multi) * helm_multi) * ls_multi);
+
+    damageAtDist = damage_out; // damageAtDist = APEXInterpolateDamage2(dist, damages, distances, hs_multi, hs_dist);
+    if (dist > hs_dist) {
+      hs_multi = 1.0
+    }
     PurpleBTKUBOverDistance.push([dist, Math.ceil(200 / (damageAtDist * APEX_MIN_DAMAGE_MULTIPLIER))])
   }
   return PurpleBTKUBOverDistance
@@ -180,11 +390,21 @@ function APEXGetPurpleBTKUpperBoundOverDistance (weapon) {
   defined above
 */
 function APEXGetTTKUpperBoundOverDistance (weapon) {
+  let hs_multi;
+  hs_multi = getHSMulti(weapon);
+  let hs_dist;
+  hs_dist = getMaxHSDist(weapon);
+  let ls_multi = getLimbMulti(weapon);
+  let fort_mutli = getDamageScaleMulti();
+  let helm_multi = getHelmMulti();
+  let projectile_multi = getProjectileScaleMulti();
+  let unmodified_damage;
+  let damage_out;
   var damages = weapon['damage_array'];
   var distances = weapon['damage_distance_array_m'];
   var bulletVelocity = weapon['projectile_launch_speed'] / 39.3701;
   var bulletDrag = 0.0; // weapon['projectile_drag_coefficient'];
-  if(weapon['effective_fire_rate'] != undefined){
+  if(weapon['effective_fire_rate'] !== undefined){
     var msPerShot = 60000 / (weapon['effective_fire_rate']);
   } else {
     var msPerShot = 1000 / (weapon['fire_rate']);
@@ -200,8 +420,17 @@ function APEXGetTTKUpperBoundOverDistance (weapon) {
   // Used to track how long bullet has been flying
   var bulletFlightSeconds = 0.0;
   for (var dist = APEX_DAMAGE_RANGE_START; dist <= APEX_DAMAGE_RANGE_END; dist += APEX_DAMAGE_RANGE_STEP) {
-    damageAtDist = APEXInterpolateDamage(dist, damages, distances);
+    unmodified_damage = APEXInterpolateDamage2(dist, damages, distances, hs_multi, hs_dist);
+    if ( dist > hs_dist) {
+      hs_multi = 1.0;
+    }
+    damage_out = (((((unmodified_damage * projectile_multi) * fort_mutli) * hs_multi) * helm_multi) * ls_multi);
+
+    damageAtDist = damage_out; // damageAtDist = APEXInterpolateDamage2(dist, damages, distances, hs_multi, hs_dist);
     // Floor because we do not need the last bullet
+    if (dist > hs_dist) {
+      hs_multi = 1.0
+    }
     bulletsToKill = Math.floor(100 / (damageAtDist * APEX_MIN_DAMAGE_MULTIPLIER));
 
     msToTarget = bulletFlightSeconds * 1000;
@@ -219,6 +448,16 @@ function APEXGetTTKUpperBoundOverDistance (weapon) {
 }
 
 function APEXGetWhiteTTKUpperBoundOverDistance (weapon) {
+  let hs_multi;
+  hs_multi = getHSMulti(weapon);
+  let hs_dist;
+  hs_dist = getMaxHSDist(weapon);
+  let ls_multi = getLimbMulti(weapon);
+  let fort_mutli = getDamageScaleMulti();
+  let helm_multi = getHelmMulti();
+  let projectile_multi = getProjectileScaleMulti();
+  let unmodified_damage;
+  let damage_out;
   var damages = weapon['damage_array'];
   var distances = weapon['damage_distance_array_m'];
   var bulletVelocity = weapon['projectile_launch_speed'] / 39.3701;
@@ -239,7 +478,16 @@ function APEXGetWhiteTTKUpperBoundOverDistance (weapon) {
   // Used to track how long bullet has been flying
   var bulletFlightSeconds = 0.0;
   for (var dist = APEX_DAMAGE_RANGE_START; dist <= APEX_DAMAGE_RANGE_END; dist += APEX_DAMAGE_RANGE_STEP) {
-    damageAtDist = APEXInterpolateDamage(dist, damages, distances);
+    unmodified_damage = APEXInterpolateDamage2(dist, damages, distances, hs_multi, hs_dist);
+    if ( dist > hs_dist) {
+      hs_multi = 1.0;
+    }
+    damage_out = (((((unmodified_damage * projectile_multi) * fort_mutli) * hs_multi) * helm_multi) * ls_multi);
+
+    damageAtDist = damage_out; // damageAtDist = APEXInterpolateDamage2(dist, damages, distances, hs_multi, hs_dist);
+    if (dist > hs_dist) {
+      hs_multi = 1.0
+    }
     // Floor because we do not need the last bullet
     bulletsToKill = Math.floor(150 / (damageAtDist * APEX_MIN_DAMAGE_MULTIPLIER));
 
@@ -251,13 +499,23 @@ function APEXGetWhiteTTKUpperBoundOverDistance (weapon) {
 
     // The only time from bullet flight comes from the last bullet that lands on the enemy,
     // hence we only add msToTarget once
-    console.log(dist, (bulletsToKill * msPerShot + msToTarget));
+    // console.log("X ", hs_multi, "hs dist: ", hs_dist, "dist: ", dist, damageAtDist);
     WhiteTTKUBOverDistance.push([dist, bulletsToKill * msPerShot + msToTarget])
   }
   return WhiteTTKUBOverDistance
 }
 
 function APEXGetBlueTTKUpperBoundOverDistance (weapon) {
+  let hs_multi;
+  hs_multi = getHSMulti(weapon);
+  let hs_dist;
+  hs_dist = getMaxHSDist(weapon);
+  let ls_multi = getLimbMulti(weapon);
+  let fort_mutli = getDamageScaleMulti();
+  let helm_multi = getHelmMulti();
+  let projectile_multi = getProjectileScaleMulti();
+  let unmodified_damage;
+  let damage_out;
   var damages = weapon['damage_array'];
   var distances = weapon['damage_distance_array_m'];
   var bulletVelocity = weapon['projectile_launch_speed'] / 39.3701;
@@ -278,8 +536,17 @@ function APEXGetBlueTTKUpperBoundOverDistance (weapon) {
   // Used to track how long bullet has been flying
   var bulletFlightSeconds = 0.0;
   for (var dist = APEX_DAMAGE_RANGE_START; dist <= APEX_DAMAGE_RANGE_END; dist += APEX_DAMAGE_RANGE_STEP) {
-    damageAtDist = APEXInterpolateDamage(dist, damages, distances);
+    unmodified_damage = APEXInterpolateDamage2(dist, damages, distances, hs_multi, hs_dist);
+    if ( dist > hs_dist) {
+      hs_multi = 1.0;
+    }
+    damage_out = (((((unmodified_damage * projectile_multi) * fort_mutli) * hs_multi) * helm_multi) * ls_multi);
+
+    damageAtDist = damage_out; // damageAtDist = APEXInterpolateDamage2(dist, damages, distances, hs_multi, hs_dist);
     // Floor because we do not need the last bullet
+    if (dist > hs_dist) {
+      hs_multi = 1.0
+    }
     bulletsToKill = Math.floor(175 / (damageAtDist * APEX_MIN_DAMAGE_MULTIPLIER));
 
     msToTarget = bulletFlightSeconds * 1000;
@@ -297,6 +564,16 @@ function APEXGetBlueTTKUpperBoundOverDistance (weapon) {
 }
 
 function APEXGetPurpleTTKUpperBoundOverDistance (weapon) {
+  let hs_multi;
+  hs_multi = getHSMulti(weapon);
+  let hs_dist;
+  hs_dist = getMaxHSDist(weapon);
+  let ls_multi = getLimbMulti(weapon);
+  let fort_mutli = getDamageScaleMulti();
+  let helm_multi = getHelmMulti();
+  let projectile_multi = getProjectileScaleMulti();
+  let unmodified_damage;
+  let damage_out;
   var damages = weapon['damage_array'];
   var distances = weapon['damage_distance_array_m'];
   var bulletVelocity = weapon['projectile_launch_speed'] / 39.3701;
@@ -317,8 +594,17 @@ function APEXGetPurpleTTKUpperBoundOverDistance (weapon) {
   // Used to track how long bullet has been flying
   var bulletFlightSeconds = 0.0;
   for (var dist = APEX_DAMAGE_RANGE_START; dist <= APEX_DAMAGE_RANGE_END; dist += APEX_DAMAGE_RANGE_STEP) {
-    damageAtDist = APEXInterpolateDamage(dist, damages, distances);
+    unmodified_damage = APEXInterpolateDamage2(dist, damages, distances, hs_multi, hs_dist);
+    if ( dist > hs_dist) {
+      hs_multi = 1.0;
+    }
+    damage_out = (((((unmodified_damage * projectile_multi) * fort_mutli) * hs_multi) * helm_multi) * ls_multi);
+
+    damageAtDist = damage_out; // damageAtDist = APEXInterpolateDamage2(dist, damages, distances, hs_multi, hs_dist);
     // Floor because we do not need the last bullet
+    if (dist > hs_dist) {
+      hs_multi = 1.0
+    }
     bulletsToKill = Math.floor(200 / (damageAtDist * APEX_MIN_DAMAGE_MULTIPLIER));
 
     msToTarget = bulletFlightSeconds * 1000;
@@ -342,6 +628,7 @@ function APEXGetPurpleTTKUpperBoundOverDistance (weapon) {
 */
 function APEXLoadSuccessCallback (data) {
   APEXWeaponData = data;
+  APEXWeaponData_orig = data;
   // Create name_to_data objects
   for (var i = 0; i < APEXWeaponData.length; i++) {
     if (APEXWeaponData[i] != "WeaponViewkickPatterns"){
@@ -480,10 +767,17 @@ function openAPEXRecoilPatternPage () {
   }
 }
 /*
-  Load the APEX vehicle data page
+  Load the APEX Recoil Pattern data page
 */
 function loadAPEXRecoilPatternPage () {
   $('.apex-main-content').load('./pages/apex/recoilpatterns/apex_recoilPatterns.html', apex_initializeRecoilPage)
+}
+
+/*
+  Load the APEX Legends data page
+*/
+function loadAPEXLegendDataPage () {
+  $('.apex-main-content').load('./pages/apex/apex_dataLegend.html')
 }
 
 /*
@@ -516,6 +810,9 @@ function APEXOpenPageByName(pageName) {
 	} else if (pageName === 'Weapon Mechanics') {
     $('#apex-weaponPageSelector').addClass('selected-selector');
     openAPEXWeaponPage()
+  } else if (pageName === 'Legend Data') {
+    $('#apex-legendPageSelector').addClass('selected-selector');
+    loadAPEXLegendDataPage()
   }
 }
 
@@ -541,6 +838,8 @@ function initializeAPEXSelectrion () {
       pageName = 'Weapon Mechanics'
     } else if (clicked === 'apex-recoilPatternPageSelector') {
       pageName = 'Recoil Patterns'
+    } else if (clicked == 'apex-legendPageSelector') {
+      pageName = 'Legend Data'
     }
     APEXOpenPageByName(pageName)
   });
