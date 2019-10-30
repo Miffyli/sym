@@ -787,9 +787,14 @@ img.fnone{width: 59px; height: 59px;float:none !important}
     vertical-align: top;
 }
 
+.apex_recoilTooltip{
+    color: #FFFFFF;
+}
+
 .apex_recoilGraphBox{
     height: 101px;
     margin-top: -25px;
+    color: #FFFFFF;
 }
 .apex_sectionReload{
     text-align: center;
@@ -818,6 +823,9 @@ img.fnone{width: 59px; height: 59px;float:none !important}
     padding-top: 10px;
 }
 
+.apex_lblSpeedHitScanValue {
+    font-size: 24px;
+}
 .apex_magGraphicBox {
     margin-top: 5px;
 }
