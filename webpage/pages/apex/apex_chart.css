@@ -1,9 +1,3 @@
-/*body{
-    font-family: Arial;
-    background: #333;
-    color: white;
-    cursor: default;
-} */
 body {background-color: #191919;}
 .container{
     width: 690px;
@@ -21,145 +15,12 @@ body {background-color: #191919;}
     text-align: center;
 }
 
-
-
-.apex_tbdBox{
-    width: 243px;
-    text-align: center;
-    font-size: 14px;
-    font-weight: bold;
-    height: 40px;
-}
-
-.apex_robContainer{
-    display: inline-block;
-    text-align: center;
-    padding-left: 35px;
-}
-
-.apex_robLabel{
-    padding: 10px;
-    color: #333;
-    background: #eee;
-    box-shadow: 0px 2px 5px white;
-}
-
-.apex_robLabelRob{
-    font-size: 48px;
-    font-weight: bold;
-}
-
-.apex_robLabelPronounced{
-    font-size: 14px;
-    font-weight: bold;
-    font-style: italic;
-}
-
-.apex_robVersion {
-    float:right;
-    font-size: 10px;
-}
-
-.apex_robVersion img {
-    width: 24px;
-    height: 24px;
-    float: right;
-    margin-top: 30px;
-}
-
-.apex_otherProj {
-    text-align: right;
-    margin-top: 7px;
-}
-
-.apex_otherProj a:visited, .otherProj a:link{
-    color: white;
-    text-decoration: none;
-}
-
-.apex_pageTitleContainer{
-    margin: 40px 10px 20px;
-    border-bottom: 1px solid #eee;
-    font-size: 24px;
-    font-weight: bold;
-    padding: 5px;
-}
-
-.apex_aquiredFrom{
-    border-radius: 5px;
-    margin: 30px auto 10px;
-    font-size: 18px;
-    background: #eee;
-    color: #222;
-    padding: 10px;
-    font-weight: bold;
-    width: 500px;
-    text-align: center;
-}
-
-.apex_feedback{
-    border-radius: 5px;
-    margin: 20px auto 0px;
-    font-size: 14px;
-    background: #eee;
-    color: #222;
-    padding: 5px;
-    font-weight: bold;
-    width: 500px;
-    text-align: center;
-}
-
-.apex_feedback a > img{
-    width: 20px;
-    height: 20px;
-    vertical-align: text-bottom;
-}
-
-.apex_feedback a{
-    color: #222;
-}
-
-.apex_noIE {
-    width: 36px;
-    height: 36px;
-    vertical-align: middle;
-}
-
-.apex_aquiredFrom a{
-    font-size: larger;
-    font-weight: bold;
-    color:green;
-}
-
-.apex_robAccordionsContainer{
-    width: 1280px;
-    margin: auto;
-}
-
-.apex_robAccordion{
-    width: 33%;
-    display: inline-block;
-    vertical-align: top;
-    margin-top: 20px;
-    font-size: 14px;
-}
-
-.apex_robAccordion .ui-accordion-content{
-    max-height: 300px;
-}
-
-#showHideStats, #showHideSubCats{
+#apex_showHideStats, #apex_showHideSubCats{
     font-size: 11px;
 }
 
-#showHideStats > label, #showHideSubCats > label{
+#apex_showHideStats > label, #apex_showHideSubCats > label{
     padding: 5px 7px;
-}
-
-.apex_ui-tooltip{
-    font-size: 12px;
-    box-shadow: 0px 0px 7px #666;
-    background: rgb(25,25,25);
 }
 
 .apex_classTable{
@@ -173,7 +34,7 @@ body {background-color: #191919;}
 .apex_classHeader {
     font-size: 24px;
     font-weight: bold;
-    margin: 0px auto 10px;
+    margin: 0 auto 10px;
     width: 1280px;
 }
 
@@ -194,7 +55,7 @@ body {background-color: #191919;}
 .apex_classHeader {
     font-size: 24px;
     font-weight: bold;
-    margin: 0px auto 10px;
+    margin: 0 auto 10px;
     width: 1280px;
 }
 
@@ -246,9 +107,9 @@ body {background-color: #191919;}
     height: 18px;
 }
 
-/* ************ */
-/* TTK Toolbar      */
-/* ************ */
+/* *********** */
+/* TTK Toolbar */
+/* *********** */
 
 #ttkToolBar{
     text-align: center;
@@ -261,58 +122,30 @@ body {background-color: #191919;}
 
 #ttkToolBar > .apex_toolboxRow > div {
     margin: 5px;
-    /*display: inline-block;*/
-    /*margin-left: auto;*/
-    /*margin-right: auto;*/
-    /*margin-left: 300px;*/
 
 }
 
 #ttkToolBar > .apex_toolboxRow2 > div {
-    margin: 5px;
-    margin-left: 475px;
-    /*display: inline-block;*/
-    /*margin-right: auto;*/
-    /*margin-left: 300px;*/
+    margin: 5px 5px 5px 475px;
 
 }
 
 #ttkToolBar > .apex_toolboxRow3 > div {
-    margin: 5px;
-    margin-right: 475px;
-    margin-top: -52px;
-    /*display: unset;*/
-    /*display: inline-block;*/
-    /*margin-right: auto;*/
-    /*!*margin-top: -53px;*!*/
-    /*!*margin-left: 300px;*!*/
+    margin: -52px 475px 5px 5px;
 
 }
 
 
-.TTKtoolbarRowContainer {
-    /*width: 100px;*/
-    /*height: 100px;*/
+.TTK_toolbarRowContainer {
     display: inline-block;
-}
-
-.apex_ui-menu{
-    width: 185px;
 }
 
 #apex_showHideShieldTypes img{
     width: 40px;
-    /*height: 20px;*/
-    /*text-align: center;*/
-    /*margin-left: auto;*/
-    /*margin-right: auto;*/
-    /*width: 100%;*/
 }
 
 #apex_showHideTargetTypes img{
     display: inline-block;
-
-    /*width: 18px;*/
     width: 40px;
 }
 
@@ -320,11 +153,7 @@ body {background-color: #191919;}
     width: 40px;
 }
 
-#fortified_lowprofile_toggle {
-    width: 200px ;
-}
-
-.fortified_lowprofile_toggle{
+#fortified_low_profile_toggle {
     width: 200px ;
 }
 
@@ -340,13 +169,6 @@ body {background-color: #191919;}
     width: 220px;
     text-align: left !important;
 }
-
-/*.apexweaponImg{*/
-/*    height: 70px;*/
-/*    width: auto;*/
-/*    max-width: 265px;*/
-/*    margin: 5px 0;*/
-/*}*/
 
 .apex_weaponImg{
     height: 70px;
@@ -464,20 +286,12 @@ body {background-color: #191919;}
     stroke-width:.5;
 }
 
-/*
-fiveMline {
-    stroke:rgb(125,125,125);
-    stroke-width:.25;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        +
-}
-*/
-
 /* ************ */
 /* After  Chart */
 /* ************ */
 .apex_headShotDamageDistanceContainer{
     margin: 4px 0;
     display: inline-block;
-    /*border: 1px solid #444;*/
 }
 
 .apex_headShotDamageDistanceContainer img{
@@ -496,13 +310,8 @@ fiveMline {
     height: 20px;
 }
 
-.apex_thirdColumn{
-}
-
-.apex_lblSpeed {
-    font-size: 14px;
-    color: #72c2c2;
-}
+/*.apex_thirdColumn{*/
+/*}*/
 
 .apex_lblSpeed img{
     vertical-align: text-bottom;
@@ -514,14 +323,11 @@ fiveMline {
     vertical-align: middle;
 }
 
-.apex_fourthColumn{
-}
+/*.apex_fourthColumn{*/
+/*}*/
 
-.apex_fifthColumn{
-}
-
-.apex_sixthColumn{
-}
+/*.apex_fifthColumn{*/
+/*}*/
 
 /* **************/
 /* Spread Table */
@@ -551,29 +357,10 @@ fiveMline {
     width: 25px;
 }
 
-.apex_scaleIncreaseCell img{
-    width: 15px !important;
-}
-
-.apex_scaleIncreaseCell{
-    text-align: center !important;
-}
-
-.apex_seventhColum {
-}
-
 /* ******************/
 /* Attachment Slots */
 /* ******************/
 
-.barrel_stabilizer_l0{
-    position: absolute;
-    top: 60px;
-    left: 26px;
-    width: 100px;
-    filter: grayscale(1) saturate(500%) brightness(500%) opacity(.03);
-
-}
 .barrel_stabilizer_l1 {
     position: absolute;
     top: 60px;
@@ -581,12 +368,14 @@ fiveMline {
     width: 100px;
     filter: grayscale(1) saturate(500%) brightness(500%);
 }
+
 .barrel_stabilizer_l2 {
     position: absolute;
     top: 60px;
     left: 287px;
     width: 100px;
 }
+
 .barrel_stabilizer_l3 {
     position: absolute;
     top: 60px;
@@ -594,51 +383,54 @@ fiveMline {
     width: 100px;
     filter: hue-rotate(51.5deg) saturate(112.5%) brightness(113%);
 }
+
 .barrel_stabilizer_l4_flash_hider {
     position: absolute;
     top: 60px;
     left: 549px;
     width: 100px;
 }
-.apex_slot_0{
-    background:url(https://i.imgur.com/1bw3xpO.png) no-repeat;
-    float:left;
-    width:128px;
-    padding-right: 3px;
-    height:128px;
-    left: 100px;
-}
-.apex_slot_1{
-    background:url(https://i.imgur.com/1bw3xpO.png) no-repeat;
-    float:left;
-    padding-right: 3px;
-    width:128px;
-    height:128px;
-    left: 100px;
-}
-.apex_slot_2{
-    background:url(https://i.imgur.com/1bw3xpO.png) no-repeat;
-    float:left;
-    width:128px;
-    height:128px;
-    left: 100px;
-}
-.apex_slot_3{
-    background:url(https://i.imgur.com/1bw3xpO.png) no-repeat;
-    float:left;
-    margin-left: 131px;
-    width:128px;
-    height:128px;
-    left: 100px;
-}
-.apex_slot_4{
-    background:url(https://i.imgur.com/1bw3xpO.png) no-repeat;
-    float:left;
-    margin-left: 131px;
-    width:128px;
-    height:128px;
-    left: 100px;
-}
+
+/*.apex_slot_0{*/
+/*    background:url(https://i.imgur.com/1bw3xpO.png) no-repeat;*/
+/*    float:left;*/
+/*    width:128px;*/
+/*    padding-right: 3px;*/
+/*    height:128px;*/
+/*    left: 100px;*/
+/*}*/
+/*.apex_slot_1{*/
+/*    background:url(https://i.imgur.com/1bw3xpO.png) no-repeat;*/
+/*    float:left;*/
+/*    padding-right: 3px;*/
+/*    width:128px;*/
+/*    height:128px;*/
+/*    left: 100px;*/
+/*}*/
+/*.apex_slot_2{*/
+/*    background:url(https://i.imgur.com/1bw3xpO.png) no-repeat;*/
+/*    float:left;*/
+/*    width:128px;*/
+/*    height:128px;*/
+/*    left: 100px;*/
+/*}*/
+/*.apex_slot_3{*/
+/*    background:url(https://i.imgur.com/1bw3xpO.png) no-repeat;*/
+/*    float:left;*/
+/*    margin-left: 131px;*/
+/*    width:128px;*/
+/*    height:128px;*/
+/*    left: 100px;*/
+/*}*/
+/*.apex_slot_4{*/
+/*    background:url(https://i.imgur.com/1bw3xpO.png) no-repeat;*/
+/*    float:left;*/
+/*    margin-left: 131px;*/
+/*    width:128px;*/
+/*    height:128px;*/
+/*    left: 100px;*/
+/*}*/
+
 .aa {
     margin-left: -2px;
 }
@@ -649,7 +441,7 @@ fiveMline {
 .attachment_slot_menu td a, .attachment_slot_menu td a:visited{color: #191919;}
 .attachment_slot_menu td.active{background:#191919; color:#333}
 .attachment_slot_menu td.active a, .attachment_slot_menu td.active a:visited{color: #191919; text-decoration:none}
-.tbl_attachmentslot{background:#191919}
+.tbl_attachment_slot{background:#191919}
 pre{overflow-x:auto; overflow-y:hidden; background: #17ff05; color: #32ff00; margin:0; padding:20px; max-width:50px}
 .hide, .hidden{display:none}
 
@@ -698,11 +490,10 @@ img.fnone{width: 59px; height: 59px;float:none !important}
 }
 .ddcommon .noBorderTop{border-top:none 0  !important; padding:0; margin:0;}
 
-/*************** default theme **********************/
 .dd{border:0 solid #191919;}
 .dd .divider{border-left:0 solid #191919; border-right:0 solid #191919;; right:0;}
 .dd .ddArrow:hover{background-position:0 100%;}
-/*.dd .ddTitle{color:#00ff11;background: #191919 url(../../images/msdropdown/skin1/title-bg.gif) repeat-x left top;}*/
+
 .dd .ddTitle{color:#191919;background: #191919;}
 .dd .ddTitle .ddTitleText{padding:0 0 0 0;}
 .dd .ddTitle .ddTitleText .ddTitleText{padding:0;}
@@ -724,33 +515,6 @@ img.fnone{width: 59px; height: 59px;float:none !important}
 #barrel_stabilizers_child li.selected {
     background: #191919;
 }
-.apex_dropbtn {
-    background-color: #191919;
-    color: white;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-}
-
-.apex_dropbtn:hover, .dropbtn:focus {
-    background-color: #191919;
-}
-
-.apex_dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.apex_dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f1f1f1;
-    min-width: 160px;
-    overflow: auto;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-}
 
 .apex_dropdown-content a {
     color: black;
@@ -759,25 +523,11 @@ img.fnone{width: 59px; height: 59px;float:none !important}
     display: block;
 }
 
-.apex_dropdown a:hover {background-color: #ddd;}
-
-.apex_show {display: block;}
-
-.attachment_box
-{
-    visibility: hidden;
-}
-
+/* ***************/
+/* Reload Labels */
+/* ***************/
 .apex_lblMag {
     font-size: 20px;
-}
-
-.apex_underMagSection {
-
-}
-
-.apex_underMagSection > div {
-    display: inline-block;
 }
 
 .apex_reloadDataAndMagCount{
@@ -785,10 +535,6 @@ img.fnone{width: 59px; height: 59px;float:none !important}
     width: auto;
     min-width: 60px;
     vertical-align: top;
-}
-
-.apex_recoilTooltip{
-    color: #FFFFFF;
 }
 
 .apex_recoilGraphBox{
@@ -826,14 +572,6 @@ img.fnone{width: 59px; height: 59px;float:none !important}
 .apex_lblSpeedHitScanValue {
     font-size: 24px;
 }
-.apex_magGraphicBox {
-    margin-top: 5px;
-}
-
-.apex_recoilValue {
-    font-size: 15px;
-    fill: white;
-}
 
 .apex_wpnSwitchImg{
     height: 20px;
@@ -856,37 +594,8 @@ img.fnone{width: 59px; height: 59px;float:none !important}
     color: #A9D852;
 }
 
-.apex_spreadBaseCicle {
-    stroke-width: 4px;
-    stroke: #A9D852;
-    fill: none;
-}
-
-.apex_spreadBaseLine {
-    stroke-width: 5px;
-    stroke: #C8C63A;
-    fill: none;
-}
-
 .apex_spreadMoveLabel {
     color:  #FF9000;
-}
-
-.apex_spreadMoveCicle {
-    stroke-width: 4px;
-    stroke: #FF9000;
-    fill: none;
-}
-
-.apex_spreadMoveLine {
-    stroke-width: 10px;
-    stroke: #C27070;
-    fill: none;
-}
-
-.apex_spreadCircles {
-    display: inline-block;
-    margin: 0 !important;
 }
 
 .apex_hipSpreadContainer{
@@ -906,23 +615,6 @@ img.fnone{width: 59px; height: 59px;float:none !important}
     fill: none;
 }
 
-.apex_hipSpreadLine02 {
-    stroke: #ff0500;
-    stroke-width: 3px;
-    fill: none;
-}
-
-.apex_hipSpreadLine03 {
-    stroke: #0017ff;
-    stroke-width: 3px;
-    fill: none;
-}
-
-.apex_hipSpreadLine04 {
-    stroke: #00ff11;
-    stroke-width: 3px;
-    fill: none;
-}
 .apex_hipSpreadLine1 {
     stroke-width: 2px;
     stroke: #A9D852;
@@ -930,12 +622,12 @@ img.fnone{width: 59px; height: 59px;float:none !important}
 }
 
 .apex_shotgunSpreadLine {
-    stroke-width: 0.5px;
+    stroke-width: 1px;
     stroke: #FF9000;
     fill: #191919;
 }
 .apex_shotgunSpreadLine2 {
-    stroke-width: 0.5px;
+    stroke-width: 1px;
     stroke: #FF9000;
     fill: #191919;
 }
@@ -953,9 +645,7 @@ img.fnone{width: 59px; height: 59px;float:none !important}
 }
 
 .apex_shotgunBlankPoint {
-    stroke-width: 0px;
-    /*stroke: #ff0307;*/
-    /*fill: #ff0307;*/
+    stroke-width: 0;
 }
 
 .apex_hipSpreadLine2 {
@@ -984,56 +674,34 @@ img.fnone{width: 59px; height: 59px;float:none !important}
 
 .apex_lblDeployTime{
     font-size: 11px;
-    /*margin-top: -7;*/
-
-}
-
-.apex_lblDeployTime_side {
-    font-size: 11px;
-    /*margin-bottom: 60px;*/
-    /*margin-inside: 10px;*/
-    /*line-;*/
-
 }
 
 .apex_lblDeployTime_2{
     font-size: 11px;
-    /*text-align: left;*/
     margin-left: 4px;
-    /*margin-top: -30px;*/
 
 }
 .apex_lblDeployTime_4{
     font-size: 11px;
-    /*text-align: right;*/
-    /*margin-right: -0px;*/
     padding-left: 50px;
-    /*margin-top: -30px;*/
 
 }
-.apex_custButtonsApex{
+
+.apex_customButtonsApex{
     width: 298px;
     font-size: 8px;
 }
-.apex_custButtonsApex label{
+.apex_customButtonsApex label{
     margin: 1px;
     width: 75px;
 }
 
-.apex_custButtons{
-    width: 290px;
-    font-size: 8px;
-}
-
-.apex_custButtons label{
+.apex_customButtons label{
     margin: 1px;
     width: 75px;
 }
 
-.apex_afterApexCustButtons{
-}
-
-.apex_afterCustButtons{
+.apex_afterCustomButtons{
 }
 
 .apex_sortDragIcon{

@@ -239,7 +239,7 @@ function APEXGetDamageOverDistance (weapon) {
     }
     damage_out = (((((unmodified_damage * projectile_multi) * fort_mutli) * hs_multi) * helm_multi) * ls_multi);
 
-    console.log("DOST ", dist, " - ", hs_dist, "dmg, ", damage_out);
+    // console.log("DOST ", dist, " - ", hs_dist, "dmg, ", damage_out);
     damageOverDistance.push([dist, damage_out])
   }
   return damageOverDistance

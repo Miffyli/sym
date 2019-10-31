@@ -145,15 +145,15 @@ function APEXGetSelectedWeapons () {
 
   $('.apex_comp-selectorContainer').each(function () {
     if ($(this).find('select')[0].selectedIndex !== 0) {
-      const selectedCusts = $(this).find('select option:selected').text().trim();
-      // $(this).find('.custButton').each(function () {
+      const selectedAttachments = $(this).find('select option:selected').text().trim();
+      // $(this).find('.customButton').each(function () {
       //   if ($(this).is(':checked')) {
-      //     selectedCusts += $(this).next('label').data('shortname')
+      //     selectedAttachments += $(this).next('label').data('shortname')
       //   }
       // })
 
       var weaponStats = APEXWeaponData.find(function (element) {
-        return element.WeaponData.printname === selectedCusts
+        return element.WeaponData.printname === selectedAttachments
       });
       selectedWeapons.push(weaponStats.WeaponData)
     }
@@ -933,18 +933,15 @@ function initializeAPEXComparison () {
 
 function updateGraphsForHeadShots(){
   if ($("#useHeadShotDamage").is(":checked")){
-    console.log("useHeadShotDamage is checked");
     use_headshot_calculations = true;
     use_ls_multi_calculations = false;
   } else if ($("#useLimbShotDamage").is(":checked")){
-    console.log("useLimbShotDamage is checked");
     use_headshot_calculations = false;
     use_ls_multi_calculations = true;
   } else {
     use_headshot_calculations = false;
     use_ls_multi_calculations = false;
   }
-  console.log("use_headshot_calculations ", use_headshot_calculations, " use_ls_multi_calculations ", use_ls_multi_calculations, " button pressed");
   APEXUpdateFromToolBar();
 }
 
@@ -1008,7 +1005,7 @@ function printAPEXCustomizationButtons (e){
     $(selectedSelect).parent().parent().find('input').checkboxradio(
       {icon: false }
     );
-    apex_compInitializeCustomizationButtons($(selectedSelect).parent().parent().find('.custButton'))
+    apex_compInitializeCustomizationButtons($(selectedSelect).parent().parent().find('.customButton'))
   }
 
 }
@@ -1025,8 +1022,8 @@ function apex_compPrintCustomizations (weaponName) {
     for (var i = 0; i < weaponCust.length; i++) {
       var rowClass = 'custRow' + i.toString();
       custString += '<div>';
-      custString += "<input id='" + APEXAddVariantCounter + weaponName + weaponCust[i].a + i.toString() + "' name='" + APEXAddVariantCounter + weaponName + i.toString() + "' type='radio' class='custButton " + rowClass + " custCol1'><label data-shortname='" + weaponCust[i].a + "' for='" + APEXAddVariantCounter + weaponName + weaponCust[i].a + i.toString() + "'>" + APEXCustomizationStrings[weaponCust[i].a] + '</label>';
-      custString += "<input id='" + APEXAddVariantCounter + weaponName + weaponCust[i].b + i.toString() + "' name='" + APEXAddVariantCounter + weaponName + i.toString() + "' type='radio' class='custButton " + rowClass + " custCol2'><label data-shortname='" + weaponCust[i].b + "' for='" + APEXAddVariantCounter + weaponName + weaponCust[i].b + i.toString() + "'>" + APEXCustomizationStrings[weaponCust[i].b] + '</label>';
+      custString += "<input id='" + APEXAddVariantCounter + weaponName + weaponCust[i].a + i.toString() + "' name='" + APEXAddVariantCounter + weaponName + i.toString() + "' type='radio' class='customButton " + rowClass + " custCol1'><label data-shortname='" + weaponCust[i].a + "' for='" + APEXAddVariantCounter + weaponName + weaponCust[i].a + i.toString() + "'>" + APEXCustomizationStrings[weaponCust[i].a] + '</label>';
+      custString += "<input id='" + APEXAddVariantCounter + weaponName + weaponCust[i].b + i.toString() + "' name='" + APEXAddVariantCounter + weaponName + i.toString() + "' type='radio' class='customButton " + rowClass + " custCol2'><label data-shortname='" + weaponCust[i].b + "' for='" + APEXAddVariantCounter + weaponName + weaponCust[i].b + i.toString() + "'>" + APEXCustomizationStrings[weaponCust[i].b] + '</label>';
       custString += '</div>'
     }
   }
@@ -1042,34 +1039,34 @@ function apex_compPrintCustomizations (weaponName) {
 */
 function apex_compInitializeCustomizationButtons (buttonObj) {
     $(buttonObj).change(function () {
-      if ($(this).is(':checked') || $(this).siblings('.custButton').is(':checked')) {
+      if ($(this).is(':checked') || $(this).siblings('.customButton').is(':checked')) {
         if ($(this).hasClass('custRow1')) {
           var thisCol = $(this).hasClass('custCol1') ? '.custCol1' : '.custCol2';
           $(this).parent().next().children(thisCol).checkboxradio('enable')
         } else {
-          $(this).parent().next().children('.custButton').checkboxradio('enable')
+          $(this).parent().next().children('.customButton').checkboxradio('enable')
         }
       }
     });
 
     $(buttonObj).click(function () {
       if ($(this).hasClass('custRow1')) {
-        $(this).parent().nextAll().children('.custButton').prop('checked', false).change();
-        $(this).parent().nextAll().children('.custButton').checkboxradio('disable')
+        $(this).parent().nextAll().children('.customButton').prop('checked', false).change();
+        $(this).parent().nextAll().children('.customButton').checkboxradio('disable')
       }
 
       var thisId = $(this).attr('id');
       if ($(this).siblings("label[for='" + thisId + "']").hasClass('ui-state-active')) {
         $(this).prop('checked', false).change();
-        $(this).parent().nextAll().children('.custButton').prop('checked', false).change();
-        $(this).parent().nextAll().children('.custButton').checkboxradio('disable')
+        $(this).parent().nextAll().children('.customButton').prop('checked', false).change();
+        $(this).parent().nextAll().children('.customButton').checkboxradio('disable')
       }
 
       this.blur();
-      var selectedCusts = $(this).parentsUntil('.tbody', 'tr').find('td.firstColumn > .lblWeaponName').text();
-      $(this).parent().parent().find('.custButton').each(function () {
+      var selectedAttachments = $(this).parentsUntil('.tbody', 'tr').find('td.firstColumn > .lblWeaponName').text();
+      $(this).parent().parent().find('.customButton').each(function () {
         if ($(this).is(':checked')) {
-          selectedCusts += $(this).next('label').data('shortname')
+          selectedAttachments += $(this).next('label').data('shortname')
         }
       });
 
@@ -1085,7 +1082,7 @@ function apex_compInitializeCustomizationButtons (buttonObj) {
       APEXUpdateTTKAndBTKGraphs(selectedWeapons)
     });
 
-    $(buttonObj).parent().parent().find('div:not(:nth-child(2)) .custButton').checkboxradio('disable')
+    $(buttonObj).parent().parent().find('div:not(:nth-child(2)) .customButton').checkboxradio('disable')
 }
 
 function showHideGraphs(){
@@ -1146,18 +1143,15 @@ function showHideGraphs(){
 
 function updateGraphsForTargetType(){
   if ($("#useFortifiedTarget").is(":checked")){
-    console.log("useFortifiedTarget is checked");
     use_fortified_calculations = true;
     use_lowprofile_calculations = false;
   } else if ($("#useLowProfileTarget").is(":checked")){
-    console.log("useLowProfileTarget is checked");
     use_fortified_calculations = false;
     use_lowprofile_calculations = true;
   } else {
     use_fortified_calculations = false;
     use_lowprofile_calculations = false;
   }
-  console.log("use_fortified_calculations ", use_fortified_calculations, " use_lowprofile_calculations ", use_lowprofile_calculations, " button pressed");
   APEXUpdateFromToolBar();
 }
 

@@ -59,7 +59,6 @@ function apex_initializeChartPage() {
     active_weapon_attachments = {};
     // Create attachments array for each main weapon
     $.each(APEXWeaponData, function(key, weapon) {
-        // console.log("\""+ weapon['WeaponData']['custom_name']+"\",");
         let i;
         let attachment_list = [];
         let optic_list = [];
@@ -115,20 +114,20 @@ function apex_initializeChartPage() {
         showHideClasses();
     });
 
-    $("#showHideStats input").checkboxradio(
+    $("#apex_showHideStats input").checkboxradio(
         {icon: false}
     );
-    $("#showHideStats input").change(function(){
+    $("#apex_showHideStats input").change(function(){
         this.blur();
-        showHideStats();
+        apex_showHideStats();
     });
 
-    $("#showHideSubCats input").checkboxradio(
+    $("#apex_showHideSubCats input").checkboxradio(
         {icon: false}
     );
-    $("#showHideSubCats input").change(function(){
+    $("#apex_showHideSubCats input").change(function(){
         this.blur();
-        showHideSubCats();
+        apex_showHideSubCats();
     });
 
     $("#shortcutCombobox").combobox({
@@ -228,7 +227,7 @@ function apex_printWeapons(){
     $("#pageBody").html(statsHtml);
     showHideClasses();
 
-    $(".custButton").checkboxradio(
+    $(".customButton").checkboxradio(
         {icon:false}
     );
 
@@ -245,13 +244,13 @@ function apex_printWeapons(){
 
         var newWeaponRow = apex_printWeapon(newWeaponStats);
         var newWeaponRowObj = $(newWeaponRow).insertAfter(thisRow);
-        $(newWeaponRowObj).find(".custButton").checkboxradio(
+        $(newWeaponRowObj).find(".customButton").checkboxradio(
             {icon:false}
         );
         apex_initializeCustomizationsRow(newWeaponRowObj);
 
         $(newWeaponRowObj).effect("highlight");
-        showHideStats();
+        apex_showHideStats();
     });
 
     $(document).tooltip({track: true});
@@ -265,8 +264,8 @@ function apex_printWeapons(){
        handle: ".sortDragIcon"
     });
 
-    // showHideStats();
-    showHideSubCats();
+    // apex_showHideStats();
+    apex_showHideSubCats();
     apex_initializeAttachmentOnChange();
     //cleanUpStuff();
 }
@@ -293,13 +292,6 @@ function apex_printWeapon(weaponStats, key) {
     var attachmentGraphic = (weaponStats.menu_category == 8) ? "" : apex_printAttachments([formatWeaponName(weaponStats.printname)], weaponStats.ammo_pool_type);
     var addVariantGraphic = (weaponStats.menu_category === 8 || addVariantCounter !== 0) ? "" : "<button class='variantButton btn btn-outline-light btn-sm' " + apex_variantTooltip + ">+</button>";
     var charge_string = apex_createChargeSpinUpLabels(weaponStats);
-    // if (weaponStats['charge_time'] !== undefined && parseFloat(weaponStats['charge_time']) > 0.0){
-    //     charge_string = "<span class=\"ui-icon ui-icon-arrowthick-1-n\"></span>" + weaponStats['charge_time'] + "<span class='apex_lblSuffixText'> s</span>" +
-    //         "<span class=\"ui-icon ui-icon-transferthick-e-w\"></span><span>" + weaponStats['charge_cooldown_delay'] + "</span><span class='apex_lblSuffixText'> s</span>" +
-    //         "<span class=\"ui-icon ui-icon-arrowthick-1-s\"></span><span>" + weaponStats['charge_cooldown_time'] +"</span><span class='apex_lblSuffixText'> s</span></span>";
-    // } else {
-    //     charge_string = "    ";
-    // }
     var rtnStr = "<tr class='" + weaponStats.printname.replace(/ |\//g,"") + " sub_" + getAPEXWeaponsSubcat(weaponStats.printname) +"'>" +
         "<td class='apex_firstColumn'>" +
         "<div class='apex_lblWeaponName'>" +
@@ -344,9 +336,9 @@ function apex_printWeapon(weaponStats, key) {
         "</td><td>" +
         apex_spreadTableGraphic +
         "</td><td>" +
-        "<div class='apex_custButtonsApex'>" + attachmentGraphic + "</div>" +
+        "<div class='apex_customButtonsApex'>" + attachmentGraphic + "</div>" +
         "</td><td>" +
-        "<div class='apex_afterCustButtons'>" +
+        "<div class='apex_afterCustomButtons'>" +
         "<div>" +
         "<img class='apex_sortDragIcon' src='./pages/bfv/img/sortDrag.png' alt='' " + dragTooltip + ">" +
         "</div>" +
@@ -358,16 +350,16 @@ function apex_printWeapon(weaponStats, key) {
     return rtnStr;
 }
 
-function apex_updateWeapon(selectedCustomizations, selectedCustButton) {
+function apex_updateWeapon(selectedAttachments, selectedCustomButton) {
     var print_name;
-    for (var i = 0; i < APEXWeaponData.length; i++) {
+    for (let i = 0; i < APEXWeaponData.length; i++) {
         let weapon_mod = null;
         let weapon_data = null;
         let mod = null;
         weapon_mod = jQuery.extend(true, [], APEXWeaponData);
         mod = {};
-        if (selectedCustomizations[weapon_mod[i].WeaponData.printname] !== undefined) {
-            for (const [key, value] of Object.entries(selectedCustomizations[weapon_mod[i].WeaponData.printname])) {
+        if (selectedAttachments[weapon_mod[i].WeaponData.printname] !== undefined) {
+            for (const [key, value] of Object.entries(selectedAttachments[weapon_mod[i].WeaponData.printname])) {
                 if (value !== "" && value !== undefined) {
                     if (value === 'hopup_highcal_rounds') {
                         for (const [mod_key, mod_value] of Object.entries(weapon_mod[i].WeaponData.Mods['altfire_highcal'])) {
@@ -816,9 +808,9 @@ function apex_createSpreadGraphic(spread_stand_ads, ADSSpreadAir){
 }
 
 function apex_createShotgunBlastGraphic(weaponStats) {
-    var shotgunGraphic = "";
-    var defaultScale = weaponStats['blast_pattern_default_scale'];
-    var ads_scale;
+    let shotgunGraphic = "";
+    const defaultScale = weaponStats['blast_pattern_default_scale'];
+    let ads_scale;
     if (weaponStats['blast_pattern_ads_scale'] !== undefined) {
         ads_scale = weaponStats['blast_pattern_ads_scale'];
     } else if (parseFloat(weaponStats['charge_time']) > 0.0){
@@ -826,9 +818,9 @@ function apex_createShotgunBlastGraphic(weaponStats) {
     } else {
         ads_scale = defaultScale;
     }
-    var horz_01_data = weaponStats['blast_pattern_data_x'];
-    var vert_01_data = weaponStats['blast_pattern_data_y'];
-    var blastPatternCount = weaponStats['blast_pattern_data_x'].length;
+    const horz_01_data = weaponStats['blast_pattern_data_x'];
+    const vert_01_data = weaponStats['blast_pattern_data_y'];
+    const blastPatternCount = weaponStats['blast_pattern_data_x'].length;
     shotgunGraphic = "<svg viewBox='0 0 100 100' style='width: 100px;height: 100px;'>" +"";
     shotgunGraphic += "<circle cx='50' cy='50' r='" + ((30)) + "' class='apex_shotgunSpreadLine'></circle>" +"";
     // shotgunGraphic += "<circle cx='50' cy='50' r='" + ((25)) + "' class='apex_shotgunSpreadLine2'></circle>" +"";
@@ -836,21 +828,21 @@ function apex_createShotgunBlastGraphic(weaponStats) {
     // shotgunGraphic += "<circle cx='50' cy='50' r='" + ((15)) + "' class='apex_shotgunSpreadLine'></circle>" +"";
     shotgunGraphic += "<circle cx='50' cy='50' r='" + ((10)) + "' class='apex_shotgunSpreadLine'></circle>" +"";
     // shotgunGraphic += "<circle cx='50' cy='50' r='" + ((5)) + "' class='apex_shotgunSpreadLine'></circle>" +"";
-    for (var i = 0; i < blastPatternCount; i++){
-        var horz_data = 0;
-        var vert_data = 0;
+    for (let i = 0; i < blastPatternCount; i++){
+        let horz_data = 0;
+        let vert_data = 0;
         horz_data = (50+(horz_01_data[i] * defaultScale));
         vert_data = (50 + ((vert_01_data[i]* defaultScale) * -1));
         shotgunGraphic += "<circle cx='" + horz_data + "' cy='" + vert_data + "' r='" + (2).toString() + "' class='apex_shotgunHipPoint'></circle>" +" ";
-        console.log(weaponStats['printname'] + " Hip Scale" +defaultScale+ " X:" + horz_01_data[i] + " Y:" + vert_01_data[i] + " | X:" + (horz_01_data[i] * defaultScale) + " Y:" + (vert_01_data[i] * defaultScale));
+        // console.log(weaponStats['printname'] + " Hip Scale" +defaultScale+ " X:" + horz_01_data[i] + " Y:" + vert_01_data[i] + " | X:" + (horz_01_data[i] * defaultScale) + " Y:" + (vert_01_data[i] * defaultScale));
     }
-    for (var i = 0; i < blastPatternCount; i++){
-        var horz_data = 0;
-        var vert_data = 0;
+    for (let i = 0; i < blastPatternCount; i++){
+        let horz_data = 0;
+        let vert_data = 0;
         horz_data = (50+(horz_01_data[i] * ads_scale));
         vert_data = (50 + ((vert_01_data[i]* ads_scale) * -1));
         shotgunGraphic += "<circle cx='" + horz_data + "' cy='" + vert_data + "' r='" + (2).toString() + "' class='apex_shotgunADSPoint'></circle>" +" ";
-        console.log(weaponStats['printname'] + " ADS Scale" +ads_scale+ " X:" + horz_01_data[i] + " Y:" + vert_01_data[i] + " | X:" + (horz_01_data[i] * ads_scale) + " Y:" + (vert_01_data[i] * ads_scale));
+        // console.log(weaponStats['printname'] + " ADS Scale" +ads_scale+ " X:" + horz_01_data[i] + " Y:" + vert_01_data[i] + " | X:" + (horz_01_data[i] * ads_scale) + " Y:" + (vert_01_data[i] * ads_scale));
     }
     shotgunGraphic += "</svg>";
     return shotgunGraphic;
@@ -860,9 +852,9 @@ function apex_createShotgunBlastGraphic(weaponStats) {
 // Think we might live with one that looks better on the chart and redirect to recoil pattern page where they can be
 // graphed and shown properly
 function apex_createShotgunBlastGraphic2(weaponStats) {
-    var shotgunGraphic = "";
-    var defaultScale = weaponStats['blast_pattern_default_scale'];
-    var ads_scale;
+    let shotgunGraphic;
+    const defaultScale = weaponStats['blast_pattern_default_scale'];
+    let ads_scale;
     if (weaponStats['blast_pattern_ads_scale'] !== undefined) {
         ads_scale = weaponStats['blast_pattern_ads_scale'];
     } else if (parseFloat(weaponStats['charge_time']) > 0.0){
@@ -870,9 +862,9 @@ function apex_createShotgunBlastGraphic2(weaponStats) {
     } else {
         ads_scale = defaultScale;
     }
-    var horz_01_data = weaponStats['blast_pattern_data_x'];
-    var vert_01_data = weaponStats['blast_pattern_data_y'];
-    var blastPatternCount = weaponStats['blast_pattern_data_x'].length;
+    const horz_01_data = weaponStats['blast_pattern_data_x'];
+    const vert_01_data = weaponStats['blast_pattern_data_y'];
+    const blastPatternCount = weaponStats['blast_pattern_data_x'].length;
     shotgunGraphic = "<svg viewBox='0 0 100 100' style='width: 100px;height: 100px;'>" +""; //viewBox='15 15 70 70'
     shotgunGraphic += "<circle cx='50' cy='50' r='" + ((30)) + "' class='apex_shotgunSpreadLine'></circle>" +"";
     shotgunGraphic += "<circle cx='50' cy='50' r='" + ((25)) + "' class='apex_shotgunSpreadLine2'></circle>" +"";
@@ -884,9 +876,9 @@ function apex_createShotgunBlastGraphic2(weaponStats) {
     shotgunGraphic += "<circle cx='" + (-50).toString() + "' cy='" + (-50).toString() + "' r='" + (0).toString() + "' class='apex_shotgunBlankPoint'></circle>" +" ";
     shotgunGraphic += "<circle cx='" + (50).toString() + "' cy='" + (50).toString() + "' r='" + (0).toString() + "' class='apex_shotgunBlankPoint'></circle>" +" ";
     shotgunGraphic += "<circle cx='" + (50).toString() + "' cy='" + (-50).toString() + "' r='" + (0).toString() + "' class='apex_shotgunBlankPoint'></circle>" +" ";
-    for (var i = 0; i < blastPatternCount; i++){
-        var horz_data = 0;
-        var vert_data = 0;
+    for (let i = 0; i < blastPatternCount; i++){
+        let horz_data = 0;
+        let vert_data = 0;
         if (horz_01_data[i] !== 0 && vert_01_data[i] !== 0) {
             horz_data = (horz_01_data[i] * -0.333333) + (50 + (horz_01_data[i] * defaultScale));
         } else {
@@ -900,9 +892,9 @@ function apex_createShotgunBlastGraphic2(weaponStats) {
         shotgunGraphic += "<circle cx='" + horz_data + "' cy='" + vert_data + "' r='" + (1).toString() + "' class='apex_shotgunHipPoint'></circle>" +" ";
         console.log(weaponStats['printname'] + " Hip Scale" +defaultScale+ " X:" + horz_01_data[i] + " Y:" + vert_01_data[i] + " | X:" + (horz_01_data[i] * defaultScale) + " Y:" + (vert_01_data[i] * defaultScale));
     }
-    for (var i = 0; i < blastPatternCount; i++){
-        var horz_data = 0;
-        var vert_data = 0;
+    for (let i = 0; i < blastPatternCount; i++){
+        let horz_data = 0;
+        let vert_data = 0;
         if (horz_01_data[i] !== 0 && vert_01_data[i] !== 0) {
             horz_data = (horz_01_data[i] * -0.333333) + (50 + (horz_01_data[i] * ads_scale));
         } else {
@@ -1203,9 +1195,9 @@ function apex_createDamageChart50Max(damageArr, distanceArr, numOfPellets, hs_mu
         "<line x1='180' y1='0' x2='180' y2='100' class='apex_gridLineThin'/>" +
         "<line x1='190' y1='0' x2='190' y2='100' class='apex_gridLineThin'/>" +
 
-        "<line x1='50' y1='0' x2='50' y2='100' class='gridLineFat'/>" +
-        "<line x1='100' y1='0' x2='100' y2='100' class='gridLineFat'/>" +
-        "<line x1='150' y1='0' x2='150' y2='100' class='gridLineFat'/>" +
+        "<line x1='50' y1='0' x2='50' y2='100' class='apex_gridLineFat'/>" +
+        "<line x1='100' y1='0' x2='100' y2='100' class='apex_gridLineFat'/>" +
+        "<line x1='150' y1='0' x2='150' y2='100' class='apex_gridLineFat'/>" +
 
         "<line x1='0' y1='50' x2='200' y2='50' style='stroke:rgb(175,175,175); stroke-width:.5'/>" +
         "<text x='0' y='58' class='apex_chartLabel'>25</text>" +
@@ -1354,9 +1346,9 @@ function apex_createDamageChart100Max(damageArr, distanceArr, hs_multi, ls_multi
         "<line x1='180' y1='0' x2='180' y2='100' class='apex_gridLineThin'/>" +
         "<line x1='190' y1='0' x2='190' y2='100' class='apex_gridLineThin'/>" +
 
-        "<line x1='50' y1='0' x2='50' y2='100' class='gridLineFat'/>" +
-        "<line x1='100' y1='0' x2='100' y2='100' class='gridLineFat'/>" +
-        "<line x1='150' y1='0' x2='150' y2='100' class='gridLineFat'/>" +
+        "<line x1='50' y1='0' x2='50' y2='100' class='apex_gridLineFat'/>" +
+        "<line x1='100' y1='0' x2='100' y2='100' class='apex_gridLineFat'/>" +
+        "<line x1='150' y1='0' x2='150' y2='100' class='apex_gridLineFat'/>" +
 
         "<text x='0' y='8' class='apex_chartLabel'>100</text>" +
         "<line x1='0' y1='50' x2='200' y2='50' style='stroke:rgb(175,175,175); stroke-width:.5'/>" +
@@ -1486,9 +1478,9 @@ function apex_createDamageChart150Max(damageArr, distanceArr, hs_multi, ls_multi
         "<line x1='180' y1='0' x2='180' y2='100' class='apex_gridLineThin'/>" +
         "<line x1='190' y1='0' x2='190' y2='100' class='apex_gridLineThin'/>" +
 
-        "<line x1='50' y1='0' x2='50' y2='100' class='gridLineFat'/>" +
-        "<line x1='100' y1='0' x2='100' y2='100' class='gridLineFat'/>" +
-        "<line x1='150' y1='0' x2='150' y2='100' class='gridLineFat'/>" +
+        "<line x1='50' y1='0' x2='50' y2='100' class='apex_gridLineFat'/>" +
+        "<line x1='100' y1='0' x2='100' y2='100' class='apex_gridLineFat'/>" +
+        "<line x1='150' y1='0' x2='150' y2='100' class='apex_gridLineFat'/>" +
 
         "<text x='0' y='8' class='apex_chartLabel'>150</text>" +
         "<line x1='0' y1='33.333333' x2='200' y2='33.333333' style='stroke:rgb(175,175,175); stroke-width:.5'/>" +
@@ -1625,9 +1617,9 @@ function apex_createDamageChart300Max(damageArr, distanceArr, hs_multi, ls_multi
         "<line x1='180' y1='0' x2='180' y2='100' class='apex_gridLineThin'/>" +
         "<line x1='190' y1='0' x2='190' y2='100' class='apex_gridLineThin'/>" +
 
-        "<line x1='50' y1='0' x2='50' y2='100' class='gridLineFat'/>" +
-        "<line x1='100' y1='0' x2='100' y2='100' class='gridLineFat'/>" +
-        "<line x1='150' y1='0' x2='150' y2='100' class='gridLineFat'/>" +
+        "<line x1='50' y1='0' x2='50' y2='100' class='apex_gridLineFat'/>" +
+        "<line x1='100' y1='0' x2='100' y2='100' class='apex_gridLineFat'/>" +
+        "<line x1='150' y1='0' x2='150' y2='100' class='apex_gridLineFat'/>" +
 
         "<text x='0' y='8' class='apex_chartLabel'>300</text>" +
         "<line x1='0' y1='33.333333' x2='200' y2='33.333333' style='stroke:rgb(175,175,175); stroke-width:.5'/>" +
@@ -1705,9 +1697,9 @@ function apex_createDamageChart100Max200Dist(damageArr, distanceArr){
         "<line x1='180' y1='0' x2='180' y2='100' class='apex_gridLineThin'/>" +
         "<line x1='190' y1='0' x2='190' y2='100' class='apex_gridLineThin'/>" +
 
-        "<line x1='50' y1='0' x2='50' y2='100' class='gridLineFat'/>" +
-        "<line x1='100' y1='0' x2='100' y2='100' class='gridLineFat'/>" +
-        "<line x1='150' y1='0' x2='150' y2='100' class='gridLineFat'/>" +
+        "<line x1='50' y1='0' x2='50' y2='100' class='apex_gridLineFat'/>" +
+        "<line x1='100' y1='0' x2='100' y2='100' class='apex_gridLineFat'/>" +
+        "<line x1='150' y1='0' x2='150' y2='100' class='apex_gridLineFat'/>" +
 
         "<text x='0' y='8' class='apex_chartLabel'>100</text>" +
         "<line x1='0' y1='50' x2='200' y2='50' style='stroke:rgb(175,175,175); stroke-width:.5'/>" +
@@ -1847,9 +1839,9 @@ function apex_createDamageChart200Max200Dist(damageArr, distanceArr, hs_multi, l
         "<line x1='180' y1='0' x2='180' y2='100' class='apex_gridLineThin'/>" +
         "<line x1='190' y1='0' x2='190' y2='100' class='apex_gridLineThin'/>" +
 
-        "<line x1='50' y1='0' x2='50' y2='100' class='gridLineFat'/>" +
-        "<line x1='100' y1='0' x2='100' y2='100' class='gridLineFat'/>" +
-        "<line x1='150' y1='0' x2='150' y2='100' class='gridLineFat'/>" +
+        "<line x1='50' y1='0' x2='50' y2='100' class='apex_gridLineFat'/>" +
+        "<line x1='100' y1='0' x2='100' y2='100' class='apex_gridLineFat'/>" +
+        "<line x1='150' y1='0' x2='150' y2='100' class='apex_gridLineFat'/>" +
 
         "<text x='0' y='8' class='apex_chartLabel'>150</text>" +
         "<line x1='0' y1='50' x2='200' y2='50' style='stroke:rgb(175,175,175); stroke-width:.5'/>" +
@@ -1899,7 +1891,7 @@ function showHideClasses(){
     }
 }
 //"Assault Rifle","SMG","Shotgun","LMG","Sniper","Special","Pistol"
-function showHideSubCats(){
+function apex_showHideSubCats(){
     if ($("#showARCheck").is(":checked")){
         $("#AssaultRifleSection").show(0);
     } else {
@@ -1937,7 +1929,7 @@ function showHideSubCats(){
     }
 }
 
-// function showHideStats(){
+// function apex_showHideStats(){
 //     if ($("#showROFCheck").is(":checked")){
 //         $(".lblRPM").css("visibility","unset");
 //     } else {
@@ -1991,11 +1983,11 @@ function showHideSubCats(){
 //         $(".apex_deployTimeBox").css("visibility","hidden");
 //     }
 //     if ($("#showToolsCheck").is(":checked")){
-//         $(".custButtons").css("visibility","unset");
-//         $(".afterCustButtons").css("visibility","unset");
+//         $(".apex_customButtons").css("visibility","unset");
+//         $(".apex_afterCustomButtons").css("visibility","unset");
 //     } else {
-//         $(".custButtons").css("visibility","hidden");
-//         $(".afterCustButtons").css("visibility","hidden");
+//         $(".apex_customButtons").css("visibility","hidden");
+//         $(".apex_afterCustomButtons").css("visibility","hidden");
 //     }
 // }
 
@@ -2039,6 +2031,6 @@ function cleanUpStuff(){
     //$(speacialRow).find(".recoilGraphicBox").css("visibility","hidden");
     //$(speacialRow).find(".recoilGraphicBox > svg").empty();
     $(speacialRow).find(".variantButton").remove();
-    $(speacialRow).find(".custButtons").empty().html("<div class='tbdBox'>Soon</div>");
+    $(speacialRow).find(".apex_customButtons").empty().html("<div class='tbdBox'>Soon</div>");
 
 }

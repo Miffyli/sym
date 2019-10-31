@@ -61,10 +61,10 @@ function initializeSorts(){
 }
 
 function compareRPMs(a, b){
-    if (a.BRoF > b.BRoF){
+    if (a['WeaponData']['effective_fire_rate'] > b['WeaponData']['effective_fire_rate']){
         return -1;
     }
-    if (b.BRoF > a.BRoF){
+    if (b['WeaponData']['effective_fire_rate'] > a['WeaponData']['effective_fire_rate']){
         return 1;
     }
     return 0;
@@ -82,10 +82,10 @@ function compareNames(a, b){
 
 
 function compareBulletSpeeds(a, b){
-    if (a.InitialSpeed > b.InitialSpeed){
+    if (a['WeaponData']['projectile_launch_speed'] > b['WeaponData']['projectile_launch_speed']){
         return -1;
     }
-    if (b.InitialSpeed > a.InitialSpeed){
+    if (b['WeaponData']['projectile_launch_speed'] > a['WeaponData']['projectile_launch_speed']){
         return 1;
     }
     return 0;
@@ -93,10 +93,10 @@ function compareBulletSpeeds(a, b){
 
 
 function compareMagSizes(a, b){
-    if (a.ammo_clip_size > b.ammo_clip_size){
+    if (a['WeaponData']['ammo_clip_size'] > b['WeaponData']['ammo_clip_size']){
         return -1;
     }
-    if (b.ammo_clip_size > a.ammo_clip_size){
+    if (b['WeaponData']['ammo_clip_size'] > a['WeaponData']['ammo_clip_size']){
         return 1;
     }
     return 0;
@@ -104,50 +104,50 @@ function compareMagSizes(a, b){
 
 
 function compareMaxDamages(a, b){
-    if (a.Damages[0] > b.Damages[0]){
+    if (a['WeaponData']['damage_array'][0] > b['WeaponData']['damage_array'][0]){
         return -1;
     }
-    if (b.Damages[0] > a.Damages[0]){
+    if (b['WeaponData']['damage_array'][0] > a['WeaponData']['damage_array'][0]){
         return 1;
     }
     return 0;
 }
 
 function compareInitVertRecoil(a, b){
-    if (a.ADSStandRecoilInitialUp < b.ADSStandRecoilInitialUp){
+    if (a['WeaponData'].viewkick_pattern_data_y_avg < b['WeaponData'].viewkick_pattern_data_y_avg){
         return -1;
     }
-    if (b.ADSStandRecoilInitialUp < a.ADSStandRecoilInitialUp){
+    if (b['WeaponData'].viewkick_pattern_data_y_avg < a['WeaponData'].viewkick_pattern_data_y_avg){
         return 1;
     }
     return 0;
 }
 
 function compareVertRecoil(a, b){
-    if (a.ADSStandRecoilUp < b.ADSStandRecoilUp){
+    if (a['WeaponData'].viewkick_pattern_data_sizey < b['WeaponData'].viewkick_pattern_data_sizey){
         return -1;
     }
-    if (b.ADSStandRecoilUp < a.ADSStandRecoilUp){
+    if (b['WeaponData'].viewkick_pattern_data_sizey < a['WeaponData'].viewkick_pattern_data_sizey){
         return 1;
     }
     return 0;
 }
 
 function compareHorRecoil(a, b){
-    if (a.ADSStandRecoilLeft < b.ADSStandRecoilLeft){
+    if (a['WeaponData'].viewkick_pattern_data_x_avg < b['WeaponData'].viewkick_pattern_data_x_avg){
         return -1;
     }
-    if (b.ADSStandRecoilLeft < a.ADSStandRecoilLeft){
+    if (b['WeaponData'].viewkick_pattern_data_x_avg < a['WeaponData'].viewkick_pattern_data_x_avg){
         return 1;
     }
     return 0;
 }
 
 function compareDeployTimes(a, b){
-    if (a.DeployTime < b.DeployTime){
+    if (a['WeaponData'].deploy_time < b['WeaponData'].deploy_time){
         return -1;
     }
-    if (b.DeployTime < a.DeployTime){
+    if (b['WeaponData'].deploy_time < a['WeaponData'].deploy_time){
         return 1;
     }
     return 0;
@@ -158,7 +158,7 @@ $( function() {
     $.widget( "custom.combobox", {
         _create: function() {
             this.wrapper = $( "<span>" )
-            .addClass( "custom-combobox" )
+            .addClass( "apex_custom-combobox" )
             .insertAfter( this.element );
 
             this.element.hide();
@@ -174,7 +174,7 @@ $( function() {
             .appendTo( this.wrapper )
             .val( value )
             .attr( "title", "" )
-            .addClass( "custom-combobox-input ui-widget ui-widget-content ui-state-default ui-corner-left" )
+            .addClass( "apex_custom-combobox-input ui-widget ui-widget-content ui-state-default ui-corner-left" )
             .autocomplete({
                 delay: 0,
                 minLength: 0,
@@ -214,7 +214,7 @@ $( function() {
                 text: false
             })
             .removeClass( "ui-corner-all" )
-            .addClass( "custom-combobox-toggle ui-corner-right" )
+            .addClass( "apex_custom-combobox-toggle ui-corner-right" )
             .on( "mousedown", function() {
                 wasOpen = input.autocomplete( "widget" ).is( ":visible" );
             })
@@ -305,7 +305,7 @@ $( function() {
                     if ($(this).text().match(matcher)) {
                         this.selected = valid = true;
                         return false;
-                    };
+                    }
                 });
                 if (!valid) {
                     // remove invalid value, as it didn't match anything
@@ -313,8 +313,8 @@ $( function() {
                     select.val("");
                     input.data("autocomplete").term = "";
                     return false;
-                };
-            };
+                }
+            }
         }
     });
 } );

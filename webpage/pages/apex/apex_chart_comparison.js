@@ -1,6 +1,6 @@
-var customizationHopupStrings = new Object();
-var customizationOpticStrings = new Object();
-var customizationAttachmentStrings = new Object();
+const customizationHopupStrings = {};
+const customizationOpticStrings = {};
+const customizationAttachmentStrings = {};
 // Weapon HopUps
 customizationHopupStrings.hopup_double_tap = "hopup_double_tap";
 customizationHopupStrings.hopup_energy_choke = "hopup_energy_choke";
@@ -11,36 +11,6 @@ customizationHopupStrings.hopup_shield_breaker = "hopup_shield_breaker";
 customizationHopupStrings.hopup_turbocharger = "hopup_turbocharger";
 customizationHopupStrings.hopup_unshielded_dmg = "hopup_unshielded_dmg";
 customizationHopupStrings.hopup_multiplexer = "hopup_multiplexer";
-// Base Weapon Attachments Strings
-// customizationAttachmentStrings.barrel_stabilizer_l1 = "White Barrel Stabilizer";
-// customizationAttachmentStrings.barrel_stabilizer_l2 = "Blue Barrel Stabilizer";
-// customizationAttachmentStrings.barrel_stabilizer_l3 = "Purple Barrel Stabilizer";
-// customizationAttachmentStrings.barrel_stabilizer_l4_flash_hider = "Gold Barrel Stabilizer";
-// customizationAttachmentStrings.bullets_mag_l1 = "White Extended Light Mag";
-// customizationAttachmentStrings.bullets_mag_l2 = "Blue Extended Light Mag";
-// customizationAttachmentStrings.bullets_mag_l3 = "Purple Extended Light Mag";
-// customizationAttachmentStrings.bullets_mag_l4 = "Gold Extended Light Mag";
-// customizationAttachmentStrings.energy_mag_l1 = "White Extended Energy Mag";
-// customizationAttachmentStrings.energy_mag_l2 = "Blue Extended Energy Mag";
-// customizationAttachmentStrings.energy_mag_l3 = "Purple Extended Energy Mag";
-// customizationAttachmentStrings.energy_mag_l4 = "Gold Extended Energy Mag";
-// customizationAttachmentStrings.highcal_mag_l1 = "White Extended Heavy Mag";
-// customizationAttachmentStrings.highcal_mag_l2 = "Blue Extended Heavy Mag";
-// customizationAttachmentStrings.highcal_mag_l3 = "Purple Extended Heavy Mag";
-// customizationAttachmentStrings.highcal_mag_l4 = "Gold Extended Heavy Mag";
-// customizationAttachmentStrings.shotgun_bolt_l1 = "White Shotgun Bolt";
-// customizationAttachmentStrings.shotgun_bolt_l2 = "Blue Shotgun Bolt";
-// customizationAttachmentStrings.shotgun_bolt_l3 = "Purple Shotgun Bolt";
-// customizationAttachmentStrings.shotgun_bolt_l4 = "Gold Shotgun Bolt";
-// customizationAttachmentStrings.stock_sniper_l1 = "White Sniper Stock";
-// customizationAttachmentStrings.stock_sniper_l2 = "Blue Sniper Stock";
-// customizationAttachmentStrings.stock_sniper_l3 = "Purple Sniper Stock";
-// customizationAttachmentStrings.stock_sniper_l4 = "Gold Sniper Stock";
-// customizationAttachmentStrings.stock_tactical_l1 = "White Standard Stock";
-// customizationAttachmentStrings.stock_tactical_l2 = "Blue Standard Stock";
-// customizationAttachmentStrings.stock_tactical_l3 = "Purple Standard Stock";
-// customizationAttachmentStrings.stock_tactical_l4 = "Gold Standard Stock";
-// Base Weapon Attachments Icons
 customizationAttachmentStrings.stock_sniper_l1 = "stock_sniper_l1";
 customizationAttachmentStrings.stock_sniper_l2 = "stock_sniper_l2";
 customizationAttachmentStrings.stock_sniper_l3 = "stock_sniper_l3";
@@ -83,85 +53,83 @@ customizationOpticStrings.optic_sniper_threat = "optic_sniper_threat";
 customizationOpticStrings.optic_sniper_variable = "optic_sniper_variable";
 
 function apex_initializeCustomizations(){
-    $(".custButton").change(function(){
-        if ($(this).is(":checked") || $(this).siblings(".custButton").is(":checked")) {
+    // noinspection JSJQueryEfficiency
+    $(".apex_customButtonsApex").change(function(){
+        if ($(this).is(":checked") || $(this).siblings(".apex_customButtonsApex").is(":checked")) {
             if ($(this).hasClass("custRow1")){
-                var thisCol = $(this).hasClass("custCol1") ? ".custCol1" : ".custCol2";
+                const thisCol = $(this).hasClass("custCol1") ? ".custCol1" : ".custCol2";
                 $(this).parent().next().children(thisCol).checkboxradio("enable");
             } else {
-                $(this).parent().next().children(".custButton").checkboxradio("enable");
+                $(this).parent().next().children(".apex_customButtonsApex").checkboxradio("enable");
             }
 
         }
     });
 
-    $(".custButton").click(function(){
+    // noinspection JSJQueryEfficiency
+    $(".apex_customButtonsApex").click(function(){
         if ($(this).hasClass("custRow1")){
-            $(this).parent().nextAll().children(".custButton").prop("checked", false).change();
-            // $(this).parent().nextAll().children(".custButton").checkboxradio("disable");
+            $(this).parent().nextAll().children(".apex_customButtonsApex").prop("checked", false).change();
         }
 
-        var thisId = $(this).attr("id");
+        const thisId = $(this).attr("id");
         if ($(this).siblings("label[for='" + thisId +"']").hasClass("ui-state-active")){
             $(this).prop("checked", false).change();
-            // $(this).parent().nextAll().children(".custButton").prop("checked", false).change();
-            // $(this).parent().nextAll().children(".custButton").checkboxradio("disable");
         } else {
 
         }
         this.blur();
-        var selectedCusts = $(this).parentsUntil(".tbody", "tr").find("td.firstColumn > .lblWeaponName").text();
-        $(this).parent().parent().find(".custButton").each(function(){
+        let selectedAttachments = $(this).parentsUntil(".tbody", "tr").find("td.firstColumn > .lblWeaponName").text();
+        $(this).parent().parent().find(".apex_customButtonsApex").each(function(){
             if($(this).is(":checked")){
-                //selectedCusts += $(this).next("label").text();
-                selectedCusts += $(this).next("label").data("shortname");
+                selectedAttachments += $(this).next("label").data("shortname");
             }
-        })
+        });
 
-        apex_updateWeapon(selectedCusts, this);
+        apex_updateWeapon(selectedAttachments, this);
     });
 
-    $(".custButtons > div:not(:first-child) .custButton").checkboxradio("disable");
+    $(".apex_customButtons > div:not(:first-child) .apex_customButtonsApex").checkboxradio("disable");
 }
 
 function apex_initializeCustomizationsRow(tableRow){
-    $(tableRow).find(".custButton").change(function(){
-        if ($(this).is(":checked") || $(this).siblings(".custButton").is(":checked")) {
+    $(tableRow).find(".apex_customButtonsApex").change(function(){
+        if ($(this).is(":checked") || $(this).siblings(".apex_customButtonsApex").is(":checked")) {
             if ($(this).hasClass("custRow1")){
-                var thisCol = $(this).hasClass("custCol1") ? ".custCol1" : ".custCol2";
+                const thisCol = $(this).hasClass("custCol1") ? ".custCol1" : ".custCol2";
                 $(this).parent().next().children(thisCol).checkboxradio("enable");
             } else {
-                $(this).parent().next().children(".custButton").checkboxradio("enable");
+                $(this).parent().next().children(".apex_customButtonsApex").checkboxradio("enable");
             }
 
         }
     });
 
-    $(tableRow).find(".custButton").click(function(){
+    $(tableRow).find(".apex_customButtonsApex").click(function(){
         if ($(this).hasClass("custRow1")){
-            $(this).parent().nextAll().children(".custButton").prop("checked", false).change();
-            $(this).parent().nextAll().children(".custButton").checkboxradio("disable");
+            $(this).parent().nextAll().children(".apex_customButtonsApex").prop("checked", false).change();
+            $(this).parent().nextAll().children(".apex_customButtonsApex").checkboxradio("disable");
         }
 
-        var thisId = $(this).attr("id");
+        const thisId = $(this).attr("id");
         if ($(this).siblings("label[for='" + thisId +"']").hasClass("ui-state-active")){
             $(this).prop("checked", false).change();
-            $(this).parent().nextAll().children(".custButton").prop("checked", false).change();
-            $(this).parent().nextAll().children(".custButton").checkboxradio("disable");
+            $(this).parent().nextAll().children(".apex_customButtonsApex").prop("checked", false).change();
+            $(this).parent().nextAll().children(".apex_customButtonsApex").checkboxradio("disable");
         } else {
 
         }
         this.blur();
-        var selectedCusts = $(this).parentsUntil(".tbody", "tr").find("td.firstColumn > .lblWeaponName").text();
-        $(this).parent().parent().find(".custButton").each(function(){
+        let selectedAttachments = $(this).parentsUntil(".tbody", "tr").find("td.firstColumn > .lblWeaponName").text();
+        $(this).parent().parent().find(".apex_customButtonsApex").each(function(){
             if($(this).is(":checked")){
-                //selectedCusts += $(this).next("label").text();
-                selectedCusts += $(this).next("label").data("shortname");
+                //selectedAttachments += $(this).next("label").text();
+                selectedAttachments += $(this).next("label").data("shortname");
             }
-        })
+        });
 
-        apex_updateWeapon(selectedCusts, this);
+        apex_updateWeapon(selectedAttachments, this);
     });
 
-    $(tableRow).find(".custButtons > div:not(:first-child) .custButton").checkboxradio("disable");
+    $(tableRow).find(".apex_customButtons > div:not(:first-child) .apex_customButtonsApex").checkboxradio("disable");
 }
