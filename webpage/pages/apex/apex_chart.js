@@ -773,8 +773,8 @@ function apex_createNewRecoilGraphic(viewkick_pattern_data_y_avg, viewkick_patte
 }
 
 function apex_createSpreadLabels(ads_move_speed_scale, zoom_time_in, zoom_time_out, zoom_fov){
-    return "<div class='apex_speadMoveLabel' "+ apex_ads_move_fov_Tooltip +"><span class='apex_lblSuffixText'>x</span>" + ads_move_speed_scale + "  |  " + zoom_fov + "°</div>" +
-                 "<div class='apex_speadBaseLabel'"+ apex_ads_zoom_Tooltip +">" + zoom_time_in + "<span class='apex_lblSuffixText'>s </span> | " + zoom_time_out + "<span class='apex_lblSuffixText'>s </span></div>";
+    return "<div class='apex_spreadMoveLabel' "+ apex_ads_move_fov_Tooltip +"><span class='apex_lblSuffixText'>x</span>" + ads_move_speed_scale + "  |  " + zoom_fov + "°</div>" +
+                 "<div class='apex_spreadBaseLabel'"+ apex_ads_zoom_Tooltip +">" + zoom_time_in + "<span class='apex_lblSuffixText'>s </span> | " + zoom_time_out + "<span class='apex_lblSuffixText'>s </span></div>";
 }
 
 function apex_createADSZoom(ads_move_speed_scale, zoom_time_in, zoom_time_out, zoom_fov) {
@@ -1006,8 +1006,8 @@ function apex_createSpreadTableGraphic(spread_stand_ads, spread_stand_hip, sprea
         "<tr class='apex_spreadLabel10' " + apex_bulletSpeed06Tooltip + ">" + "<td>" + spread_kick_on_fire_stand_ads + "</td><td>" + spread_kick_on_fire_stand_hip + "</td>" + "</tr>" +
         "<tr class='apex_spreadLabel10' " + apex_bulletSpeed07Tooltip + ">" + "<td>" + spread_kick_on_fire_crouch_ads + "</td><td>" + spread_kick_on_fire_crouch_hip + "</td>" + "</tr>" +
         "<tr class='apex_spreadLabel10' " + apex_bulletSpeed08Tooltip + ">" + "<td>" + spread_kick_on_fire_air_ads + "</td><td>" + spread_kick_on_fire_air_hip + "</td>" + "</tr>" +
-        "<tr>" + "<td class='scaleIncreaseCell'><img src='./img/increase.png' alt=''></td><td class='apex_spreadLabel10' " + apex_bulletSpeed09Tooltip + ">" + spread_decay_delay + "</td><td>" + spread_decay_rate + "</td>" + "</tr>" +
-        "<tr>" + "<td class='scaleIncreaseCell'><img src='./img/increase.png' alt=''></td><td class='apex_spreadLabel10' " + apex_bulletSpeed10Tooltip + ">" + spread_moving_increase_rate + "</td><td>" + spread_moving_decay_rate + "</td>" + "</tr>" +
+        "<tr>" + "<td class='scaleIncreaseCell'><img src='./img/increase.png' alt=''></td><td class='apex_spreadLabel10' " + apex_bulletSpeed09Tooltip + ">" + spread_decay_delay + "</td><td class='apex_spreadLabel10' " + apex_bulletSpeed09Tooltip + ">" + spread_decay_rate + "</td>" + "</tr>" +
+        "<tr>" + "<td class='scaleIncreaseCell'><img src='./img/increase.png' alt=''></td><td class='apex_spreadLabel10' " + apex_bulletSpeed10Tooltip + ">" + spread_moving_increase_rate + "</td><td class='apex_spreadLabel10' " + apex_bulletSpeed10Tooltip + ">" + spread_moving_decay_rate + "</td>" + "</tr>" +
         "</table>";
 }
 
