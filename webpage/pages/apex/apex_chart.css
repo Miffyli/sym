@@ -848,11 +848,11 @@ img.fnone{width: 59px; height: 59px;float:none !important}
     text-align: center;
     margin-right: 5px !important;
     line-height: 25px;
-    width: 70px;
+    width: 90px;
     padding-top: 20px;
 }
 
-.apex_speadBaseLabel {
+.apex_spreadBaseLabel {
     color: #A9D852;
 }
 
@@ -927,6 +927,35 @@ img.fnone{width: 59px; height: 59px;float:none !important}
     stroke-width: 2px;
     stroke: #A9D852;
     fill: none;
+}
+
+.apex_shotgunSpreadLine {
+    stroke-width: 0.5px;
+    stroke: #FF9000;
+    fill: #191919;
+}
+.apex_shotgunSpreadLine2 {
+    stroke-width: 0.5px;
+    stroke: #FF9000;
+    fill: #191919;
+}
+
+.apex_shotgunADSPoint {
+    stroke-width: 1px;
+    stroke: #ff0307;
+    fill: #ff0307;
+}
+
+.apex_shotgunHipPoint {
+    stroke-width: 1px;
+    stroke: #A9D852;
+    fill: #A9D852;
+}
+
+.apex_shotgunBlankPoint {
+    stroke-width: 0px;
+    /*stroke: #ff0307;*/
+    /*fill: #ff0307;*/
 }
 
 .apex_hipSpreadLine2 {
