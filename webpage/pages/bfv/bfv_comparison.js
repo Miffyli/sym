@@ -137,7 +137,7 @@ function BFVColorVariables(variableName, weaponValues) {
       colorCodes = weaponValues.map(weaponValue => BFV_NEUTRAL_VALUE_COLOR)
     } else {
       // Sort by value so that "lower is worse".
-      uniqueValues.sort()
+      uniqueValues.sort((a, b) => a - b)
 
       // Values are now "higher is better".
       // If variable is not in BFV_LOWER_IS_WORSE, then
