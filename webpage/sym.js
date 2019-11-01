@@ -119,8 +119,8 @@ function loadNewestNewsItems (itemIndex, numItems) {
 }
 
 /*
-    Rounds a number to at most 2 decimal places but will not add trailing zeros
+    Rounds a number to at most 3 decimal places but will not add trailing zeros
 */
-function roundToTwo(num) {
-  return +(Math.round(num + 'e+2')  + 'e-2');
+function roundToThree(num) {
+  return +(Math.round(num + 'e+3')  + 'e-3');
 }

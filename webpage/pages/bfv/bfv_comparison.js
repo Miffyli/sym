@@ -54,6 +54,10 @@ BFVCustomizationStrings.ExBe = 'Extended Belt'
 BFVCustomizationStrings.Drum = 'Double Drum Magazine'
 BFVCustomizationStrings.Gren = 'Improved Grenades'
 BFVCustomizationStrings.APCR = 'APCR Bullets'
+BFVCustomizationStrings.GLau = 'Grenade Launcher'
+BFVCustomizationStrings.Fire = 'Fully Automatic Fire'
+
+
 
 /*
   Return list of select weapons (the

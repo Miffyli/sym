@@ -186,6 +186,7 @@
 
 #showHideStats > label, #showHideSubCats > label{
     padding: 5px 7px;
+    border-radius: 2px;
 }
 
 .ui-tooltip{
@@ -245,6 +246,7 @@
 #showHideCheckboxes label {
     width: 100px;
     margin-bottom: 8px;
+    border-radius: 2px;
 }
 
 #showHideCheckboxes img{
@@ -498,6 +500,11 @@ fiveMline {
 .custButtons label{
     margin: 1px;
     width: 105px;
+    border-radius: 2px;
+}
+
+.variantButton{
+    border-radius: 2px;
 }
 
 .afterCustButtons{

@@ -1,9 +1,6 @@
 
-
-// http://eaassets-a.akamaihd.net/dice-commerce/Casablanca/Update_Notes/20190321-01/Battlefield_V_Chapter_3_Trial_By_Fire_Update_21032019_FINAL.pdf
-
 var weaponClassTitles = ["","Medic","Assault","Support","Recon", "", "", "", "Sidearms"];
-var firestormWeapons = ["Gewehr 43","M1A1 Carbine","Sturmgewehr 1-5","StG 44","MP40","De Lisle Commando","STEN","Suomi KP/-31","M1928A1","LS/26","FG-42","Bren Gun","MG42","VGO","M97","12g Automatic","Lee-Enfield No4 Mk1","Kar98k","ZH-29","Boys AT Rifle","P38 Pistol","P08 Pistol","M1911","Liberator","Mk VI Revoler"];
+var firestormWeapons = []//["Gewehr 43","M1A1 Carbine","Sturmgewehr 1-5","StG 44","MP40","De Lisle Commando","STEN","Suomi KP/-31","M1928A1","LS/26","FG-42","Bren Gun","MG42","VGO","M97","12g Automatic","Lee-Enfield No4 Mk1","Kar98k","ZH-29","Boys AT Rifle","P38 Pistol","P08 Pistol","M1911","Liberator","Mk VI Revoler"];
 var customizations = new Object();
 var addVariantCounter = 0;
 
@@ -127,7 +124,7 @@ function printWeapons(){
     });
 
     showHideSubCats();
-    //cleanUpStuff();
+    bfvChartSortLetters("lblWeaponNameValue", compareNames)
 }
 
 function printWeaponClass(weaponClass){
@@ -141,13 +138,13 @@ function printWeaponClass(weaponClass){
             rtnStr += printWeapon(value);
         }
     });
+
     rtnStr += "</tbody></table></div>";
     return rtnStr;
 }
 
 function printWeapon(weaponStats){
     var firestormIcon = (firestormWeapons.includes(weaponStats.WeapShowName) ? "<img src='./pages/bfv/img/firestorm.png' " + firestormTooltip + ">" : "");
-    //var magCountGraphic = createMagGraphic(weaponStats.MagSize, weaponStats.Ammo.includes("Incendiary") || weaponStats.Ammo.includes("_APCR"));
     var reloadData = createReloadGraphic(weaponStats.ReloadEmpty, weaponStats.ReloadLeft, weaponStats.MagSize, weaponStats.Ammo);
     var standRecoilData = createRecoilGraphic(weaponStats.ADSStandRecoilLeft, weaponStats.ADSStandRecoilRight, weaponStats.ADSStandRecoilUp, weaponStats.ADSStandRecoilInitialUp);
     var spreadTableGraphic = createSpreadTableGraphic(weaponStats.ADSStandBaseMin,weaponStats.ADSCrouchBaseMin,weaponStats.ADSProneBaseMin,
@@ -160,7 +157,7 @@ function printWeapon(weaponStats){
     var rtnStr = "<tr class='" + weaponStats.WeapShowName.replace(/ |\//g,"") + " sub_" + getWeaponsSubcat(weaponStats.WeapShowName) +"'>" +
                      "<td class='firstColumn'>" +
                          "<div class='lblWeaponName'>" +
-                            "<span>" + weaponStats.WeapShowName + "</span>" + firestormIcon +
+                            "<span class='lblWeaponNameValue'>" + weaponStats.WeapShowName + "</span>" + firestormIcon +
                          "</div>" +
                          "<div>" +
                              "<img class='weaponImg' src='./pages/bfv/img/" + weaponStats.WeapShowName.replace("/","") + ".png' onerror='showBlank(this);'>" +
@@ -324,19 +321,19 @@ function createRecoilGraphic(recoilLeft, recoilRight, recoilUp, recoilInitialUp)
                                 point5inc + oneinc + onepoint5inc +
                                 "<line x1='" + recoilHorLenth1 + "' y1='90' x2='" + recoilHorLenth2 + "' y2='90' style='stroke:white; stroke-width:2'/>" + // Left - Right
                                 "<line x1='60' y1='90' x2='60' y2='" + recoilUpLength + "' style='stroke:white; stroke-width:2'/>" + // Up - Down
-                                "<text x='" + (recoilHorLenth1 - 4).toString() + "' y='95' text-anchor='end' class='recoilValue'>" + recoilLeft + "°</text>" +
-                                "<text x='" + (recoilHorLenth2 + 4).toString() + "' y='95' class='recoilValue'>" + Math.abs(recoilRight) + "°</text>" +
-                                "<text x='64' y='" + recoilUpTextY + "' text-anchor='start' class='recoilValue'>" + (recoilUp >= 0 ? "+": "") + recoilUp + "°</text>" +
-                                "<text x='60' y='" + recoilInitUpTextY + "' text-anchor='middle' class='recoilValue'>" + recoilInitialUp + "°</text>" +
+                                "<text x='" + (recoilHorLenth1 - 4).toString() + "' y='95' text-anchor='end' class='recoilValue recoilHorValue'>" + roundToThree(recoilLeft) + "°</text>" +
+                                "<text x='" + (recoilHorLenth2 + 4).toString() + "' y='95' class='recoilValue'>" + roundToThree(Math.abs(recoilRight)) + "°</text>" +
+                                "<text x='64' y='" + recoilUpTextY + "' text-anchor='start' class='recoilValue recoilUpValue'>" + (recoilUp >= 0 ? "+": "") + roundToThree(recoilUp) + "°</text>" +
+                                "<text x='60' y='" + recoilInitUpTextY + "' text-anchor='middle' class='recoilValue recoilInitUpValue'>" + roundToThree(recoilInitialUp) + "°</text>" +
                             "</svg>";
     } else {
         var recoilGraphic = "<svg viewbox='0 0 120 100' style='width: 100px;'>" +
                                 "<line x1='50' y1='90' x2='70' y2='90' style='stroke:#555; stroke-width:2'/>" +
                                 "<line x1='60' y1='90' x2='60' y2='80' style='stroke:#555; stroke-width:2'/>" +
-                                "<text x='44' y='95' text-anchor='end' class='recoilValue'>" + recoilLeft + "°</text>" +
-                                "<text x='74' y='95' class='recoilValue'>" + Math.abs(recoilRight) + "°</text>" +
-                                "<text x='64' y='64' text-anchor='start' class='recoilValue'>" + (recoilUp >= 0 ? "+": "") + recoilUp + "°</text>" +
-                                "<text x='60' y='76' text-anchor='middle' class='recoilValue'>" + recoilInitialUp + "°</text>" +
+                                "<text x='44' y='95' text-anchor='end' class='recoilValue recoilHorValue'>" + roundToThree(recoilLeft) + "°</text>" +
+                                "<text x='74' y='95' class='recoilValue'>" + roundToThree(Math.abs(recoilRight)) + "°</text>" +
+                                "<text x='64' y='64' text-anchor='start' class='recoilValue recoilUpValue'>" + (recoilUp >= 0 ? "+": "") + roundToThree(recoilUp) + "°</text>" +
+                                "<text x='60' y='76' text-anchor='middle' class='recoilValue recoilInitUpValue'>" + roundToThree(recoilInitialUp) + "°</text>" +
                             "</svg>";
     }
     return recoilGraphic;
@@ -345,8 +342,8 @@ function createRecoilGraphic(recoilLeft, recoilRight, recoilUp, recoilInitialUp)
 function createSpreadLabels(ADSStandMoveMin, ADSStandBaseMin){
     var rtnStr = "";
     if (ADSStandMoveMin > 0){
-        rtnStr = "<div class='speadMoveLabel'>" + ADSStandMoveMin + "°</div>" +
-                 "<div class='speadBaseLabel'>" + ADSStandBaseMin + "°</div>";
+        rtnStr = "<div class='speadMoveLabel'>" + roundToThree(ADSStandMoveMin) + "°</div>" +
+                 "<div class='speadBaseLabel'>" + roundToThree(ADSStandBaseMin) + "°</div>";
     }
     return rtnStr;
 }
@@ -393,12 +390,12 @@ function createHipSpreadGraphic(HIPSpread, HorDispersion){
                         "<line y1='50' x1='" + (lineOffset + 52) + "' y2='50' x2='" + (lineOffset + 65) + "' class='hipSpreadLine'></line>" +
                         "<line y1='50' x1='" + (48 - lineOffset) + "' y2='50' x2='" + (35 - lineOffset) + "' class='hipSpreadLine'></line>" +
 
-                        "<text x='5' y='91' class='hipSpreadValue'>" + HIPSpread + "°</text>" +
+                        "<text x='5' y='91' class='hipSpreadValue'>" + roundToThree(HIPSpread) + "°</text>" +
                         "</svg>";
     } else {
         spreadGraphic = "<svg viewBox='0 0 100 100' style='width: 75px;'>" +
                         "<circle cx='50' cy='50' r='" + (HorDispersion * 10).toString() + "' class='hipSpreadLine'></circle>" +
-                        "<text x='5' y='23' class='hipSpreadValue'>" + HorDispersion + "°</text>" +
+                        "<text x='5' y='23' class='hipSpreadValue'>" + roundToThree(HorDispersion) + "°</text>" +
                         "</svg>";
     }
     return spreadGraphic;
@@ -409,14 +406,14 @@ function createSpreadTableGraphic(ADSStand, ADSCrouch, ADSProne, ADSStandMove, A
                                   ADSIncrease, HIPIncrease){
     var tableGraphic = "<table class='spreadTable'>" +
                            "<tr>" + "<td></td><td>ADS</td><td>HIP</td>" + "</tr>" +
-                           "<tr>" + "<td rowspan='3'><img src='./img/standing.png'></td><td>" + roundToTwo(ADSStand) + "°</td><td>" + roundToTwo(HIPStand) + "°</td>" +
-                           "<tr>" + "<td>" + roundToTwo(ADSCrouch) + "°</td><td>" + roundToTwo(HIPCrouch) + "°</td>" + "</tr>" +
-                           "<tr>" + "<td>" + roundToTwo(ADSProne) + "°</td><td>" + roundToTwo(HIPProne) + "°</td>" + "</tr>" +
-                           "<tr>" + "<td rowspan='3'><img src='./img/moving.png'></td><td>" + roundToTwo(ADSStandMove) + "°</td><td>" + roundToTwo(HIPStandMove) + "°</td>" +
-                           "<tr>" + "<td>" + roundToTwo(ADSCrouchMove) + "°</td><td>" + roundToTwo(HIPCrouchMove) + "°</td>" + "</tr>" +
-                           "<tr>" + "<td>" + roundToTwo(ADSProneMove) + "°</td><td>" + roundToTwo(HIPProneMove) + "°</td>" + "</tr>" +
+                           "<tr>" + "<td rowspan='3'><img src='./img/standing.png'></td><td>" + roundToThree(ADSStand) + "°</td><td>" + roundToThree(HIPStand) + "°</td>" +
+                           "<tr>" + "<td>" + roundToThree(ADSCrouch) + "°</td><td>" + roundToThree(HIPCrouch) + "°</td>" + "</tr>" +
+                           "<tr>" + "<td>" + roundToThree(ADSProne) + "°</td><td>" + roundToThree(HIPProne) + "°</td>" + "</tr>" +
+                           "<tr>" + "<td rowspan='3'><img src='./img/moving.png'></td><td>" + roundToThree(ADSStandMove) + "°</td><td>" + roundToThree(HIPStandMove) + "°</td>" +
+                           "<tr>" + "<td>" + roundToThree(ADSCrouchMove) + "°</td><td>" + roundToThree(HIPCrouchMove) + "°</td>" + "</tr>" +
+                           "<tr>" + "<td>" + roundToThree(ADSProneMove) + "°</td><td>" + roundToThree(HIPProneMove) + "°</td>" + "</tr>" +
 
-                           "<tr>" + "<td class='scaleIncreaseCell'><img src='./img/increase.png'></td><td>" + roundToTwo(ADSIncrease) + "°</td><td>" + roundToTwo(HIPIncrease) + "°</td>" + "</tr>" +
+                           "<tr>" + "<td class='scaleIncreaseCell'><img src='./img/increase.png'></td><td>" + roundToThree(ADSIncrease) + "°</td><td>" + roundToThree(HIPIncrease) + "°</td>" + "</tr>" +
 
                        "</table>"
     return tableGraphic;
@@ -460,9 +457,9 @@ function createDamageChart50Max(damageArr, distanceArr, numOfPellets){
 
     var maxDamageText = "";
     if(damageArr[0] > 40){
-        maxDamageText = "<text x='" + distanceArr[1] + "' y='" + (118 - (2 * maxDamage)).toString() + "' class='chartMinMaxLabel'>" + maxDamage + "</text>";
+        maxDamageText = "<text x='" + distanceArr[1] + "' y='" + (118 - (2 * maxDamage)).toString() + "' class='chartMinMaxLabel maxDamageText'>" + maxDamage + "</text>";
     } else {
-        maxDamageText = "<text x='" + distanceArr[1] + "' y='" + (96 - (2 * maxDamage)).toString() + "' class='chartMinMaxLabel'>" + maxDamage + "</text>";
+        maxDamageText = "<text x='" + distanceArr[1] + "' y='" + (96 - (2 * maxDamage)).toString() + "' class='chartMinMaxLabel maxDamageText'>" + maxDamage + "</text>";
     }
 
     var minDamageText = "";
@@ -533,9 +530,9 @@ function createDamageChart100Max(damageArr, distanceArr){
 
     var maxDamageText = "";
     if(damageArr[0] > 80){
-        maxDamageText = "<text x='" + distanceArr[1] + "' y='" + (118 - (maxDamage)).toString() + "' class='chartMinMaxLabel'>" + maxDamage + "</text>";
+        maxDamageText = "<text x='" + distanceArr[1] + "' y='" + (118 - (maxDamage)).toString() + "' class='chartMinMaxLabel maxDamageText'>" + maxDamage + "</text>";
     } else {
-        maxDamageText = "<text x='" + distanceArr[1] + "' y='" + (96 - (maxDamage)).toString() + "' class='chartMinMaxLabel'>" + maxDamage + "</text>";
+        maxDamageText = "<text x='" + distanceArr[1] + "' y='" + (96 - (maxDamage)).toString() + "' class='chartMinMaxLabel maxDamageText'>" + maxDamage + "</text>";
     }
 
     var minDamageText = "";
@@ -599,12 +596,12 @@ function createDamageChart100Max200Dist(damageArr, distanceArr){
     var maxDamageText = "";
     if(damageArr[0] > 80){
 	if(damageArr[0] > 100){
-            maxDamageText = "<text x='" + distanceArr[1]/2 + "' y='" + (122 - (maxDamage)).toString() + "' class='chartMinMaxLabel'>" + maxDamage + "</text>";
+            maxDamageText = "<text x='" + distanceArr[1]/2 + "' y='" + (122 - (maxDamage)).toString() + "' class='chartMinMaxLabel maxDamageText'>" + maxDamage + "</text>";
         } else {
-            maxDamageText = "<text x='" + distanceArr[1]/2 + "' y='" + (118 - (maxDamage)).toString() + "' class='chartMinMaxLabel'>" + maxDamage + "</text>";
+            maxDamageText = "<text x='" + distanceArr[1]/2 + "' y='" + (118 - (maxDamage)).toString() + "' class='chartMinMaxLabel maxDamageText'>" + maxDamage + "</text>";
         }
     } else {
-        maxDamageText = "<text x='" + distanceArr[1]/2 + "' y='" + (96 - (maxDamage)).toString() + "' class='chartMinMaxLabel'>" + maxDamage + "</text>";
+        maxDamageText = "<text x='" + distanceArr[1]/2 + "' y='" + (96 - (maxDamage)).toString() + "' class='chartMinMaxLabel maxDamageText'>" + maxDamage + "</text>";
     }
 
     var minDamageText = "";
@@ -746,6 +743,7 @@ var weaponSubCats = new Object();
 weaponSubCats._AGM42 = "SAR";
 weaponSubCats._BredaM1935PG = "AR"
 weaponSubCats._Gewehr15 = "SAR";
+weaponSubCats._M1Garand = "SAR";
 weaponSubCats._M1A1Carbine = "SAR";
 weaponSubCats._Modele1944 = "SAR";
 weaponSubCats._Selbstlader1916 = "SAR";
@@ -767,8 +765,10 @@ weaponSubCats._MP40 = "SMG";
 weaponSubCats._STEN = "SMG";
 weaponSubCats._SuomiKP31 = "SMG";
 weaponSubCats._Zk383 = "SMG";
+weaponSubCats._Type100 = "SMG";
 weaponSubCats._M28Tromboncino = "BACarbine";
 weaponSubCats._DeLisleCommando = "BACarbine";
+weaponSubCats._JungleCarbine = "BACarbine";
 
 weaponSubCats._12gAutomatic = "Shotgun";
 weaponSubCats._M30Drilling = "Shotgun";
@@ -783,6 +783,7 @@ weaponSubCats._MG34 = "MMG";
 weaponSubCats._MG42 = "MMG";
 weaponSubCats._S2200 = "MMG";
 weaponSubCats._VGO = "MMG";
+weaponSubCats._M1919A6 = "MMG";
 
 weaponSubCats._BoysATRifle = "AntiMaterial";
 weaponSubCats._Panzerbüchse39 = "AntiMaterial";
@@ -791,11 +792,13 @@ weaponSubCats._Kar98k = "BA";
 weaponSubCats._KragJorgensen = "BA";
 weaponSubCats._LeeEnfieldNo4Mk1 = "BA";
 weaponSubCats._RossRifleMkIII = "BA";
+weaponSubCats._Type99Arisaka = "BA";
 weaponSubCats._Model8 = "SLR";
 weaponSubCats._RSC = "SLR";
 weaponSubCats._Selbstlader1906 = "SLR";
 weaponSubCats._ZH29 = "SLR";
 weaponSubCats._P08Carbine = "PistolCarbine";
+weaponSubCats._C96TrenchCarbine = "PistolCarbine";
 
 
 function cleanUpStuff(){
