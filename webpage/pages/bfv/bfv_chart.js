@@ -12,7 +12,7 @@ const magTooltip = "title = 'Ammo Capacity'";
 const reloadTooltip = "title = 'Reload Time (Tactical/Empty)'";
 const recoilTooltip = "title = 'Recoil while Standing'";
 const adsTooltip = "title = 'ADS(Aim Down Sight) Spread while Standing'";
-const hipfireTooltip = "title = 'Hip Fire Spread wile Standing and Moving'";
+const hipfireTooltip = "title = 'Hip Fire Spread while Standing and Moving'";
 const deployTooltip = "title = 'Deploy Time'";
 const dragTooltip = "title = 'Manual Sort (Click and Hold to drag)'";
 const variantTooltip = "title = 'Add Variant'";
