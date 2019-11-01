@@ -7,74 +7,97 @@ function getWeaponsSubcat(weaponName){
 function initializeSorts(){
     $("#sortRPM").click(function(){
         $("#actionMenu").menu("collapse");
-        BFVWeaponData.sort(compareRPMs);
-        printWeapons();
+        bfvChartSortNumbers("lblRPMValue", compareRPMs)
     });
 
     $("#sortName").click(function(){
         $("#actionMenu").menu("collapse");
-        BFVWeaponData.sort(compareNames);
-        printWeapons();
+        bfvChartSortLetters("lblWeaponNameValue", compareNames)
     });
 
     $("#sortBulletSpeed").click(function(){
         $("#actionMenu").menu("collapse");
-        BFVWeaponData.sort(compareBulletSpeeds);
-        printWeapons();
+        bfvChartSortNumbers("lblSpeedValue", compareBulletSpeeds)
     });
 
     $("#sortMagSize").click(function(){
         $("#actionMenu").menu("collapse");
-        BFVWeaponData.sort(compareMagSizes);
-        printWeapons();
+        bfvChartSortNumbers("lblMag", compareMagSizes)
     });
 
     $("#sortMaxDamage").click(function(){
         $("#actionMenu").menu("collapse");
-        BFVWeaponData.sort(compareMaxDamages);
-        printWeapons();
+        bfvChartSortNumbers("maxDamageText", compareMaxDamages)
     });
 
     $("#sortInitVertRecoil").click(function(){
         $("#actionMenu").menu("collapse");
-        BFVWeaponData.sort(compareInitVertRecoil);
-        printWeapons();
+        bfvChartSortNumbers("recoilInitUpValue", compareInitVertRecoil)
     });
 
     $("#sortVertRecoil").click(function(){
         $("#actionMenu").menu("collapse");
-        BFVWeaponData.sort(compareVertRecoil);
-        printWeapons();
+        bfvChartSortNumbers("recoilUpValue", compareVertRecoil)
     });
 
     $("#sortHorRecoil").click(function(){
         $("#actionMenu").menu("collapse");
-        BFVWeaponData.sort(compareHorRecoil);
-        printWeapons();
+        bfvChartSortNumbers("recoilHorValue", compareHorRecoil)
     });
 
     $("#sortDeployTime").click(function(){
         $("#actionMenu").menu("collapse");
-        BFVWeaponData.sort(compareDeployTimes);
-        printWeapons();
+        bfvChartSortNumbers("lblDeployTime", compareDeployTimes)
     });
 }
 
+function bfvChartSortNumbers(valueClassName, sortFunction){
+    $.each($(".classTable"), function(index, classTable){
+        var weaponRows = []
+        $.each($(classTable).children("tbody").children("tr"), function(index, weaponRow){
+            var weaponObj = {value: parseFloat($(weaponRow).find("." + valueClassName).text()),
+                             row: $(weaponRow).detach()}
+            weaponRows.push(weaponObj)
+        })
+        weaponRows.sort(sortFunction)
+        $.each(weaponRows, function(index, detachedRow){
+            $(classTable).append(detachedRow.row)
+        })
+    })
+}
+
+function bfvChartSortLetters(valueClassName, sortFunction){
+    $.each($(".classTable"), function(index, classTable){
+        var weaponRows = []
+        $.each($(classTable).children("tbody").children("tr"), function(index, weaponRow){
+            var weaponObj = {value: $(weaponRow).find("." + valueClassName).text(),
+                             row: $(weaponRow).detach()}
+            weaponRows.push(weaponObj)
+        })
+        weaponRows.sort(sortFunction)
+        $.each(weaponRows, function(index, detachedRow){
+            $(classTable).append(detachedRow.row)
+        })
+    })
+}
+
+
+
 function compareRPMs(a, b){
-    if (a.BRoF > b.BRoF){
+    if (a.value > b.value){
         return -1;
     }
-    if (b.BRoF > a.BRoF){
+    if (b.value > a.value){
         return 1;
     }
     return 0;
 }
 
 function compareNames(a, b){
-    if (a.WeapShowName < b.WeapShowName){
+    if (a.value < b.value){
         return -1;
     }
-    if (b.WeapShowName < a.WeapShowName){
+    if (b.value < a.value){
         return 1;
     }
     return 0;
@@ -82,10 +105,10 @@ function compareNames(a, b){
 
 
 function compareBulletSpeeds(a, b){
-    if (a.InitialSpeed > b.InitialSpeed){
+    if (a.value > b.value){
         return -1;
     }
-    if (b.InitialSpeed > a.InitialSpeed){
+    if (b.value > a.value){
         return 1;
     }
     return 0;
@@ -93,10 +116,10 @@ function compareBulletSpeeds(a, b){
 
 
 function compareMagSizes(a, b){
-    if (a.MagSize > b.MagSize){
+    if (a.value > b.value){
         return -1;
     }
-    if (b.MagSize > a.MagSize){
+    if (b.value > a.value){
         return 1;
     }
     return 0;
@@ -104,55 +127,54 @@ function compareMagSizes(a, b){
 
 
 function compareMaxDamages(a, b){
-    if (a.Damages[0] > b.Damages[0]){
+    if (a.value > b.value){
         return -1;
     }
-    if (b.Damages[0] > a.Damages[0]){
+    if (b.value > a.value){
         return 1;
     }
     return 0;
 }
 
 function compareInitVertRecoil(a, b){
-    if (a.ADSStandRecoilInitialUp < b.ADSStandRecoilInitialUp){
+    if (a.value < b.value){
         return -1;
     }
-    if (b.ADSStandRecoilInitialUp < a.ADSStandRecoilInitialUp){
+    if (b.value < a.value){
         return 1;
     }
     return 0;
 }
 
 function compareVertRecoil(a, b){
-    if (a.ADSStandRecoilUp < b.ADSStandRecoilUp){
+    if (a.value < b.value){
         return -1;
     }
-    if (b.ADSStandRecoilUp < a.ADSStandRecoilUp){
+    if (b.value < a.value){
         return 1;
     }
     return 0;
 }
 
 function compareHorRecoil(a, b){
-    if (a.ADSStandRecoilLeft < b.ADSStandRecoilLeft){
+    if (a.value < b.value){
         return -1;
     }
-    if (b.ADSStandRecoilLeft < a.ADSStandRecoilLeft){
+    if (b.value < a.value){
         return 1;
     }
     return 0;
 }
 
 function compareDeployTimes(a, b){
-    if (a.DeployTime < b.DeployTime){
+    if (a.value < b.value){
         return -1;
     }
-    if (b.DeployTime < a.DeployTime){
+    if (b.value < a.value){
         return 1;
     }
     return 0;
 }
-
 
 $( function() {
     $.widget( "custom.combobox", {
