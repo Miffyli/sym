@@ -5,13 +5,13 @@ var customizations = new Object();
 var addVariantCounter = 0;
 
 const firestormTooltip = "title = 'Included in Firestorm'";
-const rpmTooltip = "title = 'Rounds/Minute'";
+const rpmTooltip = "title = 'Rounds per Minute'";
 const bulletSpeedTooltip = "title = 'Bullet Speed and Drag Coefficient'";
 const damageTooltip = "title = 'Damage'";
 const magTooltip = "title = 'Ammo Capacity'";
 const reloadTooltip = "title = 'Reload Time (Tactical/Empty)'";
 const recoilTooltip = "title = 'Recoil while Standing'";
-const adsTooltip = "title = 'ADS(Aim Down Sight) Spread while Standing'";
+const adsTooltip = "title = 'ADS Spread while Standing'";
 const hipfireTooltip = "title = 'Hip Fire Spread while Standing and Moving'";
 const deployTooltip = "title = 'Deploy Time'";
 const dragTooltip = "title = 'Manual Sort (Click and Hold to drag)'";
