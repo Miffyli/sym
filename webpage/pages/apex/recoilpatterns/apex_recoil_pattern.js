@@ -1,5 +1,9 @@
+// noinspection SpellCheckingInspection
+const BURST_PATTERN_DATA = './pages/apex/recoilpatterns/default_recoil_pattern_data.json';
 const columnNames = {"x": "X", "y": "TotalY"};
+let BlastPatternData = [];
 
+// noinspection SpellCheckingInspection
 const template_figure = {"hoverinfo": "none",
     "hovertemplate": "",
     "legendgroup": -1,
@@ -20,11 +24,14 @@ const template_figure = {"hoverinfo": "none",
 function apex_initializeRecoilPage() {
     window.PLOTLYENV={'BASE_URL': 'https://plot.ly'};
 
-    var gd = document.getElementById('1abf0259-75e8-47b9-96f9-6e32ec35bc8d')
-    var resizeDebounce = null;
+    const gd = document.getElementById('1abf0259-75e8-47b9-96f9-6e32ec35bc8d');
+    // noinspection JSUnusedLocalSymbols
+    const resizeDebounce = null;
 
+    // noinspection JSUnusedLocalSymbols
     function resizePlot() {
-        var bb = gd.getBoundingClientRect();
+        const bb = gd.getBoundingClientRect();
+        // noinspection JSUnresolvedVariable,JSUnresolvedFunction
         Plotly.relayout(gd, {
             data: figure.data,
             width: bb.width,
@@ -33,8 +40,7 @@ function apex_initializeRecoilPage() {
     }
 
 
-
-
+    // noinspection JSUnresolvedVariable,JSUnresolvedFunction,SpellCheckingInspection
     Plotly.plot(gd,  {
         data: figure.data,
         layout: figure.layout,
@@ -46,63 +52,79 @@ function apex_initializeRecoilPage() {
         behavior: 'smooth',
         block: 'center'
     });
-    replacedata();
-    addNewCopyofData();
+    replaceData();
+    addNewCopyOfData();
+    $.getJSON(BURST_PATTERN_DATA).done(addShotgunBurstPattern).fail(function (jqxhr, textStatus, error) {
+        console.log('Loading Shotgun blast pattern data failed: ' + textStatus + ' , ' + error)
+    });
+    // addShotgunBurstPattern();
 }
 
-function replacedata(){
-    var weaponswithViewkick = APEXWeaponData.filter(
-        weapon_viewkick => weapon_viewkick["WeaponData"]["viewkick_pattern"] != undefined
+function replaceData(){
+    let weaponsWithViewKick = APEXWeaponData.filter(
+        weapon_viewkick => weapon_viewkick["WeaponData"]["viewkick_pattern"] !== undefined
     ).map(
         weapon_viewkick => weapon_viewkick["WeaponData"]
     );
-    weaponswithViewkick.sort();
-    console.log(weaponswithViewkick);
-    for (var i = 0; i < weaponswithViewkick.length; i++) {
-        viewkickdataXYS = weaponswithViewkick[i]['viewkick_pattern_data'];
-        // Object.keys(weaponswithViewkick[0]['viewkick_pattern_data']).length-3
-        bullet_count = Object.keys(viewkickdataXYS).length-2;
+    weaponsWithViewKick.sort(function(a, b) {
+        let nameA = a['custom_name_short'].toUpperCase(); // ignore upper and lowercase
+        let nameB = b['custom_name_short'].toUpperCase(); // ignore upper and lowercase
+        if (nameA < nameB) {
+            return -1;
+        }
+        if (nameA > nameB) {
+            return 1;
+        }
+
+        // names must be equal
+        return 0;
+    });
+    console.log(weaponsWithViewKick);
+    let x_vals;
+    let y_vals;
+    let size_vals;
+    let bullet_count;
+    let viewkickdataXYS;
+    for (let i = 0; i < weaponsWithViewKick.length; i++) {
+        viewkickdataXYS = weaponsWithViewKick[i]['viewkick_pattern_data'];
+        // Object.keys(weaponsWithViewKick[0]['viewkick_pattern_data']).length-3
+        bullet_count = Object.keys(viewkickdataXYS).length - 2;
         x_vals = [0.0];
         y_vals = [0.0];
         // y_vals2 = [0.0];
         size_vals = [0.0];
         let total_y = 0.0;
         let total_x = 0.0;
-        for (var j = 0; j < bullet_count; j++) {
-            var data_points = viewkickdataXYS['bullet_'+j].split(" ");
+        for (let j = 0; j < bullet_count; j++) {
+            const data_points = viewkickdataXYS['bullet_' + j].split(" ");
 
-            total_x += parseFloat(data_points[0]* -1);
-            total_y += parseFloat(data_points[1]* -1);
+            total_x += parseFloat(data_points[0]) * -1;
+            total_y += parseFloat(data_points[1]) * -1;
             x_vals.push(total_x);
             y_vals.push(total_y);
             size_vals.push(data_points[2]);
         }
-        // y_vals.forEach(function(element) {
-        //     // element = element * -1;
-        //     y_vals2.push(element);
-        //     // console.log(element);
-        // });
         figure.data[i].x = x_vals;
         figure.data[i].y = y_vals;
         figure.data[i].size = size_vals;
         // figure.data[i].x = x_vals;
-        figure.data[i].name = weaponswithViewkick[i]['custom_name'];
-        console.log(weaponswithViewkick[i]['custom_name'] + ", X:" + figure.data[i].x + ", Y:" + figure.data[i].y + ", Size: " + figure.data[i].size );
+        figure.data[i].name = weaponsWithViewKick[i]['custom_name_short'];
+        console.log(weaponsWithViewKick[i]['custom_name_short'] + ", X:" + figure.data[i].x + ", Y:" + figure.data[i].y + ", Size: " + figure.data[i].size);
 
     }
     console.log("DONE");
 
 
 }
-function addNewCopyofData() {
-    var gd = document.getElementById('1abf0259-75e8-47b9-96f9-6e32ec35bc8d')
-    var figure_count = figure.data.length;
-    for (var i = 0; i < figure_count; i++) {
+function addNewCopyOfData() {
+    const gd = document.getElementById('1abf0259-75e8-47b9-96f9-6e32ec35bc8d');
+    const figure_count = figure.data.length;
+    for (let i = 0; i < figure_count; i++) {
         console.log("I ", i, " name: ", figure.data[i].name);
-        var data_index = figure.data.length;
-        var mod = figure.data[i];
-        var line_color = mod.line.color;
-        var new_data = {};
+        const data_index = figure.data.length;
+        const mod = figure.data[i];
+        const line_color = mod.line.color;
+        const new_data = {};
         for (const [key, value] of Object.entries(template_figure)) {
             new_data[key] = value;
         }
@@ -125,13 +147,38 @@ function addNewCopyofData() {
         figure.data[i].legendgroup = i;
         figure.data[data_index] = new_data;
     }
-    var bb = gd.getBoundingClientRect();
+    let bb = gd.getBoundingClientRect();
+    // noinspection JSUnresolvedVariable,JSUnresolvedFunction
     Plotly.relayout(gd, {
         data: figure.data,
         width: bb.width,
         height: bb.height
     });
-
-
-
 }
+
+function addShotgunBurstPattern( data ) {
+    BlastPatternData = data.data;
+    const gd = document.getElementById('1abf0259-75e8-47b9-96f9-6e32ec35bc8d');
+    const figure_count = figure.data.length;
+    // const new_data = new Object();
+    for (let i = 0; i < BlastPatternData.length; i++) {
+        let new_data_count_id = figure_count + i;
+        figure.data[new_data_count_id] = {};
+        for (const [key, value] of Object.entries(BlastPatternData[i])) {
+            figure.data[new_data_count_id][key] = value;
+        }
+        figure.data[new_data_count_id]['legendgroup'] = figure_count + i;
+        figure.data[new_data_count_id]['name'] = BlastPatternData[i]['name'];
+        figure.data[new_data_count_id]['marker'] = BlastPatternData[i]['marker'];
+
+    }
+
+    let bb = gd.getBoundingClientRect();
+    // noinspection JSUnresolvedVariable,JSUnresolvedFunction
+    Plotly.relayout(gd, {
+        data: figure.data,
+        width: bb.width,
+        height: bb.height
+    });
+}
+

@@ -338,8 +338,9 @@ body {background-color: #191919;}
 }
 
 .apex_spreadTable tr:nth-child(2) td,
-.apex_spreadTable tr:nth-child(5) td,
-.apex_spreadTable tr:nth-child(8) td{
+.apex_spreadTable tr:nth-child(4) td,
+.apex_spreadTable tr:nth-child(8) td,
+.apex_spreadTable tr:nth-child(11) td{
     padding-top: 4px
 }
 
@@ -355,6 +356,38 @@ body {background-color: #191919;}
 
 .apex_spreadTable img{
     width: 25px;
+}
+
+.apex_spreadTableLabels {
+    color: #FFFFFF;
+}
+
+.apex_spreadTableStandADSValue {
+    color: #A9D852;
+}
+
+.apex_spreadTableStandHipValue {
+    color: #666666;
+}
+
+.apex_spreadTableAirHipValue {
+    color: #d89100;
+}
+
+.apex_scaleIncreaseCell img{
+    width: 15px !important;
+}
+
+.apex_scaleIncreaseCell{
+    text-align: center !important;
+}
+
+.apex_scaleDecreaseCell img{
+    width: 15px !important;
+}
+
+.apex_scaleDecreaseCell{
+    text-align: center !important;
 }
 
 /* ******************/
@@ -623,12 +656,12 @@ img.fnone{width: 59px; height: 59px;float:none !important}
 
 .apex_shotgunSpreadLine {
     stroke-width: 1px;
-    stroke: #FF9000;
+    stroke: #ffffff;
     fill: #191919;
 }
 .apex_shotgunSpreadLine2 {
     stroke-width: 1px;
-    stroke: #FF9000;
+    stroke: #ffffff;
     fill: #191919;
 }
 
@@ -636,6 +669,30 @@ img.fnone{width: 59px; height: 59px;float:none !important}
     stroke-width: 1px;
     stroke: #ff0307;
     fill: #ff0307;
+}
+
+.apex_shotgunFrac1Point {
+    stroke-width: 1px;
+    stroke: #3dd800;
+    fill: #3dd800;
+}
+
+.apex_shotgunFrac2Point {
+    stroke-width: 1px;
+    stroke: #d8cf0c;
+    fill: #d8cf0c;
+}
+
+.apex_shotgunFrac3Point {
+    stroke-width: 1px;
+    stroke: #ff4200;
+    fill: #ff4200;
+}
+
+.apex_shotgunFrac4Point {
+    stroke-width: 1px;
+    stroke: #ff0000;
+    fill: #ff0000;
 }
 
 .apex_shotgunHipPoint {
@@ -653,11 +710,33 @@ img.fnone{width: 59px; height: 59px;float:none !important}
     stroke: #FF9000;
     fill: none;
 }
-.apex_hipSpreadValue {
+
+.apex_standADSSpreadValue {
     font-weight: bold;
-    font-size: 16px;
-    fill: white;
-    text-align: center;
+    font-size: 12px;
+    fill: #A9D852;
+    text-align: right;
+}
+
+.apex_spreadValueSeparator {
+    font-weight: bold;
+    font-size: 12px;
+    fill: #ffffff;
+    text-align: right;
+}
+
+.apex_standHipSpreadValue {
+    font-weight: bold;
+    font-size: 12px;
+    fill: #666666;
+    text-align: right;
+}
+
+.apex_airHipSpreadValue {
+    font-weight: bold;
+    font-size: 12px;
+    fill: #FF9000;
+    text-align: right;
 }
 
 .apex_deployTimeBox {
