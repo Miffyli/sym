@@ -1100,7 +1100,7 @@ function apex_createFireRateLabels(weaponStats) {
 }
 
 
-// TODO: Actually make the damage charts make sense. At  the momment a lot of stuff is just hard set to make work with what exists.
+// TODO: Actually make the damage charts make sense. At  the moment a lot of stuff is just hard set to make work with what exists.
 function apex_createDamageChart(printname, damageArr, distanceArr, numOfPellets, hs_multi, ls_multi, allow_hs, max_hs_distance){
     max_hs_distance = (max_hs_distance / 39.3701);
     var damageChart;
