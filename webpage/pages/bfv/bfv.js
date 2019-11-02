@@ -1,5 +1,5 @@
 // Path to datafile
-const BFV_DATA = './pages/bfv/data/bfv_F.json'
+const BFV_DATA = './pages/bfv/data/bfv_H.json'
 
 // Constants for BFV
 // Constants for plotting damage/ttk/etc
@@ -18,7 +18,9 @@ const BFV_LOWER_IS_WORSE = new Set([
   'RoF',
   'BRoF',
   'MagSize',
+  'NumBulletsReloaded',
   'InitialSpeed',
+  'InitialSpeedZ',
   'TimeToLive',
   'MaxDistance',
   'ADSStandBaseSpreadDecCoef',

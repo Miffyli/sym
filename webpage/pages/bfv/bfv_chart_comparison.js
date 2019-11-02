@@ -35,6 +35,9 @@ customizationStrings.Gren = "Improved Grenades"
 customizationStrings.APCR = "APCR Bullets";
 customizationStrings.QBCy = "Light Bolt";
 customizationStrings.BROF = "Trigger Job";
+customizationStrings.GLau = 'Grenade Launcher'
+customizationStrings.Fire = 'Fully Automatic Fire'
+customizationStrings.QCyP = 'Machined Bolt'
 
 
 function initializeCustomizations(){
