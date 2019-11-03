@@ -1,5 +1,5 @@
 // noinspection SpellCheckingInspection
-const BURST_PATTERN_DATA = './pages/apex/recoilpatterns/default_recoil_pattern_data.json';
+const BURST_PATTERN_DATA = './pages/apex/recoil_patterns/default_recoil_pattern_data.json';
 const columnNames = {"x": "X", "y": "TotalY"};
 let BlastPatternData = [];
 

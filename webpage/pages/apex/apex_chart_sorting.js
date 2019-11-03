@@ -1,7 +1,7 @@
 
 
 function getAPEXWeaponsSubcat(weapon_name){
-    return apex_weaponSubCats["_" + weapon_name.replace(/ |\/|-/g,"")];
+    return apex_weaponSubCats["_" + weapon_name];
 }
 
 function initializeSorts(){
@@ -71,10 +71,10 @@ function compareRPMs(a, b){
 }
 
 function compareNames(a, b){
-    if (a.printname < b.printname){
+    if (a['WeaponData']['printname'] < b['WeaponData']['printname']){
         return -1;
     }
-    if (b.printname < a.printname){
+    if (b['WeaponData']['printname'] < a['WeaponData']['printname']){
         return 1;
     }
     return 0;
@@ -114,40 +114,40 @@ function compareMaxDamages(a, b){
 }
 
 function compareInitVertRecoil(a, b){
-    if (a['WeaponData'].viewkick_pattern_data_y_avg < b['WeaponData'].viewkick_pattern_data_y_avg){
+    if (a['WeaponData']['viewkick_pattern_data_y_avg'] < b['WeaponData']['viewkick_pattern_data_y_avg']){
         return -1;
     }
-    if (b['WeaponData'].viewkick_pattern_data_y_avg < a['WeaponData'].viewkick_pattern_data_y_avg){
+    if (b['WeaponData']['viewkick_pattern_data_y_avg'] < a['WeaponData']['viewkick_pattern_data_y_avg']){
         return 1;
     }
     return 0;
 }
 
 function compareVertRecoil(a, b){
-    if (a['WeaponData'].viewkick_pattern_data_sizey < b['WeaponData'].viewkick_pattern_data_sizey){
+    if (a['WeaponData']['viewkick_pattern_data_sizey'] < b['WeaponData']['viewkick_pattern_data_sizey']){
         return -1;
     }
-    if (b['WeaponData'].viewkick_pattern_data_sizey < a['WeaponData'].viewkick_pattern_data_sizey){
+    if (b['WeaponData']['viewkick_pattern_data_sizey'] < a['WeaponData']['viewkick_pattern_data_sizey']){
         return 1;
     }
     return 0;
 }
 
 function compareHorRecoil(a, b){
-    if (a['WeaponData'].viewkick_pattern_data_x_avg < b['WeaponData'].viewkick_pattern_data_x_avg){
+    if (a['WeaponData']['viewkick_pattern_data_x_avg'] < b['WeaponData']['viewkick_pattern_data_x_avg']){
         return -1;
     }
-    if (b['WeaponData'].viewkick_pattern_data_x_avg < a['WeaponData'].viewkick_pattern_data_x_avg){
+    if (b['WeaponData']['viewkick_pattern_data_x_avg'] < a['WeaponData']['viewkick_pattern_data_x_avg']){
         return 1;
     }
     return 0;
 }
 
 function compareDeployTimes(a, b){
-    if (a['WeaponData'].deploy_time < b['WeaponData'].deploy_time){
+    if (a['WeaponData']['deploy_time'] < b['WeaponData']['deploy_time']){
         return -1;
     }
-    if (b['WeaponData'].deploy_time < a['WeaponData'].deploy_time){
+    if (b['WeaponData']['deploy_time'] < a['WeaponData']['deploy_time']){
         return 1;
     }
     return 0;
@@ -167,7 +167,7 @@ $( function() {
         },
 
         _createAutocomplete: function() {
-            var selected = this.element.children( ":selected" ),
+            let selected = this.element.children( ":selected" ),
             value = selected.val() ? selected.text() : "";
 
             this.input = $( "<input>" )
@@ -199,7 +199,7 @@ $( function() {
         },
 
         _createShowAllButton: function() {
-            var input = this.input,
+            let input = this.input,
             wasOpen = false;
 
             $( "<a>" )
@@ -232,9 +232,9 @@ $( function() {
         },
 
         _source: function( request, response ) {
-            var matcher = new RegExp( $.ui.autocomplete.escapeRegex(request.term), "i" );
+            let matcher = new RegExp( $.ui.autocomplete.escapeRegex(request.term), "i" );
             response( this.element.children( "option" ).map(function() {
-                var text = $( this ).text();
+                let text = $( this ).text();
                 if ( this.value && ( !request.term || matcher.test(text) ) )
                 return {
                     label: text,
@@ -252,7 +252,7 @@ $( function() {
             }
 
             // Search for a match (case-insensitive)
-            var value = this.input.val(),
+            let value = this.input.val(),
             valueLowerCase = value.toLowerCase(),
             valid = false;
             this.element.children( "option" ).each(function() {
@@ -285,7 +285,7 @@ $( function() {
         },
 
         refresh: function () {
-            selected = this.element.children(":selected");
+            let selected = this.element.children(":selected");
             this.input.val(selected.text());
         },
 
@@ -294,13 +294,15 @@ $( function() {
             self._trigger("selected", event, {
                 item: ui.item.option
             });
+            // noinspection JSUnresolvedVariable
             select.trigger("change");
         },
 
         change: function (event, ui) {
             if (!ui.item) {
-                var matcher = new RegExp("^" + $.ui.autocomplete.escapeRegex($(this).val()) + "$", "i"),
+                let matcher = new RegExp("^" + $.ui.autocomplete.escapeRegex($(this).val()) + "$", "i"),
                     valid = false;
+                // noinspection JSUnresolvedVariable
                 select.children("option").each(function () {
                     if ($(this).text().match(matcher)) {
                         this.selected = valid = true;
@@ -310,7 +312,9 @@ $( function() {
                 if (!valid) {
                     // remove invalid value, as it didn't match anything
                     $(this).val("");
+                    // noinspection JSUnresolvedVariable
                     select.val("");
+                    // noinspection JSUnresolvedVariable
                     input.data("autocomplete").term = "";
                     return false;
                 }

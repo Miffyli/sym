@@ -79,14 +79,14 @@ function apex_initializeCustomizations(){
 
         }
         this.blur();
-        let selectedAttachments = $(this).parentsUntil(".tbody", "tr").find("td.firstColumn > .lblWeaponName").text();
+        let selectedAttachments = $(this).parentsUntil(".tbody", "tr").find("td.firstColumn > .apex_lblWeaponName").text();
         $(this).parent().parent().find(".apex_customButtonsApex").each(function(){
             if($(this).is(":checked")){
                 selectedAttachments += $(this).next("label").data("shortname");
             }
         });
 
-        apex_updateWeapon(selectedAttachments, this);
+        apex_updateWeapon(selectedAttachments);
     });
 
     $(".apex_customButtons > div:not(:first-child) .apex_customButtonsApex").checkboxradio("disable");
@@ -120,7 +120,7 @@ function apex_initializeCustomizationsRow(tableRow){
 
         }
         this.blur();
-        let selectedAttachments = $(this).parentsUntil(".tbody", "tr").find("td.firstColumn > .lblWeaponName").text();
+        let selectedAttachments = $(this).parentsUntil(".tbody", "tr").find("td.firstColumn > .apex_lblWeaponName").text();
         $(this).parent().parent().find(".apex_customButtonsApex").each(function(){
             if($(this).is(":checked")){
                 //selectedAttachments += $(this).next("label").text();
@@ -128,7 +128,7 @@ function apex_initializeCustomizationsRow(tableRow){
             }
         });
 
-        apex_updateWeapon(selectedAttachments, this);
+        apex_updateWeapon(selectedAttachments);
     });
 
     $(tableRow).find(".apex_customButtons > div:not(:first-child) .apex_customButtonsApex").checkboxradio("disable");

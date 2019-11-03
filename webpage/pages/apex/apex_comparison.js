@@ -1,9 +1,9 @@
 // Logic behind comparison pages
 
-//bool for using HS/Limp multis
-let use_hs_multi_calculations = false;
+//bool for using HS/Limp multi
+// let use_hs_multi_calculations = false;
 let use_ls_multi_calculations = false;
-let use_lowprofile_calculations = false;
+let use_low_profile_calculations = false;
 let use_fortified_calculations = false;
 // Text for the "no weapon selected" box
 const SELECT_OPTION_1_TEXT = 'Select Weapon...';
@@ -13,7 +13,7 @@ const APEX_NEUTRAL_VALUE_COLOR = [255, 255, 255];
 const APEX_BEST_VALUE_COLOR = [0, 255, 0];
 const APEX_WORST_VALUE_COLOR = [255, 0, 0];
 
-// Array used to generate customizations buttons for each weapon
+// Array used to generate apex_attachments buttons for each weapon
 // The array is generated in a function below
 const APEXCustomizationsArray = [];
 
@@ -39,6 +39,10 @@ APEXCustomizationStrings.shotgun_bolt_l1 = "White Shotgun Bolt";
 APEXCustomizationStrings.shotgun_bolt_l2 = "Blue Shotgun Bolt";
 APEXCustomizationStrings.shotgun_bolt_l3 = "Purple Shotgun Bolt";
 APEXCustomizationStrings.shotgun_bolt_l4 = "Gold Shotgun Bolt";
+APEXCustomizationStrings.shotgun_bolt_l1_double_tap = "White Shotgun Bolt";
+APEXCustomizationStrings.shotgun_bolt_l2_double_tap = "Blue Shotgun Bolt";
+APEXCustomizationStrings.shotgun_bolt_l3_double_tap = "Purple Shotgun Bolt";
+APEXCustomizationStrings.shotgun_bolt_l4_double_tap = "Gold Shotgun Bolt";
 APEXCustomizationStrings.stock_sniper_l1 = "White Sniper Stock";
 APEXCustomizationStrings.stock_sniper_l2 = "Blue Sniper Stock";
 APEXCustomizationStrings.stock_sniper_l3 = "Purple Sniper Stock";
@@ -97,6 +101,10 @@ APEXCustomizationStrings.shotgun_bolt_l1 = "shotgun_bolt_l1";
 APEXCustomizationStrings.shotgun_bolt_l2 = "shotgun_bolt_l2";
 APEXCustomizationStrings.shotgun_bolt_l3 = "shotgun_bolt_l3";
 APEXCustomizationStrings.shotgun_bolt_l4 = "shotgun_bolt_l4";
+// APEXCustomizationStrings.shotgun_bolt_l1_double_tap = "shotgun_bolt_l1";
+// APEXCustomizationStrings.shotgun_bolt_l2_double_tap = "shotgun_bolt_l2";
+// APEXCustomizationStrings.shotgun_bolt_l3_double_tap = "shotgun_bolt_l3";
+// APEXCustomizationStrings.shotgun_bolt_l4_double_tap = "shotgun_bolt_l4";
 APEXCustomizationStrings.bullets_mag_l1 = "bullets_mag_l1";
 APEXCustomizationStrings.bullets_mag_l2 = "bullets_mag_l2";
 APEXCustomizationStrings.bullets_mag_l3 = "bullets_mag_l3";
@@ -152,10 +160,10 @@ function APEXGetSelectedWeapons () {
       //   }
       // })
 
-      var weaponStats = APEXWeaponData.find(function (element) {
-        return element.WeaponData.printname === selectedAttachments
+      const weaponStats = APEXWeaponData.find(function (element) {
+        return element['WeaponData']['printname'] === selectedAttachments
       });
-      selectedWeapons.push(weaponStats.WeaponData)
+      selectedWeapons.push(weaponStats['WeaponData'])
     }
   });
   return selectedWeapons
@@ -169,8 +177,11 @@ function APEXGetSelectedWeapons () {
   filters: List of filter keywords
   includeOnlyDiffering: If false, only include variables where weapons differ
 */
+/**
+ * @return {boolean}
+ */
 function APEXFilterTable (variableName, weaponValues, filters, includeOnlyDiffering) {
-  var shouldInclude = true;
+  let shouldInclude;
 
   // Hardcoded: Only include numeric values in the table (including "N/A")
   // TODO this should be done before-hand
@@ -179,7 +190,7 @@ function APEXFilterTable (variableName, weaponValues, filters, includeOnlyDiffer
   // If we have keywords, check if we match them
   if (filters.length > 0) {
     // Check if variableName is among filters
-    var lowercaseVariableName = variableName.toLowerCase();
+    const lowercaseVariableName = variableName.toLowerCase();
     // "At least one of the filters is in variableName"
     shouldInclude = shouldInclude && filters.some(filter => lowercaseVariableName.includes(filter))
   }
@@ -199,17 +210,19 @@ function APEXFilterTable (variableName, weaponValues, filters, includeOnlyDiffer
   weaponValues: List of values for variableName from different weapons
 */
 function APEXColorVariables(variableName, weaponValues) {
-  var colorCodes;
+  let colorCodes;
 
   if (weaponValues.length === 1 || weaponValues.some(weaponValue => isNaN(weaponValue))) {
     // Only one item in the list or there are non-numeric values
     // -> Return neutral color
+    // noinspection JSUnusedLocalSymbols
     colorCodes = weaponValues.map(weaponValue => APEX_NEUTRAL_VALUE_COLOR)
   } else {
     // Get unique values
-    var uniqueValues = Array.from(new Set(weaponValues));
+    const uniqueValues = Array.from(new Set(weaponValues));
     // If we only have , do not bother with coloring
     if (uniqueValues.length === 1) {
+      // noinspection JSUnusedLocalSymbols
       colorCodes = weaponValues.map(weaponValue => APEX_NEUTRAL_VALUE_COLOR)
     } else {
       // Sort by value so that "lower is worse".
@@ -243,26 +256,26 @@ function APEXUpdateTable (selectedWeapons, filters, includeOnlyDiffering) {
     // Construct table as a HTML string we append later
     // to correct table. Hopefully this is fast enough.
     // Start with headers
-    var tableHtml = '<table><tr><th></th>';
-    for (var i = 0; i < selectedWeapons.length; i++) {
+    let tableHtml = '<table><tr><th></th>';
+    for (let i = 0; i < selectedWeapons.length; i++) {
       // Also add weapon name to table headers
       tableHtml += '<th>' + selectedWeapons[i]['custom_name'] + '</th>'
     }
     tableHtml += '</tr>';
 
     // Now for each row, show variable name and numbers
-    for (var variableIndex = 0; variableIndex < APEXWeaponKeys.length; variableIndex++) {
+    for (let variableIndex = 0; variableIndex < APEXWeaponKeys.length; variableIndex++) {
       // Check filtering: Get variable name and the values, check if want
       // to include that variable and then include it
-      var variableKey = APEXWeaponKeys[variableIndex];
-      var weaponVariables = selectedWeapons.map(weapon => weapon[variableKey]);
+      const variableKey = APEXWeaponKeys[variableIndex];
+      const weaponVariables = selectedWeapons.map(weapon => weapon[variableKey]);
 
       if (APEXFilterTable(variableKey, weaponVariables, filters, includeOnlyDiffering) === true) {
         // Get coloring of the items
-        var variableColoring = APEXColorVariables(variableKey, weaponVariables);
+        const variableColoring = APEXColorVariables(variableKey, weaponVariables);
         // Begin row and add variable name
         tableHtml += '<tr><td>' + variableKey + '</td>';
-        for (var weaponIndex = 0; weaponIndex < weaponVariables.length; weaponIndex++) {
+        for (let weaponIndex = 0; weaponIndex < weaponVariables.length; weaponIndex++) {
           tableHtml += `<td style="color: ${variableColoring[weaponIndex]}"> ${weaponVariables[weaponIndex]} </td>`
         }
         tableHtml += '</tr>'
@@ -280,15 +293,16 @@ function APEXUpdateTable (selectedWeapons, filters, includeOnlyDiffering) {
   Takes in a list of selected weapons.
 */
 function APEXUpdateDamageGraph (selectedWeapons) {
-  var series = [];
-  for (var i = 0; i < selectedWeapons.length; i++) {
-    var weapon = selectedWeapons[i];
+  const series = [];
+  for (let i = 0; i < selectedWeapons.length; i++) {
+    const weapon = selectedWeapons[i];
     series.push({
       name: weapon['custom_name'],
       data: APEXGetDamageOverDistance(weapon)
     })
   }
 
+  // noinspection JSUnresolvedVariable
   Highcharts.chart('damage_graph', {
     title: {
       text: 'Damage over distance'
@@ -337,14 +351,14 @@ function APEXUpdateDamageGraph (selectedWeapons) {
   Takes in a list of selected weapons.
 */
 function APEXUpdateTTKAndBTKGraphs (selectedWeapons) {
-  var btk_series = [];
-  var btk_white_series = [];
-  var btk_blue_series = [];
-  var btk_purple_series = [];
-  var ttk_series = [];
-  var ttk_white_series = [];
-  var ttk_blue_series = [];
-  var ttk_purple_series = [];
+  const btk_series = [];
+  const btk_white_series = [];
+  const btk_blue_series = [];
+  const btk_purple_series = [];
+  const ttk_series = [];
+  const ttk_white_series = [];
+  const ttk_blue_series = [];
+  const ttk_purple_series = [];
   for (let i = 0; i < selectedWeapons.length; i++) {
     const weapon = selectedWeapons[i];
     btk_white_series.push({
@@ -381,7 +395,8 @@ function APEXUpdateTTKAndBTKGraphs (selectedWeapons) {
     })
   }
 
-  Highcharts.chart('btkub_graph', {
+  // noinspection JSUnresolvedVariable
+  Highcharts.chart('btk_ub_graph', {
     title: {
       text: 'Bullets-to-kill upper bound'
     },
@@ -426,7 +441,8 @@ function APEXUpdateTTKAndBTKGraphs (selectedWeapons) {
 
     series: btk_series
   });
-  Highcharts.chart('ttkub_graph', {
+  // noinspection JSUnresolvedVariable
+  Highcharts.chart('ttk_ub_graph', {
     title: {
       text: 'Time-to-kill upper bound'
     },
@@ -473,7 +489,8 @@ function APEXUpdateTTKAndBTKGraphs (selectedWeapons) {
     series: ttk_series
   });
 
-  Highcharts.chart('white_btkub_graph', {
+  // noinspection JSUnresolvedVariable
+  Highcharts.chart('white_btk_ub_graph', {
     title: {
       text: 'Bullets-to-kill w/ White Shield'
     },
@@ -518,7 +535,8 @@ function APEXUpdateTTKAndBTKGraphs (selectedWeapons) {
 
     series: btk_white_series
   });
-  Highcharts.chart('white_ttkub_graph', {
+  // noinspection JSUnresolvedVariable
+  Highcharts.chart('white_ttk_ub_graph', {
     title: {
       text: 'Time-to-kill w/ White Shield'
     },
@@ -565,7 +583,8 @@ function APEXUpdateTTKAndBTKGraphs (selectedWeapons) {
     series: ttk_white_series
   });
 
-  Highcharts.chart('blue_btkub_graph', {
+  // noinspection JSUnresolvedVariable
+  Highcharts.chart('blue_btk_ub_graph', {
     title: {
       text: 'Bullets-to-kill w/ Blue Shield'
     },
@@ -610,7 +629,8 @@ function APEXUpdateTTKAndBTKGraphs (selectedWeapons) {
 
     series: btk_blue_series
   });
-  Highcharts.chart('blue_ttkub_graph', {
+  // noinspection JSUnresolvedVariable
+  Highcharts.chart('blue_ttk_ub_graph', {
     title: {
       text: 'Time-to-kill w/ Blue Shield'
     },
@@ -657,7 +677,8 @@ function APEXUpdateTTKAndBTKGraphs (selectedWeapons) {
     series: ttk_blue_series
   });
 
-  Highcharts.chart('purple_btkub_graph', {
+  // noinspection JSUnresolvedVariable
+  Highcharts.chart('purple_btk_ub_graph', {
     title: {
       text: 'Bullets-to-kill /w Purple Shield'
     },
@@ -702,7 +723,8 @@ function APEXUpdateTTKAndBTKGraphs (selectedWeapons) {
 
     series: btk_purple_series
   });
-  Highcharts.chart('purple_ttkub_graph', {
+  // noinspection JSUnresolvedVariable
+  Highcharts.chart('purple_ttk_ub_graph', {
     title: {
       text: 'Time-to-kill w/ Purple Shield'
     },
@@ -759,17 +781,17 @@ function APEXUpdateTTKAndBTKGraphs (selectedWeapons) {
   (only redo table, not graphs).
 */
 function APEXFilterOnChange () {
-  var selectedWeapons = APEXGetSelectedWeapons();
+  const selectedWeapons = APEXGetSelectedWeapons();
 
-  var filters = $('#column_filter')[0].value.toLowerCase();
-  var includeOnlyDiffering = $('#column_onlydiffering')[0].checked;
+  let filters = $('#column_filter')[0].value.toLowerCase();
+  const includeOnlyDiffering = $('#column_onlydiffering')[0].checked;
   filters = filters.split(',');
 
   APEXUpdateTable(selectedWeapons, filters, includeOnlyDiffering)
 }
 
 function APEXUpdateFromToolBar(){
-  var selectedWeapons = APEXGetSelectedWeapons();
+  const selectedWeapons = APEXGetSelectedWeapons();
 
   // Get filters for updating the table.
   let filters = $('#column_filter')[0].value.toLowerCase();
@@ -788,7 +810,7 @@ function APEXUpdateFromToolBar(){
 function APEXSelectorsOnChange (e) {
   apex_updateSelectors();
   printAPEXCustomizationButtons(e);
-  var selectedWeapons = APEXGetSelectedWeapons();
+  const selectedWeapons = APEXGetSelectedWeapons();
 
   // Get filters for updating the table.
   let filters = $('#column_filter')[0].value.toLowerCase();
@@ -805,22 +827,31 @@ function APEXSelectorsOnChange (e) {
   and if one of them should be removed
 */
 function apex_updateSelectors () {
+  // noinspection JSJQueryEfficiency
+  $('.apex_comp-selectorContainer > select');
+  // noinspection JSJQueryEfficiency
   $('.apex_comp-selectorContainer > select').each(function() {
     if (this.selectedIndex === 0 && $('.apex_comp-selectorContainer > select').length > 1) {
       $(this).parent().remove()
     }
   });
 
-  var emptySelects = 0;
+  let emptySelects = 0;
+  // noinspection JSJQueryEfficiency
   $('.apex_comp-selectorContainer > select').each(function() {
     if (this.selectedIndex === 0) {
       emptySelects++
     }
   });
 
+  // let apex_comp_selectorContainer_query = $('.apex_comp-selectorContainer');
+  // noinspection JSJQueryEfficiency
   if (emptySelects === 0 && $('.apex_comp-selectorContainer').length < 26) {
+    // noinspection JSJQueryEfficiency
     $('.apex_comp-selectorContainer').last().after($('.apex_comp-selectorContainer').first().clone(true));
+    // noinspection JSJQueryEfficiency
     $('.apex_comp-selectorContainer').last().children('div').remove();
+    // noinspection JSJQueryEfficiency
     $('.apex_comp-selectorContainer').last().children('select').change(function (e) {
       APEXSelectorsOnChange(e)
     })
@@ -828,11 +859,11 @@ function apex_updateSelectors () {
 }
 
 /*
-  Entrypoint for the comparison page.
+  Entry point for the comparison page.
   Note: This should called after all data has been loaded!
 */
 function initializeAPEXComparison () {
-  var selectorParent = $('#selectors')[0];
+  const selectorParent = $('#selectors')[0];
 
   // TODO Create proper selectors
   //      (one for weapon and another for attachments)
@@ -840,25 +871,20 @@ function initializeAPEXComparison () {
 
   // Create different options (i.e. weapons)
   // and add them to first selector
-  var firstSelector = document.createElement('select');
+  const firstSelector = document.createElement('select');
   firstSelector.onchange = APEXSelectorsOnChange;
   // First add empty option
-  var option = document.createElement('option');
+  let option = document.createElement('option');
   option.text = SELECT_OPTION_1_TEXT;
   firstSelector.add(option);
-  // var weaponNames = APEXWeaponData.filter(
-  //     weapon => weapon.WeaponData== ""
-  //   // weapon => weapon['Attachments_short'] == ""
-  // ).map(
-  //   weapon => weapon['printname']
-  // )
-  var weaponNames = APEXWeaponData.filter(
+
+  const weaponNames = APEXWeaponData.filter(
       weapon => weapon["WeaponData"]["weapon_type_flags"] === "WPT_PRIMARY"
   ).map(
       weapon => weapon["WeaponData"]["printname"]
   );
   weaponNames.sort();
-  for (var i = 0; i < weaponNames.length; i++) {
+  for (let i = 0; i < weaponNames.length; i++) {
     option = document.createElement('option');
   option.text = weaponNames[i];
   firstSelector.add(option)
@@ -871,55 +897,68 @@ function initializeAPEXComparison () {
 
   apex_updateSelectors();
 
-  $("#apex_showHideShieldTypes input").checkboxradio(
+  let apex_showHideShieldTypes_input = $("#apex_showHideShieldTypes input");
+  apex_showHideShieldTypes_input.checkboxradio(
       {icon:false}
   );
-  $("#apex_showHideShieldTypes input").change(function(){
+  apex_showHideShieldTypes_input.change(function(){
     this.blur();
     showHideGraphs();
   });
-  $("#apex_showHideTargetTypes input").checkboxradio(
+
+  let apex_showHideTargetTypes_input = $("#apex_showHideTargetTypes input");
+  apex_showHideTargetTypes_input.checkboxradio(
       {icon:false}
   );
-  $("#apex_showHideTargetTypes input").change(function(){
+  apex_showHideTargetTypes_input.change(function(){
     this.blur();
   });
-  $("#apex_showHideTargetTypes input").click(function(){
-    var thisId = $(this).attr("id");
-    if (thisId === "useLowProfileTarget" && use_fortified_calculations == true) {
+  apex_showHideTargetTypes_input.click(function(){
+    const thisId = $(this).attr("id");
+    if (thisId === "useLowProfileTarget" && use_fortified_calculations === true) {
+      // noinspection JSValidateTypes
       $(this).parent().children().prop("checked", false).change();
       $(this).prop("checked", true).change();
-    } else if (thisId === "useFortifiedTarget" && use_lowprofile_calculations == true) {
+    } else if (thisId === "useFortifiedTarget" && use_low_profile_calculations === true) {
+      // noinspection JSValidateTypes
       $(this).parent().children().prop("checked", false).change();
       $(this).prop("checked", true).change();
-    } else if (thisId === "useFortifiedTarget" && use_fortified_calculations == true) {
+    } else if (thisId === "useFortifiedTarget" && use_fortified_calculations === true) {
+      // noinspection JSValidateTypes
       $(this).parent().children().prop("checked", false).change();
       $(this).prop("checked", false).change();
-    } else if (thisId === "useLowProfileTarget" && use_lowprofile_calculations == true) {
+    } else if (thisId === "useLowProfileTarget" && use_low_profile_calculations === true) {
+      // noinspection JSValidateTypes
       $(this).parent().children().prop("checked", false).change();
       $(this).prop("checked", false).change();
     }
     this.blur();
     updateGraphsForTargetType();
   });
-  $("#apex_showHideHeadShots input").checkboxradio(
+
+  let apex_showHideHeadShots_input = $("#apex_showHideHeadShots input");
+  apex_showHideHeadShots_input.checkboxradio(
       {icon:false}
   );
-  $("#apex_showHideHeadShots input").change(function(){
+  apex_showHideHeadShots_input.change(function(){
     this.blur();
   });
-  $("#apex_showHideHeadShots input").click(function(){
-    var thisId = $(this).attr("id");
-    if (thisId === "useLimbShotDamage" && use_headshot_calculations == true) {
+  apex_showHideHeadShots_input.click(function(){
+    const thisId = $(this).attr("id");
+    if (thisId === "useLimbShotDamage" && use_headshot_calculations === true) {
+      // noinspection JSValidateTypes
       $(this).parent().children().prop("checked", false).change();
       $(this).prop("checked", true).change();
-    } else if (thisId === "useHeadShotDamage" && use_ls_multi_calculations == true) {
+    } else if (thisId === "useHeadShotDamage" && use_ls_multi_calculations === true) {
+      // noinspection JSValidateTypes
       $(this).parent().children().prop("checked", false).change();
       $(this).prop("checked", true).change();
-    } else if (thisId === "useHeadShotDamage" && use_headshot_calculations == true) {
+    } else if (thisId === "useHeadShotDamage" && use_headshot_calculations === true) {
+      // noinspection JSValidateTypes
       $(this).parent().children().prop("checked", false).change();
       $(this).prop("checked", false).change();
-    } else if (thisId === "useLimbShotDamage" && use_ls_multi_calculations == true) {
+    } else if (thisId === "useLimbShotDamage" && use_ls_multi_calculations === true) {
+      // noinspection JSValidateTypes
       $(this).parent().children().prop("checked", false).change();
       $(this).prop("checked", false).change();
     }
@@ -927,7 +966,7 @@ function initializeAPEXComparison () {
     updateGraphsForHeadShots();
   });
 
-  APEXgenerateAPEXCustomizationsArray();
+  generateAPEXCustomizationsArray();
   $('#selectors > select').addClass('apex_comp-selectors').wrap("<div class='apex_comp-selectorContainer'></div>")
 }
 
@@ -951,24 +990,25 @@ function updateGraphsForHeadShots(){
   'b' is right side.  Each entry also has a weaponName variable There is one
   entry per weapon.
 */
-function APEXgenerateAPEXCustomizationsArray () {
+function generateAPEXCustomizationsArray () {
     $.each(APEXWeaponData, function (key, weapon) {
-      var weaponIndex = apex_getIndexOfWeapon(weapon.WeaponData.printname, APEXCustomizationsArray);
+      let weaponIndex = apex_getIndexOfWeapon(weapon['WeaponData']['printname'], APEXCustomizationsArray);
       if (weaponIndex < 0) {
-        var newWeaponEntry = {};
-        newWeaponEntry.weaponName = weapon.WeaponData.printname;
+        const newWeaponEntry = {};
+        newWeaponEntry.weaponName = weapon['WeaponData']['printname'];
         newWeaponEntry.customizations = [{a:"",b:""}, {a:"",b:""}, {a:"",b:""}, {a:"",b:""}];
+        // noinspection JSUnusedAssignment
         weaponIndex = APEXCustomizationsArray.push(newWeaponEntry) - 1
       }
 
       // if (weapon.Attachments_short.length > 0){
       //   var short_attachments = weapon.Attachments_short.split('+')
       //   for (var i = 0; i < short_attachments.length; i++) {
-      //     if ((APEXCustomizationsArray[weaponIndex].customizations[i].a.localeCompare(short_attachments[i]) !== 0) && (APEXCustomizationsArray[weaponIndex].customizations[i].b.localeCompare(short_attachments[i]) != 0)){
-      //       if (APEXCustomizationsArray[weaponIndex].customizations[i].a.length === 0) {
-      //         APEXCustomizationsArray[weaponIndex].customizations[i].a = short_attachments[i]
+      //     if ((APEXCustomizationsArray[weaponIndex].apex_attachments[i].a.localeCompare(short_attachments[i]) !== 0) && (APEXCustomizationsArray[weaponIndex].apex_attachments[i].b.localeCompare(short_attachments[i]) != 0)){
+      //       if (APEXCustomizationsArray[weaponIndex].apex_attachments[i].a.length === 0) {
+      //         APEXCustomizationsArray[weaponIndex].apex_attachments[i].a = short_attachments[i]
       //       } else {
-      //         APEXCustomizationsArray[weaponIndex].customizations[i].b = short_attachments[i]
+      //         APEXCustomizationsArray[weaponIndex].apex_attachments[i].b = short_attachments[i]
       //       }
       //     }
       //   }
@@ -981,8 +1021,8 @@ function APEXgenerateAPEXCustomizationsArray () {
     the index for it or '-1' if not found.
 */
 function apex_getIndexOfWeapon (weapon, customizationArray) {
-  var weaponIndex = -1;
-  for (var i = 0; i < customizationArray.length; i++) {
+  let weaponIndex = -1;
+  for (let i = 0; i < customizationArray.length; i++) {
     if (customizationArray[i].weaponName === weapon) {
       weaponIndex = i;
       break  // I hate breaks but this increases performance
@@ -995,8 +1035,8 @@ function apex_getIndexOfWeapon (weapon, customizationArray) {
   Create the html for the customization buttons for the selected weapon
 */
 function printAPEXCustomizationButtons (e){
-  var selectedSelect = ($(e.target).find('option:selected'));
-  var selectedOption = ($(e.target).find('option:selected').text().trim());
+  const selectedSelect = ($(e.target).find('option:selected'));
+  const selectedOption = ($(e.target).find('option:selected').text().trim());
 
 
   if(selectedOption.localeCompare(SELECT_OPTION_1_TEXT) !== 0){
@@ -1014,13 +1054,13 @@ function printAPEXCustomizationButtons (e){
   Generates the html used for the customization buttons
 */
 function apex_compPrintCustomizations (weaponName) {
-  var custString = '';
-  var weaponIndex = apex_getIndexOfWeapon(weaponName, APEXCustomizationsArray);
-  var weaponCust = APEXCustomizationsArray[weaponIndex].customizations;
+  let custString = '';
+  const weaponIndex = apex_getIndexOfWeapon(weaponName, APEXCustomizationsArray);
+  const weaponCust = APEXCustomizationsArray[weaponIndex].customizations;
 
   if (weaponCust[0].a !== '') {
-    for (var i = 0; i < weaponCust.length; i++) {
-      var rowClass = 'custRow' + i.toString();
+    for (let i = 0; i < weaponCust.length; i++) {
+      const rowClass = 'custRow' + i.toString();
       custString += '<div>';
       custString += "<input id='" + APEXAddVariantCounter + weaponName + weaponCust[i].a + i.toString() + "' name='" + APEXAddVariantCounter + weaponName + i.toString() + "' type='radio' class='customButton " + rowClass + " custCol1'><label data-shortname='" + weaponCust[i].a + "' for='" + APEXAddVariantCounter + weaponName + weaponCust[i].a + i.toString() + "'>" + APEXCustomizationStrings[weaponCust[i].a] + '</label>';
       custString += "<input id='" + APEXAddVariantCounter + weaponName + weaponCust[i].b + i.toString() + "' name='" + APEXAddVariantCounter + weaponName + i.toString() + "' type='radio' class='customButton " + rowClass + " custCol2'><label data-shortname='" + weaponCust[i].b + "' for='" + APEXAddVariantCounter + weaponName + weaponCust[i].b + i.toString() + "'>" + APEXCustomizationStrings[weaponCust[i].b] + '</label>';
@@ -1041,7 +1081,7 @@ function apex_compInitializeCustomizationButtons (buttonObj) {
     $(buttonObj).change(function () {
       if ($(this).is(':checked') || $(this).siblings('.customButton').is(':checked')) {
         if ($(this).hasClass('custRow1')) {
-          var thisCol = $(this).hasClass('custCol1') ? '.custCol1' : '.custCol2';
+          const thisCol = $(this).hasClass('custCol1') ? '.custCol1' : '.custCol2';
           $(this).parent().next().children(thisCol).checkboxradio('enable')
         } else {
           $(this).parent().next().children('.customButton').checkboxradio('enable')
@@ -1055,7 +1095,7 @@ function apex_compInitializeCustomizationButtons (buttonObj) {
         $(this).parent().nextAll().children('.customButton').checkboxradio('disable')
       }
 
-      var thisId = $(this).attr('id');
+      const thisId = $(this).attr('id');
       if ($(this).siblings("label[for='" + thisId + "']").hasClass('ui-state-active')) {
         $(this).prop('checked', false).change();
         $(this).parent().nextAll().children('.customButton').prop('checked', false).change();
@@ -1063,18 +1103,18 @@ function apex_compInitializeCustomizationButtons (buttonObj) {
       }
 
       this.blur();
-      var selectedAttachments = $(this).parentsUntil('.tbody', 'tr').find('td.firstColumn > .lblWeaponName').text();
+      let selectedAttachments = $(this).parentsUntil('.tbody', 'tr').find('td.firstColumn > .apex_lblWeaponName').text();
       $(this).parent().parent().find('.customButton').each(function () {
         if ($(this).is(':checked')) {
           selectedAttachments += $(this).next('label').data('shortname')
         }
       });
 
-      var selectedWeapons = APEXGetSelectedWeapons();
+      const selectedWeapons = APEXGetSelectedWeapons();
 
       // Get filters for updating the table.
-      var filters = $('#column_filter')[0].value.toLowerCase();
-      var includeOnlyDiffering = $('#column_onlydiffering')[0].checked;
+      let filters = $('#column_filter')[0].value.toLowerCase();
+      const includeOnlyDiffering = $('#column_onlydiffering')[0].checked;
       filters = filters.split(',');
 
       APEXUpdateTable(selectedWeapons, filters, includeOnlyDiffering);
@@ -1088,55 +1128,55 @@ function apex_compInitializeCustomizationButtons (buttonObj) {
 function showHideGraphs(){
   if ($("#showNormalBTKCheck").is(":checked")){
     $("#damage_graph").show(0);
-    $("#btkub_graph").show(0);
+    $("#btk_ub_graph").show(0);
   } else {
-    $("#btkub_graph").hide(0);
+    $("#btk_ub_graph").hide(0);
   }
   if ($("#showNormalTTKCheck").is(":checked")){
-    $("#ttkub_graph").show(0);
-    $("#btkub_graph").show(0);
+    $("#ttk_ub_graph").show(0);
+    $("#btk_ub_graph").show(0);
   } else {
-    $("#ttkub_graph").hide(0);
-    $("#btkub_graph").hide(0);
+    $("#ttk_ub_graph").hide(0);
+    $("#btk_ub_graph").hide(0);
   }
   //
   if ($("#showWhiteBTKCheck").is(":checked")){
-    $("#white_btkub_graph").show(0);
+    $("#white_btk_ub_graph").show(0);
   } else {
-    $("#white_btkub_graph").hide(0);
+    $("#white_btk_ub_graph").hide(0);
   }
   if ($("#showWhiteTTKCheck").is(":checked")){
-    $("#white_btkub_graph").show(0);
-    $("#white_ttkub_graph").show(0);
+    $("#white_btk_ub_graph").show(0);
+    $("#white_ttk_ub_graph").show(0);
   } else {
-    $("#white_btkub_graph").hide(0);
-    $("#white_ttkub_graph").hide(0);
+    $("#white_btk_ub_graph").hide(0);
+    $("#white_ttk_ub_graph").hide(0);
   }
   //
   if ($("#showBlueBTKCheck").is(":checked")){
-    $("#blue_btkub_graph").show(0);
+    $("#blue_btk_ub_graph").show(0);
   } else {
-    $("#blue_btkub_graph").hide(0);
+    $("#blue_btk_ub_graph").hide(0);
   }
   if ($("#showBlueTTKCheck").is(":checked")){
-    $("#blue_ttkub_graph").show(0);
-    $("#blue_btkub_graph").show(0);
+    $("#blue_ttk_ub_graph").show(0);
+    $("#blue_btk_ub_graph").show(0);
   } else {
-    $("#blue_btkub_graph").hide(0);
-    $("#blue_ttkub_graph").hide(0);
+    $("#blue_btk_ub_graph").hide(0);
+    $("#blue_ttk_ub_graph").hide(0);
   }
   //
   if ($("#showPurpleBTKCheck").is(":checked")){
-    $("#purple_btkub_graph").show(0);
+    $("#purple_btk_ub_graph").show(0);
   } else {
-    $("#purple_btkub_graph").hide(0);
+    $("#purple_btk_ub_graph").hide(0);
   }
   if ($("#showPurpleTTKCheck").is(":checked")){
-    $("#purple_ttkub_graph").show(0);
-    $("#purple_btkub_graph").show(0);
+    $("#purple_ttk_ub_graph").show(0);
+    $("#purple_btk_ub_graph").show(0);
   } else {
-    $("#purple_btkub_graph").hide(0);
-    $("#purple_ttkub_graph").hide(0);
+    $("#purple_btk_ub_graph").hide(0);
+    $("#purple_ttk_ub_graph").hide(0);
   }
   //
 }
@@ -1144,13 +1184,13 @@ function showHideGraphs(){
 function updateGraphsForTargetType(){
   if ($("#useFortifiedTarget").is(":checked")){
     use_fortified_calculations = true;
-    use_lowprofile_calculations = false;
+    use_low_profile_calculations = false;
   } else if ($("#useLowProfileTarget").is(":checked")){
     use_fortified_calculations = false;
-    use_lowprofile_calculations = true;
+    use_low_profile_calculations = true;
   } else {
     use_fortified_calculations = false;
-    use_lowprofile_calculations = false;
+    use_low_profile_calculations = false;
   }
   APEXUpdateFromToolBar();
 }

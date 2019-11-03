@@ -95,16 +95,14 @@ body {background-color: #191919;}
 #apex_showHideCheckboxes label {
     width: 100px;
     margin-bottom: 8px;
+    border-radius: 2px;
 }
 
 #apex_showHideCheckboxes img{
-    width: 18px;
-    height: 18px;
-}
-
-#showHideCheckboxes img{
-    width: 18px;
-    height: 18px;
+    /*width: 24px;*/
+    /*height: 24px;*/
+    width: 40px;
+    height: 40px;
 }
 
 /* *********** */
