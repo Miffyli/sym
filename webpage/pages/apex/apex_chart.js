@@ -240,6 +240,8 @@ function apex_printWeapons(){
             {icon:false}
         );
         apex_initializeCustomizationsRow(newWeaponRowObj);
+        // apex_initializeCustomizations();
+        // apex_initializeAttachmentOnChange();
 
         $(newWeaponRowObj).effect("highlight");
         // apex_showHideStats();
@@ -495,8 +497,6 @@ function apex_updateWeapon(selectedAttachments) {
             let temp_YawRandAvg =  Number(parseFloat(weaponStats['viewkick_pattern_data_x_avg']) * parseFloat(weaponStats['viewkick_yaw_random'])).toFixed(3);
             let temp_YawBaseMin =  Number(Math.abs(parseFloat(weaponStats['viewkick_pattern_data_x_min'])) * parseFloat(weaponStats['viewkick_yaw_base'])).toFixed(3);
             let temp_YawBaseMax =  Number(parseFloat(weaponStats['viewkick_pattern_data_x_max']) * parseFloat(weaponStats['viewkick_yaw_base'])).toFixed(3);
-            // console.log(" PitchBase : ", parseFloat( weaponStats['viewkick_pitch_base']), " PitchRand : ", parseFloat(weaponStats['viewkick_pitch_random'])," YawBase : ", parseFloat(weaponStats['viewkick_yaw_base'])," YawRand : ", parseFloat(weaponStats['viewkick_yaw_random']));
-            // console.log(" PitchBase : ", temp_pitchBase, " PitchRand : ", temp_pitchRandAvg," YawBase : ", temp_YawBaseMin, " - ", temp_YawBaseMax, " YawRand : ", temp_YawRandAvg);
             if (weaponStats['viewkick_pattern'] !== undefined) {
                 if (parseFloat(weaponStats['viewkick_pitch_base']) < 0.0) {
                     $(weaponRow).find(".apex_recoilGraphBox").html(apex_createNonPatternRecoilGraphic(temp_pitchRandAvg, temp_YawRandAvg, temp_YawBaseMin, temp_YawBaseMax, weaponStats['viewkick_pattern_data_sizex_avg'], temp_pitchBase, temp_pitchBase, temp_pitchRandAvg, temp_YawBaseMin, temp_YawRandAvg));
@@ -757,8 +757,8 @@ function apex_createNonPatternRecoilGraphic(viewkick_pattern_data_y_avg, viewkic
     let recoilHorLength1;
     let recoilHorLength2;
     let point5inc;
-    let oneinc;
-    let onepoint5inc;
+    let oneIncrease;
+    let onePoint5Increase;
     let apex_recoilGraphic;
     if (viewkick_pitch_base <= 1.76) {
         recoilUpLength = (90 - ((viewkick_pitch_base + 0.5) * 30))+ 6;
@@ -767,11 +767,11 @@ function apex_createNonPatternRecoilGraphic(viewkick_pattern_data_y_avg, viewkic
         recoilHorLength1 = (60 - (viewkick_yaw_base_max * 30)) + 4;
         recoilHorLength2 = (60 + (Math.abs(viewkick_yaw_base_min) * 30)) + 4;
         point5inc = ((viewkick_pitch_base + 0.5) > .5) ? "<line x1='55' y1='75' x2='65' y2='75' style='stroke:white; stroke-width:1'></line>" : "";
-        oneinc = ((viewkick_pitch_base + 0.5) > 1.0) ? "<line x1='55' y1='60' x2='65' y2='60' style='stroke:white; stroke-width:1'></line>" : "";
-        onepoint5inc = ((viewkick_pitch_base + 0.5) > 1.5) ? "<line x1='55' y1='45' x2='65' y2='45' style='stroke:white; stroke-width:1'></line>" : "";
+        oneIncrease = ((viewkick_pitch_base + 0.5) > 1.0) ? "<line x1='55' y1='60' x2='65' y2='60' style='stroke:white; stroke-width:1'></line>" : "";
+        onePoint5Increase = ((viewkick_pitch_base + 0.5) > 1.5) ? "<line x1='55' y1='45' x2='65' y2='45' style='stroke:white; stroke-width:1'></line>" : "";
 
         apex_recoilGraphic = "<svg viewbox='0 0 130 100' style='width:100px;height:111px'>" +
-            point5inc + oneinc + onepoint5inc +
+            point5inc + oneIncrease + onePoint5Increase +
             "<line x1='" + recoilHorLength1 + "' y1='90' x2='" + recoilHorLength2 + "' y2='90' style='stroke:white;stroke-width:2'></line>" + // Left - Right
             "<line x1='64' y1='90' x2='64' y2='" + recoilUpLength.toString() + "' style='stroke:white;stroke-width:2'></line>" + // Up - Down
             "<text " + apex_horz_recoil_tooltip + "x='" + (recoilHorLength1 - 4).toString() + "' y='95' text-anchor='end' class='recoilValue'>" + viewkick_yaw_base_max + "°</text>" +
@@ -788,10 +788,10 @@ function apex_createNonPatternRecoilGraphic(viewkick_pattern_data_y_avg, viewkic
         recoilHorLength1 = (60 - (viewkick_yaw_base_max * 30)) + 4;
         recoilHorLength2 = (60 + (Math.abs(viewkick_yaw_base_min) * 30)) + 4;
         point5inc = ((viewkick_pitch_base) > .5) ? "<line x1='55' y1='75' x2='65' y2='75' style='stroke:white;stroke-width:1'></line>" : "";
-        oneinc = ((viewkick_pitch_base) > 1.0) ? "<line x1='55' y1='60' x2='65' y2='60' style='stroke:white;stroke-width:1'></line>" : "";
-        onepoint5inc = ((viewkick_pitch_base) > 1.5) ? "<line x1='55' y1='45' x2='65' y2='45' style='stroke:white;stroke-width:1'></line>" : "";
+        oneIncrease = ((viewkick_pitch_base) > 1.0) ? "<line x1='55' y1='60' x2='65' y2='60' style='stroke:white;stroke-width:1'></line>" : "";
+        onePoint5Increase = ((viewkick_pitch_base) > 1.5) ? "<line x1='55' y1='45' x2='65' y2='45' style='stroke:white;stroke-width:1'></line>" : "";
         apex_recoilGraphic =  "<svg viewbox='0 0 130 100' style='width:100px;height:111px'>" +
-            point5inc + oneinc + onepoint5inc +
+            point5inc + oneIncrease + onePoint5Increase +
             "<line x1='" + recoilHorLength1 + "' y1='90' x2='" + recoilHorLength2 + "' y2='90' style='stroke:white;stroke-width:2'></line>" + // Left - Right
             "<line x1='64' y1='90' x2='64' y2='" + (recoilUpLength+ 8).toString() + "' style='stroke:white;stroke-width:2'></line>" + // Up - Down
             "<text " + apex_horz_recoil_tooltip + "x='" + (recoilHorLength1 - 8).toString() + "' y='95' text-anchor='end' class='recoilValue'>" + viewkick_yaw_base_max + "°</text>" +
@@ -819,11 +819,11 @@ function apex_createNewRecoilGraphic(viewkick_pattern_data_y_avg, viewkick_patte
             const recoilHorLength1 = (60 - (viewkick_pattern_data_x_max * 30)) + 4;
             const recoilHorLength2 = (60 + (Math.abs(viewkick_pattern_data_x_min) * 30)) + 4;
             const point5inc = ((viewkick_pattern_data_sizey_avg + 0.5) > .5) ? "<line x1='55' y1='75' x2='65' y2='75' style='stroke:white; stroke-width:1'></line>" : "";
-            const oneinc = ((viewkick_pattern_data_sizey_avg + 0.5) > 1.0) ? "<line x1='55' y1='60' x2='65' y2='60' style='stroke:white; stroke-width:1'></line>" : "";
-            const onepoint5inc = ((viewkick_pattern_data_sizey_avg + 0.5) > 1.5) ? "<line x1='55' y1='45' x2='65' y2='45' style='stroke:white; stroke-width:1'></line>" : "";
+            const oneIncrease = ((viewkick_pattern_data_sizey_avg + 0.5) > 1.0) ? "<line x1='55' y1='60' x2='65' y2='60' style='stroke:white; stroke-width:1'></line>" : "";
+            const onePoint5Increase = ((viewkick_pattern_data_sizey_avg + 0.5) > 1.5) ? "<line x1='55' y1='45' x2='65' y2='45' style='stroke:white; stroke-width:1'></line>" : "";
 
             apex_recoilGraphic = "<svg viewbox='0 0 130 100' style='width: 100px;height: 111px'>" +
-                point5inc + oneinc + onepoint5inc +
+                point5inc + oneIncrease + onePoint5Increase +
                 "<line x1='" + recoilHorLength1 + "' y1='90' x2='" + recoilHorLength2 + "' y2='90' style='stroke:white; stroke-width:2'></line>" + // Left - Right
                 "<line x1='64' y1='90' x2='64' y2='" + recoilUpLength + "' style='stroke:white; stroke-width:2'></line>" + // Up - Down
                 "<text " + apex_horz_recoil_tooltip + "x='" + (recoilHorLength1 - 4).toString() + "' y='95' text-anchor='end' class='recoilValue'>" + viewkick_pattern_data_x_max + "°</text>" +
@@ -854,10 +854,11 @@ function apex_createNewRecoilGraphic(viewkick_pattern_data_y_avg, viewkick_patte
 }
 
 function apex_createSpreadLabels(ads_move_speed_scale, zoom_time_in, zoom_time_out, zoom_fov){
-    return "<div class='apex_spreadMoveLabel' "+ apex_ads_move_fov_Tooltip +"><span class='apex_lblSuffixText'>x</span>" + ads_move_speed_scale + "  |  " + zoom_fov + "°</div>" +
-        "<div class='apex_spreadBaseLabel'"+ apex_ads_zoom_Tooltip +">" + zoom_time_in + "<span class='apex_lblSuffixText'>s </span> | " + zoom_time_out + "<span class='apex_lblSuffixText'>s </span></div>";
+    return "<div class='apex_spreadMoveLabel' "+ apex_ads_move_fov_Tooltip +"><span class='apex_lblSuffixText'>x</span>" + ads_move_speed_scale + "|" + zoom_fov + "°</div>" +
+        "<div class='apex_spreadBaseLabel'"+ apex_ads_zoom_Tooltip +">" + zoom_time_in + "<span class='apex_lblSuffixText'>s </span>|" + zoom_time_out + "<span class='apex_lblSuffixText'>s </span></div>";
 }
 
+// TODO: Add new shotgun pellet size representation
 function apex_createShotgunBlastGraphic(weaponStats) {
     let charge_time;
     if (weaponStats['charge_time'] === undefined) {
@@ -1097,11 +1098,11 @@ function apex_createChargeSpinUpLabels(weaponStats){
             "<span "+ apex_chargeCooldownTimeTooltip +"><span class=\"ui-icon ui-icon-arrowthick-1-s\"></span><span>" + weaponStats['charge_cooldown_time'] +"</span><span class='apex_lblSuffixText'>s</span></span>";
     } else if (weaponStats['fire_rate_max_time_speedup'] !== undefined && parseFloat(weaponStats['fire_rate_max_time_speedup']) > 0.0){
         return "<span "+ apex_chargeSpinUpTooltip +"><span class=\"ui-icon ui-icon-arrowthick-1-n\"></span>" + weaponStats['fire_rate_max_time_speedup'] + "<span class='apex_lblSuffixText'>s</span></span>" +
-            "<span "+ apex_chargeSpinUpCooldownTooltip +"><span class=\"ui-icon ui-icon-arrowthick-1-s\"></span><span>" + weaponStats['fire_rate_max_time_cooldown'] +"</span><span class='apex_lblSuffixText'> s</span></span>";
+            "<span "+ apex_chargeSpinUpCooldownTooltip +"><span class=\"ui-icon ui-icon-arrowthick-1-s\"></span><span>" + weaponStats['fire_rate_max_time_cooldown'] +"</span><span class='apex_lblSuffixText'>s</span></span>";
     } else if (weaponStats['sustained_discharge_duration'] !== undefined) {
         // beam duration and pulse frequency for the charge rifle
-        return "<span "+ apex_chargeUpTooltip +"><span class=\"ui-icon ui-icon-arrowthick-1-n\"></span>" + weaponStats['sustained_discharge_duration'] + "<span class='apex_lblSuffixText'>s</span></span>" +
-            "<span "+ apex_sustainedPulseTooltip +"><span class=><img class='apex_sustainedPulseValue' src='./pages/apex/icons/pulse_s.png' alt='' height='12px' width='15px'></span>" + weaponStats['sustained_discharge_pulse_frequency'] + "<span class='apex_lblSuffixText'>s</span></span>" +
+        return "<span "+ apex_sustainedDischargeTooltip +"><span><img class='apex_sustainedPulseValue' src='./pages/apex/icons/beam_multi.png' alt='' height='12px' width='15px'></span>" + weaponStats['sustained_discharge_duration'] + "<span class='apex_lblSuffixText'>s</span></span>" +
+            "<span "+ apex_sustainedPulseTooltip +"><span><img class='apex_sustainedPulseValue' src='./pages/apex/icons/pulse_s.png' alt='' height='12px' width='15px'></span>" + weaponStats['sustained_discharge_pulse_frequency'] + "<span class='apex_lblSuffixText'>s</span></span>" +
             "<span "+ apex_chargeCooldownDelayTooltip +"><span class=\"ui-icon ui-icon-transferthick-e-w\"></span><span>" + weaponStats['charge_cooldown_delay'] + "</span><span class='apex_lblSuffixText'>s</span></span>" +
             "<span "+ apex_chargeCooldownTimeTooltip +"><span class=\"ui-icon ui-icon-arrowthick-1-s\"></span><span>" + weaponStats['charge_cooldown_time'] +"</span><span class='apex_lblSuffixText'>s</span></span>";
     } else {
@@ -1122,36 +1123,356 @@ function apex_createFireRateLabels(weaponStats) {
 const clamp = (min, max) => (value) =>
     value < min ? min : value > max ? max : value;
 
-// TODO: Scrap current damage charts and redo them in the same fashion as the charge rifle chart to deal with Apex and its wide range of damages.
-//  At the moment a lot of stuff is just hard set to make work with what exists.
 function apex_createDamageChart(weaponStats, printname, damageArr, distanceArr, numOfPellets, hs_multi, ls_multi, allow_hs, max_hs_distance){
-    let damageChart;
-    console.log("creating damage chart for: ", weaponStats['printname']);
     if (printname.includes("WPN_CHARGE_RIFLE")) {
         return apex_createChargeRifleDamageChart(weaponStats, damageArr, distanceArr, numOfPellets,  hs_multi, ls_multi, allow_hs, max_hs_distance);
     }
-    if((damageArr[0] * hs_multi) > 200) {
-        damageChart = apex_createDamageChart300Max(damageArr, distanceArr, hs_multi, ls_multi, allow_hs, max_hs_distance);
-    } else if((damageArr[0] * hs_multi) > 100) {
-        damageChart = apex_createDamageChart150Max(damageArr, distanceArr, hs_multi, ls_multi, allow_hs, max_hs_distance);
+    if (printname.includes("WPN_SNIPER")) {
+        return apex_createKraberDamageChart(weaponStats, damageArr, distanceArr, numOfPellets,  hs_multi, ls_multi, allow_hs, max_hs_distance);
+    }
+    if (printname.includes("WPN_WINGMAN")) {
+        return apex_createNewDamageChart150Max(weaponStats, damageArr, distanceArr, numOfPellets,  hs_multi, ls_multi, allow_hs, max_hs_distance)
+    }
+    let damageChart;
+    if ((max_hs_distance) > 700 ){
+        damageChart = apex_createSniperRifleDamageChart(weaponStats, damageArr, distanceArr, numOfPellets,  hs_multi, ls_multi, allow_hs, max_hs_distance);
     } else {
         if ((damageArr[0] * hs_multi) > 50 ){
-            if(distanceArr.indexOf(200) === -1){
-                damageChart = apex_createDamageChart100Max(damageArr, distanceArr, hs_multi, ls_multi, allow_hs, max_hs_distance);
-            } else {
-                damageChart = apex_createDamageChart100Max200Dist(damageArr, distanceArr, hs_multi, ls_multi, allow_hs, max_hs_distance);
-            }
+            damageChart = apex_createNewDamageChart100Max(weaponStats, damageArr, distanceArr, numOfPellets,  hs_multi, ls_multi, allow_hs, max_hs_distance);
         } else {
-            damageChart = apex_createDamageChart50Max(damageArr, distanceArr, numOfPellets, hs_multi, ls_multi, allow_hs, max_hs_distance)
+            damageChart = apex_createNewDamageChart50Max(weaponStats, damageArr, distanceArr, numOfPellets,  hs_multi, ls_multi, allow_hs, max_hs_distance)
         }
     }
     return damageChart;
 }
 
+function apex_createSniperRifleDamageChart(weaponStats, damageArr, distanceArr, numOfPellets, hs_multi, ls_multi, allow_hs, max_hs_distance){
+    let i;
+    let damageLineCoords;
+    let hs_damageLineCoords = "";
+    let ls_damageLineCords = "";
+    let hs_maxDamageText = "";
+    let hs_minDamageText = "";
+    let ls_maxDamageText = "";
+    let ls_minDamageText = "";
+    let chart_dist = 800;
+    let chart_scale = 200/chart_dist;
+
+    //New Standard
+    let max_Damage = Math.round(damageArr[0]);
+    let mid_Damage = Math.round(damageArr[1]);
+    let min_Damage = Math.round(damageArr[2]);
+    damageLineCoords = "0," + (100 - (0.666666 * max_Damage)).toString() + " ";
+    damageLineCoords += (chart_scale*distanceArr[0]).toString() + "," + (100 - (0.666666 * max_Damage)).toString() + " ";
+    damageLineCoords += (chart_scale*distanceArr[1]).toString() + "," + (100 - (0.666666 * max_Damage)).toString() + " ";
+
+    damageLineCoords += (chart_scale*distanceArr[1]).toString() + "," + (100 - (0.666666 * mid_Damage)).toString() + " ";
+    damageLineCoords += (chart_scale*distanceArr[2]).toString() + "," + (100 - (0.666666 * mid_Damage)).toString() + " ";
+
+    damageLineCoords += (chart_scale*distanceArr[2]).toString() + "," + (100 - (0.666666 * min_Damage)).toString() + " ";
+    damageLineCoords += (distanceArr[2]+100).toString()+"," + (100 - (0.666666 * min_Damage)).toString()+ " ";
+    damageLineCoords += (200).toString()+"," + (100 - (0.666666 * min_Damage)).toString();
+
+
+    // let maxDamageText = "<text x='"+(chart_scale*distanceArr[0])+"' y='" + ((95 - mid_Damage)).toString() + "' class='apex_chartMinMaxLabel'>" + mid_Damage + "</text>";
+    let maxDamageText = "<text x='"+(chart_scale*distanceArr[0])+"' y='" + ((95 - (0.666666 * mid_Damage))).toString() + "' class='apex_chartMinMaxLabel'>" + mid_Damage + "</text>";
+    let minDamageText = "<text x='"+(25 + (chart_scale*distanceArr[2]))+"' y='" + ((95 - (0.666666 * min_Damage))).toString() + "' class='apex_chartMinMaxLabel'>" + min_Damage + "</text>";
+
+
+    //Limb Damage
+    if(ls_multi !== 1.0) {
+        let ls_maxDamage = Math.round(damageArr[0] * ls_multi);
+        let ls_midDamage = Math.round(damageArr[1] * ls_multi);
+        let ls_minDamage = Math.round(damageArr[2] * ls_multi);
+        ls_damageLineCords = "0," + (100 - (0.666666 * ls_maxDamage)).toString() + " ";
+        ls_damageLineCords += (chart_scale*distanceArr[0]).toString() + "," + (100 - (0.666666 * ls_maxDamage)).toString() + " ";
+        ls_damageLineCords += (chart_scale*distanceArr[1]).toString() + "," + (100 - (0.666666 * ls_maxDamage)).toString() + " ";
+
+        ls_damageLineCords += (chart_scale*distanceArr[1]).toString() + "," + (100 - (0.666666 * ls_midDamage)).toString() + " ";
+        ls_damageLineCords += (chart_scale*distanceArr[2]).toString() + "," + (100 - (0.666666 * ls_midDamage)).toString() + " ";
+
+        ls_damageLineCords += (chart_scale*distanceArr[2]).toString() + "," + (100 - (0.666666 * ls_minDamage)).toString() + " ";
+        ls_damageLineCords += (distanceArr[2]+100).toString()+"," + (100 - (0.666666 * ls_minDamage)).toString()+ " ";
+        ls_damageLineCords += (200).toString()+"," + (100 - (0.666666 * ls_minDamage)).toString();
+
+        ls_maxDamageText = "<text x='15' y='" + ((111 - (0.666666 * ls_midDamage))).toString() + "' class='apex_ls_chartMinMaxLabel'>" + ls_maxDamage + "</text>";
+        // ls_minDamageText = "<text x='"+(chart_scale*distanceArr[1])+"' y='" + ((90 - ls_minDamage)).toString() + "' class='apex_ls_chartMinMaxLabel'>" + ls_minDamage + "</text>";
+        ls_minDamageText = "<text x='185' y='" + ((111 - (0.666666 * ls_midDamage))).toString() + "' class='apex_ls_chartMinMaxLabel'>" + ls_minDamage + "</text>";
+    }
+
+    // Headshot Damage - Some weapons have very short max HS range.
+    if (allow_hs && hs_multi > 1.0) {
+        let hs_damageArr = [];
+        let hs_distanceArr = [];
+        let hs_short = false;
+
+        for (i = 0; i < damageArr.length; i++) {
+            if (distanceArr[i] < max_hs_distance) {
+
+                hs_distanceArr.push(distanceArr[i]);
+                hs_damageArr.push((damageArr[i] * hs_multi));
+
+            } else if (hs_short) {
+                hs_distanceArr.push(distanceArr[i]);
+                hs_damageArr.push((damageArr[i]));
+            } else {
+                hs_distanceArr.push(max_hs_distance);
+                hs_damageArr.push((damageArr[i-1] * hs_multi));
+
+                hs_distanceArr.push(distanceArr[i]);
+                hs_damageArr.push(damageArr[i]);
+                hs_short = true;
+            }
+        }
+        if (hs_damageArr.length < 4) {
+            hs_distanceArr.push(max_hs_distance);
+            hs_damageArr.push((damageArr[2] * hs_multi))
+        }
+        let hs_Dmg0 = Math.round(hs_damageArr[0]);
+        let hs_Dmg1 = Math.round(hs_damageArr[1]);
+        let hs_Dmg2 = Math.round(hs_damageArr[2]);
+        let hs_Dmg3 = Math.round(hs_damageArr[3]);
+        hs_damageLineCoords = "0," + (100 - (0.666666 * hs_Dmg0)).toString() + " ";
+
+        hs_damageLineCoords += (chart_scale * hs_distanceArr[0]).toString() + "," + (100 - (0.666666 * hs_Dmg0)).toString() + " ";
+        hs_damageLineCoords += (chart_scale * hs_distanceArr[1]).toString() + "," + (100 - (0.666666 * hs_Dmg0)).toString() + " ";
+
+        hs_damageLineCoords += (chart_scale * hs_distanceArr[1]).toString() + "," + (100 - (0.666666 * hs_Dmg1)).toString() + " ";
+        hs_damageLineCoords += (chart_scale * hs_distanceArr[2]).toString() + "," + (100 - (0.666666 * hs_Dmg1)).toString() + " ";
+
+        hs_damageLineCoords += (chart_scale * hs_distanceArr[2]).toString() + "," + (100 - (0.666666 * hs_Dmg2)).toString() + " ";
+        hs_damageLineCoords += (chart_scale * hs_distanceArr[3]).toString() + "," + (100 - (0.666666 * hs_Dmg2)).toString() + " ";
+
+        hs_damageLineCoords += (chart_scale * hs_distanceArr[3]).toString() + "," + (100 - (0.666666 * hs_Dmg3)).toString() + " ";
+        if ( hs_Dmg2 >= hs_Dmg3){
+            hs_damageLineCoords += (chart_scale * hs_distanceArr[3]).toString() + "," + (100 - (0.666666 * damageArr[2])).toString() + " ";
+            hs_damageLineCoords += (hs_distanceArr[3] + 100).toString() + "," + (100 - (0.666666 * damageArr[2])).toString()+ " ";
+            hs_damageLineCoords += (200).toString() + "," + (100 - (0.666666 * damageArr[2])).toString();
+        } else {
+            hs_damageLineCoords += (hs_distanceArr[3] + 100).toString() + "," + (100 - (0.666666 * hs_Dmg3)).toString()+ " ";
+            hs_damageLineCoords += (200).toString() + "," + (100 - (0.666666 * hs_Dmg3)).toString();
+        }
+        if (hs_Dmg0 > 130){
+            hs_maxDamageText = "<text x='" + (chart_scale * hs_distanceArr[1]) + "' y='" + ((115 - (0.666666 * hs_Dmg0))).toString() + "' class='apex_hs_chartMinMaxLabel'>" + hs_Dmg0 + "</text>";
+        } else {
+            hs_maxDamageText = "<text x='" + (chart_scale * hs_distanceArr[1]) + "' y='" + ((95 - (0.666666 * hs_Dmg0))).toString() + "' class='apex_hs_chartMinMaxLabel'>" + hs_Dmg0 + "</text>";
+        }
+        if (hs_Dmg1 > 130){
+            hs_minDamageText = "<text x='" + ((chart_scale * hs_distanceArr[3])- 10) + "' y='" + ((115 - (0.666666 * hs_Dmg1))).toString() + "' class='apex_hs_chartMinMaxLabel'>" + hs_Dmg1 + "</text>";
+        } else {
+            hs_minDamageText = "<text x='" + (chart_scale * hs_distanceArr[3]- 10) + "' y='" + ((95 - (0.666666 * hs_Dmg1))).toString() + "' class='apex_hs_chartMinMaxLabel'>" + hs_Dmg1 + "</text>";
+        }
+    }
+
+    //Shotgun pellets
+    let pelletsLabel = "";
+    if (numOfPellets > 1){
+        pelletsLabel = "<text x='135' y='98' class='apex_chartMinMaxLabel'>" + numOfPellets + "pellets</text>";
+    }
+
+    //svg dynamic string
+    let svg_str = "";
+    let dist_array = ["100m", "200m", "300m", "400m", "500m", "600m", "700m", "800m", "900m", "1000m"];
+    svg_str += "<svg viewbox='0 0 200 100' class='apex_damageChart_test'>" +"";
+    svg_str += "<rect width='200' height='100' style='stroke:rgb(0,0,100);stroke-width:0' fill='rgb(25,25,25)' ></rect>" +"";
+    let thick_spacing =(200/(max_hs_distance+50))*100;
+    let x_thin = thick_spacing/2;
+    svg_str += "<line x1='"+(x_thin)+"' y1='0' x2='"+(x_thin)+"' y2='100' class='apex_gridLineThin'></line>" +"";
+    // svg_str += "<line x1='"+(x_thin * 2)+"' y1='0' x2='"+(x_thin * 2)+"' y2='100' class='apex_gridLineThin'></line>" +"";
+    // svg_str += "<line x1='"+(x_thin * 3)+"' y1='0' x2='"+(x_thin * 3)+"' y2='100' class='apex_gridLineThin'></line>" +"";
+    // svg_str += "<line x1='"+(x_thin * 4)+"' y1='0' x2='"+(x_thin * 4)+"' y2='100' class='apex_gridLineThin'></line>" +"";
+    let chart_gap = 0;
+    let chart_line_count = (max_hs_distance+50)/100;
+    while (chart_gap < chart_line_count) {
+        let x_val = thick_spacing * (chart_gap+1);
+
+        svg_str += "<line x1='"+x_val+"' y1='0' x2='"+x_val+"' y2='100' class='apex_gridLineFat'></line>" +"";
+        svg_str += "<line x1='"+(x_thin + x_val)+"' y1='0' x2='"+(x_thin + x_val)+"' y2='100' class='apex_gridLineThin'></line>" +"";
+        // svg_str += "<line x1='"+((x_thin * 2)+x_val)+"' y1='0' x2='"+((x_thin * 2)+x_val)+"' y2='100' class='apex_gridLineThin'></line>" +"";
+        // svg_str += "<line x1='"+((x_thin * 3)+x_val)+"' y1='0' x2='"+((x_thin * 3)+x_val)+"' y2='100' class='apex_gridLineThin'></line>" +"";
+        // svg_str += "<line x1='"+((x_thin * 4)+x_val)+"' y1='0' x2='"+((x_thin * 4)+x_val)+"' y2='100' class='apex_gridLineThin'></line>" +"";
+        svg_str += "<text x='"+(x_val + 2)+"' y='99' class='apex_chartLabel'>"+dist_array[chart_gap]+"</text>" +"";
+        chart_gap += 1;
+    }
+
+    svg_str += "<line x1='0' y1='66' x2='200' y2='66' style='stroke:rgb(175,175,175);stroke-width:.5'></line>" +"";
+    svg_str += "<line x1='0' y1='33' x2='200' y2='33' style='stroke:rgb(175,175,175);stroke-width:.25'></line>" +"";
+    svg_str += "<text x='0' y='74' class='apex_chartLabel'>50</text>" +"";
+    svg_str += "<text x='0' y='41' class='apex_chartLabel'>100</text>" +"";
+    svg_str += "<text x='0' y='8' class='apex_chartLabel'>150</text>" +"";
+
+    svg_str += "<polyline class='apex_ls_chartDamageLine' points='" + ls_damageLineCords + "'></polyline>" + ls_maxDamageText + ls_minDamageText + "";
+    svg_str += "<polyline class='apex_hs_chartDamageLine' points='" + hs_damageLineCoords + "'></polyline>" + hs_maxDamageText + hs_minDamageText +"";
+    svg_str += "<polyline class='apex_chartDamageLine' points='" + damageLineCoords + "'></polyline>" + maxDamageText + minDamageText + "";
+    svg_str += pelletsLabel +"</svg>";
+
+    return svg_str
+}
+
+function apex_createKraberDamageChart(weaponStats, damageArr, distanceArr, numOfPellets, hs_multi, ls_multi, allow_hs, max_hs_distance){
+    let i;
+    let damageLineCoords;
+    let hs_damageLineCoords = "";
+    let ls_damageLineCords = "";
+    let hs_maxDamageText = "";
+    let hs_minDamageText = "";
+    let ls_maxDamageText = "";
+    let ls_minDamageText = "";
+    let chart_dist = 800;
+    let chart_scale = 200/chart_dist;
+
+    //New Standard
+    let max_Damage = Math.round(damageArr[0]);
+    let mid_Damage = Math.round(damageArr[1]);
+    let min_Damage = Math.round(damageArr[2]);
+    damageLineCoords = "0," + (100 - (0.333333 * max_Damage)).toString() + " ";
+    damageLineCoords += (chart_scale*distanceArr[0]).toString() + "," + (100 - (0.333333 * max_Damage)).toString() + " ";
+    damageLineCoords += (chart_scale*distanceArr[1]).toString() + "," + (100 - (0.333333 * max_Damage)).toString() + " ";
+
+    damageLineCoords += (chart_scale*distanceArr[1]).toString() + "," + (100 - (0.333333 * mid_Damage)).toString() + " ";
+    damageLineCoords += (chart_scale*distanceArr[2]).toString() + "," + (100 - (0.333333 * mid_Damage)).toString() + " ";
+
+    damageLineCoords += (chart_scale*distanceArr[2]).toString() + "," + (100 - (0.333333 * min_Damage)).toString() + " ";
+    damageLineCoords += (distanceArr[2]+100).toString()+"," + (100 - (0.333333 * min_Damage)).toString()+ " ";
+    damageLineCoords += (200).toString()+"," + (100 - (0.333333 * min_Damage)).toString();
+
+
+    // let maxDamageText = "<text x='"+(chart_scale*distanceArr[0])+"' y='" + ((95 - mid_Damage)).toString() + "' class='apex_chartMinMaxLabel'>" + mid_Damage + "</text>";
+    let maxDamageText = "<text x='"+(chart_scale*distanceArr[0])+"' y='" + ((95 - (0.333333 * mid_Damage))).toString() + "' class='apex_chartMinMaxLabel'>" + mid_Damage + "</text>";
+    let minDamageText = "<text x='"+(25 + (chart_scale*distanceArr[2]))+"' y='" + ((95 - (0.333333 * min_Damage))).toString() + "' class='apex_chartMinMaxLabel'>" + min_Damage + "</text>";
+
+
+    //Limb Damage
+    if(ls_multi !== 1.0) {
+        let ls_maxDamage = Math.round(damageArr[0] * ls_multi);
+        let ls_midDamage = Math.round(damageArr[1] * ls_multi);
+        let ls_minDamage = Math.round(damageArr[2] * ls_multi);
+        ls_damageLineCords = "0," + (100 - (0.333333 * ls_maxDamage)).toString() + " ";
+        ls_damageLineCords += (chart_scale*distanceArr[0]).toString() + "," + (100 - (0.333333 * ls_maxDamage)).toString() + " ";
+        ls_damageLineCords += (chart_scale*distanceArr[1]).toString() + "," + (100 - (0.333333 * ls_maxDamage)).toString() + " ";
+
+        ls_damageLineCords += (chart_scale*distanceArr[1]).toString() + "," + (100 - (0.333333 * ls_midDamage)).toString() + " ";
+        ls_damageLineCords += (chart_scale*distanceArr[2]).toString() + "," + (100 - (0.333333 * ls_midDamage)).toString() + " ";
+
+        ls_damageLineCords += (chart_scale*distanceArr[2]).toString() + "," + (100 - (0.333333 * ls_minDamage)).toString() + " ";
+        ls_damageLineCords += (distanceArr[2]+100).toString()+"," + (100 - (0.333333 * ls_minDamage)).toString()+ " ";
+        ls_damageLineCords += (200).toString()+"," + (100 - (0.333333 * ls_minDamage)).toString();
+
+        ls_maxDamageText = "<text x='15' y='" + ((115 - (0.333333 * ls_midDamage))).toString() + "' class='apex_ls_chartMinMaxLabel'>" + ls_maxDamage + "</text>";
+        // ls_minDamageText = "<text x='"+(chart_scale*distanceArr[1])+"' y='" + ((90 - ls_minDamage)).toString() + "' class='apex_ls_chartMinMaxLabel'>" + ls_minDamage + "</text>";
+        ls_minDamageText = "<text x='175' y='" + ((115 - (0.333333 * ls_midDamage))).toString() + "' class='apex_ls_chartMinMaxLabel'>" + ls_minDamage + "</text>";
+    }
+
+    // Headshot Damage - Some weapons have very short max HS range.
+    if (allow_hs && hs_multi > 1.0) {
+        let hs_damageArr = [];
+        let hs_distanceArr = [];
+        let hs_short = false;
+
+        for (i = 0; i < damageArr.length; i++) {
+            if (distanceArr[i] < max_hs_distance) {
+
+                hs_distanceArr.push(distanceArr[i]);
+                hs_damageArr.push((damageArr[i] * hs_multi));
+
+            } else if (hs_short) {
+                hs_distanceArr.push(distanceArr[i]);
+                hs_damageArr.push((damageArr[i]));
+            } else {
+                hs_distanceArr.push(max_hs_distance);
+                hs_damageArr.push((damageArr[i-1] * hs_multi));
+
+                hs_distanceArr.push(distanceArr[i]);
+                hs_damageArr.push(damageArr[i]);
+                hs_short = true;
+            }
+        }
+        if (hs_damageArr.length < 4) {
+            hs_distanceArr.push(max_hs_distance);
+            hs_damageArr.push((damageArr[2] * hs_multi))
+        }
+        let hs_Dmg0 = Math.round(hs_damageArr[0]);
+        let hs_Dmg1 = Math.round(hs_damageArr[1]);
+        let hs_Dmg2 = Math.round(hs_damageArr[2]);
+        let hs_Dmg3 = Math.round(hs_damageArr[3]);
+        hs_damageLineCoords = "0," + (100 - (0.333333 * hs_Dmg0)).toString() + " ";
+
+        hs_damageLineCoords += (chart_scale * hs_distanceArr[0]).toString() + "," + (100 - (0.333333 * hs_Dmg0)).toString() + " ";
+        hs_damageLineCoords += (chart_scale * hs_distanceArr[1]).toString() + "," + (100 - (0.333333 * hs_Dmg0)).toString() + " ";
+
+        hs_damageLineCoords += (chart_scale * hs_distanceArr[1]).toString() + "," + (100 - (0.333333 * hs_Dmg1)).toString() + " ";
+        hs_damageLineCoords += (chart_scale * hs_distanceArr[2]).toString() + "," + (100 - (0.333333 * hs_Dmg1)).toString() + " ";
+
+        hs_damageLineCoords += (chart_scale * hs_distanceArr[2]).toString() + "," + (100 - (0.333333 * hs_Dmg2)).toString() + " ";
+        hs_damageLineCoords += (chart_scale * hs_distanceArr[3]).toString() + "," + (100 - (0.333333 * hs_Dmg2)).toString() + " ";
+
+        hs_damageLineCoords += (chart_scale * hs_distanceArr[3]).toString() + "," + (100 - (0.333333 * hs_Dmg3)).toString() + " ";
+        if ( hs_Dmg2 >= hs_Dmg3){
+            hs_damageLineCoords += (chart_scale * hs_distanceArr[3]).toString() + "," + (100 - (0.333333 * damageArr[2])).toString() + " ";
+            hs_damageLineCoords += (hs_distanceArr[3] + 100).toString() + "," + (100 - (0.333333 * damageArr[2])).toString()+ " ";
+            hs_damageLineCoords += (200).toString() + "," + (100 - (0.333333 * damageArr[2])).toString();
+        } else {
+            hs_damageLineCoords += (hs_distanceArr[3] + 100).toString() + "," + (100 - (0.333333 * hs_Dmg3)).toString()+ " ";
+            hs_damageLineCoords += (200).toString() + "," + (100 - (0.333333 * hs_Dmg3)).toString();
+        }
+        if (hs_Dmg0 > 140){
+            hs_maxDamageText = "<text x='" + (chart_scale * hs_distanceArr[1]) + "' y='" + ((115 - (0.333333 * hs_Dmg0))).toString() + "' class='apex_hs_chartMinMaxLabel'>" + hs_Dmg0 + "</text>";
+        } else {
+            hs_maxDamageText = "<text x='" + (chart_scale * hs_distanceArr[1]) + "' y='" + ((95 - (0.333333 * hs_Dmg0))).toString() + "' class='apex_hs_chartMinMaxLabel'>" + hs_Dmg0 + "</text>";
+        }
+        if (hs_Dmg1 > 140){
+            hs_minDamageText = "<text x='" + ((chart_scale * max_hs_distance)- 25) + "' y='" + ((115 - (0.333333 * hs_Dmg1))).toString() + "' class='apex_hs_chartMinMaxLabel'>" + hs_Dmg1 + "</text>";
+        } else {
+            hs_minDamageText = "<text x='" + (chart_scale * max_hs_distance- 20) + "' y='" + ((95 - (0.333333 * hs_Dmg1))).toString() + "' class='apex_hs_chartMinMaxLabel'>" + hs_Dmg1 + "</text>";
+        }
+    }
+
+    //Shotgun pellets
+    let pelletsLabel = "";
+    if (numOfPellets > 1){
+        pelletsLabel = "<text x='135' y='98' class='apex_chartMinMaxLabel'>" + numOfPellets + "pellets</text>";
+    }
+
+    //svg dynamic string
+    let svg_str = "";
+    let dist_array = ["100m", "200m", "300m", "400m", "500m", "600m", "700m", "800m", "900m", "1000m"];
+    svg_str += "<svg viewbox='0 0 200 100' class='apex_damageChart_test'>" +"";
+    svg_str += "<rect width='200' height='100' style='stroke:rgb(0,0,100);stroke-width:0' fill='rgb(25,25,25)' ></rect>" +"";
+    let thick_spacing =(200/(max_hs_distance+50))*100;
+    let x_thin = thick_spacing/2;
+    svg_str += "<line x1='"+(x_thin)+"' y1='0' x2='"+(x_thin)+"' y2='100' class='apex_gridLineThin'></line>" +"";
+    // svg_str += "<line x1='"+(x_thin * 2)+"' y1='0' x2='"+(x_thin * 2)+"' y2='100' class='apex_gridLineThin'></line>" +"";
+    // svg_str += "<line x1='"+(x_thin * 3)+"' y1='0' x2='"+(x_thin * 3)+"' y2='100' class='apex_gridLineThin'></line>" +"";
+    // svg_str += "<line x1='"+(x_thin * 4)+"' y1='0' x2='"+(x_thin * 4)+"' y2='100' class='apex_gridLineThin'></line>" +"";
+    let chart_gap = 0;
+    let chart_line_count = (max_hs_distance+50)/100;
+    while (chart_gap < chart_line_count) {
+        let x_val = thick_spacing * (chart_gap+1);
+
+        svg_str += "<line x1='"+x_val+"' y1='0' x2='"+x_val+"' y2='100' class='apex_gridLineFat'></line>" +"";
+        svg_str += "<line x1='"+(x_thin + x_val)+"' y1='0' x2='"+(x_thin + x_val)+"' y2='100' class='apex_gridLineThin'></line>" +"";
+        // svg_str += "<line x1='"+((x_thin * 2)+x_val)+"' y1='0' x2='"+((x_thin * 2)+x_val)+"' y2='100' class='apex_gridLineThin'></line>" +"";
+        // svg_str += "<line x1='"+((x_thin * 3)+x_val)+"' y1='0' x2='"+((x_thin * 3)+x_val)+"' y2='100' class='apex_gridLineThin'></line>" +"";
+        // svg_str += "<line x1='"+((x_thin * 4)+x_val)+"' y1='0' x2='"+((x_thin * 4)+x_val)+"' y2='100' class='apex_gridLineThin'></line>" +"";
+        svg_str += "<text x='"+(x_val + 2)+"' y='99' class='apex_chartLabel'>"+dist_array[chart_gap]+"</text>" +"";
+        chart_gap += 1;
+    }
+
+    svg_str += "<line x1='0' y1='66' x2='200' y2='66' style='stroke:rgb(175,175,175);stroke-width:.5'></line>" +"";
+    svg_str += "<line x1='0' y1='33' x2='200' y2='33' style='stroke:rgb(175,175,175);stroke-width:.25'></line>" +"";
+    svg_str += "<text x='0' y='74' class='apex_chartLabel'>100</text>" +"";
+    svg_str += "<text x='0' y='41' class='apex_chartLabel'>200</text>" +"";
+    svg_str += "<text x='0' y='8' class='apex_chartLabel'>300</text>" +"";
+
+    svg_str += "<polyline class='apex_ls_chartDamageLine' points='" + ls_damageLineCords + "'></polyline>" + ls_maxDamageText + ls_minDamageText + "";
+    svg_str += "<polyline class='apex_hs_chartDamageLine' points='" + hs_damageLineCoords + "'></polyline>" + hs_maxDamageText + hs_minDamageText +"";
+    svg_str += "<polyline class='apex_chartDamageLine' points='" + damageLineCoords + "'></polyline>" + maxDamageText + minDamageText + "";
+    svg_str += pelletsLabel +"</svg>";
+
+    return svg_str
+}
+
 function apex_createChargeRifleDamageChart(weaponStats, damageArr, distanceArr, numOfPellets, hs_multi, ls_multi, allow_hs, max_hs_distance){
-    // let hs_minDamage;
-    // let hs_distance_cord;
-    // let hs_damage_cord;
     let i;
     let beam_multi = 0.067;
     let damageLineCoords;
@@ -1179,7 +1500,7 @@ function apex_createChargeRifleDamageChart(weaponStats, damageArr, distanceArr, 
     damageLineCoords += (distanceArr[2]+100).toString()+"," + (100 - min_Damage).toString();
 
 
-    let maxDamageText = "<text x='"+(chart_scale*distanceArr[0])+"' y='" + ((95 - min_Damage)).toString() + "' class='apex_chartMinMaxLabel'>" + mid_Damage + "</text>";
+    let maxDamageText = "<text x='"+(chart_scale*distanceArr[0])+"' y='" + ((111 - mid_Damage)).toString() + "' class='apex_chartMinMaxLabel'>" + mid_Damage + "</text>";
     let minDamageText = "<text x='"+(chart_scale*distanceArr[2])+"' y='" + ((95 - min_Damage)).toString() + "' class='apex_chartMinMaxLabel'>" + min_Damage + "</text>";
 
 
@@ -1199,7 +1520,7 @@ function apex_createChargeRifleDamageChart(weaponStats, damageArr, distanceArr, 
         ls_beam_damageLineCords += (distanceArr[2]+100).toString()+"," + (95 - ls_beam_minDamage).toString();
 
         ls_maxDamageText = "<text x='15' y='" + ((90 - ls_beam_midDamage)).toString() + "' class='apex_ls_chartMinMaxLabel'>" + ls_beam_maxDamage + "</text>";
-        ls_minDamageText = "<text x='"+(chart_scale*distanceArr[1])+"' y='" + ((90 - ls_beam_minDamage)).toString() + "' class='apex_ls_chartMinMaxLabel'>" + ls_beam_minDamage + "</text>";
+        ls_minDamageText = "<text x='190' y='94' class='apex_ls_chartMinMaxLabel'>" + ls_beam_minDamage + "</text>";
     }
 
     // Headshot Damage - Some weapons have very short max HS range.
@@ -1219,15 +1540,13 @@ function apex_createChargeRifleDamageChart(weaponStats, damageArr, distanceArr, 
                 hs_damageArr.push((damageArr[i]));
             } else {
                 hs_distanceArr.push(max_hs_distance);
-                hs_damageArr.push((damageArr[i-1] * hs_multi));
+                hs_damageArr.push((damageArr[i-1]));
 
                 hs_distanceArr.push(distanceArr[i]);
                 hs_damageArr.push(damageArr[i]);
                 hs_short = true;
             }
         }
-        console.log(hs_damageArr);
-        console.log(hs_distanceArr);
         let hs_Dmg0 = Math.round(hs_damageArr[0]);
         let hs_Dmg1 = Math.round(hs_damageArr[1]);
         let hs_Dmg2 = Math.round(hs_damageArr[2]);
@@ -1247,13 +1566,7 @@ function apex_createChargeRifleDamageChart(weaponStats, damageArr, distanceArr, 
         hs_damageLineCoords += (hs_distanceArr[3] + 100).toString() + "," + (100 - hs_Dmg3).toString();
 
         hs_maxDamageText = "<text x='" + (chart_scale * hs_distanceArr[1]) + "' y='" + ((95 - hs_Dmg0)).toString() + "' class='apex_hs_chartMinMaxLabel'>" + hs_Dmg0 + "</text>";
-        hs_minDamageText = "<text x='" + (chart_scale * hs_distanceArr[2]) + "' y='" + ((95 - hs_Dmg1)).toString() + "' class='apex_hs_chartMinMaxLabel'>" + hs_Dmg1 + "</text>";
-    }
-
-    //Shotgun pellets
-    let pelletsLabel = "";
-    if (numOfPellets > 1){
-        pelletsLabel = "<text x='135' y='65' class='apex_chartMinMaxLabel'>" + numOfPellets + "pellets</text>";
+        hs_minDamageText = "<text x='" + ((chart_scale * max_hs_distance)-20) + "' y='" + ((95 - hs_Dmg1)).toString() + "' class='apex_hs_chartMinMaxLabel'>" + hs_Dmg1 + "</text>";
     }
 
     //svg dynamic string
@@ -1280,856 +1593,564 @@ function apex_createChargeRifleDamageChart(weaponStats, damageArr, distanceArr, 
         svg_str += "<text x='"+(x_val + 2)+"' y='99' class='apex_chartLabel'>"+dist_array[chart_gap]+"</text>" +"";
         chart_gap += 1;
     }
-    console.log(svg_str);
 
-    svg_str += "<line x1='0' y1='50' x2='200' y2='50' style='stroke:rgb(175,175,175); stroke-width:.5'></line>" +"";
+    svg_str += "<line x1='0' y1='50' x2='200' y2='50' style='stroke:rgb(175,175,175);stroke-width:.5'></line>" +"";
+    svg_str += "<line x1='0' y1='50' x2='200' y2='50' style='stroke:rgb(175,175,175);stroke-width:.5'></line>";
+    svg_str += "<text x='0' y='58' class='apex_chartLabel'>50</text>";
+    svg_str +="<text x='0' y='8' class='apex_chartLabel'>100</text>";
 
-    svg_str += "<polyline class='apex_chartDamageLine' points='" + damageLineCoords + "'></polyline>" + maxDamageText + minDamageText +"";
+    svg_str += "<polyline class='apex_min_chartDamageLine' points='" + ls_beam_damageLineCords + "'></polyline>" + ls_maxDamageText + ls_minDamageText +"";
     svg_str += "<polyline class='apex_hs_chartDamageLine' points='" + hs_damageLineCoords + "'></polyline>" + hs_maxDamageText + hs_minDamageText +"";
-    svg_str += "<polyline class='apex_min_chartDamageLine' points='" + ls_beam_damageLineCords + "'></polyline>" + ls_maxDamageText + ls_minDamageText + "</svg>";
+    svg_str += "<polyline class='apex_chartDamageLine' points='" + damageLineCoords + "'></polyline>" + maxDamageText + minDamageText + "</svg>";
 
     return svg_str
 }
 
-function apex_createDamageChart50Max(damageArr, distanceArr, numOfPellets, hs_multi, ls_multi, allow_hs, max_hs_distance){
-    let hs_minDamage;
-    let hs_distance_cord;
-    let hs_damage_cord;
+function apex_createNewDamageChart150Max(weaponStats, damageArr, distanceArr, numOfPellets, hs_multi, ls_multi, allow_hs, max_hs_distance){
     let i;
     let damageLineCoords;
     let hs_damageLineCoords = "";
-    let ls_damageLineCoords = "";
+    let ls_damageLineCords = "";
     let hs_maxDamageText = "";
     let hs_minDamageText = "";
     let ls_maxDamageText = "";
     let ls_minDamageText = "";
+    let chart_dist = 300;
+    let chart_scale = 200/chart_dist;
 
-    //Standard Damage
-    damageLineCoords = distanceArr[0] === 0.0 ? "" : "0," + (100 - (2 * damageArr[0])) + " ";
-    for (i = 0; i < damageArr.length; i++){
-        const damage_cord = 100 - (2 * damageArr[i]);
-        const distance_cord = 2 * distanceArr[i];
-        damageLineCoords += distance_cord.toString() + "," + damage_cord.toString() + " ";
+    //New Standard
+    let max_Damage = Math.round(damageArr[0]);
+    let mid_Damage = Math.round(damageArr[1]);
+    let min_Damage = Math.round(damageArr[2]);
+    damageLineCoords = "0," + (100 - (0.666666 * max_Damage)).toString() + " ";
+    damageLineCoords += (chart_scale*distanceArr[0]).toString() + "," + (100 - (0.666666 * max_Damage)).toString() + " ";
+    damageLineCoords += (chart_scale*distanceArr[1]).toString() + "," + (100 - (0.666666 * max_Damage)).toString() + " ";
+
+    damageLineCoords += (chart_scale*distanceArr[1]).toString() + "," + (100 - (0.666666 * mid_Damage)).toString() + " ";
+    damageLineCoords += (chart_scale*distanceArr[2]).toString() + "," + (100 - (0.666666 * mid_Damage)).toString() + " ";
+
+    damageLineCoords += (chart_scale*distanceArr[2]).toString() + "," + (100 - (0.666666 * min_Damage)).toString() + " ";
+    damageLineCoords += (distanceArr[2]+100).toString()+"," + (100 - (0.625  * min_Damage)).toString()+ " ";
+    damageLineCoords += (200).toString()+"," + (100 - (0.625  * min_Damage)).toString();
+
+    let maxDamageText = "<text x='"+(chart_scale*distanceArr[1])+"' y='" + ((95 - (0.666666 * mid_Damage))).toString() + "' class='apex_chartMinMaxLabel'>" + mid_Damage + "</text>";
+    let minDamageText = "<text x='"+(chart_scale*distanceArr[2]+50)+"' y='" + ((95 - (0.666666 * min_Damage))).toString() + "' class='apex_chartMinMaxLabel'>" + min_Damage + "</text>";
+
+    //Limb Damage
+    if(ls_multi !== 1.0) {
+        let ls_maxDamage = Math.round(damageArr[0] * ls_multi);
+        let ls_midDamage = Math.round(damageArr[1] * ls_multi);
+        let ls_minDamage = Math.round(damageArr[2] * ls_multi);
+        ls_damageLineCords = "0," + (100 - (0.666666 * ls_maxDamage)).toString() + " ";
+        ls_damageLineCords += (chart_scale*distanceArr[0]).toString() + "," + (100 - (0.666666 * ls_maxDamage)).toString() + " ";
+        ls_damageLineCords += (chart_scale*distanceArr[1]).toString() + "," + (100 - (0.666666 * ls_maxDamage)).toString() + " ";
+
+        ls_damageLineCords += (chart_scale*distanceArr[1]).toString() + "," + (100 - (0.666666 * ls_midDamage)).toString() + " ";
+        ls_damageLineCords += (chart_scale*distanceArr[2]).toString() + "," + (100 - (0.666666 * ls_midDamage)).toString() + " ";
+
+        ls_damageLineCords += (chart_scale*distanceArr[2]).toString() + "," + (100 - (0.666666 * ls_minDamage)).toString() + " ";
+        ls_damageLineCords += (distanceArr[2]+100).toString()+"," + (100 - (0.666666 * ls_minDamage)).toString()+ " ";
+        ls_damageLineCords += (200).toString()+"," + (100 - (0.666666 * ls_minDamage)).toString();
+
+        ls_maxDamageText = "<text x='15' y='" + ((111 - (0.666666 * ls_minDamage))).toString() + "' class='apex_ls_chartMinMaxLabel'>" + ls_maxDamage + "</text>";
+        ls_minDamageText = "<text x='185' y='" + ((111 - (0.666666 * ls_minDamage))).toString() + "' class='apex_ls_chartMinMaxLabel'>" + ls_minDamage + "</text>";
     }
-    damageLineCoords += "200," + (100 - (2 * damageArr[damageArr.length - 1])).toString();
-    const maxDamage = Math.round(damageArr[0]);
-    const minDamage = Math.round(damageArr[damageArr.length - 1]);
-    let maxDamageText = "";
-    if(damageArr[0] > 80){
-        maxDamageText = "<text x='" + distanceArr[1] + "' y='" + (118 - (2 * maxDamage)).toString() + "' class='apex_chartMinMaxLabel'>" + maxDamage + "</text>";
-    } else {
-        maxDamageText = "<text x='" + distanceArr[1] + "' y='" + (96 - (2 * maxDamage)).toString() + "' class='apex_chartMinMaxLabel'>" + maxDamage + "</text>";
+
+    // Headshot Damage - Some weapons have very short max HS range.
+    if (allow_hs && hs_multi > 1.0) {
+        let hs_damageArr = [];
+        let hs_distanceArr = [];
+        let hs_short = false;
+
+        for (i = 0; i < damageArr.length; i++) {
+            if (distanceArr[i] < max_hs_distance) {
+
+                hs_distanceArr.push(distanceArr[i]);
+                hs_damageArr.push((damageArr[i] * hs_multi));
+
+            } else if (hs_short) {
+                hs_distanceArr.push(distanceArr[i]);
+                hs_damageArr.push((damageArr[i]));
+            } else {
+                hs_distanceArr.push(max_hs_distance);
+                hs_damageArr.push((damageArr[i-1] * hs_multi));
+
+                hs_distanceArr.push(distanceArr[i]);
+                hs_damageArr.push(damageArr[i]);
+                hs_short = true;
+            }
+        }
+        if (hs_damageArr.length < 4) {
+            hs_distanceArr.push(max_hs_distance);
+            hs_damageArr.push((damageArr[2] * hs_multi))
+        }
+        let hs_Dmg0 = Math.round(hs_damageArr[0]);
+        let hs_Dmg1 = Math.round(hs_damageArr[1]);
+        let hs_Dmg2 = Math.round(hs_damageArr[2]);
+        let hs_Dmg3 = Math.round(hs_damageArr[3]);
+        hs_damageLineCoords = "0," + (100 - (0.666666 * hs_Dmg0)).toString() + " ";
+
+        hs_damageLineCoords += (chart_scale * hs_distanceArr[0]).toString() + "," + (100 - (0.666666 * hs_Dmg0)).toString() + " ";
+        hs_damageLineCoords += (chart_scale * hs_distanceArr[1]).toString() + "," + (100 - (0.666666 * hs_Dmg0)).toString() + " ";
+
+        hs_damageLineCoords += (chart_scale * hs_distanceArr[1]).toString() + "," + (100 - (0.666666 * hs_Dmg1)).toString() + " ";
+        hs_damageLineCoords += (chart_scale * hs_distanceArr[2]).toString() + "," + (100 - (0.666666 * hs_Dmg1)).toString() + " ";
+
+        hs_damageLineCoords += (chart_scale * hs_distanceArr[2]).toString() + "," + (100 - (0.666666 * hs_Dmg2)).toString() + " ";
+        hs_damageLineCoords += (chart_scale * hs_distanceArr[3]).toString() + "," + (100 - (0.666666 * hs_Dmg2)).toString() + " ";
+
+        hs_damageLineCoords += (chart_scale * hs_distanceArr[3]).toString() + "," + (100 - (0.666666 * hs_Dmg3)).toString() + " ";
+
+        if ( hs_Dmg2 >= hs_Dmg3){
+            hs_damageLineCoords += (chart_scale * hs_distanceArr[3]).toString() + "," + (100 - (0.666666 * damageArr[2])).toString() + " ";
+            hs_damageLineCoords += (hs_distanceArr[3] + 100).toString() + "," + (100 - (0.666666 * damageArr[2])).toString()+ " ";
+            hs_damageLineCoords += (200).toString() + "," + (100 - (0.666666 * damageArr[2])).toString();
+        } else {
+            hs_damageLineCoords += (hs_distanceArr[3] + 100).toString() + "," + (100 - (0.666666 * hs_Dmg3)).toString()+ " ";
+            hs_damageLineCoords += (200).toString() + "," + (100 - (0.666666 * hs_Dmg3)).toString();
+        }
+        if (hs_Dmg0 > 140){
+            hs_maxDamageText = "<text x='" + (chart_scale * hs_distanceArr[1]) + "' y='" + ((115 - (0.666666 * hs_Dmg0))).toString() + "' class='apex_hs_chartMinMaxLabel'>" + hs_Dmg0 + "</text>";
+        } else {
+            hs_maxDamageText = "<text x='" + (chart_scale * hs_distanceArr[1]) + "' y='" + ((95 - (0.666666 * hs_Dmg0))).toString() + "' class='apex_hs_chartMinMaxLabel'>" + hs_Dmg0 + "</text>";
+        }
+        if (hs_Dmg1 > 140){
+            hs_minDamageText = "<text x='" + ((chart_scale * max_hs_distance)-10) + "' y='" + ((115 - (0.666666 * hs_Dmg1))).toString() + "' class='apex_hs_chartMinMaxLabel'>" + hs_Dmg1 + "</text>";
+        } else {
+            hs_minDamageText = "<text x='" + ((chart_scale * max_hs_distance)-10) + "' y='" + ((95 - (0.666666 * hs_Dmg1))).toString() + "' class='apex_hs_chartMinMaxLabel'>" + hs_Dmg1 + "</text>";
+        }
     }
-    let minDamageText = "";
-    if(distanceArr[distanceArr.length - 1] < 100){
-        minDamageText = "<text x='" + (distanceArr[distanceArr.length - 1] * 2) + "' y='" + (96 - (2 * minDamage)).toString() + "' class='apex_chartMinMaxLabel'>" + minDamage + "</text>";
-    } else {
-        minDamageText = "<text x='183' y='" + (96 - (2 * minDamage)).toString() + "' class='apex_chartMinMaxLabel'>" + minDamage + "</text>";
-    }
+
+    //Shotgun pellets
     let pelletsLabel = "";
     if (numOfPellets > 1){
-        pelletsLabel = "<text x='135' y='65' class='apex_chartMinMaxLabel'>" + numOfPellets + " pellets</text>";
+        pelletsLabel = "<text x='135' y='98' class='apex_chartMinMaxLabel'>" + numOfPellets + "pellets</text>";
     }
 
-    //Limb Damage
-    if(ls_multi !== 1) {
-        ls_damageLineCoords = distanceArr[0] === 0.0 ? "" : "0," + (100 - (2 * (damageArr[0] * ls_multi))) + " ";
-        for (i = 0; i < damageArr.length; i++) {
-            const ls_damageCoord = 100 - (2 * (damageArr[i] * ls_multi));
-            const ls_distanceCoord = 2 * distanceArr[i];
-            ls_damageLineCoords += ls_distanceCoord.toString() + "," + ls_damageCoord.toString() + " ";
-        }
-        ls_damageLineCoords += "200," + (100 - (2 * (damageArr[damageArr.length - 1] * ls_multi))).toString();
-
-        const ls_maxDamage = Math.round(damageArr[0] * ls_multi);
-        const ls_minDamage = Math.round(damageArr[damageArr.length - 1] * ls_multi);
-
-        ls_maxDamageText = "";
-        if (damageArr[0] > 40) {
-            ls_maxDamageText = "<text x='" + (distanceArr[1] - 20 )+ "' y='" + (136 - (2 * ls_maxDamage)).toString() + "' class='apex_ls_chartMinMaxLabel'>" + ls_maxDamage + "</text>";
+    //svg dynamic string
+    let svg_str = "";
+    let dist_array = ["50m", "100m", "150m", "200m", "250m", "300m", "350m"];
+    svg_str += "<svg viewbox='0 0 200 100' class='apex_damageChart_test'>" +"";
+    svg_str += "<rect width='200' height='100' style='stroke:rgb(0,0,100);stroke-width:0' fill='rgb(25,25,25)' ></rect>" +"";
+    let thick_spacing;
+    let chart_line_count;
+    if (max_hs_distance > distanceArr[2]) {
+        if (chart_dist === 150) {
+            thick_spacing = (200/(100+50))*50;
+            chart_line_count = 150 / 50;
         } else {
-            ls_maxDamageText = "<text x='" + (distanceArr[1] - 20)  + "' y='" + (114 - (2 * ls_maxDamage)).toString() + "' class='apex_ls_chartMinMaxLabel'>" + ls_maxDamage + "</text>";
+            thick_spacing = (200 / (max_hs_distance + 50)) * 50;
+            chart_line_count = max_hs_distance / 50;
         }
+    } else {
+        thick_spacing = (200/(100+50))*50;
+        chart_line_count = 150/50;
+    }
+    let x_thin = thick_spacing/5;
+    svg_str += "<line x1='"+(x_thin)+"' y1='0' x2='"+(x_thin)+"' y2='100' class='apex_gridLineThin'></line>" +"";
+    svg_str += "<line x1='"+(x_thin * 2)+"' y1='0' x2='"+(x_thin * 2)+"' y2='100' class='apex_gridLineThin'></line>" +"";
+    svg_str += "<line x1='"+(x_thin * 3)+"' y1='0' x2='"+(x_thin * 3)+"' y2='100' class='apex_gridLineThin'></line>" +"";
+    svg_str += "<line x1='"+(x_thin * 4)+"' y1='0' x2='"+(x_thin * 4)+"' y2='100' class='apex_gridLineThin'></line>" +"";
+    let chart_gap = 0;
 
-        ls_minDamageText = "";
-        if (distanceArr[distanceArr.length - 1] < 100) {
-            ls_minDamageText = "<text x='" + ((distanceArr[distanceArr.length - 1] * 2) - 20) + "' y='" + (114 - (2 * ls_minDamage)).toString() + "' class='apex_ls_chartMinMaxLabel'>" + ls_minDamage + "</text>";
-        } else {
-            ls_minDamageText = "<text x='163' y='" + (114 - (2 * ls_minDamage)).toString() + "' class='apex_ls_chartMinMaxLabel'>" + ls_minDamage + "</text>";
-        }
+    while (chart_gap < chart_line_count) {
+        let x_val = thick_spacing * (chart_gap+1);
+
+        svg_str += "<line x1='"+x_val+"' y1='0' x2='"+x_val+"' y2='100' class='apex_gridLineFat'></line>" +"";
+        svg_str += "<line x1='"+(x_thin + x_val)+"' y1='0' x2='"+(x_thin + x_val)+"' y2='100' class='apex_gridLineThin'></line>" +"";
+        svg_str += "<line x1='"+((x_thin * 2)+x_val)+"' y1='0' x2='"+((x_thin * 2)+x_val)+"' y2='100' class='apex_gridLineThin'></line>" +"";
+        svg_str += "<line x1='"+((x_thin * 3)+x_val)+"' y1='0' x2='"+((x_thin * 3)+x_val)+"' y2='100' class='apex_gridLineThin'></line>" +"";
+        svg_str += "<line x1='"+((x_thin * 4)+x_val)+"' y1='0' x2='"+((x_thin * 4)+x_val)+"' y2='100' class='apex_gridLineThin'></line>" +"";
+        svg_str += "<text x='"+(x_val + 2)+"' y='99' class='apex_chartLabel'>"+dist_array[chart_gap]+"</text>" +"";
+        chart_gap += 1;
     }
 
-    //Headshot Damage - Some weapons have very short max HS range.
-    if(allow_hs && hs_multi > 1.0) {
-        let damage_reduced = false;
-        let max_hs_damage_x = distanceArr[1];
-        hs_damageLineCoords = distanceArr[0] === 0.0 ? "" : "0," + (100 - (2 * (damageArr[0] * hs_multi))) + " ";
-        for (i = 0; i < damageArr.length; i++) {
-            if(distanceArr[i] > max_hs_distance) {
-                if (!damage_reduced){
-                    hs_damage_cord = 100 - (2 * (damageArr[i] * hs_multi));
-                    hs_distance_cord = 2 * max_hs_distance;
-                    hs_damageLineCoords += hs_distance_cord.toString() + "," + hs_damage_cord.toString() + " ";
-                    hs_damage_cord = 100 - (2 * damageArr[0]);
-                    hs_distance_cord = 2 * max_hs_distance;
-                    hs_damageLineCoords += hs_distance_cord.toString() + "," + hs_damage_cord.toString() + " ";
-                    damage_reduced = true;
-                }
-                hs_damage_cord = 100 - (2 * damageArr[i]);
-                hs_distance_cord = 2 * max_hs_distance;
-                hs_damageLineCoords += hs_distance_cord.toString() + "," + hs_damage_cord.toString() + " ";
-            } else {
-                hs_damage_cord = 100 - (2 * (damageArr[i] * hs_multi));
-                hs_distance_cord = 2 * distanceArr[i];
-                hs_damageLineCoords += hs_distance_cord.toString() + "," + hs_damage_cord.toString() + " ";
-            }
-        }
-        if (max_hs_distance < 100){
-            if (!damage_reduced){
-                hs_damage_cord = 100 - (2 * (damageArr[damageArr.length - 1] * hs_multi));
-                hs_distance_cord = 2 * max_hs_distance;
-                hs_damageLineCoords += hs_distance_cord.toString() + "," + hs_damage_cord.toString() + " ";
-                hs_damage_cord = 100 - (2 * damageArr[damageArr.length - 1]);
-                hs_distance_cord = 2 * max_hs_distance;
-                hs_damageLineCoords += hs_distance_cord.toString() + "," + hs_damage_cord.toString() + " ";
-            }
-            max_hs_damage_x = (2 * max_hs_distance) + 5;
-            hs_damageLineCoords += "200," + (100 - (2 * damageArr[damageArr.length - 1])).toString();
-            hs_minDamage = "";
-            hs_minDamageText = "<text x='" + (distanceArr[distanceArr.length - 1] * 2) + "' y='" + (96 - (2 * hs_minDamage)).toString() + "' class='apex_hs_chartMinMaxLabel'>" + hs_minDamage + "</text>";
-        } else {
-            hs_damageLineCoords += "200," + (100 - (2 * (damageArr[damageArr.length - 1] * hs_multi))).toString();
-            hs_minDamage = Math.round(damageArr[damageArr.length - 1] * hs_multi);
-            hs_minDamageText = "<text x='183' y='" + (96 - (2 * hs_minDamage)).toString() + "' class='apex_hs_chartMinMaxLabel'>" + hs_minDamage + "</text>";
-        }
-        const hs_maxDamage = Math.round(damageArr[0] * hs_multi);
+    svg_str += "<line x1='0' y1='66' x2='200' y2='66' style='stroke:rgb(175,175,175);stroke-width:.5'></line>" +"";
+    svg_str += "<line x1='0' y1='33' x2='200' y2='33' style='stroke:rgb(175,175,175);stroke-width:.25'></line>" +"";
+    svg_str += "<text x='0' y='74' class='apex_chartLabel'>50</text>" +"";
+    svg_str += "<text x='0' y='41' class='apex_chartLabel'>100</text>" +"";
+    svg_str += "<text x='0' y='8' class='apex_chartLabel'>150</text>" +"";
 
-        if ((damageArr[0] * hs_multi) > 40) {
-            hs_maxDamageText = "<text x='" + max_hs_damage_x + "' y='" + (118 - (2 * hs_maxDamage)).toString() + "' class='apex_hs_chartMinMaxLabel'>" + hs_maxDamage + "</text>";
-        } else {
-            hs_maxDamageText = "<text x='" + max_hs_damage_x + "' y='" + (96 - (2 * hs_maxDamage)).toString() + "' class='apex_hs_chartMinMaxLabel'>" + hs_maxDamage + "</text>";
-        }
-    }
+    svg_str += "<polyline class='apex_ls_chartDamageLine' points='" + ls_damageLineCords + "'></polyline>" + ls_maxDamageText + ls_minDamageText + "";
+    svg_str += "<polyline class='apex_hs_chartDamageLine' points='" + hs_damageLineCoords + "'></polyline>" + hs_maxDamageText + hs_minDamageText +"";
+    svg_str += "<polyline class='apex_chartDamageLine' points='" + damageLineCoords + "'></polyline>" + maxDamageText + minDamageText + "";
+    svg_str += pelletsLabel +"</svg>";
 
-    return "<svg viewbox='0 0 200 100' class='apex_damageChart'>" +
-        "<rect width='200' height='100' style='stroke:rgb(0,0,100);stroke-width:0' fill='rgb(25,25,25)' ></rect>" +
-
-        "<line x1='10' y1='0' x2='10' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='20' y1='0' x2='20' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='30' y1='0' x2='30' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='40' y1='0' x2='40' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='60' y1='0' x2='60' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='70' y1='0' x2='70' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='80' y1='0' x2='80' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='90' y1='0' x2='90' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='110' y1='0' x2='110' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='120' y1='0' x2='120' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='130' y1='0' x2='130' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='140' y1='0' x2='140' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='160' y1='0' x2='160' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='170' y1='0' x2='170' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='180' y1='0' x2='180' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='190' y1='0' x2='190' y2='100' class='apex_gridLineThin'></line>" +
-
-        "<line x1='50' y1='0' x2='50' y2='100' class='apex_gridLineFat'></line>" +
-        "<line x1='100' y1='0' x2='100' y2='100' class='apex_gridLineFat'></line>" +
-        "<line x1='150' y1='0' x2='150' y2='100' class='apex_gridLineFat'></line>" +
-
-        "<line x1='0' y1='50' x2='200' y2='50' style='stroke:rgb(175,175,175);stroke-width:.5'></line>" +
-        "<text x='0' y='58' class='apex_chartLabel'>25</text>" +
-        "<line x1='0' y1='33' x2='200' y2='33' style='stroke:rgb(175,175,175);stroke-width:.25'></line>" +
-        "<text x='0' y='41' class='apex_chartLabel'>33</text>" +
-        "<text x='0' y='8' class='apex_chartLabel'>50</text>" +
-
-        "<text x='51' y='99' class='apex_chartLabel'>25m</text>" +
-        "<text x='101' y='99' class='apex_chartLabel'>50m</text>" +
-        "<text x='151' y='99' class='apex_chartLabel'>75m</text>" +
-
-        "<polyline class='apex_chartDamageLine' points='" + damageLineCoords + "'></polyline>" +
-        maxDamageText +
-        minDamageText +
-        pelletsLabel +
-        "<polyline class='apex_hs_chartDamageLine' points='" + hs_damageLineCoords + "'></polyline>" +
-        hs_maxDamageText +
-        hs_minDamageText +
-        "<polyline class='apex_ls_chartDamageLine' points='" + ls_damageLineCoords + "'></polyline>" +
-        ls_maxDamageText +
-        ls_minDamageText +
-        "</svg>"
+    return svg_str
 }
 
-function apex_createDamageChart100Max(damageArr, distanceArr, hs_multi, ls_multi, allow_hs, max_hs_distance){
-    let hs_minDamage;
-    let hs_distance_cord;
-    let hs_damage_cord;
+function apex_createNewDamageChart100Max(weaponStats, damageArr, distanceArr, numOfPellets, hs_multi, ls_multi, allow_hs, max_hs_distance){
     let i;
     let damageLineCoords;
     let hs_damageLineCoords = "";
-    let ls_damageLineCoords = "";
+    let ls_damageLineCords = "";
     let hs_maxDamageText = "";
     let hs_minDamageText = "";
     let ls_maxDamageText = "";
     let ls_minDamageText = "";
+    let chart_dist;
+    if (max_hs_distance > distanceArr[2]){
+        chart_dist = max_hs_distance+50;
+    } else {
+        if (distanceArr[2] < 100){
+            chart_dist = 150;
+        } else {
+            chart_dist = distanceArr[2]+50;
+        }
+    }
+    if(chart_dist < 150) {
+        chart_dist = 150;
+    }
+    let chart_scale = 200/chart_dist;
 
-    //Standard Damage
-    damageLineCoords = distanceArr[0] === 0.0 ? "" : "0," + (100 -  damageArr[0]) + " ";
-    for (i = 0; i < damageArr.length; i++){
-        const damage_cord = 100 - damageArr[i];
-        const distance_cord = 2 * distanceArr[i];
-        damageLineCoords += distance_cord.toString() + "," + damage_cord.toString() + " ";
-    }
-    damageLineCoords += "200," + (100 - damageArr[damageArr.length - 1]).toString();
-    const maxDamage = Math.round(damageArr[0]);
-    const minDamage = Math.round(damageArr[damageArr.length - 1]);
-    let maxDamageText = "";
-    if(damageArr[0] > 40){
-        maxDamageText = "<text x='" + distanceArr[1] + "' y='" + (118 - (maxDamage)).toString() + "' class='apex_chartMinMaxLabel'>" + maxDamage + "</text>";
-    } else {
-        maxDamageText = "<text x='40' y='" + (95 - (maxDamage)).toString() + "' class='apex_chartMinMaxLabel'>" + maxDamage + "</text>";
-    }
-    let minDamageText = "";
-    if(distanceArr[distanceArr.length - 1] < 100){
-        minDamageText = "<text x='" + (distanceArr[distanceArr.length - 1] * 2) + "' y='" + (96 - (minDamage)).toString() + "' class='apex_chartMinMaxLabel'>" + minDamage + "</text>";
-    } else {
-        minDamageText = "<text x='113' y='" + (95 - (minDamage)).toString() + "' class='apex_chartMinMaxLabel'>" + minDamage + "</text>";
-    }
+    //New Standard
+    let max_Damage = Math.round(damageArr[0]);
+    let mid_Damage = Math.round(damageArr[1]);
+    let min_Damage = Math.round(damageArr[2]);
+    damageLineCoords = "0," + (100 - (max_Damage)).toString() + " ";
+    damageLineCoords += (chart_scale*distanceArr[0]).toString() + "," + (100 - (max_Damage)).toString() + " ";
+    damageLineCoords += (chart_scale*distanceArr[1]).toString() + "," + (100 - (max_Damage)).toString() + " ";
+
+    damageLineCoords += (chart_scale*distanceArr[1]).toString() + "," + (100 - (mid_Damage)).toString() + " ";
+    damageLineCoords += (chart_scale*distanceArr[2]).toString() + "," + (100 - (mid_Damage)).toString() + " ";
+
+    damageLineCoords += (chart_scale*distanceArr[2]).toString() + "," + (100 - (min_Damage)).toString() + " ";
+    damageLineCoords += (distanceArr[2]+100).toString()+"," + (100 - (min_Damage)).toString()+ " ";
+    damageLineCoords += (200).toString()+"," + (100 - (min_Damage)).toString();
+
+    let maxDamageText = "<text x='"+(chart_scale*distanceArr[0])+"' y='" + ((95 - (mid_Damage))).toString() + "' class='apex_chartMinMaxLabel'>" + mid_Damage + "</text>";
+    let minDamageText = "<text x='"+(chart_scale*distanceArr[2])+"' y='" + ((95 - (min_Damage))).toString() + "' class='apex_chartMinMaxLabel'>" + min_Damage + "</text>";
+
 
     //Limb Damage
-    if(ls_multi !== 1) {
-        ls_damageLineCoords = distanceArr[0] === 0.0 ? "" : "0," + (100 - ((damageArr[0] * ls_multi))) + " ";
-        for (i = 0; i < damageArr.length; i++) {
-            const ls_damageCoord = 100 - (damageArr[i] * ls_multi);
-            const ls_distanceCoord = 2 * distanceArr[i];
-            ls_damageLineCoords += ls_distanceCoord.toString() + "," + ls_damageCoord.toString() + " ";
-        }
-        ls_damageLineCoords += "200," + (100 - (damageArr[damageArr.length - 1] * ls_multi)).toString();
+    if(ls_multi !== 1.0) {
+        let ls_maxDamage = Math.round(damageArr[0] * ls_multi);
+        let ls_midDamage = Math.round(damageArr[1] * ls_multi);
+        let ls_minDamage = Math.round(damageArr[2] * ls_multi);
+        ls_damageLineCords = "0," + (100 - (ls_maxDamage)).toString() + " ";
+        ls_damageLineCords += (chart_scale*distanceArr[0]).toString() + "," + (100 - (ls_maxDamage)).toString() + " ";
+        ls_damageLineCords += (chart_scale*distanceArr[1]).toString() + "," + (100 - (ls_maxDamage)).toString() + " ";
 
-        const ls_maxDamage = Math.round(damageArr[0] * ls_multi);
-        const ls_minDamage = Math.round(damageArr[damageArr.length - 1] * ls_multi);
+        ls_damageLineCords += (chart_scale*distanceArr[1]).toString() + "," + (100 - (ls_midDamage)).toString() + " ";
+        ls_damageLineCords += (chart_scale*distanceArr[2]).toString() + "," + (100 - (ls_midDamage)).toString() + " ";
 
-        ls_maxDamageText = "";
-        if (damageArr[0] > 40) {
-            ls_maxDamageText = "<text x='" + (distanceArr[1] - 20 )+ "' y='" + (114 - (ls_maxDamage)).toString() + "' class='apex_ls_chartMinMaxLabel'>" + ls_maxDamage + "</text>";
-        } else {
-            ls_maxDamageText = "<text x='23' y='" + (144 - (2 * ls_minDamage)).toString() + "' class='apex_ls_chartMinMaxLabel'>" + ls_maxDamage + "</text>";
-        }
+        ls_damageLineCords += (chart_scale*distanceArr[2]).toString() + "," + (100 - (ls_minDamage)).toString() + " ";
+        ls_damageLineCords += (distanceArr[2]+100).toString()+"," + (100 - (ls_minDamage)).toString()+ " ";
+        ls_damageLineCords += (200).toString()+"," + (100 - (ls_minDamage)).toString();
 
-        ls_minDamageText = "";
-        if (distanceArr[distanceArr.length - 1] < 100) {
-            ls_minDamageText = "<text x='" + ((distanceArr[distanceArr.length - 1] * 2) - 20) + "' y='" + (114 - (ls_minDamage)).toString() + "' class='apex_ls_chartMinMaxLabel'>" + ls_minDamage + "</text>";
-        } else {
-            ls_minDamageText = "<text x='63' y='" + (144 - (2 * ls_minDamage)).toString() + "' class='apex_ls_chartMinMaxLabel'>" + ls_minDamage + "</text>";
-        }
+        ls_maxDamageText = "<text x='15' y='" + ((111 - (ls_midDamage))).toString() + "' class='apex_ls_chartMinMaxLabel'>" + ls_maxDamage + "</text>";
+        ls_minDamageText = "<text x='185' y='" + ((111 - (ls_minDamage))).toString() + "' class='apex_ls_chartMinMaxLabel'>" + ls_minDamage + "</text>";
     }
 
-    //Headshot Damage - Some weapons have very short max HS range.
-    if(allow_hs && hs_multi > 1.0) {
-        let damage_reduced = false;
-        let max_hs_damage_x = distanceArr[1];
-        hs_damageLineCoords = distanceArr[0] === 0.0 ? "" : "0," + (100 - ((damageArr[0] * hs_multi))) + " ";
+    // Headshot Damage - Some weapons have very short max HS range.
+    if (allow_hs && hs_multi > 1.0) {
+        let hs_damageArr = [];
+        let hs_distanceArr = [];
+        let hs_short = false;
+
         for (i = 0; i < damageArr.length; i++) {
-            if(distanceArr[i] > max_hs_distance) {
-                if (!damage_reduced){
-                    hs_damage_cord = 100 - (damageArr[i] * hs_multi);
-                    hs_distance_cord = 2 * max_hs_distance;
-                    hs_damageLineCoords += hs_distance_cord.toString() + "," + hs_damage_cord.toString() + " ";
-                    hs_damage_cord = 100 - damageArr[0];
-                    hs_distance_cord = 2 * max_hs_distance;
-                    hs_damageLineCoords += hs_distance_cord.toString() + "," + hs_damage_cord.toString() + " ";
-                    damage_reduced = true;
-                }
-                hs_damage_cord = 100 - damageArr[i];
-                hs_distance_cord = 2 * max_hs_distance;
-                hs_damageLineCoords += hs_distance_cord.toString() + "," + hs_damage_cord.toString() + " ";
+            if (distanceArr[i] < max_hs_distance) {
+
+                hs_distanceArr.push(distanceArr[i]);
+                hs_damageArr.push((damageArr[i] * hs_multi));
+
+            } else if (hs_short) {
+                hs_distanceArr.push(distanceArr[i]);
+                hs_damageArr.push((damageArr[i]));
             } else {
-                hs_damage_cord = 100 - (damageArr[i] * hs_multi);
-                hs_distance_cord = 2 * distanceArr[i];
-                hs_damageLineCoords += hs_distance_cord.toString() + "," + hs_damage_cord.toString() + " ";
+                hs_distanceArr.push(max_hs_distance);
+                hs_damageArr.push((damageArr[i-1] * hs_multi));
+
+                hs_distanceArr.push(distanceArr[i]);
+                hs_damageArr.push(damageArr[i]);
+                hs_short = true;
             }
         }
-        if (max_hs_distance > 300){
-            max_hs_damage_x = (2 * max_hs_distance) + 5;
-            hs_damageLineCoords += "200," + (100 - damageArr[damageArr.length - 1]).toString();
-            hs_minDamage = Math.round(damageArr[damageArr.length - 1] * hs_multi);
-            hs_minDamageText = "<text x='125' y='" + (96 - hs_minDamage).toString() + "' class='apex_hs_chartMinMaxLabel'>" + hs_minDamage + "</text>";
-        } else if (max_hs_distance < 40) {
-            hs_damageLineCoords += "200," + (100 - damageArr[damageArr.length - 1]).toString();
-            hs_minDamage = Math.round(damageArr[damageArr.length - 1] * hs_multi);
-            hs_minDamageText = "<text x='199' y='" + (118 - hs_minDamage).toString() + "' class='apex_hs_chartMinMaxLabel'>" + hs_minDamage + "</text>";
-        } else {
-            hs_damageLineCoords += "200," + (100 - (damageArr[damageArr.length - 1] * hs_multi)).toString();
-            hs_minDamage = Math.round(damageArr[damageArr.length - 1] * hs_multi);
-            hs_minDamageText = "<text x='199' y='" + (118 - hs_minDamage).toString() + "' class='apex_hs_chartMinMaxLabel'>" + hs_minDamage + "</text>";
+        if (hs_damageArr.length < 4) {
+            hs_distanceArr.push(max_hs_distance);
+            hs_damageArr.push((damageArr[2] * hs_multi))
         }
-        const hs_maxDamage = Math.round(damageArr[0] * hs_multi);
+        let hs_Dmg0 = Math.round(hs_damageArr[0]);
+        let hs_Dmg1 = Math.round(hs_damageArr[1]);
+        let hs_Dmg2 = Math.round(hs_damageArr[2]);
+        let hs_Dmg3 = Math.round(hs_damageArr[3]);
+        hs_damageLineCoords = "0," + (100 - (hs_Dmg0)).toString() + " ";
 
-        if ((damageArr[0] * hs_multi) > 70) {
-            hs_maxDamageText = "<text x='" + max_hs_damage_x + "' y='" + (118 - hs_maxDamage).toString() + "' class='apex_hs_chartMinMaxLabel'>" + hs_maxDamage + "</text>";
+        hs_damageLineCoords += (chart_scale * hs_distanceArr[0]).toString() + "," + (100 - (hs_Dmg0)).toString() + " ";
+        hs_damageLineCoords += (chart_scale * hs_distanceArr[1]).toString() + "," + (100 - (hs_Dmg0)).toString() + " ";
+
+        hs_damageLineCoords += (chart_scale * hs_distanceArr[1]).toString() + "," + (100 - (hs_Dmg1)).toString() + " ";
+        hs_damageLineCoords += (chart_scale * hs_distanceArr[2]).toString() + "," + (100 - (hs_Dmg1)).toString() + " ";
+
+        hs_damageLineCoords += (chart_scale * hs_distanceArr[2]).toString() + "," + (100 - (hs_Dmg2)).toString() + " ";
+        hs_damageLineCoords += (chart_scale * hs_distanceArr[3]).toString() + "," + (100 - (hs_Dmg2)).toString() + " ";
+
+        hs_damageLineCoords += (chart_scale * hs_distanceArr[3]).toString() + "," + (100 - (hs_Dmg3)).toString() + " ";
+
+        if ( hs_Dmg2 >= hs_Dmg3){
+            hs_damageLineCoords += (chart_scale * hs_distanceArr[3]).toString() + "," + (100 - (1 * damageArr[2])).toString() + " ";
+            hs_damageLineCoords += (hs_distanceArr[3] + 100).toString() + "," + (100 - (1 * damageArr[2])).toString()+ " ";
+            hs_damageLineCoords += (200).toString() + "," + (100 - (1 * damageArr[2])).toString();
         } else {
-            hs_maxDamageText = "<text x='85' y='" + (96 - hs_maxDamage).toString() + "' class='apex_hs_chartMinMaxLabel'>" + hs_maxDamage + "</text>";
+            hs_damageLineCoords += (hs_distanceArr[3] + 100).toString() + "," + (100 - (hs_Dmg3)).toString()+ " ";
+            hs_damageLineCoords += (200).toString() + "," + (100 - (hs_Dmg3)).toString();
+        }
+        if (hs_Dmg0 > 85){
+            hs_maxDamageText = "<text x='" + (chart_scale * hs_distanceArr[0]) + "' y='" + ((115 - (hs_Dmg0))).toString() + "' class='apex_hs_chartMinMaxLabel'>" + hs_Dmg0 + "</text>";
+        } else {
+            hs_maxDamageText = "<text x='" + (chart_scale * hs_distanceArr[0]) + "' y='" + ((95 - (hs_Dmg0))).toString() + "' class='apex_hs_chartMinMaxLabel'>" + hs_Dmg0 + "</text>";
+        }
+        if (hs_Dmg1 > 85){
+            hs_minDamageText = "<text x='" + ((chart_scale * max_hs_distance)-16) + "' y='" + ((115 - (hs_Dmg1))).toString() + "' class='apex_hs_chartMinMaxLabel'>" + hs_Dmg1 + "</text>";
+        } else {
+            hs_minDamageText = "<text x='" + ((chart_scale * max_hs_distance)-16) + "' y='" + ((95 - (hs_Dmg1))).toString() + "' class='apex_hs_chartMinMaxLabel'>" + hs_Dmg1 + "</text>";
         }
     }
 
-    return "<svg viewbox='0 0 200 100' class='apex_damageChart'>" +
-        "<rect width='200' height='100' style='stroke:rgb(0,0,100);stroke-width:0' fill='rgb(25,25,25)' ></rect>" +
+    //Shotgun pellets
+    let pelletsLabel = "";
+    if (numOfPellets > 1){
+        pelletsLabel = "<text x='135' y='98' class='apex_chartMinMaxLabel'>" + numOfPellets + "pellets</text>";
+    }
 
-        "<line x1='10' y1='0' x2='10' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='20' y1='0' x2='20' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='30' y1='0' x2='30' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='40' y1='0' x2='40' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='60' y1='0' x2='60' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='70' y1='0' x2='70' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='80' y1='0' x2='80' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='90' y1='0' x2='90' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='110' y1='0' x2='110' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='120' y1='0' x2='120' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='130' y1='0' x2='130' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='140' y1='0' x2='140' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='160' y1='0' x2='160' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='170' y1='0' x2='170' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='180' y1='0' x2='180' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='190' y1='0' x2='190' y2='100' class='apex_gridLineThin'></line>" +
+    //svg dynamic string
+    let svg_str = "";
+    let dist_array = ["50m", "100m", "150m", "200m", "250m", "300m", "350m"];
+    svg_str += "<svg viewbox='0 0 200 100' class='apex_damageChart_test'>" +"";
+    svg_str += "<rect width='200' height='100' style='stroke:rgb(0,0,100);stroke-width:0' fill='rgb(25,25,25)' ></rect>" +"";
+    let thick_spacing;
+    let chart_line_count;
+    if (max_hs_distance > distanceArr[2]) {
+        if (chart_dist === 150) {
+            thick_spacing = (200/(100+50))*50;
+            chart_line_count = 150 / 50;
+        } else {
+            thick_spacing = (200 / (max_hs_distance + 50)) * 50;
+            chart_line_count = max_hs_distance / 50;
+        }
+    } else {
+        thick_spacing = (200/(100+50))*50;
+        chart_line_count = 150/50;
+    }
+    let x_thin = thick_spacing/5;
+    svg_str += "<line x1='"+(x_thin)+"' y1='0' x2='"+(x_thin)+"' y2='100' class='apex_gridLineThin'></line>" +"";
+    svg_str += "<line x1='"+(x_thin * 2)+"' y1='0' x2='"+(x_thin * 2)+"' y2='100' class='apex_gridLineThin'></line>" +"";
+    svg_str += "<line x1='"+(x_thin * 3)+"' y1='0' x2='"+(x_thin * 3)+"' y2='100' class='apex_gridLineThin'></line>" +"";
+    svg_str += "<line x1='"+(x_thin * 4)+"' y1='0' x2='"+(x_thin * 4)+"' y2='100' class='apex_gridLineThin'></line>" +"";
+    let chart_gap = 0;
 
-        "<line x1='50' y1='0' x2='50' y2='100' class='apex_gridLineFat'></line>" +
-        "<line x1='100' y1='0' x2='100' y2='100' class='apex_gridLineFat'></line>" +
-        "<line x1='150' y1='0' x2='150' y2='100' class='apex_gridLineFat'></line>" +
+    while (chart_gap < chart_line_count) {
+        let x_val = thick_spacing * (chart_gap+1);
 
-        "<text x='0' y='8' class='apex_chartLabel'>100</text>" +
-        "<line x1='0' y1='50' x2='200' y2='50' style='stroke:rgb(175,175,175); stroke-width:.5'></line>" +
-        "<text x='0' y='58' class='apex_chartLabel'>50</text>" +
+        svg_str += "<line x1='"+x_val+"' y1='0' x2='"+x_val+"' y2='100' class='apex_gridLineFat'></line>" +"";
+        svg_str += "<line x1='"+(x_thin + x_val)+"' y1='0' x2='"+(x_thin + x_val)+"' y2='100' class='apex_gridLineThin'></line>" +"";
+        svg_str += "<line x1='"+((x_thin * 2)+x_val)+"' y1='0' x2='"+((x_thin * 2)+x_val)+"' y2='100' class='apex_gridLineThin'></line>" +"";
+        svg_str += "<line x1='"+((x_thin * 3)+x_val)+"' y1='0' x2='"+((x_thin * 3)+x_val)+"' y2='100' class='apex_gridLineThin'></line>" +"";
+        svg_str += "<line x1='"+((x_thin * 4)+x_val)+"' y1='0' x2='"+((x_thin * 4)+x_val)+"' y2='100' class='apex_gridLineThin'></line>" +"";
+        svg_str += "<text x='"+(x_val + 2)+"' y='99' class='apex_chartLabel'>"+dist_array[chart_gap]+"</text>" +"";
+        chart_gap += 1;
+    }
 
-        "<text x='51' y='99' class='apex_chartLabel'>25m</text>" +
-        "<text x='101' y='99' class='apex_chartLabel'>50m</text>" +
-        "<text x='151' y='99' class='apex_chartLabel'>75m</text>" +
+    svg_str += "<line x1='0' y1='50' x2='200' y2='50' style='stroke:rgb(175,175,175);stroke-width:.5'></line>" +"";
+    svg_str += "<line x1='0' y1='50' x2='200' y2='50' style='stroke:rgb(175,175,175);stroke-width:.5'></line>";
+    svg_str += "<text x='0' y='58' class='apex_chartLabel'>50</text>";
+    svg_str +="<text x='0' y='8' class='apex_chartLabel'>100</text>";
 
-        "<polyline class='apex_chartDamageLine' points='" + damageLineCoords + "'></polyline>" +
-        maxDamageText +
-        minDamageText +
-        "<polyline class='apex_hs_chartDamageLine' points='" + hs_damageLineCoords + "'></polyline>" +
-        hs_maxDamageText +
-        hs_minDamageText +
-        "<polyline class='apex_ls_chartDamageLine' points='" + ls_damageLineCoords + "'></polyline>" +
-        ls_maxDamageText +
-        ls_minDamageText +
-        "</svg>"
+    svg_str += "<polyline class='apex_ls_chartDamageLine' points='" + ls_damageLineCords + "'></polyline>" + ls_maxDamageText + ls_minDamageText + "";
+    svg_str += "<polyline class='apex_hs_chartDamageLine' points='" + hs_damageLineCoords + "'></polyline>" + hs_maxDamageText + hs_minDamageText +"";
+    svg_str += "<polyline class='apex_chartDamageLine' points='" + damageLineCoords + "'></polyline>" + maxDamageText + minDamageText + "";
+    svg_str += pelletsLabel +"</svg>";
+
+    return svg_str
 }
 
-function apex_createDamageChart150Max(damageArr, distanceArr, hs_multi, ls_multi, allow_hs, max_hs_distance){
+function apex_createNewDamageChart50Max(weaponStats, damageArr, distanceArr, numOfPellets, hs_multi, ls_multi, allow_hs, max_hs_distance){
     let i;
-    let hs_minDamage;
     let damageLineCoords;
     let hs_damageLineCoords = "";
-    let ls_damageLineCoords = "";
+    let ls_damageLineCords = "";
     let hs_maxDamageText = "";
     let hs_minDamageText = "";
     let ls_maxDamageText = "";
     let ls_minDamageText = "";
+    let chart_dist;
+    if (max_hs_distance > distanceArr[2]){
+        chart_dist = max_hs_distance+50;
+    } else {
+        if (distanceArr[2] < 100){
+            chart_dist = 150;
+        } else {
+            chart_dist = distanceArr[2]+50;
+        }
+    }
+    if(chart_dist < 150) {
+        chart_dist = 150;
+    }
+    let chart_scale = 200/chart_dist;
 
-    //Standard Damage
-    damageLineCoords = distanceArr[0] === 0.0 ? "" : "0," + (1.333333 * (100 - damageArr[0])) + " ";
-    for (i = 0; i < damageArr.length; i++){
-        const damage_cord = (1.333333 * (100 - damageArr[0]));
-        const distance_cord = 1.5 * distanceArr[i];
-        damageLineCoords += distance_cord.toString() + "," + damage_cord.toString() + " ";
-    }
-    damageLineCoords += "200," + (1.333333 * (100 - damageArr[damageArr.length - 1])).toString();
-    const maxDamage = Math.round(damageArr[0]);
-    const minDamage = Math.round(damageArr[damageArr.length - 1]);
-    let maxDamageText = "";
-    if(damageArr[0] > 80){
-        maxDamageText = "<text x='40' y='" + (-1*(-1.333333 * (97 - damageArr[0]))).toString() + "' class='apex_chartMinMaxLabel'>" + maxDamage + "</text>";
-    } else {
-        maxDamageText = "<text x='125' y='" + (-1*(-1.333333 * (97 - damageArr[0]))).toString() + "' class='apex_chartMinMaxLabel'>" + maxDamage + "</text>";
-    }
-    let minDamageText = "";
-    if(distanceArr[distanceArr.length - 1] < 100){
-        minDamageText = "<text x='48' y='" + (-1*(-1.333333 * (97 - damageArr[0]))).toString() + "' class='apex_chartMinMaxLabel'>" + minDamage + "</text>";
-    } else {
-        minDamageText = "<text x='48' y='56' class='apex_chartMinMaxLabel'>" + minDamage + "</text>";
-    }
+    //New Standard
+    let max_Damage = Math.round(damageArr[0]);
+    let mid_Damage = Math.round(damageArr[1]);
+    let min_Damage = Math.round(damageArr[2]);
+    damageLineCoords = "0," + (100 - (2 * max_Damage)).toString() + " ";
+    damageLineCoords += (chart_scale*distanceArr[0]).toString() + "," + (100 - (2 * max_Damage)).toString() + " ";
+    damageLineCoords += (chart_scale*distanceArr[1]).toString() + "," + (100 - (2 * max_Damage)).toString() + " ";
+
+    damageLineCoords += (chart_scale*distanceArr[1]).toString() + "," + (100 - (2 * mid_Damage)).toString() + " ";
+    damageLineCoords += (chart_scale*distanceArr[2]).toString() + "," + (100 - (2 * mid_Damage)).toString() + " ";
+
+    damageLineCoords += (chart_scale*distanceArr[2]).toString() + "," + (100 - (2 * min_Damage)).toString() + " ";
+    damageLineCoords += (distanceArr[2]+100).toString()+"," + (100 - (2 * min_Damage)).toString()+ " ";
+    damageLineCoords += (200).toString()+"," + (100 - (2 * min_Damage)).toString();
+
+    let maxDamageText = "<text x='"+(chart_scale*distanceArr[0])+"' y='" + ((95 - (2 * mid_Damage))).toString() + "' class='apex_chartMinMaxLabel'>" + mid_Damage + "</text>";
+    let minDamageText = "<text x='"+(chart_scale*distanceArr[2])+"' y='" + ((95 - (2 * min_Damage))).toString() + "' class='apex_chartMinMaxLabel'>" + min_Damage + "</text>";
+
 
     //Limb Damage
-    if(ls_multi !== 1) {
-        ls_damageLineCoords = distanceArr[0] === 0.0 ? "" : "0," + (-1*(-1.333333 * (100 - (damageArr[0] * ls_multi)))) + " ";
-        for (i = 0; i < damageArr.length; i++) {
-            const ls_damageCoord = -1 * (-1.333333 * (100 - (damageArr[i] * ls_multi)));
-            const ls_distanceCoord = 1.5 * distanceArr[i];
-            ls_damageLineCoords += ls_distanceCoord.toString() + "," + ls_damageCoord.toString() + " ";
-        }
-        ls_damageLineCoords += "200," + (-1 * (-1.333333 * (100 - (damageArr[damageArr.length - 1] * ls_multi)))).toString();
+    if(ls_multi !== 1.0) {
+        let ls_maxDamage = Math.round(damageArr[0] * ls_multi);
+        let ls_midDamage = Math.round(damageArr[1] * ls_multi);
+        let ls_minDamage = Math.round(damageArr[2] * ls_multi);
+        ls_damageLineCords = "0," + (100 - (2 * ls_maxDamage)).toString() + " ";
+        ls_damageLineCords += (chart_scale*distanceArr[0]).toString() + "," + (100 - (2 * ls_maxDamage)).toString() + " ";
+        ls_damageLineCords += (chart_scale*distanceArr[1]).toString() + "," + (100 - (2 * ls_maxDamage)).toString() + " ";
 
-        const ls_maxDamage = Math.round(damageArr[0] * ls_multi);
-        const ls_minDamage = Math.round(damageArr[damageArr.length - 1] * ls_multi);
+        ls_damageLineCords += (chart_scale*distanceArr[1]).toString() + "," + (100 - (2 * ls_midDamage)).toString() + " ";
+        ls_damageLineCords += (chart_scale*distanceArr[2]).toString() + "," + (100 - (2 * ls_midDamage)).toString() + " ";
 
-        ls_maxDamageText = "";
-        if (damageArr[0] > 40) {
-            ls_maxDamageText = "<text x='25' y='" + (12 - (-1.333333 *(100 -  ls_maxDamage))).toString() + "' class='apex_ls_chartMinMaxLabel'>" + ls_maxDamage + "</text>";
-        } else {
-            ls_maxDamageText = "<text x='25' y='" + (1 - (-1.333333 *(100 - ls_maxDamage))).toString() + "' class='apex_ls_chartMinMaxLabel'>" + ls_maxDamage + "</text>";
-        }
+        ls_damageLineCords += (chart_scale*distanceArr[2]).toString() + "," + (100 - (2 * ls_minDamage)).toString() + " ";
+        ls_damageLineCords += (distanceArr[2]+100).toString()+"," + (100 - (2 * ls_minDamage)).toString()+ " ";
+        ls_damageLineCords += (200).toString()+"," + (100 - (2 * ls_minDamage)).toString();
 
-        ls_minDamageText = "";
-        if (distanceArr[distanceArr.length - 1] < 100) {
-            ls_minDamageText = "<text x='" + (-1*(-1.333333 * (100 - (damageArr[0] * ls_multi)))).toString() + "' y='" + (12 - (-1.333333 *(100 -  ls_maxDamage))).toString() + "' class='apex_ls_chartMinMaxLabel'>" + ls_minDamage + "</text>";
-        } else {
-            ls_minDamageText = "<text x='75' y='" + (12 - (-1.333333 *(100 -  ls_maxDamage))).toString()  + "' class='apex_ls_chartMinMaxLabel'>" + ls_minDamage + "</text>";
-        }
+        ls_maxDamageText = "<text x='15' y='" + ((111 - (2 * ls_midDamage))).toString() + "' class='apex_ls_chartMinMaxLabel'>" + ls_maxDamage + "</text>";
+        // ls_minDamageText = "<text x='"+(chart_scale*distanceArr[1])+"' y='" + ((90 - ls_minDamage)).toString() + "' class='apex_ls_chartMinMaxLabel'>" + ls_minDamage + "</text>";
+        ls_minDamageText = "<text x='185' y='" + ((111 - (2 * ls_minDamage))).toString() + "' class='apex_ls_chartMinMaxLabel'>" + ls_minDamage + "</text>";
     }
 
-    //Headshot Damage - Some weapons have very short max HS range.
-    if(allow_hs && hs_multi > 1.0) {
-        let is_wingman_skull = (damageArr[0] * hs_multi === 101.25);
-        if (is_wingman_skull ) {
-            hs_damageLineCoords = (damageArr[0] * hs_multi) > 100.0 ? "0,35.0" : "0," + (-1.333333 * (100 - (damageArr[0] * hs_multi))) + " ";
-        } else {
-            hs_damageLineCoords = (damageArr[0] * hs_multi) > 130.0 ? "0,15.0" : "0," + (-1.333333 * (100 - (damageArr[0] * hs_multi))) + " ";
-        }
+    // Headshot Damage - Some weapons have very short max HS range.
+    if (allow_hs && hs_multi > 1.0) {
+        let hs_damageArr = [];
+        let hs_distanceArr = [];
+        let hs_short = false;
+
         for (i = 0; i < damageArr.length; i++) {
-            if (is_wingman_skull) {
-                const hs_damage_cord = 35.0;
-                const hs_distance_cord = 1.5 * distanceArr[i];
-                hs_damageLineCoords += hs_distance_cord.toString() + "," + hs_damage_cord.toString() + " ";
-            } else if ((damageArr[0] * hs_multi) > 130) {
-                const hs_damage_cord = 15.0;
-                const hs_distance_cord = 1.5 * (damageArr[i] * hs_multi);
-                hs_damageLineCoords += hs_distance_cord.toString() + "," + hs_damage_cord.toString() + " ";
+            if (distanceArr[i] < max_hs_distance) {
+
+                hs_distanceArr.push(distanceArr[i]);
+                hs_damageArr.push((damageArr[i] * hs_multi));
+
+            } else if (hs_short) {
+                hs_distanceArr.push(distanceArr[i]);
+                hs_damageArr.push((damageArr[i]));
             } else {
-                const hs_damage_cord = -1.333333 * (100 - (max_hs_distance * hs_multi));
-                const hs_distance_cord = 1.5 * distanceArr[i];
-                hs_damageLineCoords += hs_distance_cord.toString() + "," + hs_damage_cord.toString() + " ";
+                hs_distanceArr.push(max_hs_distance);
+                hs_damageArr.push((damageArr[i-1] * hs_multi));
+
+                hs_distanceArr.push(distanceArr[i]);
+                hs_damageArr.push(damageArr[i]);
+                hs_short = true;
             }
         }
-        if ((damageArr[0] * hs_multi) > 130){
-            hs_damageLineCoords += "200," + (20).toString();
-            hs_minDamage = "";
-            hs_minDamageText = "<text x='165' y='32' class='apex_hs_chartMinMaxLabel'>" + hs_minDamage + "</text>";
-        } else {
-            if (is_wingman_skull){
-                hs_damageLineCoords += "200," + (35).toString();
-                hs_minDamage = Math.round(damageArr[damageArr.length - 1] * hs_multi);
-                hs_minDamageText = "<text x='165' y='20' class='apex_hs_chartMinMaxLabel'>" + hs_minDamage + "</text>";
-            } else {
-                hs_damageLineCoords += "200," + (-1.333333 * (100 - (damageArr[damageArr.length - 1] * hs_multi))).toString();
-                hs_minDamage = Math.round(damageArr[damageArr.length - 1] * hs_multi);
-                hs_minDamageText = "<text x='165' y='20' class='apex_hs_chartMinMaxLabel'>" + hs_minDamage + "</text>";
-            }
-
+        if (hs_damageArr.length < 4) {
+            hs_distanceArr.push(max_hs_distance);
+            hs_damageArr.push((damageArr[2] * hs_multi))
         }
-        const hs_maxDamage = Math.round(damageArr[0] * hs_multi);
+        let hs_Dmg0 = Math.round(hs_damageArr[0]);
+        let hs_Dmg1 = Math.round(hs_damageArr[1]);
+        let hs_Dmg2 = Math.round(hs_damageArr[2]);
+        let hs_Dmg3 = Math.round(hs_damageArr[3]);
+        hs_damageLineCoords = "0," + (100 - (2 * hs_Dmg0)).toString() + " ";
 
-        if ((damageArr[0] * hs_multi) < 130) {
-            hs_maxDamageText = "<text x='75' y='20' class='apex_hs_chartMinMaxLabel'>" + hs_maxDamage + "</text>";
+        hs_damageLineCoords += (chart_scale * hs_distanceArr[0]).toString() + "," + (100 - (2 * hs_Dmg0)).toString() + " ";
+        hs_damageLineCoords += (chart_scale * hs_distanceArr[1]).toString() + "," + (100 - (2 * hs_Dmg0)).toString() + " ";
+
+        hs_damageLineCoords += (chart_scale * hs_distanceArr[1]).toString() + "," + (100 - (2 * hs_Dmg1)).toString() + " ";
+        hs_damageLineCoords += (chart_scale * hs_distanceArr[2]).toString() + "," + (100 - (2 * hs_Dmg1)).toString() + " ";
+
+        hs_damageLineCoords += (chart_scale * hs_distanceArr[2]).toString() + "," + (100 - (2 * hs_Dmg2)).toString() + " ";
+        hs_damageLineCoords += (chart_scale * hs_distanceArr[3]).toString() + "," + (100 - (2 * hs_Dmg2)).toString() + " ";
+
+        hs_damageLineCoords += (chart_scale * hs_distanceArr[3]).toString() + "," + (100 - (2 * hs_Dmg3)).toString() + " ";
+
+        if ( hs_Dmg2 >= hs_Dmg3){
+            hs_damageLineCoords += (chart_scale * hs_distanceArr[3]).toString() + "," + (100 - (2 * damageArr[2])).toString() + " ";
+            hs_damageLineCoords += (hs_distanceArr[3] + 100).toString() + "," + (100 - (2 * damageArr[2])).toString()+ " ";
+            hs_damageLineCoords += (200).toString() + "," + (100 - (2 * damageArr[2])).toString();
         } else {
-            hs_maxDamageText = "<text x='75' y='32' class='apex_hs_chartMinMaxLabel'>" + hs_maxDamage + "</text>";
+            hs_damageLineCoords += (hs_distanceArr[3] + 100).toString() + "," + (100 - (2 * hs_Dmg3)).toString()+ " ";
+            hs_damageLineCoords += (200).toString() + "," + (100 - (2 * hs_Dmg3)).toString();
         }
-    }
-    return "<svg viewbox='0 0 200 100' class='apex_damageChart'>" +
-        "<rect width='200' height='100' style='stroke:rgb(0,0,100);stroke-width:0' fill='rgb(25,25,25)' ></rect>" +
-
-        "<line x1='10' y1='0' x2='10' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='20' y1='0' x2='20' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='30' y1='0' x2='30' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='40' y1='0' x2='40' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='60' y1='0' x2='60' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='70' y1='0' x2='70' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='80' y1='0' x2='80' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='90' y1='0' x2='90' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='110' y1='0' x2='110' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='120' y1='0' x2='120' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='130' y1='0' x2='130' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='140' y1='0' x2='140' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='160' y1='0' x2='160' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='170' y1='0' x2='170' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='180' y1='0' x2='180' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='190' y1='0' x2='190' y2='100' class='apex_gridLineThin'></line>" +
-
-        "<line x1='50' y1='0' x2='50' y2='100' class='apex_gridLineFat'></line>" +
-        "<line x1='100' y1='0' x2='100' y2='100' class='apex_gridLineFat'></line>" +
-        "<line x1='150' y1='0' x2='150' y2='100' class='apex_gridLineFat'></line>" +
-
-        "<text x='0' y='8' class='apex_chartLabel'>150</text>" +
-        "<line x1='0' y1='33.333333' x2='200' y2='33.333333' style='stroke:rgb(175,175,175); stroke-width:.5'></line>" +
-        "<text x='0' y='41' class='apex_chartLabel'>100</text>" +
-        "<line x1='0' y1='66.666666' x2='200' y2='66.666666' style='stroke:rgb(175,175,175); stroke-width:.5'></line>" +
-        "<text x='0' y='74' class='apex_chartLabel'>50</text>" +
-        "<line x1='0' y1='100' x2='200' y2='100' style='stroke:rgb(175,175,175); stroke-width:.5'></line>" +
-        "<text x='0' y='108' class='apex_chartLabel'>50</text>" +
-        "<line x1='0' y1='133.333333' x2='200' y2='133.333333' style='stroke:rgb(175,175,175); stroke-width:.5'></line>" +
-        "<text x='0' y='141' class='apex_chartLabel'>25</text>" +
-
-        "<text x='51' y='99' class='apex_chartLabel'>25m</text>" +
-        "<text x='101' y='99' class='apex_chartLabel'>50m</text>" +
-        "<text x='151' y='99' class='apex_chartLabel'>75m</text>" +
-
-        "<polyline class='apex_chartDamageLine' points='" + damageLineCoords + "'></polyline>" +
-        maxDamageText +
-        minDamageText +
-        "<polyline class='apex_hs_chartDamageLine' points='" + hs_damageLineCoords + "'></polyline>" +
-        hs_maxDamageText +
-        hs_minDamageText +
-        "<polyline class='apex_ls_chartDamageLine' points='" + ls_damageLineCoords + "'></polyline>" +
-        ls_maxDamageText +
-        ls_minDamageText +
-        "</svg>"
-}
-
-
-function apex_createDamageChart300Max(damageArr, distanceArr, hs_multi, ls_multi, allow_hs, max_hs_distance){
-    let i;
-    let hs_minDamage;
-    let damageLineCoords;
-    let hs_damageLineCoords = "";
-    let ls_damageLineCoords = "";
-    let hs_maxDamageText = "";
-    let hs_minDamageText = "";
-    let ls_maxDamageText = "";
-    let ls_minDamageText = "";
-
-    //Standard Damage
-    damageLineCoords = distanceArr[0] === 0.0 ? "" : "0," + (0.333333 * (300 - damageArr[0])) + " ";
-    for (i = 0; i < damageArr.length; i++){
-        const damage_cord = (0.333333 * (300 - damageArr[0]));
-        const distance_cord = 1.5 * distanceArr[i];
-        damageLineCoords += distance_cord.toString() + "," + damage_cord.toString() + " ";
-    }
-    damageLineCoords += "200," + (0.333333 * (300 - damageArr[damageArr.length - 1])).toString();
-    const maxDamage = Math.round(damageArr[0]);
-    const minDamage = Math.round(damageArr[damageArr.length - 1]);
-    let maxDamageText = "";
-    if(damageArr[0] > 80){
-        maxDamageText = "<text x='48' y='" + (-1*(1.333333 * (100 - damageArr[0]))).toString() + "' class='apex_chartMinMaxLabel'>" + maxDamage + "</text>";
-    } else {
-        maxDamageText = "<text x='125' y='64' class='apex_chartMinMaxLabel'>" + maxDamage + "</text>";
-    }
-    let minDamageText = "";
-    if(distanceArr[distanceArr.length - 1] < 100){
-        minDamageText = "<text x='48' y='64' class='apex_chartMinMaxLabel'>" + minDamage + "</text>";
-    } else {
-        minDamageText = "<text x='100' y='" + (-1*(1.333333 * (100 - damageArr[0]))).toString() + "' class='apex_chartMinMaxLabel'>" + minDamage + "</text>";
-    }
-
-    //Limb Damage
-    if(ls_multi !== 1) {
-        ls_damageLineCoords = distanceArr[0] === 0.0 ? "" : "0," + (-1*(-1.333333 * (175 - (damageArr[0] * ls_multi)))) + " ";
-        for (i = 0; i < damageArr.length; i++) {
-            const ls_damageCoord = -1 * (-1.333333 * (175 - (damageArr[i] * ls_multi)));
-            const ls_distanceCoord = 1.5 * distanceArr[i];
-            ls_damageLineCoords += ls_distanceCoord.toString() + "," + ls_damageCoord.toString() + " ";
-        }
-        ls_damageLineCoords += "200," + (0.5 + (1.5 * (damageArr[damageArr.length - 1] * ls_multi))).toString();
-
-        const ls_maxDamage = Math.round(damageArr[0] * ls_multi);
-        const ls_minDamage = Math.round(damageArr[damageArr.length - 1] * ls_multi);
-
-        ls_maxDamageText = "";
-        if (damageArr[0] > 40) {
-            ls_maxDamageText = "<text x='25' y='" + (12 - (-1.333333 *(175 -  ls_maxDamage))).toString() + "' class='apex_ls_chartMinMaxLabel'>" + ls_maxDamage + "</text>";
+        if (hs_Dmg0 > 40){
+            hs_maxDamageText = "<text x='" + (chart_scale * hs_distanceArr[0]) + "' y='" + ((115 - (2 * hs_Dmg0))).toString() + "' class='apex_hs_chartMinMaxLabel'>" + hs_Dmg0 + "</text>";
         } else {
-            ls_maxDamageText = "<text x='25' y='" + (1 - (-1.333333 *(175 - ls_maxDamage))).toString() + "' class='apex_ls_chartMinMaxLabel'>" + ls_maxDamage + "</text>";
+            hs_maxDamageText = "<text x='15' y='" + ((95 - (2 * hs_Dmg0))).toString() + "' class='apex_hs_chartMinMaxLabel'>" + hs_Dmg0 + "</text>";
         }
-
-        ls_minDamageText = "";
-        if (distanceArr[distanceArr.length - 1] < 100) {
-            ls_minDamageText = "<text x='" + (-1*(-1.333333 * (175 - (damageArr[0] * ls_multi)))).toString() + "' y='" + (114 - (-1.333333 * (100 - ls_minDamage))).toString() + "' class='apex_ls_chartMinMaxLabel'>" + ls_minDamage + "</text>";
+        if (hs_Dmg1 > 40){
+            hs_minDamageText = "<text x='" + ((chart_scale * max_hs_distance)-16) + "' y='" + ((115 - (2 * hs_Dmg1))).toString() + "' class='apex_hs_chartMinMaxLabel'>" + hs_Dmg1 + "</text>";
         } else {
-            ls_minDamageText = "<text x='75' y='" + (12 - (-1.333333 *(175 -  ls_maxDamage))).toString()  + "' class='apex_ls_chartMinMaxLabel'>" + ls_minDamage + "</text>";
+            hs_minDamageText = "<text x='" + ((chart_scale * max_hs_distance)-16) + "' y='" + ((95 - (2 * hs_Dmg1))).toString() + "' class='apex_hs_chartMinMaxLabel'>" + hs_Dmg1 + "</text>";
         }
     }
 
-    //Headshot Damage - Some weapons have very short max HS range.
-    if(allow_hs && hs_multi > 1.0) {
-        hs_damageLineCoords = distanceArr[0] === 0.0 ? "" : "0," + (0.333333 * (300 - (damageArr[0] * hs_multi))) + " ";
-        for (i = 0; i < damageArr.length; i++) {
-            const hs_damage_cord = 0.333333 * (300 - (damageArr[i] * hs_multi));
-            const hs_distance_cord = 1.5 * distanceArr[i];
-            hs_damageLineCoords += hs_distance_cord.toString() + "," + hs_damage_cord.toString() + " ";
-        }
-        if (max_hs_distance < 100){
-            hs_damageLineCoords += "200," + (-1.333333 * (100 - damageArr[damageArr.length - 1])).toString();
-            hs_minDamage = "";
-            hs_minDamageText = "<text x='" + (distanceArr[distanceArr.length - 1] * 1) + "' y='" + (96 - (-1.333333 * (100 -  hs_minDamage))).toString() + "' class='apex_hs_chartMinMaxLabel'>" + hs_minDamage + "</text>";
-        } else {
-            hs_damageLineCoords += "200," + (-1.333333 * (100 - (damageArr[damageArr.length - 1] * hs_multi))).toString();
-            hs_minDamage = Math.round(damageArr[damageArr.length - 1] * hs_multi);
-            hs_minDamageText = "<text x='175' y='20' class='apex_hs_chartMinMaxLabel'>" + hs_minDamage + "</text>";
-        }
-        const hs_maxDamage = Math.round(damageArr[0] * hs_multi);
-
-        if ((damageArr[0] * hs_multi) > 40) {
-            hs_maxDamageText = "<text x='75' y='20' class='apex_hs_chartMinMaxLabel'>" + hs_maxDamage + "</text>";
-        } else {
-            hs_maxDamageText = "<text x='100' y='90' class='apex_hs_chartMinMaxLabel'>" + hs_maxDamage + "</text>";
-        }
+    //Shotgun pellets
+    let pelletsLabel = "";
+    if (numOfPellets > 1){
+        pelletsLabel = "<text x='135' y='98' class='apex_chartMinMaxLabel'>" + numOfPellets + "pellets</text>";
     }
-    return "<svg viewbox='0 0 200 100' class='apex_damageChart'>" +
-        "<rect width='200' height='100' style='stroke:rgb(0,0,100);stroke-width:0' fill='rgb(25,25,25)' ></rect>" +
 
-        "<line x1='10' y1='0' x2='10' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='20' y1='0' x2='20' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='30' y1='0' x2='30' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='40' y1='0' x2='40' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='60' y1='0' x2='60' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='70' y1='0' x2='70' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='80' y1='0' x2='80' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='90' y1='0' x2='90' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='110' y1='0' x2='110' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='120' y1='0' x2='120' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='130' y1='0' x2='130' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='140' y1='0' x2='140' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='160' y1='0' x2='160' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='170' y1='0' x2='170' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='180' y1='0' x2='180' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='190' y1='0' x2='190' y2='100' class='apex_gridLineThin'></line>" +
-
-        "<line x1='50' y1='0' x2='50' y2='100' class='apex_gridLineFat'></line>" +
-        "<line x1='100' y1='0' x2='100' y2='100' class='apex_gridLineFat'></line>" +
-        "<line x1='150' y1='0' x2='150' y2='100' class='apex_gridLineFat'></line>" +
-
-        "<text x='0' y='8' class='apex_chartLabel'>300</text>" +
-        "<line x1='0' y1='33.333333' x2='200' y2='33.333333' style='stroke:rgb(175,175,175); stroke-width:.5'></line>" +
-        "<text x='0' y='41' class='apex_chartLabel'>200</text>" +
-        "<line x1='0' y1='66.666666' x2='200' y2='66.666666' style='stroke:rgb(175,175,175); stroke-width:.5'></line>" +
-        "<text x='0' y='74' class='apex_chartLabel'>100</text>" +
-        "<line x1='0' y1='100' x2='200' y2='100' style='stroke:rgb(175,175,175); stroke-width:.5'></line>" +
-        // "<text x='0' y='108' class='apex_chartLabel'>50</text>" +
-        // "<line x1='0' y1='133.333333' x2='200' y2='133.333333' style='stroke:rgb(175,175,175); stroke-width:.5'></line>" +
-        // "<text x='0' y='141' class='apex_chartLabel'>25</text>" +
-        //
-        // "<text x='51' y='99' class='apex_chartLabel'>25m</text>" +
-        // "<text x='101' y='99' class='apex_chartLabel'>50m</text>" +
-        // "<text x='151' y='99' class='apex_chartLabel'>75m</text>" +
-
-        "<polyline class='apex_chartDamageLine' points='" + damageLineCoords + "'></polyline>" +
-        maxDamageText +
-        minDamageText +
-        "<polyline class='apex_hs_chartDamageLine' points='" + hs_damageLineCoords + "'></polyline>" +
-        hs_maxDamageText +
-        hs_minDamageText +
-        "<polyline class='apex_ls_chartDamageLine' points='" + ls_damageLineCoords + "'></polyline>" +
-        ls_maxDamageText +
-        ls_minDamageText +
-        "</svg>"
-}
-function apex_createDamageChart100Max200Dist(damageArr, distanceArr){
-    let damageLineCoords;
-    damageLineCoords = distanceArr[0] === 0.0 ? "" : "0," +(50 - (2 * damageArr[0])) + " ";
-    for (let i = 0; i < damageArr.length; i++){
-        const damage_cord = 100 - damageArr[i];
-        const distance_cord = 2 * distanceArr[i] / 2;
-        damageLineCoords += distance_cord.toString() + "," + damage_cord.toString() + " ";
-    }
-    damageLineCoords += "200," + (100 - damageArr[damageArr.length - 1]).toString();
-
-    const maxDamage = Math.round(damageArr[0]);
-    const minDamage = Math.round(damageArr[damageArr.length - 1]);
-
-    let maxDamageText = "";
-    if(damageArr[0] > 80){
-        if(damageArr[0] > 100){
-            maxDamageText = "<text x='" + distanceArr[1]/2 + "' y='" + (122 - (maxDamage)).toString() + "' class='apex_chartMinMaxLabel'>" + maxDamage + "</text>";
+    //svg dynamic string
+    let svg_str = "";
+    let dist_array = ["50m", "100m", "150m", "200m", "250m", "300m", "350m"];
+    svg_str += "<svg viewbox='0 0 200 100' class='apex_damageChart_test'>" +"";
+    svg_str += "<rect width='200' height='100' style='stroke:rgb(0,0,100);stroke-width:0' fill='rgb(25,25,25)' ></rect>" +"";
+    let thick_spacing;
+    let chart_line_count;
+    if (max_hs_distance > distanceArr[2]) {
+        if (chart_dist === 150) {
+            thick_spacing = (200/(100+50))*50;
+            chart_line_count = 150 / 50;
         } else {
-            maxDamageText = "<text x='" + distanceArr[1]/2 + "' y='" + (118 - (maxDamage)).toString() + "' class='apex_chartMinMaxLabel'>" + maxDamage + "</text>";
+            thick_spacing = (200 / (max_hs_distance + 50)) * 50;
+            chart_line_count = max_hs_distance / 50;
         }
     } else {
-        maxDamageText = "<text x='" + distanceArr[1]/2 + "' y='" + (96 - (maxDamage)).toString() + "' class='apex_chartMinMaxLabel'>" + maxDamage + "</text>";
+        // thick_spacing =(200/(distanceArr[2]+50))*50;
+        thick_spacing = (200/(100+50))*50;
+        chart_line_count = 150/50;
+    }
+    let x_thin = thick_spacing/5;
+    svg_str += "<line x1='"+(x_thin)+"' y1='0' x2='"+(x_thin)+"' y2='100' class='apex_gridLineThin'></line>" +"";
+    svg_str += "<line x1='"+(x_thin * 2)+"' y1='0' x2='"+(x_thin * 2)+"' y2='100' class='apex_gridLineThin'></line>" +"";
+    svg_str += "<line x1='"+(x_thin * 3)+"' y1='0' x2='"+(x_thin * 3)+"' y2='100' class='apex_gridLineThin'></line>" +"";
+    svg_str += "<line x1='"+(x_thin * 4)+"' y1='0' x2='"+(x_thin * 4)+"' y2='100' class='apex_gridLineThin'></line>" +"";
+    let chart_gap = 0;
+
+    while (chart_gap < chart_line_count) {
+        let x_val = thick_spacing * (chart_gap+1);
+
+        svg_str += "<line x1='"+x_val+"' y1='0' x2='"+x_val+"' y2='100' class='apex_gridLineFat'></line>" +"";
+        svg_str += "<line x1='"+(x_thin + x_val)+"' y1='0' x2='"+(x_thin + x_val)+"' y2='100' class='apex_gridLineThin'></line>" +"";
+        svg_str += "<line x1='"+((x_thin * 2)+x_val)+"' y1='0' x2='"+((x_thin * 2)+x_val)+"' y2='100' class='apex_gridLineThin'></line>" +"";
+        svg_str += "<line x1='"+((x_thin * 3)+x_val)+"' y1='0' x2='"+((x_thin * 3)+x_val)+"' y2='100' class='apex_gridLineThin'></line>" +"";
+        svg_str += "<line x1='"+((x_thin * 4)+x_val)+"' y1='0' x2='"+((x_thin * 4)+x_val)+"' y2='100' class='apex_gridLineThin'></line>" +"";
+        svg_str += "<text x='"+(x_val + 2)+"' y='99' class='apex_chartLabel'>"+dist_array[chart_gap]+"</text>" +"";
+        chart_gap += 1;
     }
 
-    let minDamageText = "";
-    if(distanceArr[distanceArr.length - 1] < 100){
-        minDamageText = "<text x='" + (distanceArr[distanceArr.length - 1] * 2) + "' y='" + (96 - (minDamage)).toString() + "' class='apex_chartMinMaxLabel'>" + minDamage + "</text>";
-    } else {
-        minDamageText = "<text x='183' y='" + (96 - (minDamage)).toString() + "' class='apex_chartMinMaxLabel'>" + minDamage + "</text>";
-    }
+    svg_str += "<line x1='0' y1='50' x2='200' y2='50' style='stroke:rgb(175,175,175);stroke-width:.5'></line>" +"";
+    svg_str += "<line x1='0' y1='50' x2='200' y2='50' style='stroke:rgb(175,175,175);stroke-width:.5'></line>";
+    svg_str += "<text x='0' y='58' class='apex_chartLabel'>25</text>";
+    // svg_str += "<line x1='0' y1='33' x2='200' y2='33' style='stroke:rgb(175,175,175);stroke-width:.25'></line>";
+    // svg_str += "<text x='0' y='41' class='apex_chartLabel'>33</text>";
+    svg_str +="<text x='0' y='8' class='apex_chartLabel'>50</text>";
 
-    return "<svg viewbox='0 0 200 100' class='apex_damageChart'>" +
-        "<rect width='200' height='100' style='stroke:rgb(0,0,100);stroke-width:0' fill='rgb(25,25,25)' ></rect>" +
+    svg_str += "<polyline class='apex_ls_chartDamageLine' points='" + ls_damageLineCords + "'></polyline>" + ls_maxDamageText + ls_minDamageText + "";
+    svg_str += "<polyline class='apex_hs_chartDamageLine' points='" + hs_damageLineCoords + "'></polyline>" + hs_maxDamageText + hs_minDamageText +"";
+    svg_str += "<polyline class='apex_chartDamageLine' points='" + damageLineCoords + "'></polyline>" + maxDamageText + minDamageText + "";
+    svg_str += pelletsLabel +"</svg>";
 
-        "<line x1='10' y1='0' x2='10' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='20' y1='0' x2='20' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='30' y1='0' x2='30' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='40' y1='0' x2='40' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='60' y1='0' x2='60' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='70' y1='0' x2='70' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='80' y1='0' x2='80' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='90' y1='0' x2='90' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='110' y1='0' x2='110' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='120' y1='0' x2='120' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='130' y1='0' x2='130' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='140' y1='0' x2='140' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='160' y1='0' x2='160' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='170' y1='0' x2='170' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='180' y1='0' x2='180' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='190' y1='0' x2='190' y2='100' class='apex_gridLineThin'></line>" +
-
-        "<line x1='50' y1='0' x2='50' y2='100' class='apex_gridLineFat'></line>" +
-        "<line x1='100' y1='0' x2='100' y2='100' class='apex_gridLineFat'></line>" +
-        "<line x1='150' y1='0' x2='150' y2='100' class='apex_gridLineFat'></line>" +
-
-        "<text x='0' y='8' class='apex_chartLabel'>100</text>" +
-        "<line x1='0' y1='50' x2='200' y2='50' style='stroke:rgb(175,175,175); stroke-width:.5'></line>" +
-        "<text x='0' y='58' class='apex_chartLabel'>50</text>" +
-
-        "<text x='51' y='99' class='apex_chartLabel200Dist'>50m</text>" +
-        "<text x='101' y='99' class='apex_chartLabel200Dist'>100m</text>" +
-        "<text x='151' y='99' class='apex_chartLabel200Dist'>150m</text>" +
-
-        "<polyline class='apex_chartDamageLine' points='" + damageLineCoords + "'></polyline>" +
-        maxDamageText +
-        minDamageText +
-        "</svg>";
-}
-
-// noinspection JSUnusedGlobalSymbols
-function apex_createDamageChart200Max200Dist(damageArr, distanceArr, hs_multi, ls_multi, allow_hs, max_hs_distance){
-    let i;
-    let hs_damage_cord;
-    let hs_distance_cord;
-    let hs_minDamage;
-    let damageLineCoords;
-    let hs_damageLineCoords = "";
-    let ls_damageLineCoords = "";
-    let hs_maxDamageText = "";
-    let hs_minDamageText = "";
-    let ls_maxDamageText = "";
-    let ls_minDamageText = "";
-
-    //Standard Damage
-    damageLineCoords = distanceArr[0] === 0.0 ? "" : "0," + (100 -  damageArr[0]) + " ";
-    for (i = 0; i < damageArr.length; i++){
-        const damage_cord = 100 - damageArr[i];
-        const distance_cord = 2 * distanceArr[i];
-        damageLineCoords += distance_cord.toString() + "," + damage_cord.toString() + " ";
-    }
-    damageLineCoords += "200," + (100 - damageArr[damageArr.length - 1]).toString();
-    const maxDamage = Math.round(damageArr[0]);
-    const minDamage = Math.round(damageArr[damageArr.length - 1]);
-    let maxDamageText = "";
-    if(damageArr[0] > 40){
-        maxDamageText = "<text x='" + distanceArr[1] + "' y='" + (118 - (maxDamage)).toString() + "' class='apex_chartMinMaxLabel'>" + maxDamage + "</text>";
-    } else {
-        maxDamageText = "<text x='" + distanceArr[1] + "' y='" + (96 - (maxDamage)).toString() + "' class='apex_chartMinMaxLabel'>" + maxDamage + "</text>";
-    }
-    let minDamageText = "";
-    if(distanceArr[distanceArr.length - 1] < 100){
-        minDamageText = "<text x='" + (distanceArr[distanceArr.length - 1] * 2) + "' y='" + (96 - (minDamage)).toString() + "' class='apex_chartMinMaxLabel'>" + minDamage + "</text>";
-    } else {
-        minDamageText = "<text x='183' y='" + (96 - (minDamage)).toString() + "' class='apex_chartMinMaxLabel'>" + minDamage + "</text>";
-    }
-
-    //Limb Damage
-    if(ls_multi !== 1) {
-        ls_damageLineCoords = distanceArr[0] === 0.0 ? "" : "0," + (100 - ((damageArr[0] * ls_multi))) + " ";
-        for (i = 0; i < damageArr.length; i++) {
-            const ls_damageCoord = 100 - (damageArr[i] * ls_multi);
-            const ls_distanceCoord = 2 * distanceArr[i];
-            ls_damageLineCoords += ls_distanceCoord.toString() + "," + ls_damageCoord.toString() + " ";
-        }
-        ls_damageLineCoords += "200," + (100 - (damageArr[damageArr.length - 1] * ls_multi)).toString();
-
-        const ls_maxDamage = Math.round(damageArr[0] * ls_multi);
-        const ls_minDamage = Math.round(damageArr[damageArr.length - 1] * ls_multi);
-
-        ls_maxDamageText = "";
-        if (damageArr[0] > 40) {
-            ls_maxDamageText = "<text x='" + (distanceArr[1] - 20 )+ "' y='" + (136 - (ls_maxDamage)).toString() + "' class='apex_ls_chartMinMaxLabel'>" + ls_maxDamage + "</text>";
-        } else {
-            ls_maxDamageText = "<text x='" + (distanceArr[1] - 20)  + "' y='" + (114 - (ls_maxDamage)).toString() + "' class='apex_ls_chartMinMaxLabel'>" + ls_maxDamage + "</text>";
-        }
-
-        ls_minDamageText = "";
-        if (distanceArr[distanceArr.length - 1] < 100) {
-            ls_minDamageText = "<text x='" + ((distanceArr[distanceArr.length - 1] * 2) - 20) + "' y='" + (114 - (ls_minDamage)).toString() + "' class='apex_ls_chartMinMaxLabel'>" + ls_minDamage + "</text>";
-        } else {
-            ls_minDamageText = "<text x='163' y='" + (114 - (2 * ls_minDamage)).toString() + "' class='apex_ls_chartMinMaxLabel'>" + ls_minDamage + "</text>";
-        }
-    }
-
-    //Headshot Damage - Some weapons have very short max HS range.
-    if(allow_hs && hs_multi > 1.0) {
-        let damage_reduced = false;
-        let max_hs_damage_x = distanceArr[1];
-        hs_damageLineCoords = distanceArr[0] === 0.0 ? "" : "0," + (100 - ((damageArr[0] * hs_multi))) + " ";
-        for (i = 0; i < damageArr.length; i++) {
-            if(distanceArr[i] > max_hs_distance) {
-                if (!damage_reduced){
-                    hs_damage_cord = 100 - (damageArr[i] * hs_multi);
-                    hs_distance_cord = 2 * max_hs_distance;
-                    hs_damageLineCoords += hs_distance_cord.toString() + "," + hs_damage_cord.toString() + " ";
-                    hs_damage_cord = 0.5 + damageArr[0];
-                    hs_distance_cord = 2 * max_hs_distance;
-                    hs_damageLineCoords += hs_distance_cord.toString() + "," + hs_damage_cord.toString() + " ";
-                    damage_reduced = true;
-                }
-                hs_damage_cord = 100 - damageArr[i];
-                hs_distance_cord = 2 * max_hs_distance;
-                hs_damageLineCoords += hs_distance_cord.toString() + "," + hs_damage_cord.toString() + " ";
-            } else {
-                hs_damage_cord = 100 - (damageArr[i] * hs_multi);
-                hs_distance_cord = 2 * distanceArr[i];
-                hs_damageLineCoords += hs_distance_cord.toString() + "," + hs_damage_cord.toString() + " ";
-            }
-        }
-        if (max_hs_distance < 150){
-            max_hs_damage_x = (2 * max_hs_distance) + 5;
-            hs_damageLineCoords += "200," + (100 - damageArr[damageArr.length - 1]).toString();
-            hs_minDamage = "";
-            hs_minDamageText = "<text x='" + (distanceArr[distanceArr.length - 1] * 2) + "' y='" + (96 - hs_minDamage).toString() + "' class='apex_hs_chartMinMaxLabel'>" + hs_minDamage + "</text>";
-        } else {
-            hs_damageLineCoords += "200," + (100 - (damageArr[damageArr.length - 1] * hs_multi)).toString();
-            hs_minDamage = Math.round(damageArr[damageArr.length - 1] * hs_multi);
-            hs_minDamageText = "<text x='183' y='" + (118 - hs_minDamage).toString() + "' class='apex_hs_chartMinMaxLabel'>" + hs_minDamage + "</text>";
-        }
-        const hs_maxDamage = Math.round(damageArr[0] * hs_multi);
-
-        if ((damageArr[0] * hs_multi) > 40) {
-            hs_maxDamageText = "<text x='" + max_hs_damage_x + "' y='" + (118 - hs_maxDamage).toString() + "' class='apex_hs_chartMinMaxLabel'>" + hs_maxDamage + "</text>";
-        } else {
-            hs_maxDamageText = "<text x='" + max_hs_damage_x + "' y='" + (96 - hs_maxDamage).toString() + "' class='apex_hs_chartMinMaxLabel'>" + hs_maxDamage + "</text>";
-        }
-    }
-
-    return "<svg viewbox='0 0 200 100' class='apex_damageChart'>" +
-        "<rect width='200' height='100' style='stroke:rgb(0,0,100);stroke-width:0' fill='rgb(25,25,25)' ></rect>" +
-
-        "<line x1='10' y1='0' x2='10' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='20' y1='0' x2='20' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='30' y1='0' x2='30' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='40' y1='0' x2='40' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='60' y1='0' x2='60' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='70' y1='0' x2='70' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='80' y1='0' x2='80' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='90' y1='0' x2='90' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='110' y1='0' x2='110' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='120' y1='0' x2='120' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='130' y1='0' x2='130' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='140' y1='0' x2='140' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='160' y1='0' x2='160' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='170' y1='0' x2='170' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='180' y1='0' x2='180' y2='100' class='apex_gridLineThin'></line>" +
-        "<line x1='190' y1='0' x2='190' y2='100' class='apex_gridLineThin'></line>" +
-
-        "<line x1='50' y1='0' x2='50' y2='100' class='apex_gridLineFat'></line>" +
-        "<line x1='100' y1='0' x2='100' y2='100' class='apex_gridLineFat'></line>" +
-        "<line x1='150' y1='0' x2='150' y2='100' class='apex_gridLineFat'></line>" +
-
-        "<text x='0' y='8' class='apex_chartLabel'>150</text>" +
-        "<line x1='0' y1='50' x2='200' y2='50' style='stroke:rgb(175,175,175); stroke-width:.5'></line>" +
-        "<text x='0' y='58' class='apex_chartLabel'>100</text>" +
-
-        "<text x='51' y='99' class='apex_chartLabel'>50m</text>" +
-        "<text x='101' y='99' class='apex_chartLabel'>100m</text>" +
-        "<text x='151' y='99' class='apex_chartLabel'>150m</text>" +
-
-        "<polyline class='apex_chartDamageLine' points='" + damageLineCoords + "'></polyline>" +
-        maxDamageText +
-        minDamageText +
-        "<polyline class='apex_hs_chartDamageLine' points='" + hs_damageLineCoords + "'></polyline>" +
-        hs_maxDamageText +
-        hs_minDamageText +
-        "<polyline class='apex_ls_chartDamageLine' points='" + ls_damageLineCoords + "'></polyline>" +
-        ls_maxDamageText +
-        ls_minDamageText +
-        "</svg>"
+    return svg_str
 }
 
 function apex_showHideClasses(){
@@ -2288,9 +2309,6 @@ apex_weaponSubCats._WPN_WINGMAN = "highcal";
 apex_weaponSubCats._WPN_RE45_AUTOPISTOL = "bullet";
 apex_weaponSubCats._WPN_P2011 = "bullet";
 
-// apex_weaponSubCats._WPN_MASTIFF = "special_highcal";
-// // apex_weaponSubCats._WPN_LSTAR = "special_highcal";
-// // apex_weaponSubCats._WPN_SNIPER = "special_highcal";
 apex_weaponSubCats._WPN_MASTIFF = "undefined";
 apex_weaponSubCats._WPN_LSTAR = "undefined";
 apex_weaponSubCats._WPN_SNIPER = "undefined";

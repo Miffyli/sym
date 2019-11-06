@@ -292,7 +292,7 @@ body {background-color: #191919;}
 
 .apex_gridLineThin {
     stroke:rgb(125,125,125);
-    stroke-width:.25;
+    stroke-width:.15;
 }
 
 .apex_gridLineFat {
