@@ -16,49 +16,6 @@ var BFVCustomizationsArray = []
 // in order to accomodate mulitple instances of the same weapon.
 var BFVAddVariantCounter = 0
 
-/* These mappings are used for the labels on the customization buttons
-   These need to be updated if DICE comes out with new customization types.
-*/
-var BFVCustomizationStrings = new Object()
-BFVCustomizationStrings.QADS = 'Quick Aim'
-BFVCustomizationStrings.ADSM = 'Custom Stock'
-BFVCustomizationStrings.MoAD = 'Lightened Stock'
-BFVCustomizationStrings.Bayo = 'Bayonet'
-BFVCustomizationStrings.QRel = 'Quick Reload'
-BFVCustomizationStrings.QDep = 'Slings and Swivels'
-BFVCustomizationStrings.QCyc = 'Machined Bolt'
-BFVCustomizationStrings.Zero = 'Variable Zeroing'
-BFVCustomizationStrings.VRec = 'Recoil Buffer'
-BFVCustomizationStrings.ITri = 'Trigger Job'
-BFVCustomizationStrings.Hipf = 'Enhanced Grips'
-BFVCustomizationStrings.IADS = 'Barrel Bedding'
-BFVCustomizationStrings.DMag = 'Detachable Magazines'
-BFVCustomizationStrings.Bipo = 'Bipod'
-BFVCustomizationStrings.FBul = 'High Velocity Bullets'
-BFVCustomizationStrings.Long = 'Low Drag Rounds'
-BFVCustomizationStrings.ADSS = 'Barrel Bedding'
-BFVCustomizationStrings.HRec = 'Ported Barrel'
-BFVCustomizationStrings.Heav = 'Heavy Load'
-BFVCustomizationStrings.Pene = 'Penetrating Shot'
-BFVCustomizationStrings.ExMa = 'Extended Magazine'
-BFVCustomizationStrings.Slug = 'Slugs'
-BFVCustomizationStrings.Head = 'Solid Slug'
-BFVCustomizationStrings.IBip = 'Improved Bipod'
-BFVCustomizationStrings.Flas = 'Flashless Propellant'
-BFVCustomizationStrings.IROF = 'Light Bolt'
-BFVCustomizationStrings.Ince = 'Incendiary Bullets'
-BFVCustomizationStrings.Cool = 'Chrome Lining'
-BFVCustomizationStrings.Magd = 'Polished Action'
-BFVCustomizationStrings.Chok = 'Internal Choke'
-BFVCustomizationStrings.ExBe = 'Extended Belt'
-BFVCustomizationStrings.Drum = 'Double Drum Magazine'
-BFVCustomizationStrings.Gren = 'Improved Grenades'
-BFVCustomizationStrings.APCR = 'APCR Bullets'
-BFVCustomizationStrings.GLau = 'Grenade Launcher'
-BFVCustomizationStrings.Fire = 'Fully Automatic Fire'
-
-
-
 /*
   Return list of select weapons (the
   full directory), according to
@@ -75,11 +32,12 @@ function BFVGetSelectedWeapons () {
           selectedCusts += $(this).next('label').data('shortname')
         }
       })
-
+      console.log("selectedCust: " + selectedCusts)
       var weaponStats = BFVWeaponData.find(function (element) {
         return element.WeapAttachmentKey === selectedCusts
       })
       selectedWeapons.push(weaponStats)
+      console.log("weapattachkey: " + weaponStats.WeapAttachmentKey)
     }
   })
   return selectedWeapons
@@ -399,7 +357,7 @@ function BFVupdateSelectors () {
   })
 
   if (emptySelects <= 1 && $('.comp-selectorContainer').length < 6) {
-    $('.comp-selectorContainer').last().after($('.comp-selectorContainer').first().clone(true))
+    $('.comp-selectorContainer').last().after($('.comp-selectorContainer').last().clone(true))
     $('.comp-selectorContainer').last().children('div').remove()
     $('.comp-selectorContainer').last().children('select').change(function (e) {
       BFVSelectorsOnChange(e)
@@ -436,7 +394,6 @@ function initializeBFVComparison () {
   // Start with two empty choices already
   // (reminds people of it being a comparison)
   selectorParent.appendChild(firstSelector)
-
 
   // Set oninput for filter elements
   document.getElementById('column_filter').oninput = BFVFilterOnChange
@@ -525,8 +482,8 @@ function BFVcompPrintCustomizations (weaponName) {
     for (var i = 0; i < weaponCust.length; i++) {
       var rowClass = 'custRow' + i.toString()
       custString += '<div>'
-      custString += "<input id='" + BFVAddVariantCounter + weaponName + weaponCust[i].a + i.toString() + "' name='" + BFVAddVariantCounter + weaponName + i.toString() + "' type='radio' class='custButton " + rowClass + " custCol1'><label data-shortname='" + weaponCust[i].a + "' for='" + BFVAddVariantCounter + weaponName + weaponCust[i].a + i.toString() + "'>" + BFVCustomizationStrings[weaponCust[i].a] + '</label>'
-      custString += "<input id='" + BFVAddVariantCounter + weaponName + weaponCust[i].b + i.toString() + "' name='" + BFVAddVariantCounter + weaponName + i.toString() + "' type='radio' class='custButton " + rowClass + " custCol2'><label data-shortname='" + weaponCust[i].b + "' for='" + BFVAddVariantCounter + weaponName + weaponCust[i].b + i.toString() + "'>" + BFVCustomizationStrings[weaponCust[i].b] + '</label>'
+      custString += "<input id='" + BFVAddVariantCounter + weaponName + weaponCust[i].a + i.toString() + "' name='" + BFVAddVariantCounter + weaponName + i.toString() + "' type='radio' class='custButton " + rowClass + " custCol1'><label data-shortname='" + weaponCust[i].a + "' for='" + BFVAddVariantCounter + weaponName + weaponCust[i].a + i.toString() + "'>" + customizationStrings[weaponCust[i].a] + '</label>'
+      custString += "<input id='" + BFVAddVariantCounter + weaponName + weaponCust[i].b + i.toString() + "' name='" + BFVAddVariantCounter + weaponName + i.toString() + "' type='radio' class='custButton " + rowClass + " custCol2'><label data-shortname='" + weaponCust[i].b + "' for='" + BFVAddVariantCounter + weaponName + weaponCust[i].b + i.toString() + "'>" + customizationStrings[weaponCust[i].b] + '</label>'
       custString += '</div>'
     }
   }
