@@ -779,6 +779,7 @@ weaponSubCats._KE7 = "LMG";
 weaponSubCats._LewisGun = "LMG";
 weaponSubCats._LS26 = "LMG";
 weaponSubCats._M1922MMG = "MMG";
+weaponSubCats._MadsenMG = "LMG";
 weaponSubCats._MG34 = "MMG";
 weaponSubCats._MG42 = "MMG";
 weaponSubCats._S2200 = "MMG";
