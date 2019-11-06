@@ -443,6 +443,9 @@ function APEXUpdateTTKAndBTKGraphs (selectedWeapons) {
   });
   // noinspection JSUnresolvedVariable
   Highcharts.chart('ttk_ub_graph', {
+    chart: {
+      zoomType: 'x'
+    },
     title: {
       text: 'Time-to-kill upper bound'
     },

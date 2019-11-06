@@ -203,6 +203,12 @@ body {background-color: #191919;}
     float: right;
 }
 
+.apex_sustainedPulseValue{
+    padding-right: 1px;
+    padding-left: 1px;
+    padding-bottom: -2px;
+}
+
 .apex_lblRPM {
     margin-top: -18px;
     font-size: 16px;
@@ -225,6 +231,10 @@ body {background-color: #191919;}
 }
 
 .apex_damageChart{
+    height:120px;
+}
+
+.apex_damageChart_test{
     height:120px;
 }
 
@@ -271,6 +281,12 @@ body {background-color: #191919;}
 .apex_ls_chartDamageLine{
     fill:none;
     stroke: #666666;
+    stroke-width:2;
+}
+
+.apex_min_chartDamageLine {
+    fill:none;
+    stroke: #ffffff;
     stroke-width:2;
 }
 

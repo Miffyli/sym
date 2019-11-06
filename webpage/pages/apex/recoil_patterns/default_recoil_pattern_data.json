@@ -474,6 +474,274 @@
       },
       "visible": "legendonly",
       "stackgroup": null
+    },
+    {
+      "line": {
+        "color": "rgb(21, 214, 97)"
+      },
+      "meta": {
+        "columnNames": {
+          "x": "Charge X",
+          "y": "Charge Y",
+          "marker": {
+            "size": "Charge Avg Size",
+            "color": "Charge Avg Size"
+          },
+          "error_x": {
+            "array": "Charge Size X"
+          },
+          "error_y": {
+            "array": "Charge Size Y"
+          }
+        }
+      },
+      "mode": "markers+lines",
+      "name": "Charge Rifle",
+      "type": "scatter",
+      "xsrc": "elementofprgress:60:63527f",
+      "x": [
+        "0",
+        "1.125",
+        "1.8",
+        "2.025",
+        "1.9125",
+        "1.575",
+        "0.675",
+        "-0.225",
+        "-0.9",
+        "-1.35",
+        "-2.025",
+        "-2.25",
+        "-2.025",
+        "-1.35",
+        "-0.675"
+      ],
+      "ysrc": "elementofprgress:60:1031d5",
+      "y": [
+        "3",
+        "3.45",
+        "4.125",
+        "4.8",
+        "5.1375",
+        "5.25",
+        "5.025",
+        "4.35",
+        "3.225",
+        "2.325",
+        "1.875",
+        "2.1",
+        "2.55",
+        "2.8875",
+        "3"
+      ],
+      "marker": {
+        "cmax": 1.2,
+        "cmin": -0.2,
+        "line": {
+          "color": "rgb(17, 174, 80)"
+        },
+        "meta": {
+          "columnNames": {
+            "size": "Charge Avg Size",
+            "color": "Charge Avg Size"
+          }
+        },
+        "cauto": false,
+        "opacity": 0.5,
+        "sizemin": 6,
+        "sizeref": 0.00625,
+        "sizesrc": "elementofprgress:60:6abc95",
+        "size": [
+          "0",
+          "0.675",
+          "0.5625",
+          "0.28125",
+          "0",
+          "0",
+          "0.50625",
+          "0.73125",
+          "0.66375",
+          "0.45",
+          "0.225",
+          "0",
+          "0.225",
+          "0.3375",
+          "0.3375"
+        ],
+        "colorsrc": "elementofprgress:60:6abc95",
+        "color": [
+          "0",
+          "0.675",
+          "0.5625",
+          "0.28125",
+          "0",
+          "0",
+          "0.50625",
+          "0.73125",
+          "0.66375",
+          "0.45",
+          "0.225",
+          "0",
+          "0.225",
+          "0.3375",
+          "0.3375"
+        ],
+        "sizemode": "diameter",
+        "colorscale": [
+          [
+            0,
+            "#ffffe5"
+          ],
+          [
+            0.125,
+            "#f7fcb9"
+          ],
+          [
+            0.25,
+            "#d9f0a3"
+          ],
+          [
+            0.375,
+            "#addd8e"
+          ],
+          [
+            0.5,
+            "#78c679"
+          ],
+          [
+            0.625,
+            "#41ab5d"
+          ],
+          [
+            0.75,
+            "#238443"
+          ],
+          [
+            0.875,
+            "#006837"
+          ],
+          [
+            1,
+            "#004529"
+          ]
+        ],
+        "maxdisplayed": 0,
+        "reversescale": true
+      },
+      "error_x": {
+        "type": "percent",
+        "value": 10,
+        "visible": false,
+        "symmetric": true,
+        "copy_ystyle": true
+      },
+      "error_y": {
+        "type": "percent",
+        "color": "rgb(21, 214, 97)",
+        "value": 10,
+        "width": 4,
+        "visible": false,
+        "symmetric": true,
+        "thickness": 2
+      },
+      "opacity": 1,
+      "visible": true,
+      "stackgroup": null,
+      "legendgroup": 3,
+      "autocolorscale": false
+    },
+    {
+      "meta": {
+        "columnNames": {
+          "x": "Charge X",
+          "y": "Charge Y",
+          "marker": {
+            "size": "Charge Avg Size"
+          },
+          "error_x": {
+            "array": "Charge Size X"
+          },
+          "error_y": {
+            "array": "Charge Size Y"
+          }
+        }
+      },
+      "mode": "markers+lines",
+      "name": "Charge Rifle Blast Points",
+      "type": "scatter",
+      "xsrc": "elementofprgress:60:63527f",
+      "x": [
+        "0",
+        "1.125",
+        "1.8",
+        "2.025",
+        "1.9125",
+        "1.575",
+        "0.675",
+        "-0.225",
+        "-0.9",
+        "-1.35",
+        "-2.025",
+        "-2.25",
+        "-2.025",
+        "-1.35",
+        "-0.675"
+      ],
+      "ysrc": "elementofprgress:60:1031d5",
+      "y": [
+        "3",
+        "3.45",
+        "4.125",
+        "4.8",
+        "5.1375",
+        "5.25",
+        "5.025",
+        "4.35",
+        "3.225",
+        "2.325",
+        "1.875",
+        "2.1",
+        "2.55",
+        "2.8875",
+        "3"
+      ],
+      "marker": {
+        "line": {
+          "color": "rgb(184, 33, 33)",
+          "width": 1
+        },
+        "meta": {
+          "columnNames": {
+            "size": "Charge Avg Size"
+          }
+        },
+        "size": 12,
+        "symbol": "diamond",
+        "sizeref": 0.0003611111111111111,
+        "sizemode": "area"
+      },
+      "error_x": {
+        "type": "percent",
+        "color": "#FFA15A",
+        "value": 10,
+        "width": 4,
+        "visible": false,
+        "symmetric": true,
+        "thickness": 2
+      },
+      "error_y": {
+        "type": "percent",
+        "color": "#FFA15A",
+        "value": 10,
+        "width": 4,
+        "visible": false,
+        "symmetric": true,
+        "thickness": 2
+      },
+      "visible": true,
+      "showlegend": false,
+      "stackgroup": null,
+      "legendgroup": 3
     }
   ],
   "layout": {

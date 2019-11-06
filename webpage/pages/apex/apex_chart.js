@@ -14,6 +14,8 @@ let apex_addVariantCounter = 0;
 const apex_rpmTooltip = "title = 'Rounds/Minute'";
 const apex_burstTooltip = "title = 'Rounds Per Burst'";
 const apex_chargeUpTooltip = "title = 'Charge Up Time'";
+const apex_sustainedDischargeTooltip = "title = 'Sustained Discharge Duration - Time till primary attack'";
+const apex_sustainedPulseTooltip = "title = 'Discharge Pulse Frequency of damage'";
 const apex_chargeCooldownDelayTooltip = "title = 'Charge Cooldown Delay'";
 const apex_chargeCooldownTimeTooltip = "title = 'Charge Cooldown Time'";
 const apex_chargeSpinUpTooltip = "title = 'Charge Spin Up Time'";
@@ -304,7 +306,7 @@ function apex_printWeapon(weaponStats) {
         "</div>" +
         "</td>" +
         "<td class='apex_secondColumn'>" +
-        "<div class='apex_damageChartContainer' " + apex_damageTooltip + ">" + apex_createDamageChart(weaponStats['printname'], weaponStats['damage_array'], weaponStats['damage_distance_array_m'], weaponStats['projectiles_per_shot'], weaponStats['damage_headshot_scale'], weaponStats['damage_leg_scale'], weaponStats['allow_headshots'], weaponStats['headshot_distance_m']) + "</div>" +
+        "<div class='apex_damageChartContainer' " + apex_damageTooltip + ">" + apex_createDamageChart(weaponStats, weaponStats['printname'], weaponStats['damage_array'], weaponStats['damage_distance_array_m'], weaponStats['projectiles_per_shot'], weaponStats['damage_headshot_scale'], weaponStats['damage_leg_scale'], weaponStats['allow_headshots'], weaponStats['headshot_distance_m']) + "</div>" +
         "<div class='apex_headShotDamageDistanceContainer' " + apex_damageModsHSTooltip + ">" + "<span class='apex_lblSuffixText'>" + "<img src='./pages/apex/icons/rui/misc/hs_skull_M.png' alt=''>x</span>" + weaponStats['damage_headshot_scale'] + " - " + weaponStats['headshot_distance_m']+ "m </div>" +
         "<div class='apex_legShotDamageDistanceContainer' " + apex_damageModsLSTooltip + ">" + "<span class='apex_lblSuffixText'>" + "<img src='./pages/apex/icons/rui/misc/octanes_real_legs.png' alt=''> x</span>" + weaponStats['damage_leg_scale'] + "</div>" +
         "</td>" +
@@ -509,7 +511,7 @@ function apex_updateWeapon(selectedAttachments) {
             $(weaponRow).find(".apex_lblBurstCount").html(apex_createBurstLabels(weaponStats['burst_fire_count'])  + "<br></span>");
             $(weaponRow).find(".apex_lblChargeValue").html(charge_string);
             $(weaponRow).find(".apex_lblSpeedValue").text(weaponStats['projectile_launch_speed_m']);
-            $(weaponRow).find(".apex_damageChartContainer").html(apex_createDamageChart(weaponStats['printname'], weaponStats['damage_array'], weaponStats['damage_distance_array_m'], weaponStats['projectiles_per_shot'], weaponStats['damage_headshot_scale'], weaponStats['damage_leg_scale'], weaponStats['allow_headshots'], weaponStats['headshot_distance_m']));
+            $(weaponRow).find(".apex_damageChartContainer").html(apex_createDamageChart(weaponStats, weaponStats['printname'], weaponStats['damage_array'], weaponStats['damage_distance_array_m'], weaponStats['projectiles_per_shot'], weaponStats['damage_headshot_scale'], weaponStats['damage_leg_scale'], weaponStats['allow_headshots'], weaponStats['headshot_distance_m']));
             $(weaponRow).find(".apex_headShotDamageDistanceContainer").html("<span class='apex_lblSuffixText'>" + "<img src='./pages/apex/icons/rui/misc/hs_skull_M.png' alt=''>x</span>" + weaponStats['damage_headshot_scale'] + " - " + weaponStats['headshot_distance_m']+ "m");
             $(weaponRow).find(".apex_legShotDamageDistanceContainer").html("<span class='apex_lblSuffixText'>" + "<img src='./pages/apex/icons/rui/misc/octanes_real_legs.png' alt=''> x</span>" + weaponStats['damage_leg_scale']+"");
             $(weaponRow).find(".apex_reloadDataAndMagCount").html(apex_createBulletSpeedGraphic(Math.round(weaponStats['projectile_launch_speed_m']), weaponStats['projectile_drag_coefficient']) + apex_createReloadGraphic(Number(weaponStats['reloadempty_time']).toFixed(2), Number(weaponStats['reload_time']).toFixed(2)));
@@ -768,10 +770,10 @@ function apex_createNonPatternRecoilGraphic(viewkick_pattern_data_y_avg, viewkic
         oneinc = ((viewkick_pitch_base + 0.5) > 1.0) ? "<line x1='55' y1='60' x2='65' y2='60' style='stroke:white; stroke-width:1'></line>" : "";
         onepoint5inc = ((viewkick_pitch_base + 0.5) > 1.5) ? "<line x1='55' y1='45' x2='65' y2='45' style='stroke:white; stroke-width:1'></line>" : "";
 
-        apex_recoilGraphic = "<svg viewbox='0 0 130 100' style='width: 100px;height: 111px'>" +
+        apex_recoilGraphic = "<svg viewbox='0 0 130 100' style='width:100px;height:111px'>" +
             point5inc + oneinc + onepoint5inc +
-            "<line x1='" + recoilHorLength1 + "' y1='90' x2='" + recoilHorLength2 + "' y2='90' style='stroke:white; stroke-width:2'></line>" + // Left - Right
-            "<line x1='64' y1='90' x2='64' y2='" + recoilUpLength.toString() + "' style='stroke:white; stroke-width:2'></line>" + // Up - Down
+            "<line x1='" + recoilHorLength1 + "' y1='90' x2='" + recoilHorLength2 + "' y2='90' style='stroke:white;stroke-width:2'></line>" + // Left - Right
+            "<line x1='64' y1='90' x2='64' y2='" + recoilUpLength.toString() + "' style='stroke:white;stroke-width:2'></line>" + // Up - Down
             "<text " + apex_horz_recoil_tooltip + "x='" + (recoilHorLength1 - 4).toString() + "' y='95' text-anchor='end' class='recoilValue'>" + viewkick_yaw_base_max + "°</text>" +
             "<text " + apex_horz_recoil_tooltip + "x='" + (recoilHorLength2 + 4).toString() + "' y='95' class='recoilValue'>" + Math.abs(viewkick_yaw_base_min) + "°</text>" +
             "<text " + apex_avgRecoilVariationTooltip + "x='68' y='" + recoilUpTextY + "' text-anchor='start' class='recoilValue'>" + (viewkick_pitch_random >= 0 ? "-/+" : "") + viewkick_pitch_random + "°</text>" +
@@ -785,13 +787,13 @@ function apex_createNonPatternRecoilGraphic(viewkick_pattern_data_y_avg, viewkic
         recoilInitUpTextY = (86 - (viewkick_pitch_base * 12));
         recoilHorLength1 = (60 - (viewkick_yaw_base_max * 30)) + 4;
         recoilHorLength2 = (60 + (Math.abs(viewkick_yaw_base_min) * 30)) + 4;
-        point5inc = ((viewkick_pitch_base) > .5) ? "<line x1='55' y1='75' x2='65' y2='75' style='stroke:white; stroke-width:1'></line>" : "";
-        oneinc = ((viewkick_pitch_base) > 1.0) ? "<line x1='55' y1='60' x2='65' y2='60' style='stroke:white; stroke-width:1'></line>" : "";
-        onepoint5inc = ((viewkick_pitch_base) > 1.5) ? "<line x1='55' y1='45' x2='65' y2='45' style='stroke:white; stroke-width:1'></line>" : "";
-        apex_recoilGraphic =  "<svg viewbox='0 0 130 100' style='width: 100px;height: 111px'>" +
+        point5inc = ((viewkick_pitch_base) > .5) ? "<line x1='55' y1='75' x2='65' y2='75' style='stroke:white;stroke-width:1'></line>" : "";
+        oneinc = ((viewkick_pitch_base) > 1.0) ? "<line x1='55' y1='60' x2='65' y2='60' style='stroke:white;stroke-width:1'></line>" : "";
+        onepoint5inc = ((viewkick_pitch_base) > 1.5) ? "<line x1='55' y1='45' x2='65' y2='45' style='stroke:white;stroke-width:1'></line>" : "";
+        apex_recoilGraphic =  "<svg viewbox='0 0 130 100' style='width:100px;height:111px'>" +
             point5inc + oneinc + onepoint5inc +
-            "<line x1='" + recoilHorLength1 + "' y1='90' x2='" + recoilHorLength2 + "' y2='90' style='stroke:white; stroke-width:2'></line>" + // Left - Right
-            "<line x1='64' y1='90' x2='64' y2='" + (recoilUpLength+ 8).toString() + "' style='stroke:white; stroke-width:2'></line>" + // Up - Down
+            "<line x1='" + recoilHorLength1 + "' y1='90' x2='" + recoilHorLength2 + "' y2='90' style='stroke:white;stroke-width:2'></line>" + // Left - Right
+            "<line x1='64' y1='90' x2='64' y2='" + (recoilUpLength+ 8).toString() + "' style='stroke:white;stroke-width:2'></line>" + // Up - Down
             "<text " + apex_horz_recoil_tooltip + "x='" + (recoilHorLength1 - 8).toString() + "' y='95' text-anchor='end' class='recoilValue'>" + viewkick_yaw_base_max + "°</text>" +
             "<text " + apex_horz_recoil_tooltip + "x='" + (recoilHorLength2 + 8).toString() + "' y='95' class='recoilValue'>" + Math.abs(viewkick_yaw_base_min) + "°</text>" +
             "<text " + apex_avgRecoilVariationTooltip + "x='68' y='" + (recoilUpTextY + 8) + "' text-anchor='start' class='recoilValue'>" + (viewkick_pitch_random >= 0 ? "-/+" : "") + viewkick_pitch_random + "°</text>" +
@@ -1096,6 +1098,12 @@ function apex_createChargeSpinUpLabels(weaponStats){
     } else if (weaponStats['fire_rate_max_time_speedup'] !== undefined && parseFloat(weaponStats['fire_rate_max_time_speedup']) > 0.0){
         return "<span "+ apex_chargeSpinUpTooltip +"><span class=\"ui-icon ui-icon-arrowthick-1-n\"></span>" + weaponStats['fire_rate_max_time_speedup'] + "<span class='apex_lblSuffixText'>s</span></span>" +
             "<span "+ apex_chargeSpinUpCooldownTooltip +"><span class=\"ui-icon ui-icon-arrowthick-1-s\"></span><span>" + weaponStats['fire_rate_max_time_cooldown'] +"</span><span class='apex_lblSuffixText'> s</span></span>";
+    } else if (weaponStats['sustained_discharge_duration'] !== undefined) {
+        // beam duration and pulse frequency for the charge rifle
+        return "<span "+ apex_chargeUpTooltip +"><span class=\"ui-icon ui-icon-arrowthick-1-n\"></span>" + weaponStats['sustained_discharge_duration'] + "<span class='apex_lblSuffixText'>s</span></span>" +
+            "<span "+ apex_sustainedPulseTooltip +"><span class=><img class='apex_sustainedPulseValue' src='./pages/apex/icons/pulse_s.png' alt='' height='12px' width='15px'></span>" + weaponStats['sustained_discharge_pulse_frequency'] + "<span class='apex_lblSuffixText'>s</span></span>" +
+            "<span "+ apex_chargeCooldownDelayTooltip +"><span class=\"ui-icon ui-icon-transferthick-e-w\"></span><span>" + weaponStats['charge_cooldown_delay'] + "</span><span class='apex_lblSuffixText'>s</span></span>" +
+            "<span "+ apex_chargeCooldownTimeTooltip +"><span class=\"ui-icon ui-icon-arrowthick-1-s\"></span><span>" + weaponStats['charge_cooldown_time'] +"</span><span class='apex_lblSuffixText'>s</span></span>";
     } else {
         return " ";
     }
@@ -1111,11 +1119,17 @@ function apex_createFireRateLabels(weaponStats) {
     }
 }
 
+const clamp = (min, max) => (value) =>
+    value < min ? min : value > max ? max : value;
 
-// TODO: Scrap current damage charts and redo them with the now known needs for Apex and its wide range of damages.
+// TODO: Scrap current damage charts and redo them in the same fashion as the charge rifle chart to deal with Apex and its wide range of damages.
 //  At the moment a lot of stuff is just hard set to make work with what exists.
-function apex_createDamageChart(printname, damageArr, distanceArr, numOfPellets, hs_multi, ls_multi, allow_hs, max_hs_distance){
+function apex_createDamageChart(weaponStats, printname, damageArr, distanceArr, numOfPellets, hs_multi, ls_multi, allow_hs, max_hs_distance){
     let damageChart;
+    console.log("creating damage chart for: ", weaponStats['printname']);
+    if (printname.includes("WPN_CHARGE_RIFLE")) {
+        return apex_createChargeRifleDamageChart(weaponStats, damageArr, distanceArr, numOfPellets,  hs_multi, ls_multi, allow_hs, max_hs_distance);
+    }
     if((damageArr[0] * hs_multi) > 200) {
         damageChart = apex_createDamageChart300Max(damageArr, distanceArr, hs_multi, ls_multi, allow_hs, max_hs_distance);
     } else if((damageArr[0] * hs_multi) > 100) {
@@ -1132,6 +1146,149 @@ function apex_createDamageChart(printname, damageArr, distanceArr, numOfPellets,
         }
     }
     return damageChart;
+}
+
+function apex_createChargeRifleDamageChart(weaponStats, damageArr, distanceArr, numOfPellets, hs_multi, ls_multi, allow_hs, max_hs_distance){
+    // let hs_minDamage;
+    // let hs_distance_cord;
+    // let hs_damage_cord;
+    let i;
+    let beam_multi = 0.067;
+    let damageLineCoords;
+    let hs_damageLineCoords = "";
+    let ls_beam_damageLineCords = "";
+    let hs_maxDamageText = "";
+    let hs_minDamageText = "";
+    let ls_maxDamageText = "";
+    let ls_minDamageText = "";
+    let chart_dist = distanceArr[2]+100;
+    let chart_scale = 200/chart_dist;
+
+    //New Standard
+    let max_Damage = Math.round(damageArr[0]);
+    let mid_Damage = Math.round(damageArr[1]);
+    let min_Damage = Math.round(damageArr[2]);
+    damageLineCoords = "0," + (100 - max_Damage).toString() + " ";
+    damageLineCoords += (chart_scale*distanceArr[0]).toString() + "," + (100 - max_Damage).toString() + " ";
+    damageLineCoords += (chart_scale*distanceArr[1]).toString() + "," + (100 - max_Damage).toString() + " ";
+
+    damageLineCoords += (chart_scale*distanceArr[1]).toString() + "," + (100 - mid_Damage).toString() + " ";
+    damageLineCoords += (chart_scale*distanceArr[2]).toString() + "," + (100 - mid_Damage).toString() + " ";
+
+    damageLineCoords += (chart_scale*distanceArr[2]).toString() + "," + (100 - min_Damage).toString() + " ";
+    damageLineCoords += (distanceArr[2]+100).toString()+"," + (100 - min_Damage).toString();
+
+
+    let maxDamageText = "<text x='"+(chart_scale*distanceArr[0])+"' y='" + ((95 - min_Damage)).toString() + "' class='apex_chartMinMaxLabel'>" + mid_Damage + "</text>";
+    let minDamageText = "<text x='"+(chart_scale*distanceArr[2])+"' y='" + ((95 - min_Damage)).toString() + "' class='apex_chartMinMaxLabel'>" + min_Damage + "</text>";
+
+
+    //Limb Damage
+    if(beam_multi !== 1.0) {
+        let ls_beam_maxDamage = Math.round(damageArr[0] * beam_multi);
+        let ls_beam_midDamage = Math.round(damageArr[1] * beam_multi);
+        let ls_beam_minDamage = Math.round(damageArr[2] * beam_multi);
+        ls_beam_damageLineCords = "0," + (95 - ls_beam_maxDamage).toString() + " ";
+        ls_beam_damageLineCords += (chart_scale*distanceArr[0]).toString() + "," + (95 - ls_beam_maxDamage).toString() + " ";
+        ls_beam_damageLineCords += (chart_scale*distanceArr[1]).toString() + "," + (95 - ls_beam_maxDamage).toString() + " ";
+
+        ls_beam_damageLineCords += (chart_scale*distanceArr[1]).toString() + "," + (95 - ls_beam_midDamage).toString() + " ";
+        ls_beam_damageLineCords += (chart_scale*distanceArr[2]).toString() + "," + (95 - ls_beam_midDamage).toString() + " ";
+
+        ls_beam_damageLineCords += (chart_scale*distanceArr[2]).toString() + "," + (95 - ls_beam_minDamage).toString() + " ";
+        ls_beam_damageLineCords += (distanceArr[2]+100).toString()+"," + (95 - ls_beam_minDamage).toString();
+
+        ls_maxDamageText = "<text x='15' y='" + ((90 - ls_beam_midDamage)).toString() + "' class='apex_ls_chartMinMaxLabel'>" + ls_beam_maxDamage + "</text>";
+        ls_minDamageText = "<text x='"+(chart_scale*distanceArr[1])+"' y='" + ((90 - ls_beam_minDamage)).toString() + "' class='apex_ls_chartMinMaxLabel'>" + ls_beam_minDamage + "</text>";
+    }
+
+    // Headshot Damage - Some weapons have very short max HS range.
+    if (allow_hs && hs_multi > 1.0) {
+        let hs_damageArr = [];
+        let hs_distanceArr = [];
+        let hs_short = false;
+
+        for (i = 0; i < damageArr.length; i++) {
+            if (distanceArr[i] < max_hs_distance) {
+
+                hs_distanceArr.push(distanceArr[i]);
+                hs_damageArr.push((damageArr[i] * hs_multi));
+
+            } else if (hs_short) {
+                hs_distanceArr.push(distanceArr[i]);
+                hs_damageArr.push((damageArr[i]));
+            } else {
+                hs_distanceArr.push(max_hs_distance);
+                hs_damageArr.push((damageArr[i-1] * hs_multi));
+
+                hs_distanceArr.push(distanceArr[i]);
+                hs_damageArr.push(damageArr[i]);
+                hs_short = true;
+            }
+        }
+        console.log(hs_damageArr);
+        console.log(hs_distanceArr);
+        let hs_Dmg0 = Math.round(hs_damageArr[0]);
+        let hs_Dmg1 = Math.round(hs_damageArr[1]);
+        let hs_Dmg2 = Math.round(hs_damageArr[2]);
+        let hs_Dmg3 = Math.round(hs_damageArr[3]);
+        hs_damageLineCoords = "0," + (100 - hs_Dmg0).toString() + " ";
+
+        hs_damageLineCoords += (chart_scale * hs_distanceArr[0]).toString() + "," + (100 - hs_Dmg0).toString() + " ";
+        hs_damageLineCoords += (chart_scale * hs_distanceArr[1]).toString() + "," + (100 - hs_Dmg0).toString() + " ";
+
+        hs_damageLineCoords += (chart_scale * hs_distanceArr[1]).toString() + "," + (100 - hs_Dmg1).toString() + " ";
+        hs_damageLineCoords += (chart_scale * hs_distanceArr[2]).toString() + "," + (100 - hs_Dmg1).toString() + " ";
+
+        hs_damageLineCoords += (chart_scale * hs_distanceArr[2]).toString() + "," + (100 - hs_Dmg2).toString() + " ";
+        hs_damageLineCoords += (chart_scale * hs_distanceArr[3]).toString() + "," + (100 - hs_Dmg2).toString() + " ";
+
+        hs_damageLineCoords += (chart_scale * hs_distanceArr[3]).toString() + "," + (100 - hs_Dmg3).toString() + " ";
+        hs_damageLineCoords += (hs_distanceArr[3] + 100).toString() + "," + (100 - hs_Dmg3).toString();
+
+        hs_maxDamageText = "<text x='" + (chart_scale * hs_distanceArr[1]) + "' y='" + ((95 - hs_Dmg0)).toString() + "' class='apex_hs_chartMinMaxLabel'>" + hs_Dmg0 + "</text>";
+        hs_minDamageText = "<text x='" + (chart_scale * hs_distanceArr[2]) + "' y='" + ((95 - hs_Dmg1)).toString() + "' class='apex_hs_chartMinMaxLabel'>" + hs_Dmg1 + "</text>";
+    }
+
+    //Shotgun pellets
+    let pelletsLabel = "";
+    if (numOfPellets > 1){
+        pelletsLabel = "<text x='135' y='65' class='apex_chartMinMaxLabel'>" + numOfPellets + "pellets</text>";
+    }
+
+    //svg dynamic string
+    let svg_str = "";
+    let dist_array = ["100m", "200m", "300m", "400m", "500m", "600m", "700m", "800m", "900m", "1000m"];
+    svg_str += "<svg viewbox='0 0 200 100' class='apex_damageChart_test'>" +"";
+    svg_str += "<rect width='200' height='100' style='stroke:rgb(0,0,100);stroke-width:0' fill='rgb(25,25,25)' ></rect>" +"";
+    let thick_spacing =(200/(distanceArr[2]+100))*100;
+    let x_thin = thick_spacing/5;
+    svg_str += "<line x1='"+(x_thin)+"' y1='0' x2='"+(x_thin)+"' y2='100' class='apex_gridLineThin'></line>" +"";
+    svg_str += "<line x1='"+(x_thin * 2)+"' y1='0' x2='"+(x_thin * 2)+"' y2='100' class='apex_gridLineThin'></line>" +"";
+    svg_str += "<line x1='"+(x_thin * 3)+"' y1='0' x2='"+(x_thin * 3)+"' y2='100' class='apex_gridLineThin'></line>" +"";
+    svg_str += "<line x1='"+(x_thin * 4)+"' y1='0' x2='"+(x_thin * 4)+"' y2='100' class='apex_gridLineThin'></line>" +"";
+    let chart_gap = 0;
+    let chart_line_count = distanceArr[2]/100;
+    while (chart_gap < chart_line_count) {
+        let x_val = thick_spacing * (chart_gap+1);
+
+        svg_str += "<line x1='"+x_val+"' y1='0' x2='"+x_val+"' y2='100' class='apex_gridLineFat'></line>" +"";
+        svg_str += "<line x1='"+(x_thin + x_val)+"' y1='0' x2='"+(x_thin + x_val)+"' y2='100' class='apex_gridLineThin'></line>" +"";
+        svg_str += "<line x1='"+((x_thin * 2)+x_val)+"' y1='0' x2='"+((x_thin * 2)+x_val)+"' y2='100' class='apex_gridLineThin'></line>" +"";
+        svg_str += "<line x1='"+((x_thin * 3)+x_val)+"' y1='0' x2='"+((x_thin * 3)+x_val)+"' y2='100' class='apex_gridLineThin'></line>" +"";
+        svg_str += "<line x1='"+((x_thin * 4)+x_val)+"' y1='0' x2='"+((x_thin * 4)+x_val)+"' y2='100' class='apex_gridLineThin'></line>" +"";
+        svg_str += "<text x='"+(x_val + 2)+"' y='99' class='apex_chartLabel'>"+dist_array[chart_gap]+"</text>" +"";
+        chart_gap += 1;
+    }
+    console.log(svg_str);
+
+    svg_str += "<line x1='0' y1='50' x2='200' y2='50' style='stroke:rgb(175,175,175); stroke-width:.5'></line>" +"";
+
+    svg_str += "<polyline class='apex_chartDamageLine' points='" + damageLineCoords + "'></polyline>" + maxDamageText + minDamageText +"";
+    svg_str += "<polyline class='apex_hs_chartDamageLine' points='" + hs_damageLineCoords + "'></polyline>" + hs_maxDamageText + hs_minDamageText +"";
+    svg_str += "<polyline class='apex_min_chartDamageLine' points='" + ls_beam_damageLineCords + "'></polyline>" + ls_maxDamageText + ls_minDamageText + "</svg>";
+
+    return svg_str
 }
 
 function apex_createDamageChart50Max(damageArr, distanceArr, numOfPellets, hs_multi, ls_multi, allow_hs, max_hs_distance){

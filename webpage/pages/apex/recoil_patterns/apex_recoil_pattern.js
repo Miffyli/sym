@@ -18,6 +18,32 @@ const template_figure = {"hoverinfo": "none",
     "x": [],
     "xsrc": "weapon_name_x",
     "y": [],
+    "error_x": {
+        "meta": {
+            "columnNames": {
+                "array": "Size"
+            }
+        },
+        "type": "data",
+        "visible": true,
+        "arraysrc": "elementofprgress:3:bbf2e4",
+        "array": [],
+        "symmetric": true,
+        "thickness": 1
+    },
+    "error_y": {
+        "meta": {
+            "columnNames": {
+                "array": "Size"
+            }
+        },
+        "type": "data",
+        "visible": true,
+        "arraysrc": "elementofprgress:3:bbf2e4",
+        "array": [],
+        "symmetric": true,
+        "thickness": 1
+    },
     "ysrc": "weapon_name_y"
 };
 
@@ -45,7 +71,7 @@ function apex_initializeRecoilPage() {
         data: figure.data,
         layout: figure.layout,
         frames: figure.frames,
-        config: {"showLink": true, "linkText": "Export to plot.ly", "mapboxAccessToken": "pk.eyJ1IjoiY2hyaWRkeXAiLCJhIjoiY2lxMnVvdm5iMDA4dnhsbTQ5aHJzcGs0MyJ9.X9o_rzNLNesDxdra4neC_A"}
+        config: {"showLink": false, "linkText": "Export to plot.ly", "mapboxAccessToken": "pk.eyJ1IjoiY2hyaWRkeXAiLCJhIjoiY2lxMnVvdm5iMDA4dnhsbTQ5aHJzcGs0MyJ9.X9o_rzNLNesDxdra4neC_A"}
     });
 
     gd.scrollIntoView({
@@ -83,7 +109,10 @@ function replaceData(){
     let x_vals;
     let y_vals;
     let size_vals;
+    let error_x_vals;
+    let error_y_vals;
     let bullet_count;
+    let error_meta = {"array": "Size"};
     let viewkickdataXYS;
     for (let i = 0; i < weaponsWithViewKick.length; i++) {
         viewkickdataXYS = weaponsWithViewKick[i]['viewkick_pattern_data'];
@@ -93,8 +122,26 @@ function replaceData(){
         y_vals = [0.0];
         // y_vals2 = [0.0];
         size_vals = [0.0];
+        error_x_vals = ["0.0"];
+        error_y_vals = ["0.0"];
         let total_y = 0.0;
         let total_x = 0.0;
+        figure.data[i].error_x = {};
+        figure.data[i].error_y = {};
+        figure.data[i].error_y.meta = template_figure.error_y.meta;
+        figure.data[i].error_y.type = template_figure.error_y.type;
+        figure.data[i].error_y.visible = template_figure.error_y.visible;
+        figure.data[i].error_y.arraysrc = template_figure.error_y.arraysrc;
+        figure.data[i].error_y.array = template_figure.error_y.array;
+        figure.data[i].error_y.symmetric = template_figure.error_y.symmetric;
+        figure.data[i].error_y.thickness = template_figure.error_y.thickness;
+        figure.data[i].error_x.meta = template_figure.error_x.meta;
+        figure.data[i].error_x.type = template_figure.error_x.type;
+        figure.data[i].error_x.visible = template_figure.error_x.visible;
+        figure.data[i].error_x.arraysrc = template_figure.error_x.arraysrc;
+        figure.data[i].error_x.array = template_figure.error_x.array;
+        figure.data[i].error_x.symmetric = template_figure.error_x.symmetric;
+        figure.data[i].error_x.thickness = template_figure.error_x.thickness;
         for (let j = 0; j < bullet_count; j++) {
             const data_points = viewkickdataXYS['bullet_' + j].split(" ");
 
@@ -103,11 +150,19 @@ function replaceData(){
             x_vals.push(total_x);
             y_vals.push(total_y);
             size_vals.push(data_points[2]);
+            error_x_vals.push(data_points[2]);
+            error_y_vals.push(data_points[3].toString());
         }
         figure.data[i].x = x_vals;
         figure.data[i].y = y_vals;
         figure.data[i].size = size_vals;
         // figure.data[i].x = x_vals;
+        figure.data[i]['marker']['sizeref'] = 0.00625;
+        figure.data[i].error_x['array'] = error_x_vals;
+        figure.data[i].error_y['array'] = error_y_vals;
+
+
+
         figure.data[i].name = weaponsWithViewKick[i]['custom_name_short'];
         console.log(weaponsWithViewKick[i]['custom_name_short'] + ", X:" + figure.data[i].x + ", Y:" + figure.data[i].y + ", Size: " + figure.data[i].size);
 
@@ -131,6 +186,7 @@ function addNewCopyOfData() {
         new_data.marker = {};
         new_data.marker["size"] = 6;
         new_data.marker["color"] = line_color;
+        new_data.marker['sizeref'] = 0.01;
         new_data.name = mod.name+" Trace";
         new_data.x = mod.x;
         new_data.y = mod.y;
@@ -167,7 +223,9 @@ function addShotgunBurstPattern( data ) {
         for (const [key, value] of Object.entries(BlastPatternData[i])) {
             figure.data[new_data_count_id][key] = value;
         }
-        figure.data[new_data_count_id]['legendgroup'] = figure_count + i;
+        if (BlastPatternData[i]['name'].includes("Charge Rifle")) {
+            figure.data[new_data_count_id]['legendgroup'] = 666;
+        }
         figure.data[new_data_count_id]['name'] = BlastPatternData[i]['name'];
         figure.data[new_data_count_id]['marker'] = BlastPatternData[i]['marker'];
 

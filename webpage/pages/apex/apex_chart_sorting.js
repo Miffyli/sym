@@ -7,60 +7,60 @@ function getAPEXWeaponsSubcat(weapon_name){
 function initializeSorts(){
     $("#sortRPM").click(function(){
         $("#actionMenu").menu("collapse");
-        APEXWeaponData.sort(compareRPMs);
+        APEXWeaponData.sort(apex_compareRPMs);
         apex_printWeapons();
     });
 
     $("#sortName").click(function(){
         $("#actionMenu").menu("collapse");
-        APEXWeaponData.sort(compareNames);
+        APEXWeaponData.sort(apex_compareNames);
         apex_printWeapons();
     });
 
     $("#sortBulletSpeed").click(function(){
         $("#actionMenu").menu("collapse");
-        APEXWeaponData.sort(compareBulletSpeeds);
+        APEXWeaponData.sort(apex_compareBulletSpeeds);
         apex_printWeapons();
     });
 
     $("#sortMagSize").click(function(){
         $("#actionMenu").menu("collapse");
-        APEXWeaponData.sort(compareMagSizes);
+        APEXWeaponData.sort(apex_compareMagSizes);
         apex_printWeapons();
     });
 
     $("#sortMaxDamage").click(function(){
         $("#actionMenu").menu("collapse");
-        APEXWeaponData.sort(compareMaxDamages);
+        APEXWeaponData.sort(apex_compareMaxDamages);
         apex_printWeapons();
     });
 
     $("#sortInitVertRecoil").click(function(){
         $("#actionMenu").menu("collapse");
-        APEXWeaponData.sort(compareInitVertRecoil);
+        APEXWeaponData.sort(apex_compareInitVertRecoil);
         apex_printWeapons();
     });
 
     $("#sortVertRecoil").click(function(){
         $("#actionMenu").menu("collapse");
-        APEXWeaponData.sort(compareVertRecoil);
+        APEXWeaponData.sort(apex_compareVertRecoil);
         apex_printWeapons();
     });
 
     $("#sortHorRecoil").click(function(){
         $("#actionMenu").menu("collapse");
-        APEXWeaponData.sort(compareHorRecoil);
+        APEXWeaponData.sort(apex_compareHorRecoil);
         apex_printWeapons();
     });
 
     $("#sortDeployTime").click(function(){
         $("#actionMenu").menu("collapse");
-        APEXWeaponData.sort(compareDeployTimes);
+        APEXWeaponData.sort(apex_compareDeployTimes);
         apex_printWeapons();
     });
 }
 
-function compareRPMs(a, b){
+function apex_compareRPMs(a, b){
     if (a['WeaponData']['effective_fire_rate'] > b['WeaponData']['effective_fire_rate']){
         return -1;
     }
@@ -70,7 +70,7 @@ function compareRPMs(a, b){
     return 0;
 }
 
-function compareNames(a, b){
+function apex_compareNames(a, b){
     if (a['WeaponData']['printname'] < b['WeaponData']['printname']){
         return -1;
     }
@@ -81,7 +81,7 @@ function compareNames(a, b){
 }
 
 
-function compareBulletSpeeds(a, b){
+function apex_compareBulletSpeeds(a, b){
     if (a['WeaponData']['projectile_launch_speed'] > b['WeaponData']['projectile_launch_speed']){
         return -1;
     }
@@ -92,7 +92,7 @@ function compareBulletSpeeds(a, b){
 }
 
 
-function compareMagSizes(a, b){
+function apex_compareMagSizes(a, b){
     if (a['WeaponData']['ammo_clip_size'] > b['WeaponData']['ammo_clip_size']){
         return -1;
     }
@@ -103,7 +103,7 @@ function compareMagSizes(a, b){
 }
 
 
-function compareMaxDamages(a, b){
+function apex_compareMaxDamages(a, b){
     if (a['WeaponData']['damage_array'][0] > b['WeaponData']['damage_array'][0]){
         return -1;
     }
@@ -113,7 +113,7 @@ function compareMaxDamages(a, b){
     return 0;
 }
 
-function compareInitVertRecoil(a, b){
+function apex_compareInitVertRecoil(a, b){
     if (a['WeaponData']['viewkick_pattern_data_y_avg'] < b['WeaponData']['viewkick_pattern_data_y_avg']){
         return -1;
     }
@@ -123,7 +123,7 @@ function compareInitVertRecoil(a, b){
     return 0;
 }
 
-function compareVertRecoil(a, b){
+function apex_compareVertRecoil(a, b){
     if (a['WeaponData']['viewkick_pattern_data_sizey'] < b['WeaponData']['viewkick_pattern_data_sizey']){
         return -1;
     }
@@ -133,7 +133,7 @@ function compareVertRecoil(a, b){
     return 0;
 }
 
-function compareHorRecoil(a, b){
+function apex_compareHorRecoil(a, b){
     if (a['WeaponData']['viewkick_pattern_data_x_avg'] < b['WeaponData']['viewkick_pattern_data_x_avg']){
         return -1;
     }
@@ -143,7 +143,7 @@ function compareHorRecoil(a, b){
     return 0;
 }
 
-function compareDeployTimes(a, b){
+function apex_compareDeployTimes(a, b){
     if (a['WeaponData']['deploy_time'] < b['WeaponData']['deploy_time']){
         return -1;
     }
