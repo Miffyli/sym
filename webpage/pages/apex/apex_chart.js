@@ -3,6 +3,11 @@ let oHandler1;// this will be assign in on ready below
 let oHandler2;
 let oHandler3;
 let oHandler4;
+let oHandler0x;
+let oHandler1x;// this will be assign in on ready below
+let oHandler2x;
+let oHandler3x;
+let oHandler4x;
 let apex_weaponClassTitles = ["AssaultRifle","SMG","Shotgun","LMG","Sniper","Special","Pistol"];
 const apex_attachments = {};
 let active_weapon_attachments = {};
@@ -132,9 +137,10 @@ function apex_initializeChartPage() {
 
 function apex_onAttachmentChange(data){
 
-    const weapon_string_name = data.value.split('_X_')[0];
-    const weapon_string_attachment = data.value.split('_X_')[2];
-    const weapon_string_slot = data.value.split('_X_')[1];
+    const weapon_variant_id = data.value.split('_X_')[0];
+    const weapon_string_name = data.value.split('_X_')[1];
+    const weapon_string_attachment = data.value.split('_X_')[3];
+    const weapon_string_slot = data.value.split('_X_')[2];
     const reset_attachments = ["_shotgun_bolt_l0",
         "_barrel_stabilizer_l0",
         "special_mag",
@@ -161,38 +167,38 @@ function apex_onAttachmentChange(data){
     } else {
         active_weapon_attachments[weapon_string_name][weapon_string_slot] = weapon_string_attachment;
     }
-    apex_updateWeapon(active_weapon_attachments);
+    apex_updateWeapon(active_weapon_attachments, weapon_variant_id, weapon_string_name);
 
 }
 
 function apex_initializeAttachmentOnChange(){
     let weapon_key_string = "";
     $.each(APEXWeaponData, function(key, weapon) {
-        weapon_key_string = "#"+ weapon['WeaponData']['printname']+"_barrel_stabilizers";
+        weapon_key_string = "#0_"+ weapon['WeaponData']['printname']+"_barrel_stabilizers";
         oHandler0 = $(weapon_key_string).msDropdown({
             on:{create:function() {},
                 change: function(data) {apex_onAttachmentChange(data);
                 }}
         }).data("dd");
-        weapon_key_string = "#"+ weapon['WeaponData']['printname']+"_extend_mags";
+        weapon_key_string = "#0_"+ weapon['WeaponData']['printname']+"_extend_mags";
         oHandler1 = $(weapon_key_string).msDropdown({
             on:{create:function() {},
                 change: function(data) {apex_onAttachmentChange(data);
                 }}
         }).data("dd");
-        weapon_key_string = "#"+ weapon['WeaponData']['printname']+"_optics";
+        weapon_key_string = "#0_"+ weapon['WeaponData']['printname']+"_optics";
         oHandler2 = $(weapon_key_string).msDropdown({
             on:{create:function() {},
                 change: function(data) {apex_onAttachmentChange(data);
                 }}
         }).data("dd");
-        weapon_key_string = "#"+ weapon['WeaponData']['printname']+"_stocks";
+        weapon_key_string = "#0_"+ weapon['WeaponData']['printname']+"_stocks";
         oHandler3 = $(weapon_key_string).msDropdown({
             on:{create:function() {},
                 change: function(data) {apex_onAttachmentChange(data);
                 }}
         }).data("dd");
-        weapon_key_string = "#"+ weapon['WeaponData']['printname']+"_hopups";
+        weapon_key_string = "#0_"+ weapon['WeaponData']['printname']+"_hopups";
         oHandler4 = $(weapon_key_string).msDropdown({
             on:{create:function() {},
                 change: function(data) {apex_onAttachmentChange(data);
@@ -200,6 +206,44 @@ function apex_initializeAttachmentOnChange(){
         }).data("dd");
     });
 
+}
+function apex_initializeVariantAttachmentOnChange(weapon_name){
+    let variant_count = document.getElementsByClassName(weapon_name).length;
+    variant_count = variant_count - 1;
+    let weapon_key_string = "";
+    $.each(APEXWeaponData, function(key, weapon) {
+        weapon_key_string = "#"+variant_count+"_"+ weapon['WeaponData']['printname']+"_barrel_stabilizers";
+        oHandler0x = $(weapon_key_string).msDropdown({
+            on:{create:function() {},
+                change: function(data) {apex_onAttachmentChange(data);
+                }}
+        }).data("dd");
+        weapon_key_string = "#"+variant_count+"_"+ weapon['WeaponData']['printname']+"_extend_mags";
+        oHandler1x = $(weapon_key_string).msDropdown({
+            on:{create:function() {},
+                change: function(data) {apex_onAttachmentChange(data);
+                }}
+        }).data("dd");
+        weapon_key_string = "#"+variant_count+"_"+ weapon['WeaponData']['printname']+"_optics";
+        oHandler2x = $(weapon_key_string).msDropdown({
+            on:{create:function() {},
+                change: function(data) {apex_onAttachmentChange(data);
+                }}
+        }).data("dd");
+        weapon_key_string = "#"+variant_count+"_"+ weapon['WeaponData']['printname']+"_stocks";
+        oHandler3x = $(weapon_key_string).msDropdown({
+            on:{create:function() {},
+                change: function(data) {apex_onAttachmentChange(data);
+                }}
+        }).data("dd");
+        weapon_key_string = "#"+variant_count+"_"+ weapon['WeaponData']['printname']+"_hopups";
+        oHandler4x = $(weapon_key_string).msDropdown({
+            on:{create:function() {},
+                change: function(data) {apex_onAttachmentChange(data);
+                }}
+        }).data("dd");
+    });
+    variant_count = 0;
 }
 
 function apex_printWeapons(){
@@ -236,14 +280,9 @@ function apex_printWeapons(){
 
         const newWeaponRow = apex_printWeapon(newWeaponStats['WeaponData']);
         const newWeaponRowObj = $(newWeaponRow).insertAfter(thisRow);
-        $(newWeaponRowObj).find(".customButton").checkboxradio(
-            {icon:false}
-        );
-        apex_initializeCustomizationsRow(newWeaponRowObj);
-        // apex_initializeCustomizations();
-        // apex_initializeAttachmentOnChange();
 
         $(newWeaponRowObj).effect("highlight");
+        apex_initializeVariantAttachmentOnChange(newWeaponStats['WeaponData']['printname']);
         // apex_showHideStats();
     });
 
@@ -427,7 +466,15 @@ function apex_updateDoubleTapHopUp(selectedAttachments, weapon) {
 }
 
 
-function apex_updateWeapon(selectedAttachments) {
+function apex_updateWeapon(selectedAttachments, weapon_variant_id, weapon_string_name) {
+    //TODO: If creating a variant with attachments already equipped
+    weapon_variant_id = parseInt(weapon_variant_id);
+    let variant_array_len =  document.getElementsByClassName(weapon_string_name).length ;
+    if (variant_array_len === 1 || weapon_variant_id <= 0) {
+        weapon_variant_id = 0;
+    } else {
+        weapon_variant_id = variant_array_len - weapon_variant_id;
+    }
     for (let i = 0; i < APEXWeaponData.length; i++) {
         let APEXWeaponData_Mod = null;
         let weapon_data = null;
@@ -490,7 +537,7 @@ function apex_updateWeapon(selectedAttachments) {
                     weaponStats[key] = value
                 }
             }
-            const weaponRow = document.getElementsByClassName(weaponStats['printname']);
+            const weaponRow = document.getElementsByClassName(weaponStats['printname'])[(weapon_variant_id)];
             // TODO: Real Recoil - This is just a quick Temp recoil calculation until the values are more ironed out.
             let temp_pitchBase =  Number(parseFloat(weaponStats['viewkick_pattern_data_sizey_avg']) * parseFloat(weaponStats['viewkick_pitch_base'])).toFixed(3);
             let temp_pitchRandAvg =  Number(Math.abs(parseFloat(weaponStats['viewkick_pattern_data_y_avg'])) * parseFloat(weaponStats['viewkick_pitch_random'])).toFixed(3);
@@ -538,12 +585,17 @@ function apex_printAttachments(weaponName, weapon_ammo) {
     let slot3 = 0;
     let slot4 = 0;
     custom_string += "<aa class='aa'>";
+    let variant_count = document.getElementsByClassName(weaponName).length;
+    // variant_count = variant_count - 1;
+    if (variant_count === -1) {
+        variant_count = 0;
+    }
 
-    let barrel_option_string = "<table2 width=\"60%\" border=\"0\" cellspacing=\"1\" cellpadding=\"5\" class=\"tbl_attachment\"><tr2><td2 width=\"24%\" valign=\"top\"><select style=\"width:60px\"  name=\"" + weaponName + "_barrel_stabilizers\" id=\"" + weaponName + "_barrel_stabilizers\">";
-    let mag_option_string = "<table2 width=\"60%\" border=\"0\" cellspacing=\"1\" cellpadding=\"5\" class=\"tbl_attachment\"><tr2><td2 width=\"24%\" valign=\"top\"><select style=\"width:60px\"  name=\"" + weaponName + "_extend_mags\" id=\"" + weaponName + "_extend_mags\">";
-    let optic_option_string = "<table2 width=\"60%\" border=\"0\" cellspacing=\"1\" cellpadding=\"5\" class=\"tbl_attachment\"><tr2><td2 width=\"24%\" valign=\"top\"><select style=\"width:60px\"  name=\"" + weaponName + "_optics\" id=\"" + weaponName + "_optics\">";
-    let stock_option_string = "<table2 width=\"60%\" border=\"0\" cellspacing=\"1\" cellpadding=\"5\" class=\"tbl_attachment\"><tr2><td2 width=\"24%\" valign=\"top\"><select style=\"width:60px\"  name=\"" + weaponName + "_stocks\" id=\"" + weaponName + "_stocks\">";
-    let hopup_option_string = "<table2 width=\"60%\" border=\"0\" cellspacing=\"1\" cellpadding=\"5\" class=\"tbl_attachment\"><tr2><td2 width=\"24%\" valign=\"top\"><select style=\"width:60px\"  name=\"" + weaponName + "_hopups\" id=\"" + weaponName + "_hopups\">";
+    let barrel_option_string = "<table2 width=\"60%\" border=\"0\" cellspacing=\"1\" cellpadding=\"5\" class=\"tbl_attachment\"><tr2><td2 width=\"24%\" valign=\"top\"><select style=\"width:60px\"  name=\"" + variant_count +"_"+ weaponName + "_barrel_stabilizers\" id=\"" + variant_count +"_"+ weaponName + "_barrel_stabilizers\">";
+    let mag_option_string = "<table2 width=\"60%\" border=\"0\" cellspacing=\"1\" cellpadding=\"5\" class=\"tbl_attachment\"><tr2><td2 width=\"24%\" valign=\"top\"><select style=\"width:60px\"  name=\"" + variant_count +"_"+ weaponName + "_extend_mags\" id=\"" + variant_count +"_"+ weaponName + "_extend_mags\">";
+    let optic_option_string = "<table2 width=\"60%\" border=\"0\" cellspacing=\"1\" cellpadding=\"5\" class=\"tbl_attachment\"><tr2><td2 width=\"24%\" valign=\"top\"><select style=\"width:60px\"  name=\"" + variant_count +"_"+ weaponName + "_optics\" id=\"" + variant_count +"_"+ weaponName + "_optics\">";
+    let stock_option_string = "<table2 width=\"60%\" border=\"0\" cellspacing=\"1\" cellpadding=\"5\" class=\"tbl_attachment\"><tr2><td2 width=\"24%\" valign=\"top\"><select style=\"width:60px\"  name=\"" + variant_count +"_"+ weaponName + "_stocks\" id=\"" + variant_count +"_"+ weaponName + "_stocks\">";
+    let hopup_option_string = "<table2 width=\"60%\" border=\"0\" cellspacing=\"1\" cellpadding=\"5\" class=\"tbl_attachment\"><tr2><td2 width=\"24%\" valign=\"top\"><select style=\"width:60px\"  name=\"" + variant_count +"_"+ weaponName + "_hopups\" id=\"" + variant_count +"_"+ weaponName + "_hopups\">";
     for (let i = 0; i < apex_attachments[weaponName].length; i++) {
         if (apex_attachments[weaponName][i].attachName[0] !== undefined) {
 
@@ -551,18 +603,18 @@ function apex_printAttachments(weaponName, weapon_ammo) {
                 if (apex_attachments[weaponName][i].attachName[0].includes("barrel")) {
                     slot0 += 1;
                     const barrel_slot_name = "_barrel_stabilizer_l0";
-                    barrel_option_string += "<option value="+weaponName+"_X_slot0_X_"+barrel_slot_name+" data-image=\"./pages/apex/icons/slots/barrel_slot.png\"></option>";
-                    // custom_string_0 += "<ab><img id='"+weaponName+"_slot0' src='./pages/apex/icons/slots/barrel_slot.png' alt=''></ab>";
+                    barrel_option_string += "<option value="+ variant_count +"_X_"+ weaponName+"_X_slot0_X_"+barrel_slot_name+" data-image=\"./pages/apex/icons/slots/barrel_slot.png\"></option>";
+                    // custom_string_0 += "<ab><img id='"+ variant_count +"_"+ weaponName+"_slot0' src='./pages/apex/icons/slots/barrel_slot.png' alt=''></ab>";
                 }
                 if (apex_attachments[weaponName][i].attachName[0].includes("bolt")) {
                     slot0 += 1;
                     const bolt_slot_name = "_shotgun_bolt_l0";
-                    barrel_option_string += "<option value="+weaponName+"_X_slot0_X_"+bolt_slot_name+" data-image=\"./pages/apex/icons/slots/shotgun_slot.png\"></option>";
-                    // custom_string_0 += "<asb><img id='"+weaponName+"_slot0' src='./pages/apex/icons/slots/shotgun_slot.png' alt=''></asb>";
+                    barrel_option_string += "<option value="+ variant_count +"_X_"+ weaponName+"_X_slot0_X_"+bolt_slot_name+" data-image=\"./pages/apex/icons/slots/shotgun_slot.png\"></option>";
+                    // custom_string_0 += "<asb><img id='"+ variant_count +"_"+ weaponName+"_slot0' src='./pages/apex/icons/slots/shotgun_slot.png' alt=''></asb>";
                 }
             }
             if (apex_attachments[weaponName][i].attachName[0].includes("barrel")) {
-                barrel_option_string += "<option value="+weaponName+"_X_slot0_X_"+apex_attachments[weaponName][i].attachName[0]+" data-image=\"./pages/apex/icons/slots/barrel/slot_half_"+apex_attachments[weaponName][i].attachName[0]+".png\"></option>";
+                barrel_option_string += "<option value="+ variant_count +"_X_"+ weaponName+"_X_slot0_X_"+apex_attachments[weaponName][i].attachName[0]+" data-image=\"./pages/apex/icons/slots/barrel/slot_half_"+apex_attachments[weaponName][i].attachName[0]+".png\"></option>";
             }
             if (apex_attachments[weaponName][i].attachName[0].includes("bolt")) {
                 barrel_option_string += "<option value=" + weaponName + "_X_slot0_X_" + apex_attachments[weaponName][i].attachName[0] + " data-image=\"./pages/apex/icons/slots/bolts/slot_half_" + apex_attachments[weaponName][i].attachName[0] + ".png\"></option>";
@@ -573,12 +625,12 @@ function apex_printAttachments(weaponName, weapon_ammo) {
                 if (apex_attachments[weaponName][i].attachName[0].includes("mag")) {
                     slot1 += 1;
                     const mag_slot_name = weapon_ammo + "_mag";
-                    mag_option_string += "<option value="+weaponName+"_X_slot1_X_"+mag_slot_name+" data-image=\"./pages/apex/icons/slots/"+weapon_ammo+"_slot.png\"></option>";
-                    // custom_string_1 += "<am><img id='"+weaponName+"_slot1' src='./pages/apex/icons/slots/"+weapon_ammo+"_slot.png' alt=''></am>";
+                    mag_option_string += "<option value="+ variant_count +"_X_"+ weaponName+"_X_slot1_X_"+mag_slot_name+" data-image=\"./pages/apex/icons/slots/"+weapon_ammo+"_slot.png\"></option>";
+                    // custom_string_1 += "<am><img id='"+ variant_count +"_"+ weaponName+"_slot1' src='./pages/apex/icons/slots/"+weapon_ammo+"_slot.png' alt=''></am>";
                 }
             }
             if (apex_attachments[weaponName][i].attachName[0].includes("mag")) {
-                mag_option_string += "<option value="+weaponName+"_X_slot1_X_"+apex_attachments[weaponName][i].attachName[0]+" data-image=\"./pages/apex/icons/slots/mags/slot_half_"+apex_attachments[weaponName][i].attachName[0]+".png\"></option>";
+                mag_option_string += "<option value="+ variant_count +"_X_"+ weaponName+"_X_slot1_X_"+apex_attachments[weaponName][i].attachName[0]+" data-image=\"./pages/apex/icons/slots/mags/slot_half_"+apex_attachments[weaponName][i].attachName[0]+".png\"></option>";
                 slot1 += 1;
             }
 
@@ -589,15 +641,15 @@ function apex_printAttachments(weaponName, weapon_ammo) {
                     if (optic_customizations[weaponName][j].attachName[0].includes("optic")) {
                         slot2 += 1;
                         if (slot2 === 1) {
-                            // custom_string_2 += "<ao><img id='"+weaponName+"_slot2' src='./pages/apex/icons/slots/optic_slot.png' alt=''></ao>";
+                            // custom_string_2 += "<ao><img id='"+ variant_count +"_"+ weaponName+"_slot2' src='./pages/apex/icons/slots/optic_slot.png' alt=''></ao>";
                             const iron_sights = "optics_iron_sight";
-                            optic_option_string += "<option value=" + weaponName + "_X_slot2_X_" + iron_sights + " data-image=\"./pages/apex/icons/slots/optic_slot.png\"></option>";
+                            optic_option_string += "<option value=" + variant_count +"_X_"+ weaponName + "_X_slot2_X_" + iron_sights + " data-image=\"./pages/apex/icons/slots/optic_slot.png\"></option>";
                         }
                     }
                     if (slot2 !== 1) {
                         if (optic_customizations[weaponName][j].attachName[0].includes("optic")) {
                             const optic_name = optic_customizations[weaponName][j]['attachName'][0];
-                            optic_option_string += "<option value=" + weaponName + "_X_slot2_X_" +optic_name+ " data-image=\"./pages/apex/icons/slots/optics/slot_half_" + optic_name + ".png\"></option>";
+                            optic_option_string += "<option value=" + variant_count +"_X_"+ weaponName + "_X_slot2_X_" +optic_name+ " data-image=\"./pages/apex/icons/slots/optics/slot_half_" + optic_name + ".png\"></option>";
                             slot2 += 1;
                         }
                     }
@@ -608,23 +660,23 @@ function apex_printAttachments(weaponName, weapon_ammo) {
                 if (apex_attachments[weaponName][i].attachName[0].includes("stock_tactical")) {
                     slot3 += 1;
                     const stock_sniper_name = "stock_sniper_l0";
-                    stock_option_string += "<option value="+weaponName+"_X_slot3_X_"+stock_sniper_name+" data-image=\"./pages/apex/icons/slots/tactical_stock_slot.png\"></option>";
-                    // custom_string_3 += "<ats><img id='"+weaponName+"_slot3' src='./pages/apex/icons/slots/tactical_stock_slot.png' alt=''></ats>";
+                    stock_option_string += "<option value="+ variant_count +"_X_"+ weaponName+"_X_slot3_X_"+stock_sniper_name+" data-image=\"./pages/apex/icons/slots/tactical_stock_slot.png\"></option>";
+                    // custom_string_3 += "<ats><img id='"+ variant_count +"_"+ weaponName+"_slot3' src='./pages/apex/icons/slots/tactical_stock_slot.png' alt=''></ats>";
 
                 }
                 if (apex_attachments[weaponName][i].attachName[0].includes("stock_sniper")) {
                     slot3 += 1;
-                    // custom_string_3 += "<ass><img id='"+weaponName+"_slot3' src='./pages/apex/icons/slots/stock_sniper_slot.png' alt=''></ass>";
+                    // custom_string_3 += "<ass><img id='"+ variant_count +"_"+ weaponName+"_slot3' src='./pages/apex/icons/slots/stock_sniper_slot.png' alt=''></ass>";
                     const stock_tactical_name = "stock_tactical_l0";
-                    stock_option_string += "<option value="+weaponName+"_X_slot3_X_"+stock_tactical_name+" data-image=\"./pages/apex/icons/slots/stock_sniper_slot.png\"></option>";
+                    stock_option_string += "<option value="+ variant_count +"_X_"+ weaponName+"_X_slot3_X_"+stock_tactical_name+" data-image=\"./pages/apex/icons/slots/stock_sniper_slot.png\"></option>";
                 }
             }
             if (apex_attachments[weaponName][i].attachName[0].includes("stock_tactical")) {
-                stock_option_string += "<option value="+weaponName+"_X_slot3_X_"+apex_attachments[weaponName][i].attachName[0]+" data-image=\"./pages/apex/icons/slots/stocks/slot_half_"+apex_attachments[weaponName][i].attachName[0]+".png\"></option>";
+                stock_option_string += "<option value="+ variant_count +"_X_"+ weaponName+"_X_slot3_X_"+apex_attachments[weaponName][i].attachName[0]+" data-image=\"./pages/apex/icons/slots/stocks/slot_half_"+apex_attachments[weaponName][i].attachName[0]+".png\"></option>";
                 slot3 += 1;
             }
             if (apex_attachments[weaponName][i].attachName[0].includes("stock_sniper")) {
-                stock_option_string += "<option value="+weaponName+"_X_slot3_X_"+apex_attachments[weaponName][i].attachName[0]+" data-image=\"./pages/apex/icons/slots/stocks/slot_half_"+apex_attachments[weaponName][i].attachName[0]+".png\"></option>";
+                stock_option_string += "<option value="+ variant_count +"_X_"+ weaponName+"_X_slot3_X_"+apex_attachments[weaponName][i].attachName[0]+" data-image=\"./pages/apex/icons/slots/stocks/slot_half_"+apex_attachments[weaponName][i].attachName[0]+".png\"></option>";
                 slot3 += 1;
             }
 
@@ -632,11 +684,11 @@ function apex_printAttachments(weaponName, weapon_ammo) {
                 if (apex_attachments[weaponName][i].attachName[0].includes("hopup")) {
                     slot4 += 1;
                     const hopup_name = "hopup_empty_slot";
-                    hopup_option_string += "<option value="+weaponName+"_X_slot4_X_"+hopup_name+" data-image=\"./pages/apex/icons/slots/hopup_headshot_dmg_slot.png\"></option>";
+                    hopup_option_string += "<option value="+ variant_count +"_X_"+ weaponName+"_X_slot4_X_"+hopup_name+" data-image=\"./pages/apex/icons/slots/hopup_headshot_dmg_slot.png\"></option>";
                 }
             }
             if (apex_attachments[weaponName][i].attachName[0].includes("hopup")) {
-                hopup_option_string += "<option value="+weaponName+"_X_slot4_X_"+apex_attachments[weaponName][i].attachName[0]+" data-image=\"./pages/apex/icons/slots/hopups/slot_half_"+apex_attachments[weaponName][i].attachName[0]+".png\"></option>";
+                hopup_option_string += "<option value="+ variant_count +"_X_"+ weaponName+"_X_slot4_X_"+apex_attachments[weaponName][i].attachName[0]+" data-image=\"./pages/apex/icons/slots/hopups/slot_half_"+apex_attachments[weaponName][i].attachName[0]+".png\"></option>";
                 slot4 += 1;
             }
 
@@ -650,44 +702,44 @@ function apex_printAttachments(weaponName, weapon_ammo) {
     hopup_option_string += "</select></td2></tr2></table2>";
     if(slot0 === 0) {
         const slot_0_name = "_slot0";
-        custom_string_0 += "<option value="+weaponName+"_"+slot_0_name+" data-image=\"./pages/apex/icons/slots/attachment_slot_blank.png\"></option>";
+        custom_string_0 += "<option value="+ variant_count +"_"+ weaponName+"_"+slot_0_name+" data-image=\"./pages/apex/icons/slots/attachment_slot_blank.png\"></option>";
         custom_string += custom_string_0;
     } else {
         custom_string += barrel_option_string;
     }
     if(slot1 === 0) {
         const slot_1_name = "_slot1";
-        custom_string_0 += "<option value="+weaponName+"_"+slot_1_name+" data-image=\"./pages/apex/icons/slots/attachment_slot_blank.png\"></option>";
-        // custom_string_1 += "<img id='"+weaponName+"_slot1' src='./pages/apex/icons/slots/attachment_slot_blank.png' alt=''>";
+        custom_string_0 += "<option value="+ variant_count +"_"+ weaponName+"_"+slot_1_name+" data-image=\"./pages/apex/icons/slots/attachment_slot_blank.png\"></option>";
+        // custom_string_1 += "<img id='"+ variant_count +"_"+ weaponName+"_slot1' src='./pages/apex/icons/slots/attachment_slot_blank.png' alt=''>";
         custom_string += custom_string_1;
     } else {
         custom_string += mag_option_string;
     }
     // if(slot1 === 0)
-    //     custom_string_1 += "<img id='"+weaponName+"_slot1' src='./pages/apex/icons/slots/attachment_slot_blank.png' alt=''>";
+    //     custom_string_1 += "<img id='"+ variant_count +"_"+ weaponName+"_slot1' src='./pages/apex/icons/slots/attachment_slot_blank.png' alt=''>";
     if(slot2 === 0) {
         const slot_2_name = "_slot2";
-        custom_string_0 += "<option value="+weaponName+"_"+slot_2_name+" data-image=\"./pages/apex/icons/slots/attachment_slot_blank.png\"></option>";
-        // custom_string_2 += "<img id='"+weaponName+"_slot2' src='./pages/apex/icons/slots/attachment_slot_blank.png' alt=''>";
+        custom_string_0 += "<option value="+ variant_count +"_"+ weaponName+"_"+slot_2_name+" data-image=\"./pages/apex/icons/slots/attachment_slot_blank.png\"></option>";
+        // custom_string_2 += "<img id='"+ variant_count +"_"+ weaponName+"_slot2' src='./pages/apex/icons/slots/attachment_slot_blank.png' alt=''>";
         custom_string += custom_string_0;
     } else {
         custom_string += optic_option_string;
     }
     // if(slot2 === 0)
-    //     custom_string_2 += "<img id='"+weaponName+"_slot2' src='./pages/apex/icons/slots/optic_slot.png' alt=''>";
+    //     custom_string_2 += "<img id='"+ variant_count +"_"+ weaponName+"_slot2' src='./pages/apex/icons/slots/optic_slot.png' alt=''>";
     if(slot3 === 0) {
         // const slot_3_name = "_slot3";
-        // custom_string_0 += "<option value="+weaponName+"_"+slot_3_name+" data-image=\"./pages/apex/icons/slots/attachment_slot_blank.png\"></option>";
-        // custom_string_3 += "<img id='"+weaponName+"_slot3' src='./pages/apex/icons/slots/attachment_slot_blank.png' alt=''>";
+        // custom_string_0 += "<option value="+ variant_count +"_"+ weaponName+"_"+slot_3_name+" data-image=\"./pages/apex/icons/slots/attachment_slot_blank.png\"></option>";
+        // custom_string_3 += "<img id='"+ variant_count +"_"+ weaponName+"_slot3' src='./pages/apex/icons/slots/attachment_slot_blank.png' alt=''>";
         custom_string += custom_string_3;
     } else {
         custom_string += stock_option_string;
     }
     // if(slot3 === 0)
-    //     custom_string_3 += "<img id='"+weaponName+"_slot3' src='./pages/apex/icons/slots/attachment_slot_blank.png' alt=''>";
+    //     custom_string_3 += "<img id='"+ variant_count +"_"+ weaponName+"_slot3' src='./pages/apex/icons/slots/attachment_slot_blank.png' alt=''>";
     if(slot4 === 0) {
-// custom_string_0 += "<option value="+weaponName+"_"+slot_4_name+" data-image=\"./pages/apex/icons/slots/attachment_slot_blank.png\"></option>";
-        custom_string_4 += "<img id='"+weaponName+"_slot4' src='./pages/apex/icons/slots/attachment_slot_blank.png' alt=''>";
+// custom_string_0 += "<option value="+ variant_count +"_"+ weaponName+"_"+slot_4_name+" data-image=\"./pages/apex/icons/slots/attachment_slot_blank.png\"></option>";
+        custom_string_4 += "<img id='"+ variant_count +"_"+ weaponName+"_slot4' src='./pages/apex/icons/slots/attachment_slot_blank.png' alt=''>";
         custom_string += custom_string_4;
     } else {
         custom_string += hopup_option_string;
@@ -818,9 +870,9 @@ function apex_createNewRecoilGraphic(viewkick_pattern_data_y_avg, viewkick_patte
             const recoilInitUpTextY = (86 - ((parseFloat(viewkick_pattern_data_sizey_avg) + 0.5) * 30));
             const recoilHorLength1 = (60 - (viewkick_pattern_data_x_max * 30)) + 4;
             const recoilHorLength2 = (60 + (Math.abs(viewkick_pattern_data_x_min) * 30)) + 4;
-            const point5inc = ((viewkick_pattern_data_sizey_avg + 0.5) > .5) ? "<line x1='55' y1='75' x2='65' y2='75' style='stroke:white; stroke-width:1'></line>" : "";
-            const oneIncrease = ((viewkick_pattern_data_sizey_avg + 0.5) > 1.0) ? "<line x1='55' y1='60' x2='65' y2='60' style='stroke:white; stroke-width:1'></line>" : "";
-            const onePoint5Increase = ((viewkick_pattern_data_sizey_avg + 0.5) > 1.5) ? "<line x1='55' y1='45' x2='65' y2='45' style='stroke:white; stroke-width:1'></line>" : "";
+            const point5inc = ((viewkick_pattern_data_sizey_avg + 0.5) > .5) ? "<line x1='55' y1='75' x2='65' y2='75' style='stroke:white;stroke-width:1'></line>" : "";
+            const oneIncrease = ((viewkick_pattern_data_sizey_avg + 0.5) > 1.0) ? "<line x1='55' y1='60' x2='65' y2='60' style='stroke:white;stroke-width:1'></line>" : "";
+            const onePoint5Increase = ((viewkick_pattern_data_sizey_avg + 0.5) > 1.5) ? "<line x1='55' y1='45' x2='65' y2='45' style='stroke:white;stroke-width:1'></line>" : "";
 
             apex_recoilGraphic = "<svg viewbox='0 0 130 100' style='width: 100px;height: 111px'>" +
                 point5inc + oneIncrease + onePoint5Increase +

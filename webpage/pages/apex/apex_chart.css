@@ -1,4 +1,5 @@
 body {background-color: #191919;}
+
 .container{
     width: 690px;
     padding-top:10px;
@@ -108,7 +109,18 @@ body {background-color: #191919;}
 /* *********** */
 /* TTK Toolbar */
 /* *********** */
-
+#apex_toolboxRow_2 {
+    width:100%;
+    text-align:center;
+}
+#apex_toolboxRow_2 > div {
+    width: calc(100% / 7);
+    display: inline-block;
+    vertical-align: top;
+    text-align:center;
+    margin: 2px 2% 2%;
+    /*padding:20px;*/
+}
 #ttkToolBar{
     text-align: center;
     font-size: 14px;
@@ -125,12 +137,10 @@ body {background-color: #191919;}
 
 #ttkToolBar > .apex_toolboxRow2 > div {
     margin: 5px 5px 5px 475px;
-
 }
 
 #ttkToolBar > .apex_toolboxRow3 > div {
     margin: -52px 475px 5px 5px;
-
 }
 
 
@@ -143,6 +153,10 @@ body {background-color: #191919;}
 }
 
 #apex_showHideTargetTypes img{
+    display: inline-block;
+    width: 40px;
+}
+#apex_showHideCharts img{
     display: inline-block;
     width: 40px;
 }
@@ -825,3 +839,46 @@ img.fnone{width: 59px; height: 59px;float:none !important}
     padding: 5px 10px;
 }
 /* End custom combobox */
+
+/* TTK Chart */
+#chartarea {
+    margin-left:5px;
+}
+
+#chartarea a {
+    text-decoration: none;
+    color:#CCCCCC;
+}
+
+#chartarea a:hover {
+    color:#ff9000;
+}
+
+#chartarea tr {
+    background-color:#141414;
+    color:#CCCCCC;
+    font-family: 'Ubuntu', sans-serif;
+    font-size:1.2em;
+}
+
+#chartarea tr:nth-of-type(odd) {
+    background-color:#212121;
+    color:#CCCCCC;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+#chartarea tr:nth-of-type(even) a {
+    color:#9C9C9C;
+}
+
+#chartarea tr:nth-of-type(even) a:hover {
+    color:#ff9000;
+}
+
+
+#chartarea table, .contentchart th, .contentchart td {
+    border: 0px solid #444;
+    border-collapse:collapse;
+    text-align:center;
+    width:100%;
+}

@@ -2,7 +2,7 @@
 const BURST_PATTERN_DATA = './pages/apex/recoil_patterns/default_recoil_pattern_data.json';
 const columnNames = {"x": "X", "y": "TotalY"};
 let BlastPatternData = [];
-
+let figure;
 // noinspection SpellCheckingInspection
 const template_figure = {"hoverinfo": "none",
     "hovertemplate": "",
@@ -48,6 +48,7 @@ const template_figure = {"hoverinfo": "none",
 };
 
 function apex_initializeRecoilPage() {
+    figure = get_figure();
     window.PLOTLYENV={'BASE_URL': 'https://plot.ly'};
 
     const gd = document.getElementById('1abf0259-75e8-47b9-96f9-6e32ec35bc8d');
@@ -112,7 +113,7 @@ function replaceData(){
     let error_x_vals;
     let error_y_vals;
     let bullet_count;
-    let error_meta = {"array": "Size"};
+    // let error_meta = {"array": "Size"};
     let viewkickdataXYS;
     for (let i = 0; i < weaponsWithViewKick.length; i++) {
         viewkickdataXYS = weaponsWithViewKick[i]['viewkick_pattern_data'];
