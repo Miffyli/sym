@@ -210,11 +210,28 @@ body {background-color: #191919;}
 }
 
 .apex_lblChargeValue {
+     margin-right: -45px;
+     font-size: 12px;
+     color: #FF9000;
+     font-weight: bold;
+     float: right;
+ }
+
+.apex_lblSpinUpValue {
     margin-right: -45px;
     font-size: 12px;
     color: #FF9000;
     font-weight: bold;
     float: right;
+}
+
+.apex_lblChargeValue_Hidden {
+    margin-right: -45px;
+    font-size: 12px;
+    color: #FF9000;
+    font-weight: bold;
+    float: right;
+    visibility: hidden;
 }
 
 .apex_sustainedPulseValue{
@@ -290,6 +307,14 @@ body {background-color: #191919;}
     fill:none;
     stroke: #ff9000;
     stroke-width:2;
+}
+
+.apex_lblHS_Multi{
+    color: #ff9000;
+}
+
+.apex_lblLS_Multi{
+    color:#666666;
 }
 
 .apex_ls_chartDamageLine{
