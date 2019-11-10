@@ -159,6 +159,7 @@ body {background-color: #191919;}
 #apex_showHideCharts img{
     display: inline-block;
     width: 40px;
+    /*height: 32px;*/
 }
 
 #apex_showHideHeadShots img{
@@ -866,44 +867,108 @@ img.fnone{width: 59px; height: 59px;float:none !important}
 /* End custom combobox */
 
 /* TTK Chart */
-#chartarea {
+#chartArea {
     margin-left:5px;
 }
 
-#chartarea a {
+#chartArea a {
     text-decoration: none;
     color:#CCCCCC;
 }
 
-#chartarea a:hover {
+#chartArea a:hover {
     color:#ff9000;
 }
 
-#chartarea tr {
+#chartArea tr {
     background-color:#141414;
     color:#CCCCCC;
     font-family: 'Ubuntu', sans-serif;
     font-size:1.2em;
 }
 
-#chartarea tr:nth-of-type(odd) {
+#chartArea tr:nth-of-type(odd) {
     background-color:#212121;
     color:#CCCCCC;
     font-family: 'Ubuntu', sans-serif;
 }
 
-#chartarea tr:nth-of-type(even) a {
+#chartArea tr:nth-of-type(even) a {
     color:#9C9C9C;
 }
 
-#chartarea tr:nth-of-type(even) a:hover {
+#chartArea tr:nth-of-type(even) a:hover {
     color:#ff9000;
 }
 
 
-#chartarea table, .contentchart th, .contentchart td {
-    border: 0px solid #444;
+#chartArea table, .contentChart th, .contentChart td {
+    border: 0 solid #444;
     border-collapse:collapse;
     text-align:center;
     width:100%;
+}
+
+/* ************ */
+/* Toolbar      */
+/* ************ */
+#apex_LegendsToolbar{
+    font-size: 14px;
+    width: 1280px;
+    margin: 10px auto;
+}
+
+#apex_LegendsToolbar > .apex_LegendsToolboxRow_1 > div {
+    text-align: left;
+    margin: 10px 40px 10px 90px;
+}
+#apex_LegendsToolbar > .apex_LegendsToolboxRow_2 > div {
+    text-align: left;
+    margin: 10px 40px 10px 100px;
+}
+#apex_LegendsToolbar > .apex_LegendsToolboxRow_3 > div {
+    margin: 10px 0 10px 305px;
+    text-align: left;
+}
+
+#apex_showHideLegendCheckboxes_Row1 label {
+    width: 100px;
+    margin-bottom: 8px;
+    border-radius: 2px;
+}
+
+#apex_showHideLegendCheckboxes_Row1 img{
+    width: 20px;
+    height: 20px;
+    padding: 2px 1px 18px 19px;
+    margin-right: -60px;
+}
+#apex_showHideLegendCheckboxes_Row2 label {
+    width: 100px;
+    margin-bottom: 8px;
+    border-radius: 2px;
+}
+
+#apex_showHideLegendCheckboxes_Row2 img{
+    width: 20px;
+    height: 20px;
+    padding: 2px 1px 18px 19px;
+    margin-right: -60px;
+
+
+}
+#apex_showHideLegendCheckboxes_Row3 label {
+    width: 80px;
+    margin-bottom: 8px;
+    border-radius: 2px;
+    /*margin-left: 40px;*/
+    /*text-align: right;*/
+}
+
+#apex_showHideLegendCheckboxes_Row3 img{
+    width: 20px;
+    height: 20px;
+    padding: 2px 1px 18px 19px;
+    margin-right: -60px;
+
 }

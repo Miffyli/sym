@@ -1279,6 +1279,7 @@
           "charge_drain_sound_stop_when_empty": "1",
           "charge_drain_sound_seek_to_charge_fraction": "1",
           "rui_crosshair_index": "1",
+          "effective_fire_rate": "78",
           "projectile_launch_speed": "999999.0",
           "projectile_launch_speed_m": "999999.0",
           "damage_array": [
@@ -3415,7 +3416,8 @@
           "low_ammo_sound_name_2": "Hemlok_LowAmmo_Shot2",
           "low_ammo_sound_name_3": "Hemlok_LowAmmo_Shot2",
           "low_ammo_sound_name_4": "Hemlok_LowAmmo_Shot3",
-          "low_ammo_sound_name_5": "Hemlok_LowAmmo_Shot3"
+          "low_ammo_sound_name_5": "Hemlok_LowAmmo_Shot3",
+          "effective_fire_rate": "336"
         },
         "barrel_stabilizer_l4_flash_hider": {
           "fx_muzzle_flash_view": "wpn_muzzleflash_assault_sup_FP",
@@ -7541,6 +7543,7 @@
           "spread_max_kick_air_hip": "9.0",
           "spread_decay_delay": "0.325",
           "spread_decay_rate": "12",
+          "effective_fire_rate": "174",
           "damage_array": [
             "43",
             "43",
@@ -11866,6 +11869,7 @@
           "spread_max_kick_air_hip": "9.0",
           "spread_decay_delay": "0.275",
           "spread_decay_rate": "12",
+          "effective_fire_rate": "210",
           "damage_array": [
             "35",
             "35",
@@ -16518,6 +16522,7 @@
         "shotgun_bolt_l1_double_tap": {
           "fire_rate": "6.0",
           "burst_fire_delay": "0.85",
+          "effective_fire_rate": "155",
           "mod_activity_modifier": "fire_select",
           "burst_fire_count": "2",
           "viewkick_pattern": "eva_double_tap",
@@ -16539,7 +16544,6 @@
           "viewkick_ads_weaponFraction": "0.25",
           "viewkick_ads_weaponFraction_vmScale": "0.15",
           "viewkick_scale_valueDecayRate": "75",
-          "effective_fire_rate": "155",
           "viewkick_pattern_data": {
             "loop_offset": "0",
             "start_max": "0",
@@ -16590,6 +16594,7 @@
         "shotgun_bolt_l2_double_tap": {
           "fire_rate": "6.0",
           "burst_fire_delay": "0.85",
+          "effective_fire_rate": "152",
           "mod_activity_modifier": "fire_select",
           "burst_fire_count": "2",
           "viewkick_pattern": "eva_double_tap",
@@ -16611,7 +16616,6 @@
           "viewkick_ads_weaponFraction": "0.25",
           "viewkick_ads_weaponFraction_vmScale": "0.15",
           "viewkick_scale_valueDecayRate": "75",
-          "effective_fire_rate": "152",
           "viewkick_pattern_data": {
             "loop_offset": "0",
             "start_max": "0",
@@ -16662,6 +16666,7 @@
         "shotgun_bolt_l3_double_tap": {
           "fire_rate": "6.0",
           "burst_fire_delay": "0.85",
+          "effective_fire_rate": "150",
           "mod_activity_modifier": "fire_select",
           "burst_fire_count": "2",
           "viewkick_pattern": "eva_double_tap",
@@ -16683,7 +16688,6 @@
           "viewkick_ads_weaponFraction": "0.25",
           "viewkick_ads_weaponFraction_vmScale": "0.15",
           "viewkick_scale_valueDecayRate": "75",
-          "effective_fire_rate": "150",
           "viewkick_pattern_data": {
             "loop_offset": "0",
             "start_max": "0",

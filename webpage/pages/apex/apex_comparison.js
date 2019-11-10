@@ -1,10 +1,16 @@
 // Logic behind comparison pages
-
+let oHandler0a;
+let oHandler1a;// this will be assign in on ready below
+let oHandler2a;
+let oHandler3a;
+let oHandler4a;
 //bool for using HS/Limp multi
 // let use_hs_multi_calculations = false;
 let use_ls_multi_calculations = false;
 let use_low_profile_calculations = false;
 let use_fortified_calculations = false;
+let show_ttk_chart = false;
+let show_btk_chart = false;
 // Text for the "no weapon selected" box
 const SELECT_OPTION_1_TEXT = 'Select Weapon...';
 
@@ -16,158 +22,12 @@ const APEX_WORST_VALUE_COLOR = [255, 0, 0];
 // Array used to generate apex_attachments buttons for each weapon
 // The array is generated in a function below
 const APEXCustomizationsArray = [];
-
+let active_comparison_weapon_attachments = [];
 // Used to prepend to id of customization buttons to make them all unique
 // in order to accommodate multiple instances of the same weapon.
 let APEXAddVariantCounter = 0;
 
 let use_headshot_calculations = false;
-
-/* These mappings are used for the labels on the customization buttons
-   These need to be updated if DICE comes out with new customization types.
-*/
-const APEXCustomizationStrings = {};
-APEXCustomizationStrings.bullets_mag_l1 = "White Extended Light Mag";
-APEXCustomizationStrings.bullets_mag_l2 = "Blue Extended Light Mag";
-APEXCustomizationStrings.bullets_mag_l3 = "Purple Extended Light Mag";
-APEXCustomizationStrings.bullets_mag_l4 = "Gold Extended Light Mag";
-APEXCustomizationStrings.barrel_stabilizer_l1 = "White Barrel Stabilizer";
-APEXCustomizationStrings.barrel_stabilizer_l2 = "Blue Barrel Stabilizer";
-APEXCustomizationStrings.barrel_stabilizer_l3 = "Purple Barrel Stabilizer";
-APEXCustomizationStrings.barrel_stabilizer_l4_flash_hider = "Gold Barrel Stabilizer";
-APEXCustomizationStrings.shotgun_bolt_l1 = "White Shotgun Bolt";
-APEXCustomizationStrings.shotgun_bolt_l2 = "Blue Shotgun Bolt";
-APEXCustomizationStrings.shotgun_bolt_l3 = "Purple Shotgun Bolt";
-APEXCustomizationStrings.shotgun_bolt_l4 = "Gold Shotgun Bolt";
-APEXCustomizationStrings.shotgun_bolt_l1_double_tap = "White Shotgun Bolt";
-APEXCustomizationStrings.shotgun_bolt_l2_double_tap = "Blue Shotgun Bolt";
-APEXCustomizationStrings.shotgun_bolt_l3_double_tap = "Purple Shotgun Bolt";
-APEXCustomizationStrings.shotgun_bolt_l4_double_tap = "Gold Shotgun Bolt";
-APEXCustomizationStrings.stock_sniper_l1 = "White Sniper Stock";
-APEXCustomizationStrings.stock_sniper_l2 = "Blue Sniper Stock";
-APEXCustomizationStrings.stock_sniper_l3 = "Purple Sniper Stock";
-APEXCustomizationStrings.stock_sniper_l4 = "Gold Sniper Stock";
-APEXCustomizationStrings.stock_tactical_l1 = "White Standard Stock";
-APEXCustomizationStrings.stock_tactical_l2 = "Blue Standard Stock";
-APEXCustomizationStrings.stock_tactical_l3 = "Purple Standard Stock";
-APEXCustomizationStrings.stock_tactical_l4 = "Gold Standard Stock";
-APEXCustomizationStrings.energy_mag_l1 = "White Extended Energy Mag";
-APEXCustomizationStrings.energy_mag_l2 = "Blue Extended Energy Mag";
-APEXCustomizationStrings.energy_mag_l3 = "Purple Extended Energy Mag";
-APEXCustomizationStrings.energy_mag_l4 = "Gold Extended Energy Mag";
-APEXCustomizationStrings.highcal_mag_l1 = "White Extended Heavy Mag";
-APEXCustomizationStrings.highcal_mag_l2 = "Blue Extended Heavy Mag";
-APEXCustomizationStrings.highcal_mag_l3 = "Purple Extended Heavy Mag";
-APEXCustomizationStrings.highcal_mag_l4 = "Gold Extended Heavy Mag";
-// Base Weapon Attachments Strings
-// APEXCustomizationStrings.barrel_stabilizer_l1 = "White Barrel Stabilizer";
-// APEXCustomizationStrings.barrel_stabilizer_l2 = "Blue Barrel Stabilizer";
-// APEXCustomizationStrings.barrel_stabilizer_l3 = "Purple Barrel Stabilizer";
-// APEXCustomizationStrings.barrel_stabilizer_l4_flash_hider = "Gold Barrel Stabilizer";
-// APEXCustomizationStrings.bullets_mag_l1 = "White Extended Light Mag";
-// APEXCustomizationStrings.bullets_mag_l2 = "Blue Extended Light Mag";
-// APEXCustomizationStrings.bullets_mag_l3 = "Purple Extended Light Mag";
-// APEXCustomizationStrings.bullets_mag_l4 = "Gold Extended Light Mag";
-// APEXCustomizationStrings.energy_mag_l1 = "White Extended Energy Mag";
-// APEXCustomizationStrings.energy_mag_l2 = "Blue Extended Energy Mag";
-// APEXCustomizationStrings.energy_mag_l3 = "Purple Extended Energy Mag";
-// APEXCustomizationStrings.energy_mag_l4 = "Gold Extended Energy Mag";
-// APEXCustomizationStrings.highcal_mag_l1 = "White Extended Heavy Mag";
-// APEXCustomizationStrings.highcal_mag_l2 = "Blue Extended Heavy Mag";
-// APEXCustomizationStrings.highcal_mag_l3 = "Purple Extended Heavy Mag";
-// APEXCustomizationStrings.highcal_mag_l4 = "Gold Extended Heavy Mag";
-// APEXCustomizationStrings.shotgun_bolt_l1 = "White Shotgun Bolt";
-// APEXCustomizationStrings.shotgun_bolt_l2 = "Blue Shotgun Bolt";
-// APEXCustomizationStrings.shotgun_bolt_l3 = "Purple Shotgun Bolt";
-// APEXCustomizationStrings.shotgun_bolt_l4 = "Gold Shotgun Bolt";
-// APEXCustomizationStrings.stock_sniper_l1 = "White Sniper Stock";
-// APEXCustomizationStrings.stock_sniper_l2 = "Blue Sniper Stock";
-// APEXCustomizationStrings.stock_sniper_l3 = "Purple Sniper Stock";
-// APEXCustomizationStrings.stock_sniper_l4 = "Gold Sniper Stock";
-// APEXCustomizationStrings.stock_tactical_l1 = "White Standard Stock";
-// APEXCustomizationStrings.stock_tactical_l2 = "Blue Standard Stock";
-// APEXCustomizationStrings.stock_tactical_l3 = "Purple Standard Stock";
-// APEXCustomizationStrings.stock_tactical_l4 = "Gold Standard Stock";
-// Base Weapon Attachments Icons
-APEXCustomizationStrings.stock_sniper_l1 = "stock_sniper_l1";
-APEXCustomizationStrings.stock_sniper_l2 = "stock_sniper_l2";
-APEXCustomizationStrings.stock_sniper_l3 = "stock_sniper_l3";
-APEXCustomizationStrings.stock_sniper_l4 = "stock_sniper_l4";
-APEXCustomizationStrings.stock_tactical_l1 = "stock_tactical_l1";
-APEXCustomizationStrings.stock_tactical_l2 = "stock_tactical_l2";
-APEXCustomizationStrings.stock_tactical_l3 = "stock_tactical_l3";
-APEXCustomizationStrings.stock_tactical_l4 = "stock_tactical_l4";
-APEXCustomizationStrings.shotgun_bolt_l1 = "shotgun_bolt_l1";
-APEXCustomizationStrings.shotgun_bolt_l2 = "shotgun_bolt_l2";
-APEXCustomizationStrings.shotgun_bolt_l3 = "shotgun_bolt_l3";
-APEXCustomizationStrings.shotgun_bolt_l4 = "shotgun_bolt_l4";
-// APEXCustomizationStrings.shotgun_bolt_l1_double_tap = "shotgun_bolt_l1";
-// APEXCustomizationStrings.shotgun_bolt_l2_double_tap = "shotgun_bolt_l2";
-// APEXCustomizationStrings.shotgun_bolt_l3_double_tap = "shotgun_bolt_l3";
-// APEXCustomizationStrings.shotgun_bolt_l4_double_tap = "shotgun_bolt_l4";
-APEXCustomizationStrings.bullets_mag_l1 = "bullets_mag_l1";
-APEXCustomizationStrings.bullets_mag_l2 = "bullets_mag_l2";
-APEXCustomizationStrings.bullets_mag_l3 = "bullets_mag_l3";
-APEXCustomizationStrings.bullets_mag_l4 = "bullets_mag_l4";
-APEXCustomizationStrings.energy_mag_l1 = "energy_mag_l1";
-APEXCustomizationStrings.energy_mag_l2 = "energy_mag_l2";
-APEXCustomizationStrings.energy_mag_l3 = "energy_mag_l3";
-APEXCustomizationStrings.energy_mag_l4 = "energy_mag_l4";
-APEXCustomizationStrings.highcal_mag_l1 = "highcal_mag_l1";
-APEXCustomizationStrings.highcal_mag_l2 = "highcal_mag_l2";
-APEXCustomizationStrings.highcal_mag_l3 = "highcal_mag_l3";
-APEXCustomizationStrings.highcal_mag_l4 = "highcal_mag_l4";
-APEXCustomizationStrings.barrel_stabilizer_l1 = "barrel_stabilizer_l1";
-APEXCustomizationStrings.barrel_stabilizer_l2 = "barrel_stabilizer_l2";
-APEXCustomizationStrings.barrel_stabilizer_l3 = "barrel_stabilizer_l3";
-APEXCustomizationStrings.barrel_stabilizer_l4_flash_hider = "barrel_stabilizer_l4_flash_hider";
-
-// Weapon Optics
-APEXCustomizationStrings.optic_cq_hcog_bruiser = "optic_cq_hcog_bruiser";
-APEXCustomizationStrings.optic_cq_hcog_classic = "optic_cq_hcog_classic";
-APEXCustomizationStrings.optic_cq_holosight = "optic_cq_holosight";
-APEXCustomizationStrings.optic_cq_holosight_variable = "optic_cq_holosight_variable";
-APEXCustomizationStrings.optic_cq_threat = "optic_cq_threat";
-APEXCustomizationStrings.optic_ranged_aog_variable = "optic_ranged_aog_variable";
-APEXCustomizationStrings.optic_ranged_hcog = "optic_ranged_hcog";
-APEXCustomizationStrings.optic_sniper = "optic_sniper";
-APEXCustomizationStrings.optic_sniper_threat = "optic_sniper_threat";
-APEXCustomizationStrings.optic_sniper_variable = "optic_sniper_variable";
-APEXCustomizationStrings.hopup_double_tap = "hopup_double_tap";
-APEXCustomizationStrings.hopup_energy_choke = "hopup_energy_choke";
-APEXCustomizationStrings.hopup_headshot_dmg = "hopup_headshot_dmg";
-APEXCustomizationStrings.hopup_highcal_rounds = "hopup_highcal_rounds";
-APEXCustomizationStrings.hopup_selectfire = "hopup_selectfire";
-APEXCustomizationStrings.hopup_shield_breaker = "hopup_shield_breaker";
-APEXCustomizationStrings.hopup_turbocharger = "hopup_turbocharger";
-APEXCustomizationStrings.hopup_unshielded_dmg = "hopup_unshielded_dmg";
-APEXCustomizationStrings.hopup_multiplexer = "hopup_multiplexer";
-
-/*
-  Return list of select weapons (the
-  full directory), according to
-  select weapon names and attachments.
-*/
-function APEXGetSelectedWeapons () {
-  const selectedWeapons = [];
-
-  $('.apex_comp-selectorContainer').each(function () {
-    if ($(this).find('select')[0].selectedIndex !== 0) {
-      const selectedAttachments = $(this).find('select option:selected').text().trim();
-      // $(this).find('.customButton').each(function () {
-      //   if ($(this).is(':checked')) {
-      //     selectedAttachments += $(this).next('label').data('shortname')
-      //   }
-      // })
-
-      const weaponStats = APEXWeaponData.find(function (element) {
-        return element['WeaponData']['printname'] === selectedAttachments
-      });
-      selectedWeapons.push(weaponStats['WeaponData'])
-    }
-  });
-  return selectedWeapons
-}
 
 /*
   Return true if given variable should be included in the
@@ -177,6 +37,7 @@ function APEXGetSelectedWeapons () {
   filters: List of filter keywords
   includeOnlyDiffering: If false, only include variables where weapons differ
 */
+
 /**
  * @return {boolean}
  */
@@ -297,7 +158,7 @@ function APEXUpdateDamageGraph (selectedWeapons) {
   for (let i = 0; i < selectedWeapons.length; i++) {
     const weapon = selectedWeapons[i];
     series.push({
-      name: weapon['custom_name'],
+      name: apex_weapon_name_dict[weapon['printname']] + " #"+i,
       data: APEXGetDamageOverDistance(weapon)
     })
   }
@@ -362,35 +223,35 @@ function APEXUpdateTTKAndBTKGraphs (selectedWeapons) {
   for (let i = 0; i < selectedWeapons.length; i++) {
     const weapon = selectedWeapons[i];
     btk_white_series.push({
-      name: weapon['custom_name'],
+      name: apex_weapon_name_dict[weapon['printname']] + " #"+i,
       data: APEXGetWhiteBTKUpperBoundOverDistance(weapon)
     });
     ttk_white_series.push({
-      name: weapon['custom_name'],
+      name: apex_weapon_name_dict[weapon['printname']] + " #"+i,
       data: APEXGetWhiteTTKUpperBoundOverDistance(weapon)
     });
     btk_blue_series.push({
-      name: weapon['custom_name'],
+      name: apex_weapon_name_dict[weapon['printname']] + " #"+i,
       data: APEXGetBlueBTKUpperBoundOverDistance(weapon)
     });
     ttk_blue_series.push({
-      name: weapon['custom_name'],
+      name: apex_weapon_name_dict[weapon['printname']] + " #"+i,
       data: APEXGetBlueTTKUpperBoundOverDistance(weapon)
     });
     btk_purple_series.push({
-      name: weapon['custom_name'],
+      name: apex_weapon_name_dict[weapon['printname']] + " #"+i,
       data: APEXGetPurpleBTKUpperBoundOverDistance(weapon)
     });
     ttk_purple_series.push({
-      name: weapon['custom_name'],
+      name: apex_weapon_name_dict[weapon['printname']] + " #"+i,
       data: APEXGetPurpleTTKUpperBoundOverDistance(weapon)
     });
     btk_series.push({
-      name: weapon['custom_name'],
+      name: apex_weapon_name_dict[weapon['printname']] + " #"+i,
       data: APEXGetBTKUpperBoundOverDistance(weapon)
     });
     ttk_series.push({
-      name: weapon['custom_name'],
+      name: apex_weapon_name_dict[weapon['printname']] + " #"+i,
       data: APEXGetTTKUpperBoundOverDistance(weapon)
     })
   }
@@ -776,15 +637,12 @@ function APEXUpdateTTKAndBTKGraphs (selectedWeapons) {
 
 }
 
-// function comparator(a, b) {
-//   return a.series["name"] > b.series["name"];
-// }
 /*
   Callback function for when filters change
   (only redo table, not graphs).
 */
 function APEXFilterOnChange () {
-  const selectedWeapons = APEXGetSelectedWeapons();
+  const selectedWeapons = apex_ComparisonGetSelectedWeapons();
 
   let filters = $('#column_filter')[0].value.toLowerCase();
   const includeOnlyDiffering = $('#column_onlydiffering')[0].checked;
@@ -794,7 +652,7 @@ function APEXFilterOnChange () {
 }
 
 function APEXUpdateFromToolBar(){
-  const selectedWeapons = APEXGetSelectedWeapons();
+  const selectedWeapons = apex_ComparisonGetSelectedWeapons();
 
   // Get filters for updating the table.
   let filters = $('#column_filter')[0].value.toLowerCase();
@@ -805,15 +663,19 @@ function APEXUpdateFromToolBar(){
   APEXUpdateDamageGraph(selectedWeapons);
   APEXUpdateTTKAndBTKGraphs(selectedWeapons)
 }
+
 /*
   Callback function for when one of the UI selectors changes
   (different weapon, different attachments, different
   filters)
 */
 function APEXSelectorsOnChange (e) {
+  let e_selected = ($(e.target).find('option:selected').text().trim());
+  console.log(e_selected);
   apex_updateSelectors();
-  printAPEXCustomizationButtons(e);
-  const selectedWeapons = APEXGetSelectedWeapons();
+  // printAPEXCustomizationButtons(e);
+  const selectedWeapons = apex_ComparisonGetSelectedWeapons();
+  apex_printComparisonAttachmentButtons(e);
 
   // Get filters for updating the table.
   let filters = $('#column_filter')[0].value.toLowerCase();
@@ -846,8 +708,6 @@ function apex_updateSelectors () {
       emptySelects++
     }
   });
-
-  // let apex_comp_selectorContainer_query = $('.apex_comp-selectorContainer');
   // noinspection JSJQueryEfficiency
   if (emptySelects === 0 && $('.apex_comp-selectorContainer').length < 26) {
     // noinspection JSJQueryEfficiency
@@ -866,6 +726,7 @@ function apex_updateSelectors () {
   Note: This should called after all data has been loaded!
 */
 function initializeAPEXComparison () {
+  active_comparison_weapon_attachments = [];
   const selectorParent = $('#selectors')[0];
 
   // TODO Create proper selectors
@@ -889,7 +750,7 @@ function initializeAPEXComparison () {
   weaponNames.sort();
   for (let i = 0; i < weaponNames.length; i++) {
     option = document.createElement('option');
-  option.text = weaponNames[i];
+  option.text = apex_weapon_name_dict[weaponNames[i]];
   firstSelector.add(option)
 }
   selectorParent.appendChild(firstSelector);
@@ -908,6 +769,39 @@ function initializeAPEXComparison () {
     this.blur();
     showHideGraphs();
   });
+
+  //Show / Hide Buttons for TTK Charts
+  let apex_showHideCharts_input = $("#apex_showHideCharts input");
+  apex_showHideCharts_input.checkboxradio(
+      {icon:false}
+  );
+  apex_showHideCharts_input.change(function(){
+    this.blur();
+  });
+  apex_showHideCharts_input.click(function(){
+    const thisId = $(this).attr("id");
+    if (thisId === "useBTKChart" && show_ttk_chart === true) {
+      // noinspection JSValidateTypes
+      $(this).parent().children().prop("checked", false).change();
+      $(this).prop("checked", true).change();
+    } else if (thisId === "useTTKChart" && show_btk_chart === true) {
+      // noinspection JSValidateTypes
+      $(this).parent().children().prop("checked", false).change();
+      $(this).prop("checked", true).change();
+    } else if (thisId === "useTTKChart" && show_ttk_chart === true) {
+      // noinspection JSValidateTypes
+      $(this).parent().children().prop("checked", false).change();
+      $(this).prop("checked", false).change();
+    } else if (thisId === "useBTKChart" && show_btk_chart === true) {
+      // noinspection JSValidateTypes
+      $(this).parent().children().prop("checked", false).change();
+      $(this).prop("checked", false).change();
+    }
+    this.blur();
+    updateChartsTargetType();
+  });
+  // Hide the TTK and BTK Chart buttons until the feature if fully implemented.
+  $("#apex_showHideCharts").hide();
 
   let apex_showHideTargetTypes_input = $("#apex_showHideTargetTypes input");
   apex_showHideTargetTypes_input.checkboxradio(
@@ -969,7 +863,8 @@ function initializeAPEXComparison () {
     updateGraphsForHeadShots();
   });
 
-  generateAPEXCustomizationsArray();
+  apex_generateComparisonAttachmentArray();
+  //generateAPEXCustomizationsArray();
   $('#selectors > select').addClass('apex_comp-selectors').wrap("<div class='apex_comp-selectorContainer'></div>")
 }
 
@@ -988,38 +883,6 @@ function updateGraphsForHeadShots(){
 }
 
 /*
-  Creates an array used to generate the spec/customization buttons.  Each entry
-  is an array of 4 objects that represent the 4 spec tiers. 'a' is left side,
-  'b' is right side.  Each entry also has a weaponName variable There is one
-  entry per weapon.
-*/
-function generateAPEXCustomizationsArray () {
-    $.each(APEXWeaponData, function (key, weapon) {
-      let weaponIndex = apex_getIndexOfWeapon(weapon['WeaponData']['printname'], APEXCustomizationsArray);
-      if (weaponIndex < 0) {
-        const newWeaponEntry = {};
-        newWeaponEntry.weaponName = weapon['WeaponData']['printname'];
-        newWeaponEntry.customizations = [{a:"",b:""}, {a:"",b:""}, {a:"",b:""}, {a:"",b:""}];
-        // noinspection JSUnusedAssignment
-        weaponIndex = APEXCustomizationsArray.push(newWeaponEntry) - 1
-      }
-
-      // if (weapon.Attachments_short.length > 0){
-      //   var short_attachments = weapon.Attachments_short.split('+')
-      //   for (var i = 0; i < short_attachments.length; i++) {
-      //     if ((APEXCustomizationsArray[weaponIndex].apex_attachments[i].a.localeCompare(short_attachments[i]) !== 0) && (APEXCustomizationsArray[weaponIndex].apex_attachments[i].b.localeCompare(short_attachments[i]) != 0)){
-      //       if (APEXCustomizationsArray[weaponIndex].apex_attachments[i].a.length === 0) {
-      //         APEXCustomizationsArray[weaponIndex].apex_attachments[i].a = short_attachments[i]
-      //       } else {
-      //         APEXCustomizationsArray[weaponIndex].apex_attachments[i].b = short_attachments[i]
-      //       }
-      //     }
-      //   }
-      // }
-    })
-}
-
-/*
     Search the array for the entry with the given weapon name and return
     the index for it or '-1' if not found.
 */
@@ -1034,98 +897,13 @@ function apex_getIndexOfWeapon (weapon, customizationArray) {
   return weaponIndex
 }
 
-/*
-  Create the html for the customization buttons for the selected weapon
-*/
-function printAPEXCustomizationButtons (e){
-  const selectedSelect = ($(e.target).find('option:selected'));
-  const selectedOption = ($(e.target).find('option:selected').text().trim());
-
-
-  if(selectedOption.localeCompare(SELECT_OPTION_1_TEXT) !== 0){
-    $(selectedSelect).parent().siblings('div').remove();
-    $(selectedSelect).parent().after(apex_compPrintCustomizations(selectedOption));
-    $(selectedSelect).parent().parent().find('input').checkboxradio(
-      {icon: false }
-    );
-    apex_compInitializeCustomizationButtons($(selectedSelect).parent().parent().find('.customButton'))
+function showHideCharts() {
+  if ($("#useTTKChart").is(":checked")){
+    $("#ttk_chart").show(0);
+    apex_printTTKTable()
+  } else {
+    $("#ttk_chart").hide(0);
   }
-
-}
-
-/*
-  Generates the html used for the customization buttons
-*/
-function apex_compPrintCustomizations (weaponName) {
-  let custString = '';
-  const weaponIndex = apex_getIndexOfWeapon(weaponName, APEXCustomizationsArray);
-  const weaponCust = APEXCustomizationsArray[weaponIndex].customizations;
-
-  if (weaponCust[0].a !== '') {
-    for (let i = 0; i < weaponCust.length; i++) {
-      const rowClass = 'custRow' + i.toString();
-      custString += '<div>';
-      custString += "<input id='" + APEXAddVariantCounter + weaponName + weaponCust[i].a + i.toString() + "' name='" + APEXAddVariantCounter + weaponName + i.toString() + "' type='radio' class='customButton " + rowClass + " custCol1'><label data-shortname='" + weaponCust[i].a + "' for='" + APEXAddVariantCounter + weaponName + weaponCust[i].a + i.toString() + "'>" + APEXCustomizationStrings[weaponCust[i].a] + '</label>';
-      custString += "<input id='" + APEXAddVariantCounter + weaponName + weaponCust[i].b + i.toString() + "' name='" + APEXAddVariantCounter + weaponName + i.toString() + "' type='radio' class='customButton " + rowClass + " custCol2'><label data-shortname='" + weaponCust[i].b + "' for='" + APEXAddVariantCounter + weaponName + weaponCust[i].b + i.toString() + "'>" + APEXCustomizationStrings[weaponCust[i].b] + '</label>';
-      custString += '</div>'
-    }
-  }
-  APEXAddVariantCounter++;
-
-  return custString
-}
-
-/*
-  Creates event handlers for the customization buttons so that users are only
-  allowed to click on the appropriate ones. i.e. only click 2nd tier button if
-  a 1st tier button has been selected.
-*/
-function apex_compInitializeCustomizationButtons (buttonObj) {
-    $(buttonObj).change(function () {
-      if ($(this).is(':checked') || $(this).siblings('.customButton').is(':checked')) {
-        if ($(this).hasClass('custRow1')) {
-          const thisCol = $(this).hasClass('custCol1') ? '.custCol1' : '.custCol2';
-          $(this).parent().next().children(thisCol).checkboxradio('enable')
-        } else {
-          $(this).parent().next().children('.customButton').checkboxradio('enable')
-        }
-      }
-    });
-
-    $(buttonObj).click(function () {
-      if ($(this).hasClass('custRow1')) {
-        $(this).parent().nextAll().children('.customButton').prop('checked', false).change();
-        $(this).parent().nextAll().children('.customButton').checkboxradio('disable')
-      }
-
-      const thisId = $(this).attr('id');
-      if ($(this).siblings("label[for='" + thisId + "']").hasClass('ui-state-active')) {
-        $(this).prop('checked', false).change();
-        $(this).parent().nextAll().children('.customButton').prop('checked', false).change();
-        $(this).parent().nextAll().children('.customButton').checkboxradio('disable')
-      }
-
-      this.blur();
-      let selectedAttachments = $(this).parentsUntil('.tbody', 'tr').find('td.firstColumn > .apex_lblWeaponName').text();
-      $(this).parent().parent().find('.customButton').each(function () {
-        if ($(this).is(':checked')) {
-          selectedAttachments += $(this).next('label').data('shortname')
-        }
-      });
-
-      const selectedWeapons = APEXGetSelectedWeapons();
-
-      // Get filters for updating the table.
-      let filters = $('#column_filter')[0].value.toLowerCase();
-      const includeOnlyDiffering = $('#column_onlydiffering')[0].checked;
-      filters = filters.split(',');
-
-      APEXUpdateTable(selectedWeapons, filters, includeOnlyDiffering);
-      APEXUpdateDamageGraph(selectedWeapons);
-      APEXUpdateTTKAndBTKGraphs(selectedWeapons)
-    });
-
-    $(buttonObj).parent().parent().find('div:not(:nth-child(2)) .customButton').checkboxradio('disable')
 }
 
 function showHideGraphs(){
@@ -1198,3 +976,317 @@ function updateGraphsForTargetType(){
   APEXUpdateFromToolBar();
 }
 
+function updateChartsTargetType(){
+  if ($("#useTTKChart").is(":checked")){
+    show_ttk_chart = true;
+    show_btk_chart = false;
+  } else if ($("#useBTKChart").is(":checked")){
+    show_ttk_chart = false;
+    show_btk_chart = true;
+  } else {
+    show_ttk_chart = false;
+    show_btk_chart = false;
+  }
+  showHideCharts();
+}
+
+function apex_printTTKTable(){
+  console.log("TTK Charts Not Setup Yet");
+}
+
+
+function apex_comparisonGetUpdatedWeaponData(active_weapon_attachments, weapon_variant_id, weapon_string_name) {
+  weapon_variant_id = parseInt(weapon_variant_id);
+  let weaponStats;
+  // noinspection JSPrimitiveTypeWrapperUsage
+  weaponStats = new Object();
+  let double_tap_mod_name = null;
+  let mod;
+  // noinspection JSPrimitiveTypeWrapperUsage
+  mod = new Object();
+  // APEXLoadWeaponData_orig();
+  let APEXWeaponData_Mod;
+  APEXWeaponData_Mod = jQuery.extend(true, [], APEXWeaponData_orig);
+  let selected_weapon_name = weapon_string_name + "_" + weapon_variant_id;
+  for (let i = 0; i < APEXWeaponData.length; i++) {
+    if (weapon_string_name === APEXWeaponData_Mod[i]['WeaponData']['printname']) {
+      try {
+        for (const [, value] of Object.entries(active_weapon_attachments[selected_weapon_name])) {
+          if (value !== "" && value !== undefined) {
+            if (value === 'hopup_highcal_rounds') {
+              for (const [mod_key, mod_value] of Object.entries(APEXWeaponData_Mod[i]['WeaponData']['Mods']['altfire_highcal'])) {
+                mod[mod_key] = mod_value;
+              }
+              if (active_weapon_attachments[selected_weapon_name]['slot0'].length > 1) {
+                for (const [barrel_mod_key, barrel_mod_value] of Object.entries(APEXWeaponData_Mod[i]['WeaponData']['Mods'][active_weapon_attachments[selected_weapon_name]['slot0']])) {
+                  if (barrel_mod_value.toString().includes("*")) {
+                    const multi = barrel_mod_value.replace("*", "");
+                    mod[barrel_mod_key] = (APEXWeaponData_Mod[i]['WeaponData']['Mods']['altfire_highcal'][barrel_mod_key] * multi).toFixed(3);
+                  }
+                }
+              }
+            } else if (value === 'hopup_selectfire') {
+              for (const [mod_key, mod_value] of Object.entries(APEXWeaponData_Mod[i]['WeaponData']['Mods']['altfire'])) {
+                mod[mod_key] = mod_value;
+              }
+            } else if (value === 'hopup_double_tap' && !APEXWeaponData_Mod[i]['WeaponData']['printname'].includes("WPN_SHOTGUN")) {
+              double_tap_mod_name = "altfire_double_tap";
+              for (const [mod_key, mod_value] of Object.entries(APEXWeaponData_Mod[i]['WeaponData']['Mods'][double_tap_mod_name])) {
+                mod[mod_key] = mod_value;
+              }
+            } else {
+              for (const [mod_key, mod_value] of Object.entries(APEXWeaponData_Mod[i]['WeaponData']['Mods'][value])) {
+                mod[mod_key] = mod_value;
+              }
+            }
+          }
+        }
+      } catch (error) {
+        console.log(error)
+
+      }
+      // Override double tap effective fire rate if also using a shotgun bolt.
+      if (APEXWeaponData_Mod[i]['WeaponData']['custom_name'].includes("EVA-8 Auto")) {
+        mod = apex_updateDoubleTapHopUp(active_weapon_attachments[selected_weapon_name], APEXWeaponData_Mod[i]);
+      }
+      if (APEXWeaponData_Mod[i]['WeaponData']['custom_name'].includes("G7 Scout")) {
+        mod = apex_updateDoubleTapHopUp(active_weapon_attachments[selected_weapon_name], APEXWeaponData_Mod[i]);
+      }
+
+      // weapon_data = APEXWeaponData_Mod[i]['WeaponData'];
+      // let weaponStats = weapon_data;
+      for (const [key, value] of Object.entries(mod)) {
+        if (!key.includes("effective_fire_rate")) {
+          if (!key.includes("viewkick_pattern_data")) {
+            if (value.toString().includes("++")) {
+              const additive = value.replace("++", "");
+              APEXWeaponData_Mod[i]['WeaponData'][key] = (parseInt(APEXWeaponData_Mod[i]['WeaponData'][key]) + parseInt(additive));
+            } else if (value.toString().includes("*")) {
+              const multi = value.replace("*", "");
+              APEXWeaponData_Mod[i]['WeaponData'][key] = (APEXWeaponData_Mod[i]['WeaponData'][key] * multi).toFixed(3);
+            } else {
+              APEXWeaponData_Mod[i]['WeaponData'][key] = value
+            }
+          } else {
+            if (key.includes("viewkick_pattern_data_")) {
+              APEXWeaponData_Mod[i]['WeaponData'][key] = value
+            }
+          }
+        } else {
+          APEXWeaponData_Mod[i]['WeaponData'][key] = value
+        }
+      }
+
+      weaponStats = APEXWeaponData_Mod[i]['WeaponData'];
+      // const weaponRow = document.getElementsByClassName(weaponStats['printname'])[(weapon_variant_id)];
+      // TODO: Real Recoil - This is just a quick Temp recoil calculation until the values are more ironed out.
+      // $(weaponRow).find(".apex_lblMag").text(weaponStats['ammo_clip_size']);
+      return weaponStats;
+
+      // let temp_pitchBase = Number(parseFloat(weaponStats['viewkick_pattern_data_sizey_avg']) * parseFloat(weaponStats['viewkick_pitch_base'])).toFixed(3);
+      // let temp_pitchRandAvg = Number(Math.abs(parseFloat(weaponStats['viewkick_pattern_data_y_avg'])) * parseFloat(weaponStats['viewkick_pitch_random'])).toFixed(3);
+      // let temp_YawRandAvg = Number(parseFloat(weaponStats['viewkick_pattern_data_x_avg']) * parseFloat(weaponStats['viewkick_yaw_random'])).toFixed(3);
+      // let temp_YawBaseMin = Number(Math.abs(parseFloat(weaponStats['viewkick_pattern_data_x_min'])) * parseFloat(weaponStats['viewkick_yaw_base'])).toFixed(3);
+      // let temp_YawBaseMax = Number(parseFloat(weaponStats['viewkick_pattern_data_x_max']) * parseFloat(weaponStats['viewkick_yaw_base'])).toFixed(3);
+    }
+  }
+}
+/*
+  Creates an array used to generate the spec/customization buttons.  Each entry
+  is an array of 4 objects that represent the 4 spec tiers. 'a' is left side,
+  'b' is right side.  Each entry also has a weaponName variable There is one
+  entry per weapon.
+*/
+function apex_generateComparisonAttachmentArray () {
+  $.each(APEXWeaponData, function (key, weapon) {
+    let weaponIndex = apex_getIndexOfWeapon(weapon['WeaponData']['printname'], APEXCustomizationsArray);
+    if (weaponIndex < 0) {
+      const newWeaponEntry = {};
+      newWeaponEntry.weaponName = weapon['WeaponData']['printname'];
+      newWeaponEntry.customizations = [{a:"",b:""}, {a:"",b:""}, {a:"",b:""}, {a:"",b:""}];
+      // noinspection JSUnusedAssignment
+      weaponIndex = APEXCustomizationsArray.push(newWeaponEntry) - 1
+    }
+  })
+}
+
+function apex_onCompareAttachmentChange(data) {
+  const weapon_comparison_selector_id = data.value.split('_X_')[0];
+  let weapon_comparison_string_name = data.value.split('_X_')[1];
+  const weapon_comparison_string_attachment = data.value.split('_X_')[3];
+  const weapon_comparison_string_slot = data.value.split('_X_')[2];
+  const reset_attachments = ["_shotgun_bolt_l0",
+    "_barrel_stabilizer_l0",
+    "special_mag",
+    "highcal_mag",
+    "bullet_mag",
+    "optics_iron_sight",
+    "shotgun_mag",
+    "stock_sniper_l0",
+    "stock_tactical_l0",
+    "hopup_empty_slot"];
+  if (active_comparison_weapon_attachments[weapon_comparison_string_name + "_" + weapon_comparison_selector_id] === undefined) {
+    active_comparison_weapon_attachments[weapon_comparison_string_name + "_" + weapon_comparison_selector_id] = [];
+    active_comparison_weapon_attachments[weapon_comparison_string_name + "_" + weapon_comparison_selector_id] = {
+      slot0: "", slot1: "", slot2: "", slot3: "", slot4: "", slot5: ""
+    };
+  }
+  if(reset_attachments.includes(weapon_comparison_string_attachment)) {
+    active_comparison_weapon_attachments[weapon_comparison_string_name+"_"+weapon_comparison_selector_id][weapon_comparison_string_slot] = "";
+  } else {
+    active_comparison_weapon_attachments[weapon_comparison_string_name+"_"+weapon_comparison_selector_id][weapon_comparison_string_slot] = weapon_comparison_string_attachment;
+  }
+
+  let updatedSelectedWeapons = [];
+  for (const [key,  ] of Object.entries(active_comparison_weapon_attachments)) {
+    let temp_list = {};
+    temp_list[key] = active_comparison_weapon_attachments[key];
+    let temp_obj = {};
+    let weapon_string_name;
+    if (weapon_comparison_string_name === "") {
+      weapon_string_name = key.toString().substring(0, key.toString().length - 2);
+    } else {
+      weapon_string_name = weapon_comparison_string_name;
+    }
+    temp_obj =  apex_comparisonGetUpdatedWeaponData(temp_list, key.toString().split("_")[key.toString().split("_").length - 1], weapon_string_name);
+    updatedSelectedWeapons.push(temp_obj);
+    weapon_comparison_string_name = ""
+  }
+
+  // Get filters for updating the table.
+  let filters = $('#column_filter')[0].value.toLowerCase();
+  const includeOnlyDiffering = $('#column_onlydiffering')[0].checked;
+  filters = filters.split(',');
+
+  APEXUpdateTable(updatedSelectedWeapons, filters, includeOnlyDiffering);
+  APEXUpdateDamageGraph(updatedSelectedWeapons);
+  APEXUpdateTTKAndBTKGraphs(updatedSelectedWeapons)
+}
+
+/*
+  Create the html for the customization buttons for the selected weapon
+*/
+function apex_printComparisonAttachmentButtons (e){
+  const selectedSelect = ($(e.target).find('option:selected'));
+  const selectedOption = ($(e.target).find('option:selected').text().trim());
+
+  if(selectedOption.localeCompare(SELECT_OPTION_1_TEXT) !== 0){
+    $(selectedSelect).parent().siblings('div').remove();
+    //$(selectedSelect).parent().parent().siblings()
+    //$(selectedSelect).parent().parent().parent().children()
+    let selection_id = $(selectedSelect).parent().parent().siblings().length;
+    console.log(selectedOption + "is id:" + selection_id);
+
+    $(selectedSelect).parent().after(apex_printComparisonAttachmentHTML(apex_weapon_name_dict[selectedOption], selection_id));
+    $(selectedSelect).parent().parent().find('input').checkboxradio(
+        {icon: false }
+    );
+    apex_InitializeComparisonAttachmentButtons(selection_id);
+  }
+
+}
+
+/*
+  Generates the html used for the customization buttons
+*/
+function apex_printComparisonAttachmentHTML(weaponName, selection_id) {
+  let custString = '';
+  const weaponIndex = apex_getIndexOfWeapon(weaponName, APEXCustomizationsArray);
+  const weaponCust = APEXWeaponData[weaponIndex]['WeaponData'];
+
+  const attachmentGraphic = (weaponCust['menu_category'] === 8) ? "" : apex_printAttachments([formatWeaponName(weaponCust['printname'])], weaponCust['ammo_pool_type'], true, selection_id);
+  custString += '<div>';
+  custString += "<div class='apex_customButtonsApex'>" + attachmentGraphic + "</div>";
+  custString += '</div>';
+  APEXAddVariantCounter++;
+
+  return custString
+}
+
+/*
+  Creates event handlers for the customization buttons so that users are only
+  allowed to click on the appropriate ones. i.e. only click 2nd tier button if
+  a 1st tier button has been selected.
+*/
+function apex_InitializeComparisonAttachmentButtons (selection_id) {
+  let weapon_key_string = "";
+  // selection_id = str(selection_id);
+  $.each(APEXWeaponData, function(key, weapon) {
+    weapon_key_string = "#"+selection_id+"_"+ weapon['WeaponData']['printname']+"_barrel_stabilizers";
+    oHandler0a = $(weapon_key_string).msDropdown({
+      on:{create:function() {},
+        change: function(data) {apex_onCompareAttachmentChange(data);
+        }}
+    }).data("dd");
+    weapon_key_string = "#"+selection_id+"_"+ weapon['WeaponData']['printname']+"_extend_mags";
+    oHandler1a = $(weapon_key_string).msDropdown({
+      on:{create:function() {},
+        change: function(data) {apex_onCompareAttachmentChange(data);
+        }}
+    }).data("dd");
+    weapon_key_string = "#"+selection_id+"_"+ weapon['WeaponData']['printname']+"_optics";
+    oHandler2a = $(weapon_key_string).msDropdown({
+      on:{create:function() {},
+        change: function(data) {apex_onCompareAttachmentChange(data);
+        }}
+    }).data("dd");
+    weapon_key_string = "#"+selection_id+"_"+ weapon['WeaponData']['printname']+"_stocks";
+    oHandler3a = $(weapon_key_string).msDropdown({
+      on:{create:function() {},
+        change: function(data) {apex_onCompareAttachmentChange(data);
+        }}
+    }).data("dd");
+    weapon_key_string = "#"+selection_id+"_"+ weapon['WeaponData']['printname']+"_hopups";
+    oHandler4a = $(weapon_key_string).msDropdown({
+      on:{create:function() {},
+        change: function(data) {apex_onCompareAttachmentChange(data);
+        }}
+    }).data("dd");
+  });
+}
+
+/*
+  Return list of select weapons (the
+  full directory), according to
+  select weapon names and attachments.
+*/
+function apex_ComparisonGetSelectedWeapons () {
+  const selectedWeapons = [];
+
+  let i = 0;
+  $('.apex_comp-selectorContainer').each(function () {
+    i += 1;
+    if ($(this).find('select')[0].selectedIndex !== 0) {
+      const selectedWeaponName = apex_weapon_name_dict[$(this).find('select option:selected').text().trim()];
+      let attachments_list_name = selectedWeaponName+"_"+i;
+      if (Object.entries(active_comparison_weapon_attachments).length >= 1) {
+        for (let [key,  ] of Object.entries(active_comparison_weapon_attachments)) {
+          if(key.toString().includes("_"+i)){
+            if(active_comparison_weapon_attachments[attachments_list_name] === undefined){
+              delete active_comparison_weapon_attachments[key];
+              active_comparison_weapon_attachments[attachments_list_name] = {
+                slot0: "", slot1: "", slot2: "", slot3: "", slot4: "", slot5: ""
+              };
+            }
+          }
+        }
+      } else {
+        active_comparison_weapon_attachments[attachments_list_name] = [];
+        active_comparison_weapon_attachments[attachments_list_name] = {
+          slot0: "", slot1: "", slot2: "", slot3: "", slot4: "", slot5: ""
+        };
+      }
+      let temp_list = {};
+      let key_str = selectedWeaponName+"_"+i;
+      if (active_comparison_weapon_attachments[key_str] === undefined) {
+        active_comparison_weapon_attachments[key_str] = [];
+        active_comparison_weapon_attachments[key_str] = {
+          slot0: "", slot1: "", slot2: "", slot3: "", slot4: "", slot5: ""
+        };
+      }
+      temp_list[key_str] = active_comparison_weapon_attachments[key_str];
+      selectedWeapons.push(apex_comparisonGetUpdatedWeaponData(temp_list, i, selectedWeaponName))
+    }
+  });
+  return selectedWeapons
+}
