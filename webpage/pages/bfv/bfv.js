@@ -36,6 +36,19 @@ const BFV_LOWER_IS_WORSE = new Set([
   'ADSProneMoveSpreadDecCoef',
   'HIPProneMoveSpreadDecCoef',
   'ADSStandBaseSpreadDecCoef',
+  'ADSStandBaseSpreadDecOffset',
+  'HIPStandBaseSpreadDecOffset',
+  'ADSCrouchBaseSpreadDecOffset',
+  'HIPCrouchBaseSpreadDecOffset',
+  'ADSProneBaseSpreadDecOffset',
+  'HIPProneBaseSpreadDecOffset',
+  'ADSStandMoveSpreadDecOffset',
+  'HIPStandMoveSpreadDecOffset',
+  'ADSCrouchMoveSpreadDecOffset',
+  'HIPCrouchMoveSpreadDecOffset',
+  'ADSProneMoveSpreadDecOffset',
+  'HIPProneMoveSpreadDecOffset',
+  'ADSStandBaseSpreadDecOffset',
   'ADSStandBaseSpreadDecExp',
   'HIPStandBaseSpreadDecExp',
   'ADSCrouchBaseSpreadDecExp',
@@ -57,6 +70,52 @@ const BFV_LOWER_IS_WORSE = new Set([
   'ADSCrouchRecoilDecFactor',
   'ShotsPerShell'
 ])
+
+/* 
+   Used by chart and comparison pages
+   These mappings are used for the labels on the customization buttons
+   These need to be updated if DICE comes out with new customization types.
+*/
+var customizationStrings = new Object();
+customizationStrings.QADS = "Quick Aim";
+customizationStrings.ADSM = "Custom Stock";
+customizationStrings.MoAD = "Lightened Stock";
+customizationStrings.Bayo = "Bayonet";
+customizationStrings.QRel = "Quick Reload";
+customizationStrings.QDep = "Slings and Swivels";
+customizationStrings.QCyc = "Machined Bolt";
+customizationStrings.Zero = "Variable Zeroing";
+customizationStrings.VRec = "Recoil Buffer";
+customizationStrings.ITri = "Trigger Job";
+customizationStrings.Hipf = "Enhanced Grips";
+customizationStrings.IADS = "Barrel Bedding";
+customizationStrings.DMag = "Detachable Magazines";
+customizationStrings.Bipo = "Bipod";
+customizationStrings.FBul = "High Velocity Bullets";
+customizationStrings.Long = "Low Drag Rounds";
+customizationStrings.ADSS = "Barrel Bedding";
+customizationStrings.HRec = "Ported Barrel";
+customizationStrings.Heav = "Heavy Load";
+customizationStrings.Pene = "Penetrating Shot";
+customizationStrings.ExMa = "Extended Magazine";
+customizationStrings.Slug = "Slugs";
+customizationStrings.Head = "Solid Slug";
+customizationStrings.IBip = "Improved Bipod";
+customizationStrings.Flas = "Flashless Propellant";
+customizationStrings.IROF = "Light Bolt";
+customizationStrings.Ince = "Incendiary Bullets";
+customizationStrings.Cool = "Chrome Lining";
+customizationStrings.Magd = "Polished Action";
+customizationStrings.Chok = "Internal Choke";
+customizationStrings.ExBe = "Extended Belt";
+customizationStrings.Drum = "Double Drum Magazine";
+customizationStrings.Gren = "Improved Grenades"
+customizationStrings.APCR = "APCR Bullets";
+customizationStrings.QBCy = "Light Bolt";
+customizationStrings.BROF = "Trigger Job";
+customizationStrings.GLau = 'Grenade Launcher'
+customizationStrings.Fire = 'Fully Automatic Fire'
+customizationStrings.QCyP = 'Machined Bolt'
 
 // A flag to tell if we have loaded BFV data already
 var BFVDataLoaded = false
