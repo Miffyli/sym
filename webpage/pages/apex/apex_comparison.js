@@ -1010,7 +1010,6 @@ function apex_comparisonGetUpdatedWeaponData(active_weapon_attachments, weapon_v
   let selected_weapon_name = weapon_string_name + "_" + weapon_variant_id;
   for (let i = 0; i < APEXWeaponData.length; i++) {
     if (weapon_string_name === APEXWeaponData_Mod[i]['WeaponData']['printname']) {
-      try {
         for (const [, value] of Object.entries(active_weapon_attachments[selected_weapon_name])) {
           if (value !== "" && value !== undefined) {
             if (value === 'hopup_highcal_rounds') {
@@ -1041,10 +1040,6 @@ function apex_comparisonGetUpdatedWeaponData(active_weapon_attachments, weapon_v
             }
           }
         }
-      } catch (error) {
-        console.log(error)
-
-      }
       // Override double tap effective fire rate if also using a shotgun bolt.
       if (APEXWeaponData_Mod[i]['WeaponData']['custom_name'].includes("EVA-8 Auto")) {
         mod = apex_updateDoubleTapHopUp(active_weapon_attachments[selected_weapon_name], APEXWeaponData_Mod[i]);
@@ -1143,11 +1138,7 @@ function apex_onCompareAttachmentChange(data) {
     temp_list[key] = active_comparison_weapon_attachments[key];
     let temp_obj = {};
     let weapon_string_name;
-    if (weapon_comparison_string_name === "") {
-      weapon_string_name = key.toString().substring(0, key.toString().length - 2);
-    } else {
-      weapon_string_name = weapon_comparison_string_name;
-    }
+    weapon_string_name = key.toString().substring(0, key.toString().length - 2);
     temp_obj =  apex_comparisonGetUpdatedWeaponData(temp_list, key.toString().split("_")[key.toString().split("_").length - 1], weapon_string_name);
     updatedSelectedWeapons.push(temp_obj);
     weapon_comparison_string_name = ""
