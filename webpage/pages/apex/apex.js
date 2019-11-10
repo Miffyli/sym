@@ -9,6 +9,87 @@ const APEX_DAMAGE_RANGE_STEP = 1;
 // Minimum damage multiplier (9.1.2018)
 const APEX_MIN_DAMAGE_MULTIPLIER = 1.0;
 
+const APEX_LOWER_IS_WORSE = new Set( [
+  'allow_headshots',
+  'ammo_clip_size',
+  'ammo_default_total',
+  'ammo_stockpile_max',
+  'blast_pattern_zero_distance_m',
+  'blast_pattern_zero_distance',
+  'bolt_gravity_enabled',
+  'bolt_hitsize_grow1_size',
+  'bolt_hitsize_grow2_size',
+  'bolt_hitsize_growfinal_size',
+  'bolt_hitsize',
+  'bolt_zero_distance_m',
+  'bolt_zero_distance',
+  'burn_damage',
+  'burn_stack_debounce',
+  'burn_stacks_max',
+  'burn_time',
+  'charge_level_base',
+  'charge_levels',
+  'charge_remain_full_when_fired',
+  'critical_hit_damage_scale',
+  'critical_hit',
+  'damage_array',
+  'damage_distance_array_m',
+  'damage_distance_array',
+  'damage_far_distance',
+  'damage_far_value_titanarmor',
+  'damage_far_value',
+  'damage_flags',
+  'damage_headshot_scale',
+  'damage_leg_scale',
+  'damage_near_distance',
+  'damage_near_value_titanarmor',
+  'damage_near_value',
+  'damage_rodeo',
+  'damage_shield_scale',
+  'damage_type',
+  'damage_unshielded_scale',
+  'damage_very_far_distance',
+  'damage_very_far_value_titanarmor',
+  'damage_very_far_value',
+  'effective_fire_rate',
+  'explosion_damage',
+  'explosion_damages_owner',
+  'explosion_inner_radius',
+  'explosionradius',
+  'fire_rate_max',
+  'fire_rate',
+  'headshot_distance_m',
+  'headshot_distance',
+  'pass_through_damage_preserved_scale',
+  'pass_through_depth',
+  'primary_attack_ignores_spread',
+  'primary_fire_does_not_block_sprint',
+  'projectile_launch_speed_m',
+  'projectile_launch_speed',
+  'projectile_lifetime',
+  'projectile_ricochet_max_count',
+  'projectiles_per_shot',
+  'reload_enabled',
+  'spread_decay_rate',
+  'spread_moving_decay_rate',
+  'sustained_discharge_allow_melee',
+  'sustained_discharge_duration',
+  'sustained_discharge_ends_in_primary_attack',
+  'sustained_discharge_pulse_frequency',
+  'sustained_discharge_updates_charge',
+  'sustained_laser_damage_scale',
+  'sustained_laser_enabled',
+  'sustained_laser_impact_distance',
+  'sustained_laser_radial_iterations',
+  'sustained_laser_radial_step',
+  'sustained_laser_radius',
+  'sustained_laser_range',
+  'viewdrift_ads_delay',
+  'viewkick_scale_valueDecayRate',
+  'zoom_fov',
+  'zoom_toggle_fov'
+]);
+
 // A flag to tell if we have loaded APEX data already
 let APEXDataLoaded = false;
 // This will be the main holder of all the weapon data.
@@ -384,8 +465,6 @@ function APEXGetTTKUpperBoundOverDistance (weapon) {
   } else {
     msPerShot = 1000 / (weapon['fire_rate']);
   }
-  // var msPerShot = 60000 / (weapon['effective_fire_rate']);
-  // var msPerShot = 1000 / (weapon['fire_rate']);
   const TTKUBOverDistance = [];
 
   // Loop over distance and store damages
@@ -444,8 +523,6 @@ function APEXGetWhiteTTKUpperBoundOverDistance (weapon) {
   } else {
     msPerShot = 1000 / (weapon['fire_rate']);
   }
-  // var msPerShot = 60000 / (weapon['effective_fire_rate']);
-  // var msPerShot = 1000 / (weapon['fire_rate']);
   const WhiteTTKUBOverDistance = [];
 
   // Loop over distance and store damages
@@ -476,7 +553,6 @@ function APEXGetWhiteTTKUpperBoundOverDistance (weapon) {
 
     // The only time from bullet flight comes from the last bullet that lands on the enemy,
     // hence we only add msToTarget once
-    // console.log("X ", hs_multi, "hs dist: ", hs_dist, "dist: ", dist, damageAtDist);
     WhiteTTKUBOverDistance.push([dist, bulletsToKill * msPerShot + msToTarget])
   }
   return WhiteTTKUBOverDistance
@@ -504,8 +580,6 @@ function APEXGetBlueTTKUpperBoundOverDistance (weapon) {
   } else {
     msPerShot = 1000 / (weapon['fire_rate']);
   }
-  // var msPerShot = 60000 / (weapon['effective_fire_rate']);
-  // var msPerShot = 1000 / (weapon['fire_rate']);
   const BlueTTKUBOverDistance = [];
 
   // Loop over distance and store damages
@@ -536,7 +610,6 @@ function APEXGetBlueTTKUpperBoundOverDistance (weapon) {
 
     // The only time from bullet flight comes from the last bullet that lands on the enemy,
     // hence we only add msToTarget once
-    // console.log(dist, (bulletsToKill * msPerShot + msToTarget), "velocity: ", bulletVelocity);
     BlueTTKUBOverDistance.push([dist, bulletsToKill * msPerShot + msToTarget])
   }
   return BlueTTKUBOverDistance
@@ -564,8 +637,6 @@ function APEXGetPurpleTTKUpperBoundOverDistance (weapon) {
   } else {
     msPerShot = 1000 / (weapon['fire_rate']);
   }
-  // var msPerShot = 60000 / (weapon['effective_fire_rate']);
-  // var msPerShot = 1000 / (weapon['fire_rate']);
   const PurpleTTKUBOverDistance = [];
 
   // Loop over distance and store damages
@@ -609,14 +680,26 @@ function APEXGetPurpleTTKUpperBoundOverDistance (weapon) {
 */
 function APEXLoadSuccessCallback (data) {
   APEXWeaponData_orig = data;
+
+  // Apex Weapons do not have a shared set of values for weapons.
+  // All keys can not be found in one weapon. Go through them all then gather all the unique.
+  // TODO: change how data is parsed before being used on the site and add missing/unused keys with default values
+  //  to every weapon on the data parsing side.
+  // TODO: Filter out unnecessary , unused, and troublesome keys on the data parsing side.
+
+  const all_weapon_keys = [];
   for (let i = 0; i < APEXWeaponData_orig.length; i++) {
+    let a = Object.keys(APEXWeaponData_orig[i]['WeaponData']);
+    for(let j=0; j<a.length; j++) {
+      all_weapon_keys.push(a[j]);
+    }
     if (APEXWeaponData_orig[i] !== "WeaponViewkickPatterns"){
-      APEXWeaponNameToData[APEXWeaponData_orig[i]['WeaponData']['printname']] = APEXWeaponData_orig[i]
+      APEXWeaponNameToData[APEXWeaponData_orig[i]['WeaponData']['printname']] = APEXWeaponData_orig[i];
+
     }
   }
-  // All weapons should have same keys.
-  // Take keys from the first weapon and store them as keys
-  APEXWeaponKeys = Object.keys(APEXWeaponData_orig[0]['WeaponData']);
+  APEXWeaponKeys = Array.from(new Set(all_weapon_keys));
+
   // Sort keys for consistency between runs etc
   APEXWeaponKeys.sort();
 

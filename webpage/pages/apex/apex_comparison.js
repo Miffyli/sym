@@ -45,8 +45,24 @@ function APEXFilterTable (variableName, weaponValues, filters, includeOnlyDiffer
   let shouldInclude;
 
   // Hardcoded: Only include numeric values in the table (including "N/A")
-  // TODO this should be done before-hand
+  // Apex Weapons do not have a shared set of values for weapons. Leaving many values to be left out here.
+  // For now valid values with no matching value to compare against is denoted as -1
+  // TODO: change how data is parsed before being used on the site and add missing/unused keys with default values
+  //  to every weapon on the data parsing side.
+  // TODO: Filter out unnecessary , unused, and troublesome keys on the data parsing side.
+
   shouldInclude = weaponValues.every(weaponValue => (!isNaN(weaponValue) || weaponValue === 'N/A'));
+
+  if(shouldInclude === false){
+    shouldInclude = weaponValues.some(weaponValue => (Number.isFinite(parseFloat(weaponValue))) && !Array.isArray(weaponValue));
+    if (shouldInclude){
+      for (let i = 0; i < weaponValues.length; i++) {
+        if(weaponValues[i] === "" || weaponValues[i] === undefined){
+          weaponValues[i] = " - ";
+        }
+      }
+    }
+  }
 
   // If we have keywords, check if we match them
   if (filters.length > 0) {
@@ -59,6 +75,9 @@ function APEXFilterTable (variableName, weaponValues, filters, includeOnlyDiffer
   if (includeOnlyDiffering === true) {
     // Check if all values match the first one.
     shouldInclude = shouldInclude && !weaponValues.every(weaponValue => weaponValue === weaponValues[0])
+  }
+  if (shouldInclude === false){
+    console.log("Table does not have value for " + variableName);
   }
 
   return shouldInclude
@@ -79,22 +98,38 @@ function APEXColorVariables(variableName, weaponValues) {
     // noinspection JSUnusedLocalSymbols
     colorCodes = weaponValues.map(weaponValue => APEX_NEUTRAL_VALUE_COLOR)
   } else {
+    //Until source data has
+    let fake_value = weaponValues.find( function (el) {
+      return el !== -1;
+    });
+    let replacement_weaponValues = [];
+    for (let i = 0; i < weaponValues.length; i++) {
+      if(weaponValues[i] === "" || weaponValues[i] === undefined || weaponValues[i] === -1) {
+        replacement_weaponValues.push(fake_value);
+        weaponValues[i] = " - "
+      } else {
+        replacement_weaponValues.push(weaponValues[i]);
+      }
+    }
     // Get unique values
-    const uniqueValues = Array.from(new Set(weaponValues));
+    const uniqueValues = Array.from(new Set(replacement_weaponValues));
     // If we only have , do not bother with coloring
     if (uniqueValues.length === 1) {
       // noinspection JSUnusedLocalSymbols
       colorCodes = weaponValues.map(weaponValue => APEX_NEUTRAL_VALUE_COLOR)
     } else {
       // Sort by value so that "lower is worse".
-      // TODO reverse if variableName is one of "lower is better"
-      uniqueValues.sort();
+      // uniqueValues.sort();
+      uniqueValues.sort((a, b) => a - b);
+      if (!APEX_LOWER_IS_WORSE.has(variableName)) {
+        uniqueValues.reverse()
+      }
 
       colorCodes = [];
       // Lower rank in uniqueValues -> worse value
       for (let i = 0; i < weaponValues.length; i++) {
         // -1 so that final value (best) has APEX_BEST_VALUE_COLOR
-        let rankRatio = uniqueValues.indexOf(weaponValues[i]) / (uniqueValues.length - 1);
+        let rankRatio = uniqueValues.indexOf(replacement_weaponValues[i]) / (uniqueValues.length - 1);
         colorCodes.push(
           APEXInterpolateRGB(APEX_WORST_VALUE_COLOR, APEX_BEST_VALUE_COLOR, rankRatio)
         )
@@ -137,7 +172,7 @@ function APEXUpdateTable (selectedWeapons, filters, includeOnlyDiffering) {
         // Begin row and add variable name
         tableHtml += '<tr><td>' + variableKey + '</td>';
         for (let weaponIndex = 0; weaponIndex < weaponVariables.length; weaponIndex++) {
-          tableHtml += `<td style="color: ${variableColoring[weaponIndex]}"> ${weaponVariables[weaponIndex]} </td>`
+          tableHtml += `<td style="color: ${variableColoring[weaponIndex]}">${weaponVariables[weaponIndex]}</td>`
         }
         tableHtml += '</tr>'
       }
