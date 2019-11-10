@@ -27,7 +27,9 @@ let APEXWeaponKeys = [];
 const APEXWeaponKeyToData = {};
 // Keeps track of which page to load after the data is loaded.
 let APEXSelectedPage = "";
-
+let apex_attachments = {};
+let active_weapon_attachments = {};
+let optic_customizations = {};
 const apex_weapon_name_dict = {
   "Alternator SMG": "WPN_ALTERNATOR_SMG",
   "B3": "WPN_WINGMAN",
@@ -606,7 +608,6 @@ function APEXGetPurpleTTKUpperBoundOverDistance (weapon) {
   arrays.
 */
 function APEXLoadSuccessCallback (data) {
-  APEXWeaponData = data;
   APEXWeaponData_orig = data;
   for (let i = 0; i < APEXWeaponData_orig.length; i++) {
     if (APEXWeaponData_orig[i] !== "WeaponViewkickPatterns"){
@@ -629,6 +630,49 @@ function APEXLoadSuccessCallback (data) {
     }
     APEXWeaponKeyToData[key] = dataRow
   }
+  active_weapon_attachments = {};
+  // Create attachments array for each main weapon
+  $.each(APEXWeaponData_orig, function(key, weapon) {
+    let i;
+    let attachment_list = [];
+    let optic_list = [];
+    for (const [key] of Object.entries( weapon['WeaponData']['Mods'])) {
+      if(customizationHopupStrings[key] !== undefined) {
+        attachment_list.push(key);
+      }
+      if(customizationAttachmentStrings[key] !== undefined) {
+        attachment_list.push(key);
+      }
+      if(customizationOpticStrings[key] !== undefined) {
+        optic_list.push(key);
+      }
+    }
+    weapon['WeaponData']["attachment_list"] = attachment_list;
+    weapon['WeaponData']["optic_list"] = optic_list;
+    const formatted_name = formatWeaponName(weapon['WeaponData']['printname']);
+    weapon['WeaponData']['printname'] = formatted_name.replace(" -", "");
+    if(apex_attachments[formatted_name] === undefined){
+      apex_attachments[formatted_name] = [];
+    }
+    for (i = 0; i <  weapon['WeaponData']["attachment_list"].length; i++) {
+      if( weapon['WeaponData']['Mods'][ weapon['WeaponData']["attachment_list"][i]] !== undefined) {
+
+        apex_attachments[formatted_name][i] =  weapon['WeaponData']['Mods'][ weapon['WeaponData']["attachment_list"][i]];
+        apex_attachments[formatted_name][i].attachName = [ weapon['WeaponData']["attachment_list"][i]];
+      }
+    }
+    if(optic_customizations[formatted_name] === undefined){
+      optic_customizations[formatted_name] = [];
+    }
+    for (i = 0; i <  weapon['WeaponData']["optic_list"].length; i++) {
+      if( weapon['WeaponData']['Mods'][ weapon['WeaponData']["optic_list"][i]] !== undefined) {
+
+        optic_customizations[formatted_name][i] =  weapon['WeaponData']['Mods'][ weapon['WeaponData']["optic_list"][i]];
+        optic_customizations[formatted_name][i].attachName = [ weapon['WeaponData']["optic_list"][i]];
+      }
+    }
+  });
+  APEXWeaponData =  jQuery.extend(true, [], APEXWeaponData_orig);
   APEXDataLoaded = true;
 
   // Proceed to appropriate page
@@ -644,9 +688,12 @@ function APEXLoadSuccessCallback (data) {
   into the global variables
 */
 function APEXLoadWeaponData () {
+
+  // APEXLoadWeaponData_orig();
+  // APEXWeaponData = jQuery.extend(true, {}, APEXWeaponData_orig);
   $.getJSON(APEX_DATA).done(APEXLoadSuccessCallback).fail(function (jqxhr, textStatus, error) {
     console.log('Loading APEX data failed: ' + textStatus + ' , ' + error)
-  })
+  });
 }
 
 /*
