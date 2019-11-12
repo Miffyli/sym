@@ -109,6 +109,18 @@ body {background-color: #191919;}
 /* *********** */
 /* TTK Toolbar */
 /* *********** */
+#apex_toolboxRow {
+    width:100%;
+    text-align:center;
+}
+#apex_toolboxRow > div {
+    width: calc(100% / 7);
+    display: inline-block;
+    vertical-align: top;
+    text-align:center;
+    margin: 2px 2% 2%;
+    /*padding:20px;*/
+}
 #apex_toolboxRow_2 {
     width:100%;
     text-align:center;
@@ -143,12 +155,26 @@ body {background-color: #191919;}
     margin: -52px 475px 5px 5px;
 }
 
-
 .TTK_toolbarRowContainer {
+    width:100%;
+    text-align:center;
+}
+.TTK_toolbarRowContainer > div {
     display: inline-block;
+    vertical-align: top;
+    text-align:center;
+    margin-top: 2px;
+    margin-bottom: 2%;
+    /*padding:20px;*/
 }
 
 #apex_showHideShieldTypes img{
+    display: inline-block;
+    width: 40px;
+}
+
+#apex_showHideHelmTypes img{
+    display: inline-block;
     width: 40px;
 }
 

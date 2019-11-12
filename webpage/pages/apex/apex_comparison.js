@@ -28,6 +28,7 @@ let active_comparison_weapon_attachments = [];
 let APEXAddVariantCounter = 0;
 
 let use_headshot_calculations = false;
+let helm_multi = 1.0;
 
 /*
   Return true if given variable should be included in the
@@ -802,7 +803,43 @@ function initializeAPEXComparison () {
   );
   apex_showHideShieldTypes_input.change(function(){
     this.blur();
-    showHideGraphs();
+    showHideGraphs(this);
+  });
+
+  //Show / Hide for using Helm
+  let apex_showHideHelmTypes_input = $("#apex_showHideHelmTypes input");
+  apex_showHideHelmTypes_input.checkboxradio(
+      {icon:false}
+  );
+  apex_showHideHelmTypes_input.change(function(){
+    this.blur();
+  });
+  apex_showHideHelmTypes_input.click(function(){
+    // const thisHelmId = $(this).attr("id");
+    helm_multi = 1.00;
+    if ($("#showNoHelmTTKCheck").is(":checked")){
+      $(this).parent().children().prop("checked", false).change();
+      $(this).prop("checked", true).change();
+      helm_multi = 1.0;
+    }
+    if ($("#showWhiteHelmTTKCheck").is(":checked")){
+      $(this).parent().children().prop("checked", false).change();
+      $(this).prop("checked", true).change();
+      helm_multi = 0.9;
+    }
+    if ($("#showBlueHelmTTKCheck").is(":checked")){
+      $(this).parent().children().prop("checked", false).change();
+      $(this).prop("checked", true).change();
+      helm_multi = 0.8;
+    }
+    if ($("#showPurpleHelmTTKCheck").is(":checked")){
+      $(this).parent().children().prop("checked", false).change();
+      $(this).prop("checked", true).change();
+      helm_multi = 0.75;
+    }
+    this.blur();
+    // console.log("HS Helm Multi ", helm_multi);
+    APEXUpdateFromToolBar();
   });
 
   //Show / Hide Buttons for TTK Charts
@@ -994,7 +1031,6 @@ function showHideGraphs(){
     $("#purple_btk_ub_graph").hide(0);
     $("#purple_ttk_ub_graph").hide(0);
   }
-  //
 }
 
 function updateGraphsForTargetType(){

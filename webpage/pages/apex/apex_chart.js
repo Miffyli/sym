@@ -314,15 +314,15 @@ function apex_printWeapon(weaponStats) {
         "</td>" +
         "<td class='apex_secondColumn'>" +
         "<div class='apex_damageChartContainer' " + apex_damageTooltip + ">" + apex_createDamageChart(weaponStats, weaponStats['printname'], weaponStats['damage_array'], weaponStats['damage_distance_array_m'], weaponStats['projectiles_per_shot'], weaponStats['damage_headshot_scale'], weaponStats['damage_leg_scale'], weaponStats['allow_headshots'], weaponStats['headshot_distance_m']) + "</div>" +
-        "<div class='apex_headShotDamageDistanceContainer' " + apex_damageModsHSTooltip + ">" + "<span class='apex_lblSuffixText'>" + "<img src='./pages/apex/icons/rui/misc/hs_skull_M.png' alt=''>x</span><span class='apex_lblHS_Multi'>" + weaponStats['damage_headshot_scale'] + "</span> - " + weaponStats['headshot_distance_m']+ "m </div>" +
-        "<div class='apex_legShotDamageDistanceContainer' " + apex_damageModsLSTooltip + ">" + "<span class='apex_lblSuffixText'>" + "<img src='./pages/apex/icons/rui/misc/octanes_real_legs.png' alt=''> x</span><span class='apex_lblLS_Multi'>" + weaponStats['damage_leg_scale'] + "</span></div>" +
+        "<div class='apex_headShotDamageDistanceContainer' " + apex_damageModsHSTooltip + ">" + "<span class='apex_lblSuffixText'>" + "<img src='./pages/apex/icons/rui/misc/hs_skull_M.png' alt=''> x </span><span class='apex_lblHS_Multi'>" + weaponStats['damage_headshot_scale'] + "</span> - " + weaponStats['headshot_distance_m']+ "m </div>" +
+        "<div class='apex_legShotDamageDistanceContainer' " + apex_damageModsLSTooltip + ">" + "<span class='apex_lblSuffixText'>" + "<img src='./pages/apex/icons/rui/misc/octanes_real_legs.png' alt=''> x </span><span class='apex_lblLS_Multi'>" + weaponStats['damage_leg_scale'] + "</span></div>" +
         "</td>" +
         "<td>" +
         "<td>" +
         "<div class='apex_reloadDataAndMagCount'>" + apex_createBulletSpeedGraphic(Math.round(weaponStats['projectile_launch_speed_m']), weaponStats['projectile_drag_coefficient']) + reloadData + "</div>" +
         "</td><td>" +
-        // "<div class='apex_recoilGraphBox' " + apex_recoilTooltip + ">" + standRecoilData + "</div><div class='apex_deployTimeBox'" + apex_deployTooltip + "><br><span class='apex_lblDeployTime'>" + weaponStats['deployfirst_time'] + "<span class='apex_lblSuffixText'> s</span><img class='apex_wpnSwitchImg' src='./pages/apex/icons/weapon_switch_small.png' alt=''><span class='apex_lblDeployTime'>" + weaponStats['deploy_time'] + "<span class='apex_lblSuffixText'>s</span><br><br><br><span class='apex_lblDeployTime_2'>" + formatWeaponValue(weaponStats['raise_time']) + "<span class='apex_lblSuffixText'> s</span></span></span><span class='apex_lblDeployTime_4'>" + weaponStats['holster_time'] + "<span class='apex_lblSuffixText'>s</span></span></span></div>" +
-        "<div class='apex_recoilGraphBox'>" + standRecoilData + "</div><div class='apex_deployTimeBox'><br><span class='apex_lblDeployTime'" + apex_deploy_1st_Tooltip + ">" + Number(weaponStats['deployfirst_time']).toFixed(2) + "<span class='apex_lblSuffixText'> s</span><img class='apex_wpnSwitchImg'" + apex_deployTooltip + " src='./pages/apex/icons/weapon_switch_small.png' alt=''><span class='apex_lblDeployTime'" + apex_deploy_Deploy_Tooltip + ">" + Number(weaponStats['deploy_time']).toFixed(2) + "<span class='apex_lblSuffixText'>s</span><br><br><br><span class='apex_lblDeployTime_2'" + apex_deploy_Raise_Tooltip + ">" + formatWeaponValue(Number(weaponStats['raise_time']).toFixed(2)) + "<span class='apex_lblSuffixText'> s</span></span></span><span class='apex_lblDeployTime_4'" + apex_deploy_Holster_Tooltip + ">" + Number(weaponStats['holster_time']).toFixed(2) + "<span class='apex_lblSuffixText'>s</span></span></span></div>" +
+        // "<div class='apex_recoilGraphBox' " + apex_recoilTooltip + ">" + standRecoilData + "</div><div class='apex_deployTimeBox'" + apex_deployTooltip + "><br><span class='apex_lblDeployTime'>" + weaponStats['deployfirst_time'] + "<span class='apex_lblSuffixText'>s</span><img class='apex_wpnSwitchImg' src='./pages/apex/icons/weapon_switch_small.png' alt=''><span class='apex_lblDeployTime'>" + weaponStats['deploy_time'] + "<span class='apex_lblSuffixText'>s</span><br><br><br><span class='apex_lblDeployTime_2'>" + formatWeaponValue(weaponStats['raise_time']) + "<span class='apex_lblSuffixText'>s</span></span></span><span class='apex_lblDeployTime_4'>" + weaponStats['holster_time'] + "<span class='apex_lblSuffixText'>s</span></span></span></div>" +
+        "<div class='apex_recoilGraphBox'>" + standRecoilData + "</div><div class='apex_deployTimeBox'><br><span class='apex_lblDeployTime'" + apex_deploy_1st_Tooltip + ">" + Number(weaponStats['deployfirst_time']).toFixed(2) + "<span class='apex_lblSuffixText'>s</span><img class='apex_wpnSwitchImg'" + apex_deployTooltip + " src='./pages/apex/icons/weapon_switch_small.png' alt=''><span class='apex_lblDeployTime'" + apex_deploy_Deploy_Tooltip + ">" + Number(weaponStats['deploy_time']).toFixed(2) + "<span class='apex_lblSuffixText'>s</span><br><br><br><span class='apex_lblDeployTime_2'" + apex_deploy_Raise_Tooltip + ">" + formatWeaponValue(Number(weaponStats['raise_time']).toFixed(2)) + "<span class='apex_lblSuffixText'>s</span></span></span><span class='apex_lblDeployTime_4'" + apex_deploy_Holster_Tooltip + ">" + Number(weaponStats['holster_time']).toFixed(2) + "<span class='apex_lblSuffixText'>s</span></span></span></div>" +
         "</td><td>" +
         "<div class='apex_hipSpreadContainer' " + apex_hipfireTooltip + ">" + apex_createHipSpreadGraphic(weaponStats['spread_stand_hip_run'], weaponStats['spread_air_hip'], weaponStats['spread_air_ads'], weaponStats['spread_stand_ads'], weaponStats['weapon_class'], weaponStats) + "</div>" +
         "<div>" +
@@ -513,11 +513,11 @@ function apex_updateWeapon(selectedAttachments, weapon_variant_id, weapon_string
             const weaponRow = document.getElementsByClassName(weaponStats['printname'])[(weapon_variant_id)];
             // TODO: Real Recoil - This is just a quick Temp recoil calculation until the values are more ironed out.
             $(weaponRow).find(".apex_lblMag").text(weaponStats['ammo_clip_size']);
-            let temp_pitchBase = Number(parseFloat(weaponStats['viewkick_pattern_data_sizey_avg']) * parseFloat(weaponStats['viewkick_pitch_base'])).toFixed(3);
-            let temp_pitchRandAvg = Number(Math.abs(parseFloat(weaponStats['viewkick_pattern_data_y_avg'])) * parseFloat(weaponStats['viewkick_pitch_random'])).toFixed(3);
-            let temp_YawRandAvg = Number(parseFloat(weaponStats['viewkick_pattern_data_x_avg']) * parseFloat(weaponStats['viewkick_yaw_random'])).toFixed(3);
-            let temp_YawBaseMin = Number(Math.abs(parseFloat(weaponStats['viewkick_pattern_data_x_min'])) * parseFloat(weaponStats['viewkick_yaw_base'])).toFixed(3);
-            let temp_YawBaseMax = Number(parseFloat(weaponStats['viewkick_pattern_data_x_max']) * parseFloat(weaponStats['viewkick_yaw_base'])).toFixed(3);
+            let temp_pitchBase = Number(parseFloat(weaponStats['viewkick_pattern_data_sizey_avg']) * parseFloat(weaponStats['viewkick_pitch_base']));
+            let temp_pitchRandAvg = Number(Math.abs(parseFloat(weaponStats['viewkick_pattern_data_y_avg'])) * parseFloat(weaponStats['viewkick_pitch_random']));
+            let temp_YawRandAvg = Number(parseFloat(weaponStats['viewkick_pattern_data_x_avg']) * parseFloat(weaponStats['viewkick_yaw_random']));
+            let temp_YawBaseMin = Number(Math.abs(parseFloat(weaponStats['viewkick_pattern_data_x_min'])) * parseFloat(weaponStats['viewkick_yaw_base']));
+            let temp_YawBaseMax = Number(parseFloat(weaponStats['viewkick_pattern_data_x_max']) * parseFloat(weaponStats['viewkick_yaw_base']));
             if (weaponStats['viewkick_pattern'] !== undefined) {
                 if (parseFloat(weaponStats['viewkick_pitch_base']) < 0.0) {
                     $(weaponRow).find(".apex_recoilGraphBox").html(apex_createNonPatternRecoilGraphic(temp_pitchRandAvg, temp_YawRandAvg, temp_YawBaseMin, temp_YawBaseMax, weaponStats['viewkick_pattern_data_sizex_avg'], temp_pitchBase, temp_pitchBase, temp_pitchRandAvg, temp_YawBaseMin, temp_YawRandAvg));
@@ -535,12 +535,12 @@ function apex_updateWeapon(selectedAttachments, weapon_variant_id, weapon_string
             $(weaponRow).find(".apex_lblChargeValue").html(charge_string);
             $(weaponRow).find(".apex_lblSpeedValue").text(weaponStats['projectile_launch_speed_m']);
             $(weaponRow).find(".apex_damageChartContainer").html(apex_createDamageChart(weaponStats, weaponStats['printname'], weaponStats['damage_array'], weaponStats['damage_distance_array_m'], weaponStats['projectiles_per_shot'], weaponStats['damage_headshot_scale'], weaponStats['damage_leg_scale'], weaponStats['allow_headshots'], weaponStats['headshot_distance_m']));
-            $(weaponRow).find(".apex_headShotDamageDistanceContainer").html("<span class='apex_lblSuffixText'>" + "<img src='./pages/apex/icons/rui/misc/hs_skull_M.png' alt=''>x</span>" + weaponStats['damage_headshot_scale'] + " - " + weaponStats['headshot_distance_m'] + "m");
-            $(weaponRow).find(".apex_legShotDamageDistanceContainer").html("<span class='apex_lblSuffixText'>" + "<img src='./pages/apex/icons/rui/misc/octanes_real_legs.png' alt=''> x</span>" + weaponStats['damage_leg_scale'] + "");
+            $(weaponRow).find(".apex_headShotDamageDistanceContainer").html("<span class='apex_lblSuffixText'>" + "<img src='./pages/apex/icons/rui/misc/hs_skull_M.png' alt=''> x </span><span class='apex_lblHS_Multi'>" + weaponStats['damage_headshot_scale'] + "</span> - " + weaponStats['headshot_distance_m'] + "m");
+            $(weaponRow).find(".apex_legShotDamageDistanceContainer").html("<span class='apex_lblSuffixText'>" + "<img src='./pages/apex/icons/rui/misc/octanes_real_legs.png' alt=''> x </span><span class='apex_lblLS_Multi'>" + weaponStats['damage_leg_scale'] + "</span>"+ "");
             $(weaponRow).find(".apex_reloadDataAndMagCount").html(apex_createBulletSpeedGraphic(Math.round(weaponStats['projectile_launch_speed_m']), weaponStats['projectile_drag_coefficient']) + apex_createReloadGraphic(Number(weaponStats['reloadempty_time']).toFixed(2), Number(weaponStats['reload_time']).toFixed(2)));
             $(weaponRow).find(".apex_spreadLabels").html(apex_createSpreadLabels(weaponStats['ads_move_speed_scale'], weaponStats['zoom_time_in'], weaponStats['zoom_time_out'], weaponStats['zoom_fov']));
             $(weaponRow).find(".apex_hipSpreadContainer").html(apex_createHipSpreadGraphic(weaponStats['spread_stand_hip_run'], weaponStats['spread_air_hip'], weaponStats['spread_air_ads'], weaponStats['spread_stand_ads'], weaponStats['weapon_class'], weaponStats));
-            $(weaponRow).find(".apex_lblDeployTime").html(Number(weaponStats['deployfirst_time']).toFixed(2) + "<span class='apex_lblSuffixText'>s</span><img class='apex_wpnSwitchImg'" + apex_deployTooltip + " src='./pages/apex/icons/weapon_switch_small.png' alt=''><span class='apex_lblDeployTime'" + apex_deploy_Deploy_Tooltip + ">" + Number(weaponStats['deploy_time']).toFixed(2) + "<span class='apex_lblSuffixText'>s</span><br><br><br><span class='apex_lblDeployTime_2'" + apex_deploy_Raise_Tooltip + ">" + formatWeaponValue(Number(weaponStats['raise_time']).toFixed(2)) + "<span class='apex_lblSuffixText'> s</span></span></span><span class='apex_lblDeployTime_4'" + apex_deploy_Holster_Tooltip + "'>" + Number(weaponStats['holster_time']).toFixed(2) + "<span class='apex_lblSuffixText'>s</span></span>");
+            $(weaponRow).find(".apex_lblDeployTime").html(Number(weaponStats['deployfirst_time']).toFixed(2) + "<span class='apex_lblSuffixText'>s</span><img class='apex_wpnSwitchImg'" + apex_deployTooltip + " src='./pages/apex/icons/weapon_switch_small.png' alt=''><span class='apex_lblDeployTime'" + apex_deploy_Deploy_Tooltip + ">" + Number(weaponStats['deploy_time']).toFixed(2) + "<span class='apex_lblSuffixText'>s</span><br><br><br><span class='apex_lblDeployTime_2'" + apex_deploy_Raise_Tooltip + ">" + formatWeaponValue(Number(weaponStats['raise_time']).toFixed(2)) + "<span class='apex_lblSuffixText'>s</span></span></span><span class='apex_lblDeployTime_4'" + apex_deploy_Holster_Tooltip + "'>" + Number(weaponStats['holster_time']).toFixed(2) + "<span class='apex_lblSuffixText'>s</span></span>");
             $(weaponRow).find(".apex_spreadTable").html(apex_createSpreadTableGraphic(weaponStats['spread_stand_ads'], weaponStats['spread_stand_hip'], weaponStats['spread_stand_hip_run'], weaponStats['spread_stand_hip_sprint'], weaponStats['spread_crouch_ads'], weaponStats['spread_crouch_hip'], weaponStats['spread_air_ads'], weaponStats['spread_air_hip'], weaponStats['spread_kick_on_fire_stand_ads'], weaponStats['spread_kick_on_fire_stand_hip'], weaponStats['spread_kick_on_fire_crouch_ads'], weaponStats['spread_kick_on_fire_crouch_hip'], weaponStats['spread_kick_on_fire_air_ads'], weaponStats['spread_kick_on_fire_air_hip'], weaponStats['spread_decay_delay'], weaponStats['spread_moving_decay_rate'], weaponStats['spread_decay_rate'], weaponStats['spread_moving_increase_rate']));
 
             // APEXWeaponData_Mod = jQuery.extend(true, [], APEXWeaponData);
@@ -727,9 +727,9 @@ function apex_createReloadGraphic(reloadEmpty, reloadLeft){
     if (reloadEmpty !== "N/A"){
         if(reloadEmpty === reloadLeft){
 
-            reloadData += `<div class='apex_lblReloadLeft'><img src='./pages/bfv/img/reload.png' alt='' class='apex_imgReload'><span>${reloadLeft}</span><span class='apex_lblSuffixText'> s</span></div></div>`;
+            reloadData += `<div class='apex_lblReloadLeft'><img src='./pages/bfv/img/reload.png' alt='' class='apex_imgReload'><span>${reloadLeft}</span><span class='apex_lblSuffixText'>s</span></div></div>`;
         } else {
-            reloadData += `<div class='apex_lblReloadLeft'><img src='./pages/bfv/img/reload.png' alt='' class='apex_imgReload'><span>${reloadLeft}</span><span class='apex_lblSuffixText'> s</span></div><div class='apex_lblReloadEmpty'>${reloadEmpty}<span class='apex_lblSuffixText'> s</span></div></div>`;
+            reloadData += `<div class='apex_lblReloadLeft'><img src='./pages/bfv/img/reload.png' alt='' class='apex_imgReload'><span>${reloadLeft}</span><span class='apex_lblSuffixText'>s</span></div><div class='apex_lblReloadEmpty'>${reloadEmpty}<span class='apex_lblSuffixText'>s</span></div></div>`;
         }
     } else {
         reloadData += "</div " + apex_magTooltip + ">";
@@ -870,8 +870,8 @@ function apex_createNewRecoilGraphic(viewkick_pattern_data_y_avg, viewkick_patte
 }
 
 function apex_createSpreadLabels(ads_move_speed_scale, zoom_time_in, zoom_time_out, zoom_fov){
-    return "<div class='apex_spreadMoveLabel' "+ apex_ads_move_fov_Tooltip +"><span class='apex_lblSuffixText'>x</span>" + ads_move_speed_scale + "|" + zoom_fov + "°</div>" +
-        "<div class='apex_spreadBaseLabel'"+ apex_ads_zoom_Tooltip +">" + zoom_time_in + "<span class='apex_lblSuffixText'>s</span>|" + zoom_time_out + "<span class='apex_lblSuffixText'>s </span></div>";
+    return "<div class='apex_spreadMoveLabel' "+ apex_ads_move_fov_Tooltip +"><span class='apex_lblSuffixText'> x </span>" + ads_move_speed_scale + "|" + zoom_fov + "°</div>" +
+        "<div class='apex_spreadBaseLabel'"+ apex_ads_zoom_Tooltip +">" + zoom_time_in + "<span class='apex_lblSuffixText'>s</span>|" + zoom_time_out + "<span class='apex_lblSuffixText'>s</span></div>";
 }
 
 // TODO: Add new shotgun pellet size representation
@@ -1102,7 +1102,7 @@ function apex_createBurstLabels(burst_fire_count) {
     if(burst_fire_count === undefined || parseFloat(burst_fire_count) < 1) {
         return "";
     } else {
-        return "<span class='apex_lblSuffixText'>x</span>" + burst_fire_count;
+        return "<span class='apex_lblSuffixText'> x </span>" + burst_fire_count;
     }
 
 }

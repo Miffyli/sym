@@ -226,8 +226,12 @@ function getProjectileScaleMulti(){
 
 }
 
-function getHelmMulti(){
-  return 1.0
+function getHelmMulti(weapon){
+  if ( weapon['allow_headshots'] === "1" && use_headshot_calculations ) {
+    return helm_multi;
+  } else {
+    return 1.0;
+  }
 }
 
 /*
@@ -275,7 +279,7 @@ function APEXGetDamageOverDistance (weapon) {
   hs_dist = getMaxHSDist(weapon);
   let ls_multi = getLimbMulti(weapon);
   let fort_multi = getDamageScaleMulti();
-  let helm_multi = getHelmMulti();
+  let helm_multi = getHelmMulti(weapon);
   let projectile_multi = getProjectileScaleMulti();
   let unmodified_damage;
   let damage_out;
@@ -288,6 +292,7 @@ function APEXGetDamageOverDistance (weapon) {
     unmodified_damage = APEXInterpolateDamage(dist, damages, distances);
     if ( dist > hs_dist) {
       hs_multi = 1.0;
+      helm_multi = 1.0;
     }
     damage_out = ((((((unmodified_damage * projectile_multi) * fort_multi) * hs_multi) * helm_multi) * ls_multi) * projectiles_per_shot);
     damageOverDistance.push([dist, damage_out])
@@ -308,7 +313,7 @@ function APEXGetBTKUpperBoundOverDistance (weapon) {
   hs_dist = getMaxHSDist(weapon);
   let ls_multi = getLimbMulti(weapon);
   let fort_multi = getDamageScaleMulti();
-  let helm_multi = getHelmMulti();
+  let helm_multi = getHelmMulti(weapon);
   let projectile_multi = getProjectileScaleMulti();
   let unmodified_damage;
   let damage_out;
@@ -322,12 +327,14 @@ function APEXGetBTKUpperBoundOverDistance (weapon) {
     unmodified_damage = APEXInterpolateDamage(dist, damages, distances);
     if ( dist > hs_dist) {
       hs_multi = 1.0;
+      helm_multi = 1.0;
     }
     damage_out = ((((((unmodified_damage * projectile_multi) * fort_multi) * hs_multi) * helm_multi) * ls_multi) * projectiles_per_shot);
 
     damageAtDist = damage_out; // damageAtDist = APEXInterpolateDamage(dist, damages, distances);
     if (dist > hs_dist) {
-      hs_multi = 1.0
+      hs_multi = 1.0;
+      helm_multi = 1.0;
     }
     BTKUBOverDistance.push([dist, Math.ceil(100 / (damageAtDist * APEX_MIN_DAMAGE_MULTIPLIER))])
   }
@@ -342,7 +349,7 @@ function APEXGetWhiteBTKUpperBoundOverDistance (weapon) {
   hs_dist = getMaxHSDist(weapon);
   let ls_multi = getLimbMulti(weapon);
   let fort_multi = getDamageScaleMulti();
-  let helm_multi = getHelmMulti();
+  let helm_multi = getHelmMulti(weapon);
   let projectile_multi = getProjectileScaleMulti();
   let unmodified_damage;
   let damage_out;
@@ -358,12 +365,14 @@ function APEXGetWhiteBTKUpperBoundOverDistance (weapon) {
     unmodified_damage = APEXInterpolateDamage(dist, damages, distances);
     if ( dist > hs_dist) {
       hs_multi = 1.0;
+      helm_multi = 1.0;
     }
     damage_out = ((((((unmodified_damage * projectile_multi) * fort_multi) * hs_multi) * helm_multi) * ls_multi) * projectiles_per_shot);
 
     damageAtDist = damage_out; // damageAtDist = APEXInterpolateDamage(dist, damages, distances);
     if (dist > hs_dist) {
-      hs_multi = 1.0
+      hs_multi = 1.0;
+      helm_multi = 1.0;
     }
     WhiteBTKUBOverDistance.push([dist, Math.ceil(150 / (damageAtDist * APEX_MIN_DAMAGE_MULTIPLIER))])
   }
@@ -378,7 +387,7 @@ function APEXGetBlueBTKUpperBoundOverDistance (weapon) {
   let projectiles_per_shot = getProjectilePerShot(weapon);
   let ls_multi = getLimbMulti(weapon);
   let fort_multi = getDamageScaleMulti();
-  let helm_multi = getHelmMulti();
+  let helm_multi = getHelmMulti(weapon);
   let projectile_multi = getProjectileScaleMulti();
   let unmodified_damage;
   let damage_out;
@@ -392,12 +401,14 @@ function APEXGetBlueBTKUpperBoundOverDistance (weapon) {
     unmodified_damage = APEXInterpolateDamage(dist, damages, distances);
     if ( dist > hs_dist) {
       hs_multi = 1.0;
+      helm_multi = 1.0;
     }
     damage_out = ((((((unmodified_damage * projectile_multi) * fort_multi) * hs_multi) * helm_multi) * ls_multi) * projectiles_per_shot);
 
     damageAtDist = damage_out; // damageAtDist = APEXInterpolateDamage(dist, damages, distances);
     if (dist > hs_dist) {
-      hs_multi = 1.0
+      hs_multi = 1.0;
+      helm_multi = 1.0;
     }
     BlueBTKUBOverDistance.push([dist, Math.ceil(175 / (damageAtDist * APEX_MIN_DAMAGE_MULTIPLIER))])
   }
@@ -412,7 +423,7 @@ function APEXGetPurpleBTKUpperBoundOverDistance (weapon) {
   let projectiles_per_shot = getProjectilePerShot(weapon);
   let ls_multi = getLimbMulti(weapon);
   let fort_multi = getDamageScaleMulti();
-  let helm_multi = getHelmMulti();
+  let helm_multi = getHelmMulti(weapon);
   let projectile_multi = getProjectileScaleMulti();
   let unmodified_damage;
   let damage_out;
@@ -426,12 +437,14 @@ function APEXGetPurpleBTKUpperBoundOverDistance (weapon) {
     unmodified_damage = APEXInterpolateDamage(dist, damages, distances);
     if ( dist > hs_dist) {
       hs_multi = 1.0;
+      helm_multi = 1.0;
     }
     damage_out = ((((((unmodified_damage * projectile_multi) * fort_multi) * hs_multi) * helm_multi) * ls_multi) * projectiles_per_shot);
 
     damageAtDist = damage_out; // damageAtDist = APEXInterpolateDamage(dist, damages, distances);
     if (dist > hs_dist) {
-      hs_multi = 1.0
+      hs_multi = 1.0;
+      helm_multi = 1.0;
     }
     PurpleBTKUBOverDistance.push([dist, Math.ceil(200 / (damageAtDist * APEX_MIN_DAMAGE_MULTIPLIER))])
   }
@@ -452,7 +465,7 @@ function APEXGetTTKUpperBoundOverDistance (weapon) {
   hs_dist = getMaxHSDist(weapon);
   let ls_multi = getLimbMulti(weapon);
   let fort_multi = getDamageScaleMulti();
-  let helm_multi = getHelmMulti();
+  let helm_multi = getHelmMulti(weapon);
   let projectile_multi = getProjectileScaleMulti();
   let unmodified_damage;
   let damage_out;
@@ -477,13 +490,15 @@ function APEXGetTTKUpperBoundOverDistance (weapon) {
     unmodified_damage = APEXInterpolateDamage(dist, damages, distances);
     if ( dist > hs_dist) {
       hs_multi = 1.0;
+      helm_multi = 1.0;
     }
     damage_out = ((((((unmodified_damage * projectile_multi) * fort_multi) * hs_multi) * helm_multi) * ls_multi) * projectiles_per_shot);
 
     damageAtDist = damage_out; // damageAtDist = APEXInterpolateDamage(dist, damages, distances);
     // Floor because we do not need the last bullet
     if (dist > hs_dist) {
-      hs_multi = 1.0
+      hs_multi = 1.0;
+      helm_multi = 1.0;
     }
     bulletsToKill = Math.floor(100 / (damageAtDist * APEX_MIN_DAMAGE_MULTIPLIER));
 
@@ -510,7 +525,7 @@ function APEXGetWhiteTTKUpperBoundOverDistance (weapon) {
   hs_dist = getMaxHSDist(weapon);
   let ls_multi = getLimbMulti(weapon);
   let fort_multi = getDamageScaleMulti();
-  let helm_multi = getHelmMulti();
+  let helm_multi = getHelmMulti(weapon);
   let projectile_multi = getProjectileScaleMulti();
   let unmodified_damage;
   let damage_out;
@@ -535,12 +550,14 @@ function APEXGetWhiteTTKUpperBoundOverDistance (weapon) {
     unmodified_damage = APEXInterpolateDamage(dist, damages, distances);
     if ( dist > hs_dist) {
       hs_multi = 1.0;
+      helm_multi = 1.0;
     }
     damage_out = ((((((unmodified_damage * projectile_multi) * fort_multi) * hs_multi) * helm_multi) * ls_multi) * projectiles_per_shot);
 
     damageAtDist = damage_out; // damageAtDist = APEXInterpolateDamage(dist, damages, distances);
     if (dist > hs_dist) {
-      hs_multi = 1.0
+      hs_multi = 1.0;
+      helm_multi = 1.0;
     }
     // Floor because we do not need the last bullet
     bulletsToKill = Math.floor(150 / (damageAtDist * APEX_MIN_DAMAGE_MULTIPLIER));
@@ -566,7 +583,7 @@ function APEXGetBlueTTKUpperBoundOverDistance (weapon) {
   hs_dist = getMaxHSDist(weapon);
   let ls_multi = getLimbMulti(weapon);
   let fort_multi = getDamageScaleMulti();
-  let helm_multi = getHelmMulti();
+  let helm_multi = getHelmMulti(weapon);
   let projectile_multi = getProjectileScaleMulti();
   let unmodified_damage;
   let damage_out;
@@ -592,13 +609,15 @@ function APEXGetBlueTTKUpperBoundOverDistance (weapon) {
     unmodified_damage = APEXInterpolateDamage(dist, damages, distances);
     if ( dist > hs_dist) {
       hs_multi = 1.0;
+      helm_multi = 1.0;
     }
     damage_out = ((((((unmodified_damage * projectile_multi) * fort_multi) * hs_multi) * helm_multi) * ls_multi) * projectiles_per_shot);
 
     damageAtDist = damage_out; // damageAtDist = APEXInterpolateDamage(dist, damages, distances);
     // Floor because we do not need the last bullet
     if (dist > hs_dist) {
-      hs_multi = 1.0
+      hs_multi = 1.0;
+      helm_multi = 1.0;
     }
     bulletsToKill = Math.floor(175 / (damageAtDist * APEX_MIN_DAMAGE_MULTIPLIER));
 
@@ -623,7 +642,7 @@ function APEXGetPurpleTTKUpperBoundOverDistance (weapon) {
   hs_dist = getMaxHSDist(weapon);
   let ls_multi = getLimbMulti(weapon);
   let fort_multi = getDamageScaleMulti();
-  let helm_multi = getHelmMulti();
+  let helm_multi = getHelmMulti(weapon);
   let projectile_multi = getProjectileScaleMulti();
   let unmodified_damage;
   let damage_out;
@@ -649,13 +668,15 @@ function APEXGetPurpleTTKUpperBoundOverDistance (weapon) {
     unmodified_damage = APEXInterpolateDamage(dist, damages, distances);
     if ( dist > hs_dist) {
       hs_multi = 1.0;
+      helm_multi = 1.0;
     }
     damage_out = ((((((unmodified_damage * projectile_multi) * fort_multi) * hs_multi) * helm_multi) * ls_multi) * projectiles_per_shot);
 
     damageAtDist = damage_out; // damageAtDist = APEXInterpolateDamage(dist, damages, distances);
     // Floor because we do not need the last bullet
     if (dist > hs_dist) {
-      hs_multi = 1.0
+      hs_multi = 1.0;
+      helm_multi = 1.0;
     }
     bulletsToKill = Math.floor(200 / (damageAtDist * APEX_MIN_DAMAGE_MULTIPLIER));
 
