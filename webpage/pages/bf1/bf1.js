@@ -63,6 +63,8 @@ var BF1WeaponKeys = []
 var BF1WeaponKeyToData = {}
 // Keeps track of which page to load after the data is loaded.
 var BF1SelectedPage = ""
+// Keeps track of which page to load when loading from a querystring
+var bf1PageToLoad = ""
 
 /*
   Returns html RGB color code for given array
@@ -239,7 +241,12 @@ function BF1LoadWeaponData () {
   the user to select which page to navigate to (chart, comp, etc...).
 */
 function openBF1SelectionPage () {
-  loadPageWithHeader('./pages/bf1/bf1_header.html', 'Battlefield 1', initializeBF1Selectrion)
+  loadPageWithHeader('./pages/bf1/bf1_header.html', 'Battlefield 1', initializeBF1Selection)
+}
+
+function openBF1SelectionPageFromQueryString (pageStr){
+  bf1PageToLoad = pageStr
+  loadPageWithHeader('./pages/bf1/bf1_header.html', 'Battlefield 1', BF1LoadPageFromQueryString)
 }
 
 /*
@@ -287,12 +294,15 @@ function BF1OpenPageByName(pageName) {
   if (pageName === 'Weapon Comparison') {
     $('#bf1-comparisonPageSelector').addClass('selected-selector')
     openBF1ComparisonPage()
+    updateQueryString("bf1", "comparison")
   } else if (pageName === 'General Information') {
     $('#bf1-generalinfoPageSelector').addClass('selected-selector')
     openBF1GeneralInfoPage()
+    updateQueryString("bf1", "gerneral-info")
   } else if (pageName === 'Index') {
     $('#bf1-mainPageSelector').addClass('selected-selector')
     openBF1IndexPage()
+    updateQueryString("bf1", "index")
 	}
 }
 
@@ -300,7 +310,22 @@ function BF1OpenPageByName(pageName) {
   Add handlers for the click events for the bf1 selector page and open
   the entry page for BF1
 */
-function initializeBF1Selectrion () {
+function initializeBF1Selection () {
+  BF1SetupPageHeader()
+  openBF1IndexPage()
+}
+
+/*
+  Add handlers for the click events for the bf1 index page
+*/
+function BF1initializeIndexPage(){
+  $('.indexPageItem').click(function () {
+      var itemClicked = $(this).find("h4").text()
+      BF1OpenPageByName(itemClicked)
+  })
+}
+
+function BF1SetupPageHeader(){
   $('.sym-pageSelections > div').click(function () {
     var clicked = $(this).attr('id')
     var pageName
@@ -313,15 +338,9 @@ function initializeBF1Selectrion () {
     }
     BF1OpenPageByName(pageName)
   })
-  openBF1IndexPage()
 }
 
-/*
-  Add handlers for the click events for the bf1 index page
-*/
-function BF1initializeIndexPage(){
-  $('.indexPageItem').click(function () {
-      var itemClicked = $(this).find("h4").text()
-      BF1OpenPageByName(itemClicked)
-  })
+function BF1LoadPageFromQueryString(){
+  BF1SetupPageHeader()
+  BF1OpenPageByName(bf1PageToLoad)
 }
