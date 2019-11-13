@@ -134,6 +134,9 @@ var BFVWeaponKeys = []
 var BFVWeaponKeyToData = {}
 // Keeps track of which page to load after the data is loaded.
 var BFVSelectedPage = ""
+// Keeps track of which page to load when loading from a querystring
+var bfvPageToLoad = ""
+
 
 /*
   Returns html RGB color code for given array
@@ -311,7 +314,12 @@ function BFVLoadWeaponData () {
   the user to select which page to navigate to (chart, comp, etc...).
 */
 function openBFVSelectionPage () {
-  loadPageWithHeader('./pages/bfv/bfv_header.html', 'Battlefield V', initializeBFVSelectrion)
+  loadPageWithHeader('./pages/bfv/bfv_header.html', 'Battlefield V', initializeBFVSelection)
+}
+
+function openBFVSelectionPageFromQueryString(pageStr){
+  bfvPageToLoad = pageStr
+  loadPageWithHeader('./pages/bfv/bfv_header.html', 'Battlefield V', BFVLoadPageFromQueryString)
 }
 
 /*
@@ -394,24 +402,31 @@ function BFVOpenPageByName(pageName) {
   if (pageName === 'Weapon Charts') {
     $('#bfv-chartPageSelector').addClass('selected-selector')
     openBFVChartPage()
+    updateQueryString("bfv", "charts")
   } else if (pageName === 'Weapon Comparison') {
     $('#bfv-comparisonPageSelector').addClass('selected-selector')
     openBFVComparisonPage()
+    updateQueryString("bfv", "comparison")
   } else if (pageName === 'General Information') {
     $('#bfv-generalinfoPageSelector').addClass('selected-selector')
     openBFVGeneralInfoPage()
+    updateQueryString("bfv", "general-info")
   } else if (pageName === 'Equipment Data') {
     $('#bfv-equipmentPageSelector').addClass('selected-selector')
     openBFVEquipmentPage()
+    updateQueryString("bfv", "equipment")
   } else if (pageName === 'Vehicle Data') {
     $('#bfv-vehiclePageSelector').addClass('selected-selector')
     openBFVVehiclePage()
+    updateQueryString("bfv", "vehicles")
   } else if (pageName === 'Index') {
     $('#bfv-mainPageSelector').addClass('selected-selector')
     openBFVIndexPage()
+    updateQueryString("bfv", "index")
 	} else if (pageName === 'Weapon Mechanics') {
     $('#bfv-weaponPageSelector').addClass('selected-selector')
     openBFVWeaponPage()
+    updateQueryString("bfv", "weapon-mechanics")
   }
 }
 
@@ -419,7 +434,26 @@ function BFVOpenPageByName(pageName) {
   Add handlers for the click events for the bfv selector page and open
   the entry page for BFV
 */
-function initializeBFVSelectrion () {
+function initializeBFVSelection () {
+  BFVSetupPageHeader()
+  openBFVIndexPage()
+}
+
+/*
+  Add handlers for the click events for the bfv index page
+*/
+function BFVinitializeIndexPage(){
+  $('.indexPageItem').click(function () {
+    console.log("hererere")
+      var itemClicked = $(this).find("h4").text()
+      // TODO slippery slope: If title on the buttons changes,
+      //                      it will break opening the page
+      BFVOpenPageByName(itemClicked)
+  })
+}
+
+
+function BFVSetupPageHeader(){
   $('.sym-pageSelections > div').click(function () {
     var clicked = $(this).attr('id')
     var pageName
@@ -440,18 +474,10 @@ function initializeBFVSelectrion () {
     }
     BFVOpenPageByName(pageName)
   })
-  openBFVIndexPage()
 }
 
-/*
-  Add handlers for the click events for the bfv index page
-*/
-function BFVinitializeIndexPage(){
-  $('.indexPageItem').click(function () {
-    console.log("hererere")
-      var itemClicked = $(this).find("h4").text()
-      // TODO slippery slope: If title on the buttons changes,
-      //                      it will break opening the page
-      BFVOpenPageByName(itemClicked)
-  })
+
+function BFVLoadPageFromQueryString(){
+  BFVSetupPageHeader()
+  BFVOpenPageByName(bfvPageToLoad)
 }
