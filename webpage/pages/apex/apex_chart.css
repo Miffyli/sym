@@ -987,8 +987,6 @@ img.fnone{width: 59px; height: 59px;float:none !important}
     width: 80px;
     margin-bottom: 8px;
     border-radius: 2px;
-    /*margin-left: 40px;*/
-    /*text-align: right;*/
 }
 
 #apex_showHideLegendCheckboxes_Row3 img{
@@ -996,5 +994,49 @@ img.fnone{width: 59px; height: 59px;float:none !important}
     height: 20px;
     padding: 2px 1px 18px 19px;
     margin-right: -60px;
+
+}
+
+
+.apex_recoilGraphPaperBF {
+    margin:auto;
+}
+
+#recoil_graph {
+    text-align: center;
+    padding: 25px;
+    margin:auto;
+    width: 1000px;
+    height: 1000px;
+}
+
+#apex_showHideRecoilTargetCheckboxes label {
+    width: 100px;
+    margin-bottom: 8px;
+    border-radius: 2px;
+    text-align: center;
+}
+
+#apex_showHideRecoilTargetCheckboxes img{
+    width: 20px;
+    height: 20px;
+    padding: 2px 1px 18px 19px;
+    margin-right: -60px;
+}
+
+.apex_lblDistance_01 {
+    font-size: 12px;
+    font-weight: bold;
+}
+.apex_lblDistance_02 {
+    font-size: 12px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.apex_RecoilDistanceTooltip {
+    font-family: "Arial", sans-serif;
+    color: #a9d852;
+    font-weight: bold;
 
 }

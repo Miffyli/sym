@@ -645,7 +645,7 @@
         "thickness": 2
       },
       "opacity": 1,
-      "visible": true,
+      "visible": "legendonly",
       "stackgroup": null,
       "legendgroup": 3,
       "autocolorscale": false
@@ -738,7 +738,7 @@
         "symmetric": true,
         "thickness": 2
       },
-      "visible": true,
+      "visible": "legendonly",
       "showlegend": false,
       "stackgroup": null,
       "legendgroup": 3

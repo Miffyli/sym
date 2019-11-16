@@ -1,4 +1,19 @@
 <div>
-	<h1 class="comp-pageTitle" style="width: 1200px; margin: 21px auto 60px;">Apex Legends Recoil Patterns</h1>
-	<div class="recoilGraph js-plotly-plot" id="1abf0259-75e8-47b9-96f9-6e32ec35bc8d" style="text-align: center; padding: 25px; margin:auto; width: 1000px; height: 1000px;"></div>
+	<h1 class="apex_comp-pageTitle" style="width: 1200px; margin: 21px auto 60px;">Apex Legends Recoil Patterns</h1>
+	<div id="apex_LegendsToolbar">
+		<div class="apex_LegendsToolboxRow_1">
+			<div>
+				<div id="apex_showHideRecoilTargetCheckboxes" title="Cycle through distance scaling of target reference">
+<!--					<label for="updateRecoilTargetDist"><img src="./pages/apex/icons/rui/legend_icons/class/support.png" alt=""><span class='apex_lblDistance_01'>Target</span><br><span class='apex_lblDistance_02'>Distance</span></label>-->
+					<label for="updateRecoilTargetDist"><span class='apex_lblDistance_02'>Change</span><br><span class='apex_lblDistance_01'>Target</span><br><span class='apex_lblDistance_02'>Distance</span></label>
+					<input type="checkbox" id="updateRecoilTargetDist" name="updateRecoilTargetDist" checked>
+					<span class="apex_RecoilDistanceTooltip"><span class="ui-icon ui-icon-arrowthick-1-w"></span> Press to change target distance/size in recoil graph</span>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="apex_recoilGraphPaperBF">
+		<div class="recoilGraph js-plotly-plot" id="recoil_graph"></div>
+	</div>
 </div>

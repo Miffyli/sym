@@ -781,9 +781,11 @@ function APEXLoadSuccessCallback (data) {
 
   // Proceed to appropriate page
   if (APEXSelectedPage === "APEX_CHART"){
-    loadAPEXChartPage()
+      loadAPEXChartPage()
   } else if (APEXSelectedPage === "APEX_COMPARISON"){
-    loadAPEXComparisonPage()
+      loadAPEXComparisonPage()
+  } else if (APEXSelectedPage === "APEX_RECOIL_PATTERNS"){
+      loadAPEXRecoilPatternPage()
   }
 }
 
