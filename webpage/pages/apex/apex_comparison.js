@@ -77,9 +77,9 @@ function APEXFilterTable (variableName, weaponValues, filters, includeOnlyDiffer
     // Check if all values match the first one.
     shouldInclude = shouldInclude && !weaponValues.every(weaponValue => weaponValue === weaponValues[0])
   }
-  if (shouldInclude === false){
-    console.log("Table does not have value for " + variableName);
-  }
+  // if (shouldInclude === false){
+  //   // console.log("Table does not have value for " + variableName);
+  // }
 
   return shouldInclude
 }

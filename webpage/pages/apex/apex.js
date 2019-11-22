@@ -10,6 +10,10 @@ const APEX_DAMAGE_RANGE_STEP = 1;
 const APEX_MIN_DAMAGE_MULTIPLIER = 1.0;
 
 const APEX_LOWER_IS_WORSE = new Set( [
+    'viewkick_pattern_data_y_avg',
+  'viewkick_pattern_data_x_avg',
+  'viewkick_pattern_data_x_min',
+  'ads_move_speed_scale',
   'allow_headshots',
   'ammo_clip_size',
   'ammo_default_total',
@@ -189,6 +193,15 @@ function getProjectilePerShot(weapon){
   let projectiles_per_shot = weapon['projectiles_per_shot'];
   if(projectiles_per_shot !== undefined) {
     return projectiles_per_shot
+  } else {
+    return 1
+  }
+}
+
+function getUnShieldedDamageScale(weapon) {
+  let damage_unshielded_scale = weapon['damage_unshielded_scale'];
+  if(damage_unshielded_scale !== undefined) {
+    return damage_unshielded_scale
   } else {
     return 1
   }
@@ -459,6 +472,7 @@ function APEXGetPurpleBTKUpperBoundOverDistance (weapon) {
 function APEXGetTTKUpperBoundOverDistance (weapon) {
   let msPerShot;
   let hs_multi;
+  let damage_unshielded_scale = getUnShieldedDamageScale(weapon);
   let projectiles_per_shot = getProjectilePerShot(weapon);
   hs_multi = getHSMulti(weapon);
   let hs_dist;
