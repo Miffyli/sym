@@ -783,7 +783,7 @@ function initializeAPEXComparison () {
   ).map(
       weapon => weapon["WeaponData"]["printname"]
   );
-  weaponNames.sort();
+  // weaponNames.sort();
   for (let i = 0; i < weaponNames.length; i++) {
     option = document.createElement('option');
   option.text = apex_weapon_name_dict[weaponNames[i]];
