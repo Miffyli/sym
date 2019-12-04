@@ -431,6 +431,15 @@ function apex_updateDoubleTapHopUp(selectedAttachments, weapon) {
     return mod;
 }
 
+function formatRecoilValue(value, max_count){
+    let count = -1;
+    if(Math.floor(value) === value) {
+        count = 0;
+    } else {
+        count = value.toString().split(".")[1].length || 0;
+    }
+    return ((count < max_count) ? value : value.toFixed(max_count));
+}
 
 function apex_updateWeapon(selectedAttachments, weapon_variant_id, weapon_string_name) {
     weapon_variant_id = parseInt(weapon_variant_id);
@@ -513,11 +522,11 @@ function apex_updateWeapon(selectedAttachments, weapon_variant_id, weapon_string
             const weaponRow = document.getElementsByClassName(weaponStats['printname'])[(weapon_variant_id)];
             // TODO: Real Recoil - This is just a quick Temp recoil calculation until the values are more ironed out.
             $(weaponRow).find(".apex_lblMag").text(weaponStats['ammo_clip_size']);
-            let temp_pitchBase = Number(parseFloat(weaponStats['viewkick_pattern_data_sizey_avg']) * parseFloat(weaponStats['viewkick_pitch_base']));
-            let temp_pitchRandAvg = Number(Math.abs(parseFloat(weaponStats['viewkick_pattern_data_y_avg'])) * parseFloat(weaponStats['viewkick_pitch_random']));
-            let temp_YawRandAvg = Number(parseFloat(weaponStats['viewkick_pattern_data_x_avg']) * parseFloat(weaponStats['viewkick_yaw_random']));
-            let temp_YawBaseMin = Number(Math.abs(parseFloat(weaponStats['viewkick_pattern_data_x_min'])) * parseFloat(weaponStats['viewkick_yaw_base']));
-            let temp_YawBaseMax = Number(parseFloat(weaponStats['viewkick_pattern_data_x_max']) * parseFloat(weaponStats['viewkick_yaw_base']));
+            let temp_pitchBase = formatRecoilValue(Number(parseFloat(weaponStats['viewkick_pattern_data_sizey_avg']) * parseFloat(weaponStats['viewkick_pitch_base'])), 3);
+            let temp_pitchRandAvg = formatRecoilValue(Number(Math.abs(parseFloat(weaponStats['viewkick_pattern_data_y_avg'])) * parseFloat(weaponStats['viewkick_pitch_random'])), 3);
+            let temp_YawRandAvg = formatRecoilValue(Number(parseFloat(weaponStats['viewkick_pattern_data_x_avg']) * parseFloat(weaponStats['viewkick_yaw_random'])), 3);
+            let temp_YawBaseMin = formatRecoilValue(Number(Math.abs(parseFloat(weaponStats['viewkick_pattern_data_x_min'])) * parseFloat(weaponStats['viewkick_yaw_base'])), 3);
+            let temp_YawBaseMax = formatRecoilValue(Number(parseFloat(weaponStats['viewkick_pattern_data_x_max']) * parseFloat(weaponStats['viewkick_yaw_base'])), 3);
             if (weaponStats['viewkick_pattern'] !== undefined) {
                 if (parseFloat(weaponStats['viewkick_pitch_base']) < 0.0) {
                     $(weaponRow).find(".apex_recoilGraphBox").html(apex_createNonPatternRecoilGraphic(temp_pitchRandAvg, temp_YawRandAvg, temp_YawBaseMin, temp_YawBaseMax, weaponStats['viewkick_pattern_data_sizex_avg'], temp_pitchBase, temp_pitchBase, temp_pitchRandAvg, temp_YawBaseMin, temp_YawRandAvg));
@@ -555,7 +564,7 @@ function apex_printAttachments(weaponName, weapon_ammo, isCompare, selection_id)
     let custom_string = "";
     let custom_string_0 = "";
     let custom_string_1 = "";
-    // let custom_string_2 = "";
+    let custom_string_2 = "";
     let custom_string_3 = "";
     let custom_string_4 = "";
     let slot0 = 0;
@@ -678,23 +687,23 @@ function apex_printAttachments(weaponName, weapon_ammo, isCompare, selection_id)
     optic_option_string += "</select></td2></tr2></table2>";
     hopup_option_string += "</select></td2></tr2></table2>";
     if(slot0 === 0) {
-        const slot_0_name = "_slot0";
-        custom_string_0 += "<option value="+ variant_count +"_"+ weaponName+"_"+slot_0_name+" data-image=\"./pages/apex/icons/slots/attachment_slot_blank.png\"></option>";
+        // const slot_0_name = "slot0";
+        custom_string_0 += "<img id='"+ variant_count +"_"+ weaponName+"_slot0' src='./pages/apex/icons/slots/attachment_slot_blank.png' alt=''>";
         custom_string += custom_string_0;
     } else {
         custom_string += barrel_option_string;
     }
     if(slot1 === 0) {
-        const slot_1_name = "_slot1";
-        custom_string_0 += "<option value="+ variant_count +"_"+ weaponName+"_"+slot_1_name+" data-image=\"./pages/apex/icons/slots/attachment_slot_blank.png\"></option>";
+        // const slot_1_name = "slot1";
+        custom_string_1 += "<img id='"+ variant_count +"_"+ weaponName+"_slot1' src='./pages/apex/icons/slots/attachment_slot_blank.png' alt=''>";
         custom_string += custom_string_1;
     } else {
         custom_string += mag_option_string;
     }
     if(slot2 === 0) {
-        const slot_2_name = "_slot2";
-        custom_string_0 += "<option value="+ variant_count +"_"+ weaponName+"_"+slot_2_name+" data-image=\"./pages/apex/icons/slots/attachment_slot_blank.png\"></option>";
-        custom_string += custom_string_0;
+        // const slot_2_name = "slot2";
+        custom_string_2 += "<img id='"+ variant_count +"_"+ weaponName+"_slot2' src='./pages/apex/icons/slots/attachment_slot_blank.png' alt=''>";
+        custom_string += custom_string_2;
     } else {
         custom_string += optic_option_string;
     }

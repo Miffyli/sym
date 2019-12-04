@@ -1,5 +1,5 @@
 // Path to datafile
-const APEX_DATA = './pages/apex/data/apex_test_data.json';
+const APEX_DATA = './pages/apex/data/apex_data_N1264_CL462547.json';
 // Constants for APEX
 // Constants for plotting damage/ttk/etc
 const APEX_DAMAGE_RANGE_START = 0;
@@ -198,14 +198,15 @@ function getProjectilePerShot(weapon){
   }
 }
 
-function getUnShieldedDamageScale(weapon) {
-  let damage_unshielded_scale = weapon['damage_unshielded_scale'];
-  if(damage_unshielded_scale !== undefined) {
-    return damage_unshielded_scale
-  } else {
-    return 1
-  }
-}
+// TODO: Figure out how to work unshielded damage multipliers into BTK/TTK functions that currently treat shields and HP the same.
+// function getUnShieldedDamageScale(weapon) {
+//   let damage_unshielded_scale = weapon['damage_unshielded_scale'];
+//   if(damage_unshielded_scale !== undefined) {
+//     return damage_unshielded_scale
+//   } else {
+//     return 1
+//   }
+// }
 
 function getMaxHSDist(weapon) {
   let hs_dist_float = weapon['headshot_distance_m'];
@@ -472,7 +473,7 @@ function APEXGetPurpleBTKUpperBoundOverDistance (weapon) {
 function APEXGetTTKUpperBoundOverDistance (weapon) {
   let msPerShot;
   let hs_multi;
-  let damage_unshielded_scale = getUnShieldedDamageScale(weapon);
+  // let damage_unshielded_scale = getUnShieldedDamageScale(weapon);
   let projectiles_per_shot = getProjectilePerShot(weapon);
   hs_multi = getHSMulti(weapon);
   let hs_dist;
@@ -719,8 +720,7 @@ function APEXLoadSuccessCallback (data) {
   // Apex Weapons do not have a shared set of values for weapons.
   // All keys can not be found in one weapon. Go through them all then gather all the unique.
   // TODO: change how data is parsed before being used on the site and add missing/unused keys with default values
-  //  to every weapon on the data parsing side.
-  // TODO: Filter out unnecessary , unused, and troublesome keys on the data parsing side.
+  //  to every weapon on the data parsing side. Then filter out unnecessary , unused, and troublesome keys on the data parsing side.
 
   const all_weapon_keys = [];
   for (let i = 0; i < APEXWeaponData_orig.length; i++) {

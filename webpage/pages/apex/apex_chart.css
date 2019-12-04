@@ -850,6 +850,12 @@ img.fnone{width: 59px; height: 59px;float:none !important}
     width: 298px;
     font-size: 8px;
 }
+
+.apex_customButtonsApex img {
+    position: relative;
+    vertical-align: middle;
+}
+
 .apex_customButtonsApex label{
     margin: 1px;
     width: 75px;

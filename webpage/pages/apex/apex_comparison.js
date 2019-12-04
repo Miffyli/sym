@@ -818,21 +818,25 @@ function initializeAPEXComparison () {
     // const thisHelmId = $(this).attr("id");
     helm_multi = 1.00;
     if ($("#showNoHelmTTKCheck").is(":checked")){
+      // noinspection JSValidateTypes
       $(this).parent().children().prop("checked", false).change();
       $(this).prop("checked", true).change();
       helm_multi = 1.0;
     }
     if ($("#showWhiteHelmTTKCheck").is(":checked")){
+      // noinspection JSValidateTypes
       $(this).parent().children().prop("checked", false).change();
       $(this).prop("checked", true).change();
       helm_multi = 0.9;
     }
     if ($("#showBlueHelmTTKCheck").is(":checked")){
+      // noinspection JSValidateTypes
       $(this).parent().children().prop("checked", false).change();
       $(this).prop("checked", true).change();
       helm_multi = 0.8;
     }
     if ($("#showPurpleHelmTTKCheck").is(":checked")){
+      // noinspection JSValidateTypes
       $(this).parent().children().prop("checked", false).change();
       $(this).prop("checked", true).change();
       helm_multi = 0.75;
