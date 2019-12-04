@@ -230,6 +230,9 @@ function BFVGetTTKUpperBoundOverDistance (weapon) {
   var bulletDrag = weapon['Drag']
   var numShots = weapon['ShotsPerShell']
   var msPerShot = 60000 / (weapon['RoF'])
+  if (weapon['BRoF'] != weapon['RoF']) {
+    msPerShot = 60000 / (weapon['BRoF'])
+  }
   var TTKUBOverDistance = []
 
   // Loop over distance and store damages
