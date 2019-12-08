@@ -489,6 +489,8 @@ function BFVcompPrintCustomizations (weaponName) {
   }
   BFVAddVariantCounter++
 
+  custString = BFVSwitchBayoToHeav(custString, weaponName)
+
   return custString
 }
 

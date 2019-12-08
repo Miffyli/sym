@@ -253,6 +253,8 @@ function printCustomizations(weaponName){
         custString += "</div>"
     }
 
+    custString = BFVSwitchBayoToHeav(custString, weaponName)
+
     return custString;
 }
 
