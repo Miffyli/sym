@@ -455,3 +455,16 @@ function BFVinitializeIndexPage(){
       BFVOpenPageByName(itemClicked)
   })
 }
+
+/*
+  Hackish fix to accomodate the M1 Garand having 3 tier 4 customizations.  We are replacing Bayonet with Heavy Load
+  since Bayonets don't affect weapon stats.
+*/
+function BFVSwitchBayoToHeav(custString, weaponName){
+  if(weaponName == "M1 Garand"){
+    custString = custString.replace(/Bayonet/g, 'Heavy Load')
+    custString = custString.replace(/Bayo/g, "Heav")
+  }
+
+  return custString
+}
