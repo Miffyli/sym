@@ -68,10 +68,12 @@ window.onload = function () {
   If callback is undefined, no function is called after
   this.
 */
-function loadPageWithHeader (file, header, callback = undefined) {
-  // Set the header
+function loadPageWithHeader (file, header, callback = undefined, versionInfo = '') {
+  // Set the header and version info if given
   $('.sym-main-content-header').html(header)
+  $('.sym-main-content-version').html(versionInfo)
   $('.sym-main-content').load(file, callback)
+
   // Scroll back up
   $('html,body').scrollTop(0)
 }
