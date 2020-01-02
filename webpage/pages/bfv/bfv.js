@@ -4,7 +4,7 @@ const BFV_DATA = './pages/bfv/data/bfv_J.json'
 // Manual dates when the data or pages have been modified.
 // In format "[day] [month three letters] [year four digits]"
 // e.g. 2nd Jan 2019
-const BFV_DATA_DATE = '17th Dec 2019 (BFV_J)'
+const BFV_DATA_DATE = '2nd Jan 2020 (BFV_J)'
 const BFV_PAGE_DATE = '2nd Jan 2020'
 
 // Total version string displayed under title
