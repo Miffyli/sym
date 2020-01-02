@@ -298,7 +298,7 @@ function BF1OpenPageByName(pageName) {
   } else if (pageName === 'General Information') {
     $('#bf1-generalinfoPageSelector').addClass('selected-selector')
     openBF1GeneralInfoPage()
-    updateQueryString("bf1", "gerneral-info")
+    updateQueryString("bf1", "general-info")
   } else if (pageName === 'Index') {
     $('#bf1-mainPageSelector').addClass('selected-selector')
     openBF1IndexPage()
