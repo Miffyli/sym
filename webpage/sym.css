@@ -132,6 +132,14 @@
     padding: 40px 0px 0px 0px;
 }
 
+.sym-main-content-version{
+    width: 900px;
+    margin: auto;
+    text-align: center;
+    color: #ccc;
+    padding: 10px 0px 0px 0px;
+}
+
 .sym-loading{
     text-align: center;
     font-size: 40px;

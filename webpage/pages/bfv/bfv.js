@@ -1,6 +1,15 @@
 // Path to datafile
 const BFV_DATA = './pages/bfv/data/bfv_J.json'
 
+// Manual dates when the data or pages have been modified.
+// In format "[day] [month three letters] [year four digits]"
+// e.g. 2nd Jan 2019
+const BFV_DATA_DATE = '17th Dec 2019 (BFV_J)'
+const BFV_PAGE_DATE = '2nd Jan 2020'
+
+// Total version string displayed under title
+const BFV_VERSION_STRING = `Latest updates<br>Page: ${BFV_PAGE_DATE}<br>Data: ${BFV_DATA_DATE}`
+
 // Constants for BFV
 // Constants for plotting damage/ttk/etc
 const BFV_DAMAGE_RANGE_START = 0
@@ -311,7 +320,7 @@ function BFVLoadWeaponData () {
   the user to select which page to navigate to (chart, comp, etc...).
 */
 function openBFVSelectionPage () {
-  loadPageWithHeader('./pages/bfv/bfv_header.html', 'Battlefield V', initializeBFVSelectrion)
+  loadPageWithHeader('./pages/bfv/bfv_header.html', 'Battlefield V', initializeBFVSelectrion, BFV_VERSION_STRING)
 }
 
 /*
