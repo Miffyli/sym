@@ -4,7 +4,7 @@ const BFV_DATA = './pages/bfv/data/bfv_J.json'
 // Manual dates when the data or pages have been modified.
 // In format "[day] [month three letters] [year four digits]"
 // e.g. 2nd Jan 2019
-const BFV_DATA_DATE = '2nd Jan 2020 (BFV_J)'
+const BFV_DATA_DATE = '16th Jan 2020 (BFV_J)'
 const BFV_PAGE_DATE = '2nd Jan 2020'
 
 // Total version string displayed under title
@@ -125,6 +125,7 @@ customizationStrings.BROF = "Trigger Job";
 customizationStrings.GLau = 'Grenade Launcher'
 customizationStrings.Fire = 'Fully Automatic Fire'
 customizationStrings.QCyP = 'Machined Bolt'
+customizationStrings.Supp = 'Suppressor'
 
 // A flag to tell if we have loaded BFV data already
 var BFVDataLoaded = false
