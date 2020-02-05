@@ -126,6 +126,7 @@ customizationStrings.GLau = 'Grenade Launcher'
 customizationStrings.Fire = 'Fully Automatic Fire'
 customizationStrings.QCyP = 'Machined Bolt'
 customizationStrings.Supp = 'Suppressor'
+customizationStrings.TopU = 'Top Up'
 
 // A flag to tell if we have loaded BFV data already
 var BFVDataLoaded = false
