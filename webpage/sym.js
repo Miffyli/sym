@@ -126,3 +126,7 @@ function loadNewestNewsItems (itemIndex, numItems) {
 function roundToThree(num) {
   return +(Math.round(num + 'e+3')  + 'e-3');
 }
+
+function roundToDecimal(num, decimalSpots){
+  return +(Math.round(num + 'e+' + decimalSpots)  + 'e-' + decimalSpots);
+}

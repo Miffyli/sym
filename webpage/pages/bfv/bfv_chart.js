@@ -304,6 +304,8 @@ function createReloadGraphic(reloadEmpty, reloadLeft, magSize, ammoType){
 function formatAmmoType(ammo){
     var newAmmo = ammo.replace("Carcano65x52mm", "6.5x52mm Carcano").replace("_Semi", "").replace("_SMG", "").replace("_Heavy", "").replace("_Pistol", "").replace("_Bolt", " ").replace("_SLR", " ").replace("Mauser", "Mauser ").replace("303", ".303").replace("792", "7.92").replace("Carbine", "").replace("Heavy", "").replace("Sniper", "").replace("_ShortBarrel", "");
     newAmmo = newAmmo.replace("75", "7.5").replace("351W", ".351 W").replace("35R", ".35 R").replace("_Fast", "").replace("_A5", "").replace("_Drilling", "").replace("_Improved", "").replace("_1897", "").replace("Incendiary", "").replace("LongRange", "").replace("_LowDrag", "").replace("Rifle", "").replace("_Aero", " ").replace("_", " ");
+    newAmmo = newAmmo.replace("_Auto", "").replace(" HighROF", "").replace(" M3", "").replace(" MMG", "").replace(" MG", "").replace("_CMP", "").replace(" PzB39", "");
+    
     return newAmmo;
 }
 
@@ -433,7 +435,7 @@ function formatDamagesOrDistances(dmgArray) {
 function createDamageChart(damageArr, distanceArr, numOfPellets){
     var damageChart;
     if (damageArr[0] > 50 ){
-        if(distanceArr.indexOf(200) == -1){
+        if(distanceArr.indexOf(200) == -1 && distanceArr.indexOf(125) == -1){
             damageChart = createDamageChart100Max(damageArr, distanceArr);
         } else {
             damageChart = createDamageChart100Max200Dist(damageArr, distanceArr);
@@ -454,8 +456,8 @@ function createDamageChart50Max(damageArr, distanceArr, numOfPellets){
     }
     damageLineCoords += "200," + (100 - (2 * damageArr[damageArr.length - 1])).toString();
 
-    var maxDamage = Math.round(damageArr[0]);
-    var minDamage = Math.round(damageArr[damageArr.length - 1]);
+    var maxDamage = roundToDecimal(damageArr[0], "1");
+    var minDamage = roundToDecimal(damageArr[damageArr.length - 1], "1");
 
     var maxDamageText = "";
     if(damageArr[0] > 40){
@@ -466,9 +468,9 @@ function createDamageChart50Max(damageArr, distanceArr, numOfPellets){
 
     var minDamageText = "";
     if(distanceArr[distanceArr.length - 1] < 100){
-        minDamageText = "<text x='" + (distanceArr[distanceArr.length - 1] * 2) + "' y='" + (96 - (2 * minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";
+        minDamageText = "<text x='" + (distanceArr[distanceArr.length - 1] * 2) + "' y='" + (94 - (2 * minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";
     } else {
-        minDamageText = "<text x='183' y='" + (96 - (2 * minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";
+        minDamageText = "<text x='175' y='" + (94 - (2 * minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";
     }
 
     var pelletsLabel = "";
@@ -527,8 +529,8 @@ function createDamageChart100Max(damageArr, distanceArr){
     }
     damageLineCoords += "200," + (100 - damageArr[damageArr.length - 1]).toString();
 
-    var maxDamage = Math.round(damageArr[0]);
-    var minDamage = Math.round(damageArr[damageArr.length - 1]);
+    var maxDamage = roundToDecimal(damageArr[0], "1");
+    var minDamage = roundToDecimal(damageArr[damageArr.length - 1], "1");
 
     var maxDamageText = "";
     if(damageArr[0] > 80){
@@ -539,9 +541,9 @@ function createDamageChart100Max(damageArr, distanceArr){
 
     var minDamageText = "";
     if(distanceArr[distanceArr.length - 1] < 100){
-        minDamageText = "<text x='" + (distanceArr[distanceArr.length - 1] * 2) + "' y='" + (96 - (minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";
+        minDamageText = "<text x='" + (distanceArr[distanceArr.length - 1] * 2) + "' y='" + (94 - (minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";
     } else {
-        minDamageText = "<text x='183' y='" + (96 - (minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";
+        minDamageText = "<text x='175' y='" + (94 - (minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";
     }
 
     return "<svg viewbox='0 0 200 100' class='damageChart'>" +
@@ -592,8 +594,8 @@ function createDamageChart100Max200Dist(damageArr, distanceArr){
     }
     damageLineCoords += "200," + (100 - damageArr[damageArr.length - 1]).toString();
 
-    var maxDamage = Math.round(damageArr[0]);
-    var minDamage = Math.round(damageArr[damageArr.length - 1]);
+    var maxDamage = roundToDecimal(damageArr[0], "1");
+    var minDamage = roundToDecimal(damageArr[damageArr.length - 1], "1");
 
     var maxDamageText = "";
     if(damageArr[0] > 80){
@@ -608,9 +610,9 @@ function createDamageChart100Max200Dist(damageArr, distanceArr){
 
     var minDamageText = "";
     if(distanceArr[distanceArr.length - 1] < 100){
-        minDamageText = "<text x='" + (distanceArr[distanceArr.length - 1] * 2) + "' y='" + (96 - (minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";
+        minDamageText = "<text x='" + (distanceArr[distanceArr.length - 1] * 2) + "' y='" + (94 - (minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";
     } else {
-        minDamageText = "<text x='183' y='" + (96 - (minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";
+        minDamageText = "<text x='175' y='" + (94 - (minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";
     }
 
     return "<svg viewbox='0 0 200 100' class='damageChart'>" +
