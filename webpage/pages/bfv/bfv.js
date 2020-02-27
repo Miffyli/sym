@@ -325,7 +325,7 @@ function BFVLoadWeaponData () {
   the user to select which page to navigate to (chart, comp, etc...).
 */
 function openBFVSelectionPage () {
-  loadPageWithHeader('./pages/bfv/bfv_header.html', 'Battlefield V', BFVLoadPageFromQueryString, BFV_VERSION_STRING)
+  loadPageWithHeader('./pages/bfv/bfv_header.html', 'Battlefield V', initializeBFVSelection, BFV_VERSION_STRING)
 }
 
 function openBFVSelectionPageFromQueryString(pageStr){
@@ -434,7 +434,7 @@ function BFVOpenPageByName(pageName) {
     $('#bfv-mainPageSelector').addClass('selected-selector')
     openBFVIndexPage()
     updateQueryString("bfv", "index")
-	} else if (pageName === 'Weapon Mechanics') {
+  } else if (pageName === 'Weapon Mechanics') {
     $('#bfv-weaponPageSelector').addClass('selected-selector')
     openBFVWeaponPage()
     updateQueryString("bfv", "weapon-mechanics")
