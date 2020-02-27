@@ -250,7 +250,7 @@ function BF1LoadWeaponData () {
   the user to select which page to navigate to (chart, comp, etc...).
 */
 function openBF1SelectionPage () {
-  loadPageWithHeader('./pages/bf1/bf1_header.html', 'Battlefield 1', initializeBF1Selectrion, BF1_VERSION_STRING)
+  loadPageWithHeader('./pages/bf1/bf1_header.html', 'Battlefield 1', BF1LoadPageFromQueryString, BF1_VERSION_STRING)
 }
 
 function openBF1SelectionPageFromQueryString (pageStr){

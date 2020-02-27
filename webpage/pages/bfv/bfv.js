@@ -325,7 +325,7 @@ function BFVLoadWeaponData () {
   the user to select which page to navigate to (chart, comp, etc...).
 */
 function openBFVSelectionPage () {
-  loadPageWithHeader('./pages/bfv/bfv_header.html', 'Battlefield V', initializeBFVSelectrion, BFV_VERSION_STRING)
+  loadPageWithHeader('./pages/bfv/bfv_header.html', 'Battlefield V', BFVLoadPageFromQueryString, BFV_VERSION_STRING)
 }
 
 function openBFVSelectionPageFromQueryString(pageStr){
