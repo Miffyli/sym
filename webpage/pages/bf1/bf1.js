@@ -1,6 +1,15 @@
 // Path to datafile
 const BF1_DATA = './pages/bf1/data/bf1_1.json'
 
+// Manual dates when the data or pages have been modified.
+// In format "[day] [month three letters] [year four digits]"
+// e.g. 2nd Jan 2019
+const BF1_DATA_DATE = '2nd Nov 2019 (BF1_I)'
+const BF1_PAGE_DATE = '2nd Jan 2020'
+
+// Total version string displayed under title
+const BF1_VERSION_STRING = `Latest updates<br>Page: ${BF1_PAGE_DATE}<br>Data: ${BF1_DATA_DATE}`
+
 // Constants for BF1
 // Constants for plotting damage/ttk/etc
 const BF1_DAMAGE_RANGE_START = 0
@@ -241,12 +250,12 @@ function BF1LoadWeaponData () {
   the user to select which page to navigate to (chart, comp, etc...).
 */
 function openBF1SelectionPage () {
-  loadPageWithHeader('./pages/bf1/bf1_header.html', 'Battlefield 1', initializeBF1Selection)
+  loadPageWithHeader('./pages/bf1/bf1_header.html', 'Battlefield 1', initializeBF1Selectrion, BF1_VERSION_STRING)
 }
 
 function openBF1SelectionPageFromQueryString (pageStr){
   bf1PageToLoad = pageStr
-  loadPageWithHeader('./pages/bf1/bf1_header.html', 'Battlefield 1', BF1LoadPageFromQueryString)
+  loadPageWithHeader('./pages/bf1/bf1_header.html', 'Battlefield 1', BF1LoadPageFromQueryString, BF1_VERSION_STRING)
 }
 
 /*

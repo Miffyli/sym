@@ -1,5 +1,14 @@
 // Path to datafile
-const BFV_DATA = './pages/bfv/data/bfv_H.json'
+const BFV_DATA = './pages/bfv/data/bfv_K.json'
+
+// Manual dates when the data or pages have been modified.
+// In format "[day] [month three letters] [year four digits]"
+// e.g. 2nd Jan 2019
+const BFV_DATA_DATE = '5th Feb 2020 (BFV_K)'
+const BFV_PAGE_DATE = '21st Jan 2020'
+
+// Total version string displayed under title
+const BFV_VERSION_STRING = `Latest updates<br>Page: ${BFV_PAGE_DATE}<br>Data: ${BFV_DATA_DATE}`
 
 // Constants for BFV
 // Constants for plotting damage/ttk/etc
@@ -116,6 +125,8 @@ customizationStrings.BROF = "Trigger Job";
 customizationStrings.GLau = 'Grenade Launcher'
 customizationStrings.Fire = 'Fully Automatic Fire'
 customizationStrings.QCyP = 'Machined Bolt'
+customizationStrings.Supp = 'Suppressor'
+customizationStrings.TopU = 'Top Up'
 
 // A flag to tell if we have loaded BFV data already
 var BFVDataLoaded = false
@@ -314,12 +325,12 @@ function BFVLoadWeaponData () {
   the user to select which page to navigate to (chart, comp, etc...).
 */
 function openBFVSelectionPage () {
-  loadPageWithHeader('./pages/bfv/bfv_header.html', 'Battlefield V', initializeBFVSelection)
+  loadPageWithHeader('./pages/bfv/bfv_header.html', 'Battlefield V', initializeBFVSelectrion, BFV_VERSION_STRING)
 }
 
 function openBFVSelectionPageFromQueryString(pageStr){
   bfvPageToLoad = pageStr
-  loadPageWithHeader('./pages/bfv/bfv_header.html', 'Battlefield V', BFVLoadPageFromQueryString)
+  loadPageWithHeader('./pages/bfv/bfv_header.html', 'Battlefield V', BFVLoadPageFromQueryString, BFV_VERSION_STRING)
 }
 
 /*
@@ -476,8 +487,33 @@ function BFVSetupPageHeader(){
   })
 }
 
-
 function BFVLoadPageFromQueryString(){
   BFVSetupPageHeader()
   BFVOpenPageByName(bfvPageToLoad)
+}
+
+/*
+  Add handlers for the click events for the bfv index page
+*/
+function BFVinitializeIndexPage(){
+  $('.indexPageItem').click(function () {
+    console.log("hererere")
+      var itemClicked = $(this).find("h4").text()
+      // TODO slippery slope: If title on the buttons changes,
+      //                      it will break opening the page
+      BFVOpenPageByName(itemClicked)
+  })
+}
+
+/*
+  Hackish fix to accomodate the M1 Garand having 3 tier 4 customizations.  We are replacing Bayonet with Heavy Load
+  since Bayonets don't affect weapon stats.
+*/
+function BFVSwitchBayoToHeav(custString, weaponName){
+  if(weaponName == "M1 Garand"){
+    custString = custString.replace(/Bayonet/g, 'Heavy Load')
+    custString = custString.replace(/Bayo/g, "Heav")
+  }
+
+  return custString
 }
