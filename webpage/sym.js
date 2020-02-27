@@ -22,24 +22,31 @@ window.onload = function () {
     if (clicked === 'menuNews') {
       // Only load three latest news for now
       loadPageWithHeader('./pages/misc/news.html', 'News', function() { loadNewestNewsItems(1, 3) })
+      updateQueryString("sym", "news")
     } else if (clicked === 'menuForums') {
       openNewTab(SYM_FORUMS_URL)
     } else if (clicked === 'menuDiscord') {
       openNewTab(SYM_DISCORD_URL)
     } else if (clicked === 'menuBFV') {
       openBFVSelectionPage()
+      updateQueryString("bfv", "index")
     } else if (clicked === 'menuBF1') {
       openBF1SelectionPage()
+      updateQueryString("bf1", "index")
     } else if (clicked === 'menuDatabrowser') {
       openNewTab(SYM_DATABROWSER_URL)
     } else if (clicked === 'menuAbout') {
       loadPageWithHeader('./pages/misc/about.html', 'About Sym')
+      updateQueryString("sym", "about")
     } else if (clicked === 'menuFAQ') {
       loadPageWithHeader('./pages/misc/faq.html', 'Frequently Asked Questions')
+      updateQueryString("sym", "faq")
     } else if (clicked === 'menuContact') {
       loadPageWithHeader('./pages/misc/contact.html', 'Contact Us')
+      updateQueryString("sym", "contact-us")
     } else if (clicked === 'menuStaff') {
       loadPageWithHeader('./pages/misc/staff.html', 'Site Staff')
+      updateQueryString("sym", "staff")
     } else if (clicked === 'menuGithub') {
       openNewTab(SYM_GITHUB_URL)
     }
@@ -48,16 +55,19 @@ window.onload = function () {
   // Handle click for the sym logo, return to home when clicked.
   $('.sym-banner').click(function () {
     window.location.replace('index.html')
+    updateQueryString("sym", "home")
   })
 
   // Handle click for 'JUMP IN WITH BFV' button, loads bfv page.
   $('.sym-home-jumpin-btn').click(function () {
     openBFVSelectionPage()
+    updateQueryString("sym", "index")
   })
 
   // Handle click for 'LEARN MORE' button, loads about page
   $('.sym-main-desc-learnMore-btn').click(function () {
     loadPageWithHeader('./pages/misc/about.html', 'About Sym')
+    updateQueryString("sym", "about")
   })
 }
 
@@ -124,9 +134,100 @@ function loadNewestNewsItems (itemIndex, numItems) {
     Rounds a number to at most 3 decimal places but will not add trailing zeros
 */
 function roundToThree(num) {
-  return +(Math.round(num + 'e+3')  + 'e-3');
+  return +(Math.round(num + 'e+3')  + 'e-3')
 }
 
 function roundToDecimal(num, decimalSpots){
   return +(Math.round(num + 'e+' + decimalSpots)  + 'e-' + decimalSpots);
 }
+
+/*
+  Writes a query string to the URL given the supplied parameters
+  2 or more word values use '-' as in 'weapon-mechanics
+*/
+function updateQueryString(gameValue, pageValue){
+  var params = {game: gameValue, 
+                page: pageValue}
+  var queryString = $.param(params)
+  var newURL = window.location.protocol + "//" + window.location.host + window.location.pathname + '?' + queryString
+  window.history.pushState({path:newURL},'',newURL)
+}
+
+
+function exceuteQueryStringParams(){
+  const urlParams = new URLSearchParams(window.location.search)
+  const game = urlParams.get('game')
+  const page = urlParams.get('page')
+  console.log("game: " + game + ", page: " + page)
+
+  switch(game){
+    case 'bfv':
+      switch(page){
+        case 'index':
+          openBFVSelectionPage()
+          break
+        case 'general-info':
+          openBFVSelectionPageFromQueryString('General Information')
+          break
+        case 'weapon-mechanics':
+          openBFVSelectionPageFromQueryString('Weapon Mechanics')
+          break
+        case 'charts':
+            openBFVSelectionPageFromQueryString('Weapon Charts')
+          break
+        case 'comparison':
+          openBFVSelectionPageFromQueryString('Weapon Comparison')
+          break
+        case 'equipment':
+          openBFVSelectionPageFromQueryString('Equipment Data')
+          break
+        case 'vehicles':
+          openBFVSelectionPageFromQueryString('Vehicle Data')
+          break
+      }
+      break
+    case 'bf1':
+      switch(page){
+        case 'index':
+          openBF1SelectionPage()
+          updateQueryString("bf1", "index")
+        break
+        case 'general-info':
+          openBF1SelectionPageFromQueryString('General Information')
+          break
+        case 'comparison':
+          openBF1SelectionPageFromQueryString('Weapon Comparison')
+          break
+      }
+      break
+    case 'sym':
+      switch(page){
+        case 'news':
+          loadPageWithHeader('./pages/misc/news.html', 'News', function() { loadNewestNewsItems(1, 3) })
+          updateQueryString("sym", "news")
+          break
+        case 'about':
+          loadPageWithHeader('./pages/misc/about.html', 'About Sym')
+          updateQueryString("sym", "about")
+          break
+        case 'faq':
+          loadPageWithHeader('./pages/misc/faq.html', 'Frequently Asked Questions')
+          updateQueryString("sym", "faq")
+          break
+        case 'contact-us':
+          loadPageWithHeader('./pages/misc/contact.html', 'Contact Us')
+          updateQueryString("sym", "contact-us")
+          break
+        case 'staff':
+          loadPageWithHeader('./pages/misc/staff.html', 'Site Staff')
+          updateQueryString("sym", "staff")
+          break
+      }
+      break;
+  }
+
+}
+
+$(document).ready(function() {
+  exceuteQueryStringParams()
+});
