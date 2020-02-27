@@ -78,10 +78,12 @@ window.onload = function () {
   If callback is undefined, no function is called after
   this.
 */
-function loadPageWithHeader (file, header, callback = undefined) {
-  // Set the header
+function loadPageWithHeader (file, header, callback = undefined, versionInfo = '') {
+  // Set the header and version info if given
   $('.sym-main-content-header').html(header)
+  $('.sym-main-content-version').html(versionInfo)
   $('.sym-main-content').load(file, callback)
+
   // Scroll back up
   $('html,body').scrollTop(0)
 }
@@ -133,6 +135,10 @@ function loadNewestNewsItems (itemIndex, numItems) {
 */
 function roundToThree(num) {
   return +(Math.round(num + 'e+3')  + 'e-3')
+}
+
+function roundToDecimal(num, decimalSpots){
+  return +(Math.round(num + 'e+' + decimalSpots)  + 'e-' + decimalSpots);
 }
 
 /*

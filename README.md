@@ -3,9 +3,7 @@ Hosted at [sym.gg](https://sym.gg).
 
 Your one-place-stop for insight on game mechanics. Successor to [symthic.com](https://symthic.com).
 
-**Note:** As of writing (3rd of November), there are rough edges on the site and number of features
-          being worked on. Any and all feedback is warmly accepted, either via [Discord](https://discord.gg/Z9vcu46) or
-		  [issues](https://github.com/miffyli/sym/issues)! 
+Any and all feedback is warmly accepted, either via [Discord](https://discord.gg/Z9vcu46) or [issues](https://github.com/miffyli/sym/issues)! 
 
 ## Team
 
