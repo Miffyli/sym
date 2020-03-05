@@ -1,10 +1,10 @@
 // Path to datafile
-const BFV_DATA = './pages/bfv/data/bfv_K.json'
+const BFV_DATA = './pages/bfv/data/bfv_L.json'
 
 // Manual dates when the data or pages have been modified.
 // In format "[day] [month three letters] [year four digits]"
 // e.g. 2nd Jan 2019
-const BFV_DATA_DATE = '5th Feb 2020 (BFV_K)'
+const BFV_DATA_DATE = '5th Mar 2020 (BFV_L)'
 const BFV_PAGE_DATE = '21st Jan 2020'
 
 // Total version string displayed under title
