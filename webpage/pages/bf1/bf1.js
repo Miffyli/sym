@@ -290,6 +290,22 @@ function loadBF1ComparisonPage(){
   $('.bf1-main-content').load('./pages/bf1/bf1_comparison.html', initializeBF1Comparison)
 }
 
+/*
+  Load the BF1 chart page
+*/
+function openBF1ChartPage () {
+  if (BF1DataLoaded === false) {
+    BF1SelectedPage = "BF1_CHART"
+    BF1LoadWeaponData()
+  } else {
+    loadBF1ChartPage()
+  }
+}
+
+function loadBF1ChartPage(){
+    $('.bf1-main-content').load('./pages/bf1/bf1_chart.html', BF1initializeChartPage)
+}
+
 
 /*
   Main hub for opening different BF1 pages based on their name.
@@ -312,7 +328,11 @@ function BF1OpenPageByName(pageName) {
     $('#bf1-mainPageSelector').addClass('selected-selector')
     openBF1IndexPage()
     updateQueryString("bf1", "index")
-	}
+	} else if (pageName === 'Weapon Charts') {
+    $('#bf1-chartPageSelector').addClass('selected-selector')
+    openBF1ChartPage()
+    updateQueryString("bf1", "charts")
+  }
 }
 
 /*
@@ -344,6 +364,8 @@ function BF1SetupPageHeader(){
       pageName = 'Index'
 	  } else if (clicked === 'bf1-generalinfoPageSelector') {
       pageName = 'General Information'
+    } else if (clicked === 'bf1-chartPageSelector') {
+      pageName = 'Weapon Charts'
     }
     BF1OpenPageByName(pageName)
   })
