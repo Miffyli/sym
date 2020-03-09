@@ -380,7 +380,7 @@ fiveMline {
 
 .reloadDataAndMagCount{
     margin : 0 !important;
-    width: 100px;
+    width: 70px;
     vertical-align: top;
 }
 
@@ -505,13 +505,17 @@ fiveMline {
 
 .variantButton{
     border-radius: 2px;
+    background:gray;
+    border:black;
+    height: 20px;
 }
 
 .afterCustButtons{
+    width: 30px
 }
 
 .sortDragIcon{
-    width: 45px;
+    width: 30px;
     margin-bottom: 12px;
     opacity: .8;
 }
