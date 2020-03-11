@@ -437,7 +437,7 @@ function formatDamagesOrDistances(dmgArray) {
 function createDamageChart(damageArr, distanceArr, numOfPellets){
     var damageChart;
     if (damageArr[0] > 50 ){
-        if(distanceArr.indexOf(200) == -1 && distanceArr.indexOf(125) == -1){
+        if(distanceArr.indexOf(200) == -1){
             damageChart = createDamageChart100Max(damageArr, distanceArr);
         } else {
             damageChart = createDamageChart100Max200Dist(damageArr, distanceArr);
