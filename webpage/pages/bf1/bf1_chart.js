@@ -1,5 +1,5 @@
 
-var weaponClassTitles = ["","Medic","Assault","Support","Recon", "", "", "", "Sidearms"];
+var weaponClassTitles = ["","Medic","Assault","Support","Recon", "Tanker / Pilot / Elite", "", "", "Sidearms"];
 var firestormWeapons = []//["Gewehr 43","M1A1 Carbine","Sturmgewehr 1-5","StG 44","MP40","De Lisle Commando","STEN","Suomi KP/-31","M1928A1","LS/26","FG-42","Bren Gun","MG42","VGO","M97","12g Automatic","Lee-Enfield No4 Mk1","Kar98k","ZH-29","Boys AT Rifle","P38 Pistol","P08 Pistol","M1911","Liberator","Mk VI Revoler"];
 var customizations = new Object();
 var addVariantCounter = 0;
@@ -86,6 +86,7 @@ function printWeapons(){
     statsHtml += printWeaponClass(3);
     statsHtml += printWeaponClass(4);
     statsHtml += printWeaponClass(8);
+    statsHtml += printWeaponClass(5);
 
     $("#pageBody").html(statsHtml);
     showHideClasses();
@@ -149,21 +150,19 @@ function printWeaponClass(weaponClass){
 function printWeapon(weaponStats){
     var firestormIcon = (firestormWeapons.includes(weaponStats.WeapShowName) ? "<img src='./pages/bfv/img/firestorm.png' " + firestormTooltip + ">" : "");
     var reloadData = createReloadGraphic(weaponStats.ReloadEmpty, weaponStats.ReloadLeft, weaponStats.MagSize, weaponStats.Ammo);
-    var standRecoilData = createRecoilGraphic(weaponStats.ADSRecoilLeft, weaponStats.ADSRecoilRight, 0,weaponStats.ADSRecoilUp);// weaponStats.ADSStandRecoilInitialUp);
+    var standRecoilData = createRecoilGraphic(weaponStats.ADSRecoilLeft, weaponStats.ADSRecoilRight, 0,weaponStats.ADSRecoilUp);
     var spreadTableGraphic = createSpreadTableGraphic(weaponStats.ADSStandBaseMin,weaponStats.ADSCrouchBaseMin,weaponStats.ADSProneBaseMin,
                                                       weaponStats.ADSStandMoveMin,weaponStats.ADSCrouchMoveMin,weaponStats.ADSProneMoveMin,
                                                       weaponStats.HIPStandBaseMin,weaponStats.HIPCrouchBaseMin,weaponStats.HIPProneBaseMin,
                                                       weaponStats.HIPStandMoveMin,weaponStats.HIPCrouchMoveMin,weaponStats.HIPProneMoveMin,
                                                       weaponStats.ADSStandBaseSpreadInc, weaponStats.HIPStandBaseSpreadInc)
-    //var customizationsGraphic = ""; //(weaponStats.Class == 8) ? "" : printCustomizations([weaponStats.WeapShowName]);
-    //var addVariantGraphic = (weaponStats.Class == 8 || addVariantCounter != 0) ? "" : "<button class='variantButton btn btn-outline-light btn-sm' " + variantTooltip + ">+</button>";
-    var rtnStr = "<tr class='" + weaponStats.WeapShowName.replace(/ |\//g,"") + " sub_" + getWeaponsSubcat(weaponStats.WeapShowName) +"'>" +
+   var rtnStr = "<tr class='" + weaponStats.WeapShowName.replace(/ |\//g,"") + " sub_" + getWeaponsSubcat(weaponStats.WeapShowName) +"'>" +
                      "<td class='firstColumn'>" +
                          "<div class='lblWeaponName'>" +
                             "<span class='lblWeaponNameValue'>" + weaponStats.WeapShowName + "</span>" + firestormIcon +
                          "</div>" +
                          "<div>" +
-                             "<img class='weaponImg' src='./pages/bf1/img/" + weaponStats.WeapShowName.replace("/","") + ".png' onerror='showBlank(this);'>" +
+                             "<img class='weaponImg' src='./pages/bf1/img/weapons/" + getWeaponImageFilename(weaponStats.WeapShowName.replace("/","")) + ".png' onerror='showBlank(this);'>" +
                          "</div>" +
                          "<div style='line-height: 20px;'>" +
                              "<span class='lblMagText'>" +
@@ -239,21 +238,9 @@ function updateWeapon(selectedCustomizations, selectedCustButton){
 
 }
 
-function printCustomizations(weaponName){
-    var custString = "";
-    var variantNum = (addVariantCounter == 0) ? "" : addVariantCounter;
-
-    for (var i = 0; i < customizations[weaponName].length; i++){
-        var rowClass = "custRow" + i.toString();
-        custString +="<div>"
-        custString += "<input id='" + addVariantCounter + weaponName + customizations[weaponName][i].a + i.toString() + "' name='" + addVariantCounter + weaponName + i.toString() + "' type='radio' class='custButton " + rowClass + " custCol1'><label data-shortname='" + customizations[weaponName][i].a + "' for='" + addVariantCounter + weaponName + customizations[weaponName][i].a + i.toString() + "'>" + customizationStrings[customizations[weaponName][i].a] + "</label>";
-        custString += "<input id='" + addVariantCounter + weaponName + customizations[weaponName][i].b + i.toString() + "' name='" + addVariantCounter + weaponName + i.toString() + "' type='radio' class='custButton " + rowClass + " custCol2'><label data-shortname='" + customizations[weaponName][i].b + "' for='" + addVariantCounter + weaponName + customizations[weaponName][i].b + i.toString() + "'>" + customizationStrings[customizations[weaponName][i].b] + "</label>";
-        custString += "</div>"
-    }
-
-    custString = BFVSwitchBayoToHeav(custString, weaponName)
-
-    return custString;
+function getWeaponImageFilename(weaponName){
+    var weaponFilename =  weaponName.replace("Backbored", "").replace("Cavalry", "").replace("Hunter", "").replace("Storm", "").replace("Trench", "").replace("Factory", "").replace("Defensive", "").replace("Sweeper", "").replace("Experimental", "").replace("Optical", "").replace("Slug", "").replace("Hunter", "").replace("Marksman", "").replace("Sniper", "").replace("Telescopic", "").replace("Low Weight", "").replace("Suppressive", "").replace("Infantry", "").replace("Silenced", "").replace("Patrol", "").replace("Carbine", "").trim();
+    return weaponFilename;
 }
 
 function createBulletSpeedGraphic(initialSpeed, drag){
