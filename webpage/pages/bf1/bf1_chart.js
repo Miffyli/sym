@@ -439,82 +439,83 @@ function createDamageChart(damageArr, distanceArr, numOfPellets, weaponClass){
 
 function createDamageChart50Max(damageArr, distanceArr, numOfPellets){
     var damageLineCoords = "";
-    damageLineCoords = distanceArr[0] == 0.0 ? "" : "0," + (100 - (2 * damageArr[0])) + " ";
+    damageLineCoords = distanceArr[0] == 0.0 ? "" : "0," + (120 - (2 * damageArr[0])) + " ";
     for (var i = 0; i < damageArr.length; i++){
-        var damageCoord = 100 - (2 * damageArr[i]);
+        var damageCoord = 120 - (2 * damageArr[i]);
         var distanceCoord = 2 * distanceArr[i];
         damageLineCoords += distanceCoord.toString() + "," + damageCoord.toString() + " ";
     }
-    damageLineCoords += "300," + (100 - (2 * damageArr[damageArr.length - 1])).toString();
+    damageLineCoords += "300," + (120 - (2 * damageArr[damageArr.length - 1])).toString();
 
     var maxDamage = roundToDecimal(damageArr[0], "1");
     var minDamage = roundToDecimal(damageArr[damageArr.length - 1], "1");
 
     var maxDamageText = "";
     if(damageArr[0] > 40){
-        maxDamageText = "<text x='" + distanceArr[1] + "' y='" + (118 - (2 * maxDamage)).toString() + "' class='chartMinMaxLabel maxDamageText'>" + maxDamage + "</text>";
+        maxDamageText = "<text x='" + distanceArr[1] + "' y='" + (138 - (2 * maxDamage)).toString() + "' class='chartMinMaxLabel maxDamageText'>" + maxDamage + "</text>";
     } else {
-        maxDamageText = "<text x='" + distanceArr[1] + "' y='" + (96 - (2 * maxDamage)).toString() + "' class='chartMinMaxLabel maxDamageText'>" + maxDamage + "</text>";
+        maxDamageText = "<text x='" + distanceArr[1] + "' y='" + (116 - (2 * maxDamage)).toString() + "' class='chartMinMaxLabel maxDamageText'>" + maxDamage + "</text>";
     }
 
     var minDamageText = "";
     if(distanceArr[distanceArr.length - 1] < 150){
-        minDamageText = "<text x='" + (distanceArr[distanceArr.length - 1] * 2) + "' y='" + (94 - (2 * minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";
+        minDamageText = "<text x='" + (distanceArr[distanceArr.length - 1] * 2) + "' y='" + (114 - (2 * minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";
     } else {
-        minDamageText = "<text x='225' y='" + (91 - (2 * minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";
+        minDamageText = "<text x='225' y='" + (111 - (2 * minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";
     }
     
 
     var pelletsLabel = "";
     if (numOfPellets > 1){
-        pelletsLabel = "<text x='185' y='75' class='chartMinMaxLabel'>" + numOfPellets + " pellets</text>";
+        pelletsLabel = "<text x='230' y='85' class='chartMinMaxLabel'>" + numOfPellets + " pellets</text>";
     }
 
-    return "<svg viewbox='0 0 300 100' class='damageChart'>" +
-               "<rect width='200' height='100' style='stroke:rgb(0,0,100);stroke-width:0' fill='rgb(25,25,25)' />" +
+    return "<svg viewbox='0 0 300 120' class='damageChart'>" +
+               "<rect width='300' height='120' style='stroke:rgb(0,0,100);stroke-width:0' fill='rgb(25,25,25)' />" +
 
-               "<line x1='10' y1='0' x2='10' y2='100' class='gridLineThin'/>" +
-               "<line x1='20' y1='0' x2='20' y2='100' class='gridLineThin'/>" +
-               "<line x1='30' y1='0' x2='30' y2='100' class='gridLineThin'/>" +
-               "<line x1='40' y1='0' x2='40' y2='100' class='gridLineThin'/>" +
-               "<line x1='60' y1='0' x2='60' y2='100' class='gridLineThin'/>" +
-               "<line x1='70' y1='0' x2='70' y2='100' class='gridLineThin'/>" +
-               "<line x1='80' y1='0' x2='80' y2='100' class='gridLineThin'/>" +
-               "<line x1='90' y1='0' x2='90' y2='100' class='gridLineThin'/>" +
-               "<line x1='110' y1='0' x2='110' y2='100' class='gridLineThin'/>" +
-               "<line x1='120' y1='0' x2='120' y2='100' class='gridLineThin'/>" +
-               "<line x1='130' y1='0' x2='130' y2='100' class='gridLineThin'/>" +
-               "<line x1='140' y1='0' x2='140' y2='100' class='gridLineThin'/>" +
-               "<line x1='160' y1='0' x2='160' y2='100' class='gridLineThin'/>" +
-               "<line x1='170' y1='0' x2='170' y2='100' class='gridLineThin'/>" +
-               "<line x1='180' y1='0' x2='180' y2='100' class='gridLineThin'/>" +
-               "<line x1='190' y1='0' x2='190' y2='100' class='gridLineThin'/>" +
-               "<line x1='210' y1='0' x2='210' y2='100' class='gridLineThin'/>" +
-               "<line x1='220' y1='0' x2='220' y2='100' class='gridLineThin'/>" +
-               "<line x1='230' y1='0' x2='230' y2='100' class='gridLineThin'/>" +
-               "<line x1='240' y1='0' x2='240' y2='100' class='gridLineThin'/>" +
-               "<line x1='260' y1='0' x2='260' y2='100' class='gridLineThin'/>" +
-               "<line x1='270' y1='0' x2='270' y2='100' class='gridLineThin'/>" +
-               "<line x1='280' y1='0' x2='280' y2='100' class='gridLineThin'/>" +
-               "<line x1='290' y1='0' x2='290' y2='100' class='gridLineThin'/>" +
+               "<line x1='10' y1='0' x2='10' y2='120' class='gridLineThin'/>" +
+               "<line x1='20' y1='0' x2='20' y2='120' class='gridLineThin'/>" +
+               "<line x1='30' y1='0' x2='30' y2='120' class='gridLineThin'/>" +
+               "<line x1='40' y1='0' x2='40' y2='120' class='gridLineThin'/>" +
+               "<line x1='60' y1='0' x2='60' y2='120' class='gridLineThin'/>" +
+               "<line x1='70' y1='0' x2='70' y2='120' class='gridLineThin'/>" +
+               "<line x1='80' y1='0' x2='80' y2='120' class='gridLineThin'/>" +
+               "<line x1='90' y1='0' x2='90' y2='120' class='gridLineThin'/>" +
+               "<line x1='110' y1='0' x2='110' y2='120' class='gridLineThin'/>" +
+               "<line x1='120' y1='0' x2='120' y2='120' class='gridLineThin'/>" +
+               "<line x1='130' y1='0' x2='130' y2='120' class='gridLineThin'/>" +
+               "<line x1='140' y1='0' x2='140' y2='120' class='gridLineThin'/>" +
+               "<line x1='160' y1='0' x2='160' y2='120' class='gridLineThin'/>" +
+               "<line x1='170' y1='0' x2='170' y2='120' class='gridLineThin'/>" +
+               "<line x1='180' y1='0' x2='180' y2='120' class='gridLineThin'/>" +
+               "<line x1='190' y1='0' x2='190' y2='120' class='gridLineThin'/>" +
+               "<line x1='210' y1='0' x2='210' y2='120' class='gridLineThin'/>" +
+               "<line x1='220' y1='0' x2='220' y2='120' class='gridLineThin'/>" +
+               "<line x1='230' y1='0' x2='230' y2='120' class='gridLineThin'/>" +
+               "<line x1='240' y1='0' x2='240' y2='120' class='gridLineThin'/>" +
+               "<line x1='260' y1='0' x2='260' y2='120' class='gridLineThin'/>" +
+               "<line x1='270' y1='0' x2='270' y2='120' class='gridLineThin'/>" +
+               "<line x1='280' y1='0' x2='280' y2='120' class='gridLineThin'/>" +
+               "<line x1='290' y1='0' x2='290' y2='120' class='gridLineThin'/>" +
 
-               "<line x1='50' y1='0' x2='50' y2='100' class='gridLineFat'/>" +
-               "<line x1='100' y1='0' x2='100' y2='100' class='gridLineFat'/>" +
-               "<line x1='150' y1='0' x2='150' y2='100' class='gridLineFat'/>" +
-               "<line x1='200' y1='0' x2='200' y2='100' class='gridLineFat'/>" +
-               "<line x1='250' y1='0' x2='250' y2='100' class='gridLineFat'/>" +
+               "<line x1='50' y1='0' x2='50' y2='120' class='gridLineFat'/>" +
+               "<line x1='100' y1='0' x2='100' y2='120' class='gridLineFat'/>" +
+               "<line x1='150' y1='0' x2='150' y2='120' class='gridLineFat'/>" +
+               "<line x1='200' y1='0' x2='200' y2='120' class='gridLineFat'/>" +
+               "<line x1='250' y1='0' x2='250' y2='120' class='gridLineFat'/>" +
 
-               "<line x1='0' y1='50' x2='300' y2='50' style='stroke:rgb(175,175,175); stroke-width:.5'/>" +
-               "<text x='0' y='58' class='chartLabel'>25</text>" +
-               "<line x1='0' y1='33' x2='300' y2='33' style='stroke:rgb(175,175,175); stroke-width:.25'/>" +
-               "<text x='0' y='41' class='chartLabel'>33</text>" +
-               "<text x='0' y='8' class='chartLabel'>50</text>" +
+               "<line x1='0' y1='70' x2='300' y2='70' style='stroke:rgb(175,175,175); stroke-width:.5'/>" +
+               "<text x='0' y='78' class='chartLabel'>25</text>" +
+               "<line x1='0' y1='53' x2='300' y2='53' style='stroke:rgb(175,175,175); stroke-width:.25'/>" +
+               "<text x='0' y='61' class='chartLabel'>33</text>" +
+               "<line x1='0' y1='20' x2='300' y2='20' style='stroke:rgb(175,175,175); stroke-width:.5'/>" +
+               "<text x='0' y='28' class='chartLabel'>50</text>" +
 
-               "<text x='51' y='99' class='chartLabel'>25m</text>" +
-               "<text x='101' y='99' class='chartLabel'>50m</text>" +
-               "<text x='151' y='99' class='chartLabel'>75m</text>" +
-               "<text x='201' y='99' class='chartLabel'>100m</text>" +
-               "<text x='251' y='99' class='chartLabel'>125m</text>" +
+               "<text x='51' y='119' class='chartLabel'>25m</text>" +
+               "<text x='101' y='119' class='chartLabel'>50m</text>" +
+               "<text x='151' y='119' class='chartLabel'>75m</text>" +
+               "<text x='201' y='119' class='chartLabel'>100m</text>" +
+               "<text x='251' y='119' class='chartLabel'>125m</text>" +
 
                "<polyline class='chartDamageLine' points='" + damageLineCoords + "'/>" +
                maxDamageText +
@@ -525,74 +526,75 @@ function createDamageChart50Max(damageArr, distanceArr, numOfPellets){
 
 function createDamageChart100Max(damageArr, distanceArr){
     var damageLineCoords = "";
-    damageLineCoords = distanceArr[0] == 0.0 ? "" : "0," + (100 -  damageArr[0]) + " ";
+    damageLineCoords = distanceArr[0] == 0.0 ? "" : "0," + (120 -  damageArr[0]) + " ";
     for (var i = 0; i < damageArr.length; i++){
-        var damageCoord = 100 - damageArr[i];
+        var damageCoord = 120 - damageArr[i];
         var distanceCoord = 2 * distanceArr[i];
         damageLineCoords += distanceCoord.toString() + "," + damageCoord.toString() + " ";
     }
-    damageLineCoords += "300," + (100 - damageArr[damageArr.length - 1]).toString();
+    damageLineCoords += "300," + (120 - damageArr[damageArr.length - 1]).toString();
 
     var maxDamage = roundToDecimal(damageArr[0], "1");
     var minDamage = roundToDecimal(damageArr[damageArr.length - 1], "1");
 
     var maxDamageText = "";
     if(damageArr[0] > 80){
-        maxDamageText = "<text x='" + distanceArr[1] + "' y='" + (118 - (maxDamage)).toString() + "' class='chartMinMaxLabel maxDamageText'>" + maxDamage + "</text>";
+        maxDamageText = "<text x='" + (distanceArr[1] + 15) + "' y='" + (131 - (maxDamage)).toString() + "' class='chartMinMaxLabel maxDamageText'>" + maxDamage + "</text>";
     } else {
-        maxDamageText = "<text x='" + distanceArr[1] + "' y='" + (96 - (maxDamage)).toString() + "' class='chartMinMaxLabel maxDamageText'>" + maxDamage + "</text>";
+        maxDamageText = "<text x='" + distanceArr[1] + "' y='" + (116 - (maxDamage)).toString() + "' class='chartMinMaxLabel maxDamageText'>" + maxDamage + "</text>";
     }
 
     var minDamageText = "";
     if(distanceArr[distanceArr.length - 1] < 150){
-        minDamageText = "<text x='" + (distanceArr[distanceArr.length - 1] * 2) + "' y='" + (94 - (minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";
+        minDamageText = "<text x='" + (distanceArr[distanceArr.length - 1] * 2) + "' y='" + (114 - (minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";
     } else {
-        minDamageText = "<text x='175' y='" + (94 - (minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";
+        minDamageText = "<text x='175' y='" + (114 - (minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";
     }
 
-    return "<svg viewbox='0 0 300 100' class='damageChart'>" +
-               "<rect width='250' height='100' style='stroke:rgb(0,0,100);stroke-width:0' fill='rgb(25,25,25)' />" +
+    return "<svg viewbox='0 0 300 120' class='damageChart'>" +
+               "<rect width='300' height='120' style='stroke:rgb(0,0,100);stroke-width:0' fill='rgb(25,25,25)' />" +
 
-               "<line x1='10' y1='0' x2='10' y2='100' class='gridLineThin'/>" +
-               "<line x1='20' y1='0' x2='20' y2='100' class='gridLineThin'/>" +
-               "<line x1='30' y1='0' x2='30' y2='100' class='gridLineThin'/>" +
-               "<line x1='40' y1='0' x2='40' y2='100' class='gridLineThin'/>" +
-               "<line x1='60' y1='0' x2='60' y2='100' class='gridLineThin'/>" +
-               "<line x1='70' y1='0' x2='70' y2='100' class='gridLineThin'/>" +
-               "<line x1='80' y1='0' x2='80' y2='100' class='gridLineThin'/>" +
-               "<line x1='90' y1='0' x2='90' y2='100' class='gridLineThin'/>" +
-               "<line x1='110' y1='0' x2='110' y2='100' class='gridLineThin'/>" +
-               "<line x1='120' y1='0' x2='120' y2='100' class='gridLineThin'/>" +
-               "<line x1='130' y1='0' x2='130' y2='100' class='gridLineThin'/>" +
-               "<line x1='140' y1='0' x2='140' y2='100' class='gridLineThin'/>" +
-               "<line x1='160' y1='0' x2='160' y2='100' class='gridLineThin'/>" +
-               "<line x1='170' y1='0' x2='170' y2='100' class='gridLineThin'/>" +
-               "<line x1='180' y1='0' x2='180' y2='100' class='gridLineThin'/>" +
-               "<line x1='190' y1='0' x2='190' y2='100' class='gridLineThin'/>" +
-               "<line x1='210' y1='0' x2='210' y2='100' class='gridLineThin'/>" +
-               "<line x1='220' y1='0' x2='220' y2='100' class='gridLineThin'/>" +
-               "<line x1='230' y1='0' x2='230' y2='100' class='gridLineThin'/>" +
-               "<line x1='240' y1='0' x2='240' y2='100' class='gridLineThin'/>" +
-               "<line x1='260' y1='0' x2='260' y2='100' class='gridLineThin'/>" +
-               "<line x1='270' y1='0' x2='270' y2='100' class='gridLineThin'/>" +
-               "<line x1='280' y1='0' x2='280' y2='100' class='gridLineThin'/>" +
-               "<line x1='290' y1='0' x2='290' y2='100' class='gridLineThin'/>" +
+               "<line x1='10' y1='0' x2='10' y2='120' class='gridLineThin'/>" +
+               "<line x1='20' y1='0' x2='20' y2='120' class='gridLineThin'/>" +
+               "<line x1='30' y1='0' x2='30' y2='120' class='gridLineThin'/>" +
+               "<line x1='40' y1='0' x2='40' y2='120' class='gridLineThin'/>" +
+               "<line x1='60' y1='0' x2='60' y2='120' class='gridLineThin'/>" +
+               "<line x1='70' y1='0' x2='70' y2='120' class='gridLineThin'/>" +
+               "<line x1='80' y1='0' x2='80' y2='120' class='gridLineThin'/>" +
+               "<line x1='90' y1='0' x2='90' y2='120' class='gridLineThin'/>" +
+               "<line x1='110' y1='0' x2='110' y2='120' class='gridLineThin'/>" +
+               "<line x1='120' y1='0' x2='120' y2='120' class='gridLineThin'/>" +
+               "<line x1='130' y1='0' x2='130' y2='120' class='gridLineThin'/>" +
+               "<line x1='140' y1='0' x2='140' y2='120' class='gridLineThin'/>" +
+               "<line x1='160' y1='0' x2='160' y2='120' class='gridLineThin'/>" +
+               "<line x1='170' y1='0' x2='170' y2='120' class='gridLineThin'/>" +
+               "<line x1='180' y1='0' x2='180' y2='120' class='gridLineThin'/>" +
+               "<line x1='190' y1='0' x2='190' y2='120' class='gridLineThin'/>" +
+               "<line x1='210' y1='0' x2='210' y2='120' class='gridLineThin'/>" +
+               "<line x1='220' y1='0' x2='220' y2='120' class='gridLineThin'/>" +
+               "<line x1='230' y1='0' x2='230' y2='120' class='gridLineThin'/>" +
+               "<line x1='240' y1='0' x2='240' y2='120' class='gridLineThin'/>" +
+               "<line x1='260' y1='0' x2='260' y2='120' class='gridLineThin'/>" +
+               "<line x1='270' y1='0' x2='270' y2='120' class='gridLineThin'/>" +
+               "<line x1='280' y1='0' x2='280' y2='120' class='gridLineThin'/>" +
+               "<line x1='290' y1='0' x2='290' y2='120' class='gridLineThin'/>" +
 
-               "<line x1='50' y1='0' x2='50' y2='100' class='gridLineFat'/>" +
-               "<line x1='100' y1='0' x2='100' y2='100' class='gridLineFat'/>" +
-               "<line x1='150' y1='0' x2='150' y2='100' class='gridLineFat'/>" +
-               "<line x1='200' y1='0' x2='200' y2='100' class='gridLineFat'/>" +
-               "<line x1='250' y1='0' x2='250' y2='100' class='gridLineFat'/>" +
+               "<line x1='50' y1='0' x2='50' y2='120' class='gridLineFat'/>" +
+               "<line x1='100' y1='0' x2='100' y2='120' class='gridLineFat'/>" +
+               "<line x1='150' y1='0' x2='150' y2='120' class='gridLineFat'/>" +
+               "<line x1='200' y1='0' x2='200' y2='120' class='gridLineFat'/>" +
+               "<line x1='250' y1='0' x2='250' y2='120' class='gridLineFat'/>" +
 
-               "<text x='0' y='8' class='chartLabel'>100</text>" +
-               "<line x1='0' y1='50' x2='300' y2='50' style='stroke:rgb(175,175,175); stroke-width:.5'/>" +
-               "<text x='0' y='58' class='chartLabel'>50</text>" +
-
-               "<text x='51' y='99' class='chartLabel'>25m</text>" +
-               "<text x='101' y='99' class='chartLabel'>50m</text>" +
-               "<text x='151' y='99' class='chartLabel'>75m</text>" +
-               "<text x='201' y='99' class='chartLabel'>100m</text>" +
-               "<text x='251' y='99' class='chartLabel'>125m</text>" +
+               "<line x1='0' y1='20' x2='300' y2='20' style='stroke:rgb(175,175,175); stroke-width:.5'/>" +
+               "<text x='0' y='28' class='chartLabel'>100</text>" +
+               "<line x1='0' y1='70' x2='300' y2='70' style='stroke:rgb(175,175,175); stroke-width:.5'/>" +
+               "<text x='0' y='78' class='chartLabel'>50</text>" +
+               
+               "<text x='51' y='119' class='chartLabel'>25m</text>" +
+               "<text x='101' y='119' class='chartLabel'>50m</text>" +
+               "<text x='151' y='119' class='chartLabel'>75m</text>" +
+               "<text x='201' y='119' class='chartLabel'>100m</text>" +
+               "<text x='251' y='119' class='chartLabel'>125m</text>" +
 
                "<polyline class='chartDamageLine' points='" + damageLineCoords + "'/>" +
                maxDamageText +
@@ -602,78 +604,71 @@ function createDamageChart100Max(damageArr, distanceArr){
 
 function createDamageChart100Max200Dist(damageArr, distanceArr){
     var damageLineCoords = "";
-    damageLineCoords = distanceArr[0] == 0.0 ? "" : "0," + (100 -  damageArr[0]) + " ";
+    damageLineCoords = distanceArr[0] == 0.0 ? "" : "0," + (120 -  damageArr[0]) + " ";
     for (var i = 0; i < damageArr.length; i++){
-        var damageCoord = 100 - damageArr[i];
+        var damageCoord = 120 - damageArr[i];
         var distanceCoord = 2 * distanceArr[i]/2;
         damageLineCoords += distanceCoord.toString() + "," + damageCoord.toString() + " ";
     }
-    damageLineCoords += "300," + (100 - damageArr[damageArr.length - 1]).toString();
+    damageLineCoords += "300," + (120 - damageArr[damageArr.length - 1]).toString();
 
     var maxDamage = roundToDecimal(damageArr[0], "1");
     var minDamage = roundToDecimal(damageArr[damageArr.length - 1], "1");
 
     var maxDamageText = "";
-    if(damageArr[0] > 80){
-	if(damageArr[0] > 100){
-            maxDamageText = "<text x='" + distanceArr[1]/2 + "' y='" + (122 - (maxDamage)).toString() + "' class='chartMinMaxLabel maxDamageText'>" + maxDamage + "</text>";
-        } else {
-            maxDamageText = "<text x='" + distanceArr[1]/2 + "' y='" + (118 - (maxDamage)).toString() + "' class='chartMinMaxLabel maxDamageText'>" + maxDamage + "</text>";
-        }
-    } else {
-        maxDamageText = "<text x='" + distanceArr[1]/2 + "' y='" + (96 - (maxDamage)).toString() + "' class='chartMinMaxLabel maxDamageText'>" + maxDamage + "</text>";
-    }
+    maxDamageText = "<text x='3' y='" + (113 - (maxDamage)).toString() + "' class='chartMinMaxLabel maxDamageText'>" + maxDamage + "</text>";
 
     var minDamageText = "";
     if(distanceArr[distanceArr.length - 1] < 100){
-        minDamageText = "<text x='" + (distanceArr[distanceArr.length - 1] * 2) + "' y='" + (94 - (minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";
+        minDamageText = "<text x='" + (distanceArr[distanceArr.length - 1] * 2) + "' y='" + (114 - (minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";
     } else {
-        minDamageText = "<text x='175' y='" + (94 - (minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";
+        minDamageText = "<text x='185' y='" + (114 - (minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";
     }
 
-    return "<svg viewbox='0 0 300 100' class='damageChart'>" +
-               "<rect width='200' height='100' style='stroke:rgb(0,0,100);stroke-width:0' fill='rgb(25,25,25)' />" +
+    return "<svg viewbox='0 0 300 120' class='damageChart'>" +
+               "<rect width='300' height='120' style='stroke:rgb(0,0,100);stroke-width:0' fill='rgb(25,25,25)' />" +
 
-               "<line x1='10' y1='0' x2='10' y2='100' class='gridLineThin'/>" +
-               "<line x1='20' y1='0' x2='20' y2='100' class='gridLineThin'/>" +
-               "<line x1='30' y1='0' x2='30' y2='100' class='gridLineThin'/>" +
-               "<line x1='40' y1='0' x2='40' y2='100' class='gridLineThin'/>" +
-               "<line x1='60' y1='0' x2='60' y2='100' class='gridLineThin'/>" +
-               "<line x1='70' y1='0' x2='70' y2='100' class='gridLineThin'/>" +
-               "<line x1='80' y1='0' x2='80' y2='100' class='gridLineThin'/>" +
-               "<line x1='90' y1='0' x2='90' y2='100' class='gridLineThin'/>" +
-               "<line x1='110' y1='0' x2='110' y2='100' class='gridLineThin'/>" +
-               "<line x1='120' y1='0' x2='120' y2='100' class='gridLineThin'/>" +
-               "<line x1='130' y1='0' x2='130' y2='100' class='gridLineThin'/>" +
-               "<line x1='140' y1='0' x2='140' y2='100' class='gridLineThin'/>" +
-               "<line x1='160' y1='0' x2='160' y2='100' class='gridLineThin'/>" +
-               "<line x1='170' y1='0' x2='170' y2='100' class='gridLineThin'/>" +
-               "<line x1='180' y1='0' x2='180' y2='100' class='gridLineThin'/>" +
-               "<line x1='190' y1='0' x2='190' y2='100' class='gridLineThin'/>" +
-               "<line x1='210' y1='0' x2='210' y2='100' class='gridLineThin'/>" +
-               "<line x1='220' y1='0' x2='220' y2='100' class='gridLineThin'/>" +
-               "<line x1='230' y1='0' x2='230' y2='100' class='gridLineThin'/>" +
-               "<line x1='240' y1='0' x2='240' y2='100' class='gridLineThin'/>" +
-               "<line x1='260' y1='0' x2='260' y2='100' class='gridLineThin'/>" +
-               "<line x1='270' y1='0' x2='270' y2='100' class='gridLineThin'/>" +
-               "<line x1='280' y1='0' x2='280' y2='100' class='gridLineThin'/>" +
-               "<line x1='290' y1='0' x2='290' y2='100' class='gridLineThin'/>" +
+               "<line x1='10' y1='0' x2='10' y2='120' class='gridLineThin'/>" +
+               "<line x1='20' y1='0' x2='20' y2='120' class='gridLineThin'/>" +
+               "<line x1='30' y1='0' x2='30' y2='120' class='gridLineThin'/>" +
+               "<line x1='40' y1='0' x2='40' y2='120' class='gridLineThin'/>" +
+               "<line x1='60' y1='0' x2='60' y2='120' class='gridLineThin'/>" +
+               "<line x1='70' y1='0' x2='70' y2='120' class='gridLineThin'/>" +
+               "<line x1='80' y1='0' x2='80' y2='120' class='gridLineThin'/>" +
+               "<line x1='90' y1='0' x2='90' y2='120' class='gridLineThin'/>" +
+               "<line x1='110' y1='0' x2='110' y2='120' class='gridLineThin'/>" +
+               "<line x1='120' y1='0' x2='120' y2='120' class='gridLineThin'/>" +
+               "<line x1='130' y1='0' x2='130' y2='120' class='gridLineThin'/>" +
+               "<line x1='140' y1='0' x2='140' y2='120' class='gridLineThin'/>" +
+               "<line x1='160' y1='0' x2='160' y2='120' class='gridLineThin'/>" +
+               "<line x1='170' y1='0' x2='170' y2='120' class='gridLineThin'/>" +
+               "<line x1='180' y1='0' x2='180' y2='120' class='gridLineThin'/>" +
+               "<line x1='190' y1='0' x2='190' y2='120' class='gridLineThin'/>" +
+               "<line x1='210' y1='0' x2='210' y2='120' class='gridLineThin'/>" +
+               "<line x1='220' y1='0' x2='220' y2='120' class='gridLineThin'/>" +
+               "<line x1='230' y1='0' x2='230' y2='120' class='gridLineThin'/>" +
+               "<line x1='240' y1='0' x2='240' y2='120' class='gridLineThin'/>" +
+               "<line x1='260' y1='0' x2='260' y2='120' class='gridLineThin'/>" +
+               "<line x1='270' y1='0' x2='270' y2='120' class='gridLineThin'/>" +
+               "<line x1='280' y1='0' x2='280' y2='120' class='gridLineThin'/>" +
+               "<line x1='290' y1='0' x2='290' y2='120' class='gridLineThin'/>" +
 
-               "<line x1='50' y1='0' x2='50' y2='100' class='gridLineFat'/>" +
-               "<line x1='100' y1='0' x2='100' y2='100' class='gridLineFat'/>" +
-               "<line x1='150' y1='0' x2='150' y2='100' class='gridLineFat'/>" +
-               "<line x1='200' y1='0' x2='200' y2='100' class='gridLineFat'/>" +
-               "<line x1='250' y1='0' x2='250' y2='100' class='gridLineFat'/>" +
+               "<line x1='50' y1='0' x2='50' y2='120' class='gridLineFat'/>" +
+               "<line x1='100' y1='0' x2='100' y2='120' class='gridLineFat'/>" +
+               "<line x1='150' y1='0' x2='150' y2='120' class='gridLineFat'/>" +
+               "<line x1='200' y1='0' x2='200' y2='120' class='gridLineFat'/>" +
+               "<line x1='250' y1='0' x2='250' y2='120' class='gridLineFat'/>" +
 
-               "<text x='0' y='8' class='chartLabel'>100</text>" +
-               "<line x1='0' y1='50' x2='300' y2='50' style='stroke:rgb(175,175,175); stroke-width:.5'/>" +
-               "<text x='0' y='58' class='chartLabel'>50</text>" +
+               "<line x1='0' y1='20' x2='300' y2='20' style='stroke:rgb(175,175,175); stroke-width:.5'/>" +
+               "<text x='0' y='28' class='chartLabel'>100</text>" +
+               "<line x1='0' y1='70' x2='300' y2='70' style='stroke:rgb(175,175,175); stroke-width:.5'/>" +
+               "<text x='0' y='78' class='chartLabel'>50</text>" +
 
-               "<text x='51' y='99' class='chartLabel200Dist'>50m</text>" +
-               "<text x='101' y='99' class='chartLabel200Dist'>100m</text>" +
-               "<text x='151' y='99' class='chartLabel200Dist'>150m</text>" +
-               "<text x='201' y='99' class='chartLabel200Dist'>200m</text>" +
-               "<text x='251' y='99' class='chartLabel200Dist'>250m</text>" +
+               "<text x='51' y='119' class='chartLabel200Dist'>50m</text>" +
+               "<text x='101' y='119' class='chartLabel200Dist'>100m</text>" +
+               "<text x='151' y='119' class='chartLabel200Dist'>150m</text>" +
+               "<text x='201' y='119' class='chartLabel200Dist'>200m</text>" +
+               "<text x='251' y='119' class='chartLabel200Dist'>250m</text>" +
 
                "<polyline class='chartDamageLine' points='" + damageLineCoords + "'/>" +
                maxDamageText +

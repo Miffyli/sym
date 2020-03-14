@@ -266,7 +266,7 @@
 .weaponImg{
     height: 50px;
     width: 200px;
-    margin: 15px 20px;
+    margin: 20px;
 }
 
 .lblWeaponName {
@@ -314,13 +314,12 @@
 }
 
 .damageChartContainer{
-    margin: 4px 0;
     display: inline-block;
     border: 1px solid #444;
 }
 
 .damageChart{
-    height:120px;
+    height: 130px;
 }
 
 .chartLabel {
@@ -346,13 +345,13 @@
 }
 
 .gridLineThin {
-    stroke:rgb(125,125,125);
-    stroke-width:.25;
+    stroke: #2b2b2b;
+    stroke-width: 1;
 }
 
 .gridLineFat {
-    stroke:rgb(125,125,125);
-    stroke-width:.5;
+    stroke: #444;
+    stroke-width: 1;
 }
 
 /*
