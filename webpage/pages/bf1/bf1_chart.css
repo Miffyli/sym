@@ -264,9 +264,9 @@
 }
 
 .weaponImg{
-    height: 70px;
-    width: auto;
-    margin: 5px 0;
+    height: 50px;
+    width: 200px;
+    margin: 15px 20px;
 }
 
 .lblWeaponName {
