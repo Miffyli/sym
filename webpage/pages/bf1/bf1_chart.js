@@ -239,7 +239,12 @@ function updateWeapon(selectedCustomizations, selectedCustButton){
 }
 
 function getWeaponImageFilename(weaponName){
-    var weaponFilename =  weaponName.replace("Backbored", "").replace("Cavalry", "").replace("Hunter", "").replace("Storm", "").replace("Trench", "").replace("Factory", "").replace("Defensive", "").replace("Sweeper", "").replace("Experimental", "").replace("Optical", "").replace("Slug", "").replace("Hunter", "").replace("Marksman", "").replace("Sniper", "").replace("Telescopic", "").replace("Low Weight", "").replace("Suppressive", "").replace("Infantry", "").replace("Silenced", "").replace("Patrol", "").replace("Carbine", "").trim();
+    var weaponFilename = "";
+    if (weaponName == "M1917 Patrol Carbine"){
+        weaponFilename = "M1917 Patrol Carbine";
+    } else {
+        weaponFilename =  weaponName.replace("Backbored", "").replace("Cavalry", "").replace("Hunter", "").replace("Storm", "").replace("Trench", "").replace("Factory", "").replace("Defensive", "").replace("Sweeper", "").replace("Experimental", "").replace("Optical", "").replace("Slug", "").replace("Hunter", "").replace("Marksman", "").replace("Sniper", "").replace("Telescopic", "").replace("Low Weight", "").replace("Suppressive", "").replace("Infantry", "").replace("Silenced", "").replace("Patrol", "").replace("Carbine", "").trim();
+    }
     return weaponFilename;
 }
 
