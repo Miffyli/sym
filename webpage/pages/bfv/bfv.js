@@ -5,7 +5,7 @@ const BFV_DATA = './pages/bfv/data/bfv_L.json'
 // In format "[day] [month three letters] [year four digits]"
 // e.g. 2nd Jan 2019
 const BFV_DATA_DATE = '5th Mar 2020 (BFV_L)'
-const BFV_PAGE_DATE = '21st Jan 2020'
+const BFV_PAGE_DATE = '15th Mar 2020'
 
 // Total version string displayed under title
 const BFV_VERSION_STRING = `Latest updates<br>Page: ${BFV_PAGE_DATE}<br>Data: ${BFV_DATA_DATE}`
