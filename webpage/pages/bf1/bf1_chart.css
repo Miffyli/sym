@@ -47,6 +47,26 @@
     width: 35px;
 }
 
+.spreadIncDecTable{
+    font-size: 12px !important;
+    padding-bottom: 4px;
+}
+
+.spreadIncDecTable tr:nth-child(1) td{
+    font-style: italic;
+    text-align: center;
+}
+.spreadIncDecTable td {
+    border: none;
+    text-align: left;
+    height: 28px;
+}
+
+.spreadIncDecTable img{
+    width: 35px;
+}
+
+
 .scaleIncreaseCell img{
     width: 15px !important;
 }
@@ -354,12 +374,6 @@
     stroke-width: 1;
 }
 
-/*
-fiveMline {
-    stroke:rgb(125,125,125);
-    stroke-width:.25;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        +
-}
-*/
 
 /* ************ */
 /* After  Chart */
@@ -516,6 +530,7 @@ fiveMline {
 
 .deployTimeBox {
     padding-top: 15px;
+    width: 100px;
 }
 
 .lblDeployTime{
