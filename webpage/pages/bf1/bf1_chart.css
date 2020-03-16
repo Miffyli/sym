@@ -386,6 +386,7 @@ fiveMline {
 .sectionReload{
     text-align: center;
     color: #FF9000;
+    height: 53px;
 }
 
 .imgReload {
@@ -417,6 +418,30 @@ fiveMline {
 .recoilValue {
     font-size: 15px;
     fill: white;
+}
+
+.recoilFirstShot{
+    display: inline-block;
+    color: #FF9000;
+    font-size: 13px;
+    font-weight: bold;
+    margin-top: 8px;
+    width: 60px;
+}
+
+.recoilFirstShotLabel{
+    font-size: 10px;
+}
+
+.recoilDec{
+    display: inline-block;
+    font-size: 13px;
+    color: #A9D852;
+    font-weight: bold;
+}
+
+.recoilDec img{
+    width: 15px
 }
 
 .spreadLabels {
@@ -455,6 +480,12 @@ fiveMline {
     fill: none;
 }
 
+.spreadMoveCicleBG {
+    stroke-width: 4px;
+    stroke: #222;
+    fill: #333;
+}
+
 .spreadMoveLine {
     stroke-width: 10px;
     stroke: #C27070;
@@ -473,13 +504,13 @@ fiveMline {
 
 .hipSpreadLine {
     stroke: white;
-    stroke-width: 5px;
+    stroke-width: 3px;
     fill: none;
 }
 
 .hipSpreadValue {
     font-weight: bold;
-    font-size: 18px;
+    font-size: 13px;
     fill: white;
 }
 
