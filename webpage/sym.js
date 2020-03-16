@@ -198,6 +198,9 @@ function exceuteQueryStringParams(){
         case 'comparison':
           openBF1SelectionPageFromQueryString('Weapon Comparison')
           break
+        case 'charts':
+          openBF1SelectionPageFromQueryString('Weapon Charts')
+          break
       }
       break
     case 'sym':
