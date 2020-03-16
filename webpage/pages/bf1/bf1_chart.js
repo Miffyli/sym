@@ -4,43 +4,7 @@ var firestormWeapons = []//["Gewehr 43","M1A1 Carbine","Sturmgewehr 1-5","StG 44
 var customizations = new Object();
 var addVariantCounter = 0;
 
-/*
-const firestormTooltip = "title = 'Included in Firestorm'";
-const rpmTooltip = "title = 'Rounds per Minute'";
-const bulletSpeedTooltip = "title = 'Bullet Speed and Drag Coefficient'";
-const damageTooltip = "title = 'Damage'";
-const magTooltip = "title = 'Ammo Capacity'";
-const reloadTooltip = "title = 'Reload Time (Tactical/Empty)'";
-const recoilTooltip = "title = 'Recoil while Standing'";
-const adsTooltip = "title = 'ADS Spread while Standing'";
-const hipfireTooltip = "title = 'Hip Fire Spread while Standing and Moving'";
-const deployTooltip = "title = 'Deploy Time'";
-const dragTooltip = "title = 'Manual Sort (Click and Hold to drag)'";
-const variantTooltip = "title = 'Add Variant'";
-*/
-
 function BF1initializeChartPage() {
-    // Create attachments array for each main weapon
-    /*
-    $.each(BFVWeaponData, function(key, weapon) {
-        if(customizations[weapon.WeapShowName] == undefined){
-            customizations[weapon.WeapShowName] = new Array({a:"",b:""}, {a:"",b:""}, {a:"",b:""}, {a:"",b:""});
-        }
-        if (weapon.Attachments_short.length > 0){
-            var short_attachments = weapon.Attachments_short.split("+")
-            for (var i = 0; i < short_attachments.length; i++){
-                if ((customizations[weapon.WeapShowName][i].a.localeCompare(short_attachments[i]) != 0) && (customizations[weapon.WeapShowName][i].b.localeCompare(short_attachments[i]) != 0)){
-                    if (customizations[weapon.WeapShowName][i].a.length == 0){
-                        customizations[weapon.WeapShowName][i].a = short_attachments[i];
-                    } else {
-                        customizations[weapon.WeapShowName][i].b = short_attachments[i];
-                    }
-                }
-            }
-        }
-    })
-*/
-
     printWeapons();
 
     $("#actionMenu").menu({
@@ -150,7 +114,7 @@ function printWeaponClass(weaponClass){
 function printWeapon(weaponStats){
     var firestormIcon = (firestormWeapons.includes(weaponStats.WeapShowName) ? "<img src='./pages/bfv/img/firestorm.png' " + firestormTooltip + ">" : "");
     var reloadData = createReloadGraphic(weaponStats.ReloadEmpty, weaponStats.ReloadLeft, weaponStats.MagSize, weaponStats.Ammo);
-    var standRecoilData = createRecoilGraphic(weaponStats.ADSRecoilLeft, weaponStats.ADSRecoilRight, 0,weaponStats.ADSRecoilUp);
+    var standRecoilData = createRecoilGraphic(weaponStats.ADSRecoilLeft, weaponStats.ADSRecoilRight, weaponStats.ADSRecoilUp, weaponStats.FirstShotRecoilMul, weaponStats.ADSRecoilDec);
     var spreadTableGraphic = createSpreadTableGraphic(weaponStats.ADSStandBaseMin,weaponStats.ADSCrouchBaseMin,weaponStats.ADSProneBaseMin,
                                                       weaponStats.ADSStandMoveMin,weaponStats.ADSCrouchMoveMin,weaponStats.ADSProneMoveMin,
                                                       weaponStats.HIPStandBaseMin,weaponStats.HIPCrouchBaseMin,weaponStats.HIPProneBaseMin,
@@ -184,58 +148,28 @@ function printWeapon(weaponStats){
               //"<div class='underMagSection'>" +
               "<td>" +
                   "<div class='reloadDataAndMagCount'>" + createBulletSpeedGraphic(weaponStats.InitialSpeed, weaponStats.Drag) + reloadData  + "</div>" +
+                  "<div class='deployTimeBox' " + deployTooltip + "><span class='ui-icon ui-icon-transferthick-e-w'></span><br><span class='lblDeployTime'>" + weaponStats.DeployTime + "<span class='lblSuffixText'> s</span></span></div>" +
               "</td><td>" +
-                  "<div class='recoilGraphicBox' " + recoilTooltip + ">" + standRecoilData + "</div>" +   "<div class='deployTimeBox' " + deployTooltip + "><span class='ui-icon ui-icon-transferthick-e-w'></span><br><span class='lblDeployTime'>" + weaponStats.DeployTime + "<span class='lblSuffixText'> s</span></span></div>" +
+                  "<div class='recoilGraphicBox' " + recoilTooltip + ">" + standRecoilData + "</div>" +
               "</td><td>" +
-                 // "<div>" +
-                      "<div class='hipSpreadContainer' " + hipfireTooltip + ">" + createHipSpreadGraphic(weaponStats.HIPStandMoveMin, weaponStats.HorDispersion) + "</div>" +
-                      "<div>" +
-                          "<div class='spreadLabels' " + adsTooltip + ">" +
-                             createSpreadLabels(weaponStats.ADSStandMoveMin, weaponStats.ADSStandBaseMin) +
-                          "</div>" +
-                          "<div class='spreadCircles' " + adsTooltip + ">" + createSpreadGraphic(weaponStats.ADSStandBaseMin, weaponStats.ADSStandMoveMin) + "</div>" +
+                  "<div>" +
+                      "<div class='spreadLabels' " + adsTooltip + ">" +
+                          createSpreadLabels(weaponStats.ADSStandMoveMin, weaponStats.ADSStandBaseMin) +
                       "</div>" +
-                 // "</div>" +
+                      "<div class='spreadCircles' " + adsTooltip + ">" + createSpreadGraphic(weaponStats.ADSStandBaseMin, weaponStats.ADSStandMoveMin) + "</div>" +
+                  "</div>" +
+              "</td><td>" +
+                  "<div class='hipSpreadContainer' " + hipfireTooltip + ">" + createHipSpreadGraphic(weaponStats.HIPStandMoveMin, weaponStats.HorDispersion) + "</div>" +
             //  "</td><td>" +
                 //  "<div class='deployTimeBox' " + deployTooltip + "><span class='ui-icon ui-icon-transferthick-e-w'></span><br><span class='lblDeployTime'>" + weaponStats.DeployTime + "<span class='lblSuffixText'> s</span></span></div>" +
               "</td><td>" +
                   spreadTableGraphic +
               "</td><td>" +
                   //"<div class='custButtons'>" + customizationsGraphic + "</div>" +
-              "</td><td>" +
-                  
-              //"</div>" +
-
-              //"</div>" +
-              //"<div class='magGraphicBox'>" + magCountGraphic + "</div>" +
               "</td>" +
               //"<div>DeployTime   : " + weaponStats.DeployTime + "</div>" +
               "</tr>";
         return rtnStr;
-}
-
-function updateWeapon(selectedCustomizations, selectedCustButton){
-    var weaponStats = BF1WeaponData.find(function(element){
-        return element.WeapAttachmentKey == selectedCustomizations;
-    });
-
-    var weaponRow = $(selectedCustButton).parentsUntil("tbody", "tr");
-    $(weaponRow).find(".lblRPMValue").text(weaponStats.BRoF);
-    $(weaponRow).find(".lblSpeedValue").text(weaponStats.InitialSpeed);
-    $(weaponRow).find(".lblMag").text(weaponStats.MagSize);
-    $(weaponRow).find(".damageChartContainer").html(createDamageChart(weaponStats.Damages, weaponStats.Dmg_distances, weaponStats.ShotsPerShell, weaponStats.Class))
-    $(weaponRow).find(".reloadDataAndMagCount").html(createBulletSpeedGraphic(weaponStats.InitialSpeed, weaponStats.Drag) + createReloadGraphic(weaponStats.ReloadEmpty, weaponStats.ReloadLeft, weaponStats.MagSize, weaponStats.Ammo));
-    $(weaponRow).find(".recoilGraphicBox").html(createRecoilGraphic(weaponStats.ADSStandRecoilLeft, weaponStats.ADSStandRecoilRight, weaponStats.ADSStandRecoilUp, weaponStats.ADSStandRecoilInitialUp));
-    $(weaponRow).find(".spreadLabels").html(createSpreadLabels(weaponStats.ADSStandMoveMin, weaponStats.ADSStandBaseMin));
-    $(weaponRow).find(".spreadCircles").html(createSpreadGraphic(weaponStats.ADSStandBaseMin, weaponStats.ADSStandMoveMin));
-    $(weaponRow).find(".hipSpreadContainer").html(createHipSpreadGraphic(weaponStats.HIPStandMoveMin, weaponStats.HorDispersion));
-    $(weaponRow).find(".lblDeployTime").html(weaponStats.DeployTime + "<span class='lblSuffixText'> s</span>");
-    $(weaponRow).find(".spreadTable").replaceWith(createSpreadTableGraphic(weaponStats.ADSStandBaseMin,weaponStats.ADSCrouchBaseMin,weaponStats.ADSProneBaseMin,
-                                                  weaponStats.ADSStandMoveMin,weaponStats.ADSCrouchMoveMin,weaponStats.ADSProneMoveMin,
-                                                  weaponStats.HIPStandBaseMin,weaponStats.HIPCrouchBaseMin,weaponStats.HIPProneBaseMin,
-                                                  weaponStats.HIPStandMoveMin,weaponStats.HIPCrouchMoveMin,weaponStats.HIPProneMoveMin,
-                                                  weaponStats.ADSStandBaseSpreadInc, weaponStats.HIPStandBaseSpreadInc));
-
 }
 
 function getWeaponImageFilename(weaponName){
@@ -299,7 +233,7 @@ function formatAmmoType(ammo){
     return newAmmo;
 }
 
-function createRecoilGraphic(recoilLeft, recoilRight, recoilUp, recoilInitialUp){
+function createRecoilGraphic(recoilLeft, recoilRight, recoilInitialUp, recoilFirstShot, recoilDec){
 
     if (recoilInitialUp <= 2){
         var recoilUpLength = (90 - (recoilInitialUp * 30));
@@ -317,7 +251,6 @@ function createRecoilGraphic(recoilLeft, recoilRight, recoilUp, recoilInitialUp)
                                 "<line x1='60' y1='90' x2='60' y2='" + recoilUpLength + "' style='stroke:white; stroke-width:2'/>" + // Up - Down
                                 "<text x='" + (recoilHorLenth1 - 4).toString() + "' y='95' text-anchor='end' class='recoilValue recoilHorValue'>" + roundToThree(recoilLeft) + "°</text>" +
                                 "<text x='" + (recoilHorLenth2 + 4).toString() + "' y='95' class='recoilValue'>" + roundToThree(Math.abs(recoilRight)) + "°</text>" +
-                                "<text x='64' y='" + recoilUpTextY + "' text-anchor='start' class='recoilValue recoilUpValue'>" + (recoilUp >= 0 ? "+": "") + roundToThree(recoilUp) + "°</text>" +
                                 "<text x='60' y='" + recoilInitUpTextY + "' text-anchor='middle' class='recoilValue recoilInitUpValue'>" + roundToThree(recoilInitialUp) + "°</text>" +
                             "</svg>";
     } else {
@@ -326,10 +259,18 @@ function createRecoilGraphic(recoilLeft, recoilRight, recoilUp, recoilInitialUp)
                                 "<line x1='60' y1='90' x2='60' y2='80' style='stroke:#555; stroke-width:2'/>" +
                                 "<text x='44' y='95' text-anchor='end' class='recoilValue recoilHorValue'>" + roundToThree(recoilLeft) + "°</text>" +
                                 "<text x='74' y='95' class='recoilValue'>" + roundToThree(Math.abs(recoilRight)) + "°</text>" +
-                                "<text x='64' y='64' text-anchor='start' class='recoilValue recoilUpValue'>" + (recoilUp >= 0 ? "+": "") + roundToThree(recoilUp) + "°</text>" +
                                 "<text x='60' y='76' text-anchor='middle' class='recoilValue recoilInitUpValue'>" + roundToThree(recoilInitialUp) + "°</text>" +
                             "</svg>";
     }
+
+    recoilGraphic += "<div>" + 
+                         "<div class='recoilFirstShot'>" + 
+                             "<div class='recoilFirstShotLabel'>1st</div>" + 
+                             "<div>" + ((recoilFirstShot.toString().split(".").length) > 1 ? recoilFirstShot : recoilFirstShot + ".0") + " x</div>" + 
+                         "</div>" +
+                         "<div class='recoilDec'><img src='./img/decrease.png'> " + recoilDec + "</div>" +
+                     "</div>";
+
     return recoilGraphic;
 }
 
@@ -344,31 +285,19 @@ function createSpreadLabels(ADSStandMoveMin, ADSStandBaseMin){
 
 function createSpreadGraphic(ADSBase, ADSMove){
     var spreadGraphic = "";
-    if (ADSBase < .4 && ADSMove != 0){
-        var adsBaseCircle = "";
-        if(ADSBase >= 0.05){
-            adsBaseCircle = "<circle cx='0' cy='100' r='" + (ADSBase * 200).toString() + "' class='spreadBaseCicle'></circle>";
-        } else {
-            adsBaseCircle = "<circle cx='0' cy='100' r='4' stroke-width='2' style='fill: none; stroke: #C8C63A; fill: #C8C63A;'></circle>";
-        }
 
-        spreadGraphic = "<svg viewBox='0 0 100 100' style='width: 60px;'>" +
-                        "<circle cx='0' cy='100' r='" + (ADSMove * 200).toString() + "' class='spreadMoveCicle'></circle>" +
-	                    adsBaseCircle +
-                        "</svg>";
-    } else if (ADSMove != 0){
-        var standLineOffset = ADSBase * 2;
-        var moveLineOffset = ADSMove * 2;
-        spreadGraphic = "<svg viewBox='0 0 100 100' style='width: 60px;'>" +
-
-                        "<line x1='50' y1='" + (standLineOffset + 52) + "' x2='50' y2='" + (standLineOffset + 65) + "' class='spreadBaseLine'></line>" +
-                        "<line x1='50' y1='" + (48 - standLineOffset) + "' x2='50' y2='" + (35 - standLineOffset) + "' class='spreadBaseLine'></line>" +
-
-                        "<line y1='50' x1='" + (standLineOffset + 52) + "' y2='50' x2='" + (standLineOffset + 65) + "' class='spreadBaseLine'></line>" +
-                        "<line y1='50' x1='" + (48 - standLineOffset) + "' y2='50' x2='" + (35 - standLineOffset) + "' class='spreadBaseLine'></line>" +
-
-                        "</svg>";
+    var adsBaseCircle = "";
+    if(ADSBase >= 0.05){
+        adsBaseCircle = "<circle cx='0' cy='215' r='" + (ADSBase * 200).toString() + "' class='spreadBaseCicle'></circle>";
+    } else {
+        adsBaseCircle = "<circle cx='0' cy='215' r='4' stroke-width='2' style='fill: none; stroke: #C8C63A; fill: #C8C63A;'></circle>";
     }
+
+    spreadGraphic = "<svg viewBox='0 0 215 215' style='width: 80px;'>" +
+                    "<circle cx='0' cy='215' class='spreadMoveCicleBG' r='214'></circle>" +
+                    "<circle cx='0' cy='215' r='" + (ADSMove * 200).toString() + "' class='spreadMoveCicle'></circle>" +
+                    adsBaseCircle +
+                    "</svg>";
     return spreadGraphic;
 }
 
@@ -377,7 +306,7 @@ function createHipSpreadGraphic(HIPSpread, HorDispersion){
     var spreadGraphic = "";
 
     if (HIPSpread > 0) {
-        spreadGraphic = "<svg viewBox='0 0 100 100' style='width: 75px;'>" +
+        spreadGraphic = "<svg viewBox='0 0 100 100' style='width: 100px;'>" +
                         "<line x1='50' y1='" + (lineOffset + 52) + "' x2='50' y2='" + (lineOffset + 65) + "' class='hipSpreadLine'></line>" +
                         "<line x1='50' y1='" + (48 - lineOffset) + "' x2='50' y2='" + (35 - lineOffset) + "' class='hipSpreadLine'></line>" +
 
@@ -387,7 +316,7 @@ function createHipSpreadGraphic(HIPSpread, HorDispersion){
                         "<text x='5' y='91' class='hipSpreadValue'>" + roundToThree(HIPSpread) + "°</text>" +
                         "</svg>";
     } else {
-        spreadGraphic = "<svg viewBox='0 0 100 100' style='width: 75px;'>" +
+        spreadGraphic = "<svg viewBox='0 0 100 100' style='width: 100px;'>" +
                         "<circle cx='50' cy='50' r='" + (HorDispersion * 10).toString() + "' class='hipSpreadLine'></circle>" +
                         "<text x='5' y='23' class='hipSpreadValue'>" + roundToThree(HorDispersion) + "°</text>" +
                         "</svg>";
@@ -463,7 +392,6 @@ function createDamageChart50Max(damageArr, distanceArr, numOfPellets){
     } else {
         minDamageText = "<text x='225' y='" + (111 - (2 * minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";
     }
-    
 
     var pelletsLabel = "";
     if (numOfPellets > 1){
@@ -551,6 +479,10 @@ function createDamageChart100Max(damageArr, distanceArr){
         minDamageText = "<text x='175' y='" + (114 - (minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";
     }
 
+    if (minDamage > 115){
+        var oneHitKillText = "<text x='85' y='60' class='chartMinMaxLabel'>1 Hit Kill at all ranges</text>";
+    }
+
     return "<svg viewbox='0 0 300 120' class='damageChart'>" +
                "<rect width='300' height='120' style='stroke:rgb(0,0,100);stroke-width:0' fill='rgb(25,25,25)' />" +
 
@@ -599,6 +531,7 @@ function createDamageChart100Max(damageArr, distanceArr){
                "<polyline class='chartDamageLine' points='" + damageLineCoords + "'/>" +
                maxDamageText +
                minDamageText +
+               oneHitKillText +
            "</svg>"
 }
 
