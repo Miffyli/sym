@@ -119,8 +119,11 @@ function printWeapon(weaponStats){
                                                       weaponStats.ADSStandMoveMin,weaponStats.ADSCrouchMoveMin,weaponStats.ADSProneMoveMin,
                                                       weaponStats.HIPStandBaseMin,weaponStats.HIPCrouchBaseMin,weaponStats.HIPProneBaseMin,
                                                       weaponStats.HIPStandMoveMin,weaponStats.HIPCrouchMoveMin,weaponStats.HIPProneMoveMin,
-                                                      weaponStats.ADSStandBaseSpreadInc, weaponStats.HIPStandBaseSpreadInc)
-   var rtnStr = "<tr class='" + weaponStats.WeapShowName.replace(/ |\//g,"") + " sub_" + getWeaponsSubcat(weaponStats.WeapShowName) +"'>" +
+                                                      weaponStats.ADSStandBaseSpreadInc, weaponStats.HIPStandBaseSpreadInc);
+    var spreadIncDecTableGraphic = createSpreadIncDecTableGraphic(weaponStats.ADSStandBaseSpreadInc, weaponStats.HIPStandBaseSpreadInc,
+                                                                  weaponStats.ADSStandBaseSpreadDec, weaponStats.HIPStandBaseSpreadDec,
+                                                                  weaponStats.FirstShotADSSpreadMul, weaponStats.FirstShotHIPSpreadMul);
+    var rtnStr = "<tr class='" + weaponStats.WeapShowName.replace(/ |\//g,"") + " sub_" + getWeaponsSubcat(weaponStats.WeapShowName) +"'>" +
                      "<td class='firstColumn'>" +
                          "<div class='lblWeaponName'>" +
                             "<span class='lblWeaponNameValue'>" + weaponStats.WeapShowName + "</span>" + firestormIcon +
@@ -165,7 +168,7 @@ function printWeapon(weaponStats){
               "</td><td>" +
                   spreadTableGraphic +
               "</td><td>" +
-                  //"<div class='custButtons'>" + customizationsGraphic + "</div>" +
+                  spreadIncDecTableGraphic +
               "</td>" +
               //"<div>DeployTime   : " + weaponStats.DeployTime + "</div>" +
               "</tr>";
@@ -336,10 +339,18 @@ function createSpreadTableGraphic(ADSStand, ADSCrouch, ADSProne, ADSStandMove, A
                            "<tr>" + "<td>" + roundToThree(ADSCrouchMove) + "°</td><td>" + roundToThree(HIPCrouchMove) + "°</td>" + "</tr>" +
                            "<tr>" + "<td>" + roundToThree(ADSProneMove) + "°</td><td>" + roundToThree(HIPProneMove) + "°</td>" + "</tr>" +
 
-                           "<tr>" + "<td class='scaleIncreaseCell'><img src='./img/increase.png'></td><td>" + roundToThree(ADSIncrease) + "°</td><td>" + roundToThree(HIPIncrease) + "°</td>" + "</tr>" +
-
                        "</table>"
     return tableGraphic;
+}
+
+function createSpreadIncDecTableGraphic(ADSInc, HIPInc, ADSDec, HIPDec, ADSFirst, HIPFirst){
+    var tableGraphic = "<table class='spreadIncDecTable'>" +
+                           "<tr>" + "<td></td><td>ADS</td><td>HIP</td>" + "</tr>" +
+                           "<tr>" + "<td class='scaleIncreaseCell'><img src='./img/increaseFirst.png'></td><td>" + roundToThree(ADSInc * ADSFirst) + "°</td><td>" + roundToThree(HIPInc * HIPFirst) + "°</td>" + "</tr>" +
+                           "<tr>" + "<td class='scaleIncreaseCell'><img src='./img/increase.png'></td><td>" + roundToThree(ADSInc) + "°</td><td>" + roundToThree(HIPInc) + "°</td>" + "</tr>" +
+                           "<tr>" + "<td class='scaleIncreaseCell'><img src='./img/decrease.png'></td><td>" + roundToThree(ADSDec) + "°</td><td>" + roundToThree(HIPDec) + "°</td>" + "</tr>" +
+                       "</table>"
+return tableGraphic;
 }
 
 
