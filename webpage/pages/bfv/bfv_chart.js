@@ -112,6 +112,8 @@ function printWeapons(){
         $(newWeaponRowObj).effect("highlight");
     });
 
+    $(".variantButton").removeClass("ui-button ui-corner-all ui-widget");
+
     $(document).tooltip({track: true});
 
     initializeCustomizations();
@@ -153,7 +155,7 @@ function printWeapon(weaponStats){
                                                       weaponStats.HIPStandMoveMin,weaponStats.HIPCrouchMoveMin,weaponStats.HIPProneMoveMin,
                                                       weaponStats.ADSStandBaseSpreadInc, weaponStats.HIPStandBaseSpreadInc)
     var customizationsGraphic = (weaponStats.Class == 8) ? "" : printCustomizations([weaponStats.WeapShowName]);
-    var addVariantGraphic = (weaponStats.Class == 8 || addVariantCounter != 0) ? "" : "<button class='variantButton btn btn-outline-light btn-sm' " + variantTooltip + ">+</button>";
+    var addVariantGraphic = (weaponStats.Class == 8 || addVariantCounter != 0) ? "" : "<button class='variantButton' " + variantTooltip + ">+</button>";
     var rtnStr = "<tr class='" + weaponStats.WeapShowName.replace(/ |\//g,"") + " sub_" + getWeaponsSubcat(weaponStats.WeapShowName) +"'>" +
                      "<td class='firstColumn'>" +
                          "<div class='lblWeaponName'>" +
@@ -362,14 +364,14 @@ function createSpreadGraphic(ADSBase, ADSMove){
             adsBaseCircle = "<circle cx='0' cy='100' r='4' stroke-width='2' style='fill: none; stroke: #C8C63A; fill: #C8C63A;'></circle>";
         }
 
-        spreadGraphic = "<svg viewBox='0 0 100 100' style='width: 60px;'>" +
+        spreadGraphic = "<svg viewBox='0 0 100 100' style='width: 50px;'>" +
                         "<circle cx='0' cy='100' r='" + (ADSMove * 200).toString() + "' class='spreadMoveCicle'></circle>" +
 	                    adsBaseCircle +
                         "</svg>";
     } else if (ADSMove != 0){
         var standLineOffset = ADSBase * 2;
         var moveLineOffset = ADSMove * 2;
-        spreadGraphic = "<svg viewBox='0 0 100 100' style='width: 60px;'>" +
+        spreadGraphic = "<svg viewBox='0 0 100 100' style='width: 50px;'>" +
 
                         "<line x1='50' y1='" + (standLineOffset + 52) + "' x2='50' y2='" + (standLineOffset + 65) + "' class='spreadBaseLine'></line>" +
                         "<line x1='50' y1='" + (48 - standLineOffset) + "' x2='50' y2='" + (35 - standLineOffset) + "' class='spreadBaseLine'></line>" +
@@ -435,7 +437,7 @@ function formatDamagesOrDistances(dmgArray) {
 function createDamageChart(damageArr, distanceArr, numOfPellets){
     var damageChart;
     if (damageArr[0] > 50 ){
-        if(distanceArr.indexOf(200) == -1 && distanceArr.indexOf(125) == -1){
+        if(distanceArr.indexOf(200) == -1){
             damageChart = createDamageChart100Max(damageArr, distanceArr);
         } else {
             damageChart = createDamageChart100Max200Dist(damageArr, distanceArr);
@@ -454,7 +456,7 @@ function createDamageChart50Max(damageArr, distanceArr, numOfPellets){
         var distanceCoord = 2 * distanceArr[i];
         damageLineCoords += distanceCoord.toString() + "," + damageCoord.toString() + " ";
     }
-    damageLineCoords += "200," + (100 - (2 * damageArr[damageArr.length - 1])).toString();
+    damageLineCoords += "300," + (100 - (2 * damageArr[damageArr.length - 1])).toString();
 
     var maxDamage = roundToDecimal(damageArr[0], "1");
     var minDamage = roundToDecimal(damageArr[damageArr.length - 1], "1");
@@ -467,18 +469,19 @@ function createDamageChart50Max(damageArr, distanceArr, numOfPellets){
     }
 
     var minDamageText = "";
-    if(distanceArr[distanceArr.length - 1] < 100){
+    if(distanceArr[distanceArr.length - 1] < 150){
         minDamageText = "<text x='" + (distanceArr[distanceArr.length - 1] * 2) + "' y='" + (94 - (2 * minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";
     } else {
-        minDamageText = "<text x='175' y='" + (94 - (2 * minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";
+        minDamageText = "<text x='225' y='" + (91 - (2 * minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";
     }
+    
 
     var pelletsLabel = "";
     if (numOfPellets > 1){
-        pelletsLabel = "<text x='135' y='75' class='chartMinMaxLabel'>" + numOfPellets + " pellets</text>";
+        pelletsLabel = "<text x='185' y='75' class='chartMinMaxLabel'>" + numOfPellets + " pellets</text>";
     }
 
-    return "<svg viewbox='0 0 200 100' class='damageChart'>" +
+    return "<svg viewbox='0 0 300 100' class='damageChart'>" +
                "<rect width='200' height='100' style='stroke:rgb(0,0,100);stroke-width:0' fill='rgb(25,25,25)' />" +
 
                "<line x1='10' y1='0' x2='10' y2='100' class='gridLineThin'/>" +
@@ -497,20 +500,32 @@ function createDamageChart50Max(damageArr, distanceArr, numOfPellets){
                "<line x1='170' y1='0' x2='170' y2='100' class='gridLineThin'/>" +
                "<line x1='180' y1='0' x2='180' y2='100' class='gridLineThin'/>" +
                "<line x1='190' y1='0' x2='190' y2='100' class='gridLineThin'/>" +
+               "<line x1='210' y1='0' x2='210' y2='100' class='gridLineThin'/>" +
+               "<line x1='220' y1='0' x2='220' y2='100' class='gridLineThin'/>" +
+               "<line x1='230' y1='0' x2='230' y2='100' class='gridLineThin'/>" +
+               "<line x1='240' y1='0' x2='240' y2='100' class='gridLineThin'/>" +
+               "<line x1='260' y1='0' x2='260' y2='100' class='gridLineThin'/>" +
+               "<line x1='270' y1='0' x2='270' y2='100' class='gridLineThin'/>" +
+               "<line x1='280' y1='0' x2='280' y2='100' class='gridLineThin'/>" +
+               "<line x1='290' y1='0' x2='290' y2='100' class='gridLineThin'/>" +
 
                "<line x1='50' y1='0' x2='50' y2='100' class='gridLineFat'/>" +
                "<line x1='100' y1='0' x2='100' y2='100' class='gridLineFat'/>" +
                "<line x1='150' y1='0' x2='150' y2='100' class='gridLineFat'/>" +
+               "<line x1='200' y1='0' x2='200' y2='100' class='gridLineFat'/>" +
+               "<line x1='250' y1='0' x2='250' y2='100' class='gridLineFat'/>" +
 
-               "<line x1='0' y1='50' x2='200' y2='50' style='stroke:rgb(175,175,175); stroke-width:.5'/>" +
+               "<line x1='0' y1='50' x2='300' y2='50' style='stroke:rgb(175,175,175); stroke-width:.5'/>" +
                "<text x='0' y='58' class='chartLabel'>25</text>" +
-               "<line x1='0' y1='33' x2='200' y2='33' style='stroke:rgb(175,175,175); stroke-width:.25'/>" +
+               "<line x1='0' y1='33' x2='300' y2='33' style='stroke:rgb(175,175,175); stroke-width:.25'/>" +
                "<text x='0' y='41' class='chartLabel'>33</text>" +
                "<text x='0' y='8' class='chartLabel'>50</text>" +
 
                "<text x='51' y='99' class='chartLabel'>25m</text>" +
                "<text x='101' y='99' class='chartLabel'>50m</text>" +
                "<text x='151' y='99' class='chartLabel'>75m</text>" +
+               "<text x='201' y='99' class='chartLabel'>100m</text>" +
+               "<text x='251' y='99' class='chartLabel'>125m</text>" +
 
                "<polyline class='chartDamageLine' points='" + damageLineCoords + "'/>" +
                maxDamageText +
@@ -527,7 +542,7 @@ function createDamageChart100Max(damageArr, distanceArr){
         var distanceCoord = 2 * distanceArr[i];
         damageLineCoords += distanceCoord.toString() + "," + damageCoord.toString() + " ";
     }
-    damageLineCoords += "200," + (100 - damageArr[damageArr.length - 1]).toString();
+    damageLineCoords += "300," + (100 - damageArr[damageArr.length - 1]).toString();
 
     var maxDamage = roundToDecimal(damageArr[0], "1");
     var minDamage = roundToDecimal(damageArr[damageArr.length - 1], "1");
@@ -540,14 +555,14 @@ function createDamageChart100Max(damageArr, distanceArr){
     }
 
     var minDamageText = "";
-    if(distanceArr[distanceArr.length - 1] < 100){
+    if(distanceArr[distanceArr.length - 1] < 150){
         minDamageText = "<text x='" + (distanceArr[distanceArr.length - 1] * 2) + "' y='" + (94 - (minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";
     } else {
         minDamageText = "<text x='175' y='" + (94 - (minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";
     }
 
-    return "<svg viewbox='0 0 200 100' class='damageChart'>" +
-               "<rect width='200' height='100' style='stroke:rgb(0,0,100);stroke-width:0' fill='rgb(25,25,25)' />" +
+    return "<svg viewbox='0 0 300 100' class='damageChart'>" +
+               "<rect width='250' height='100' style='stroke:rgb(0,0,100);stroke-width:0' fill='rgb(25,25,25)' />" +
 
                "<line x1='10' y1='0' x2='10' y2='100' class='gridLineThin'/>" +
                "<line x1='20' y1='0' x2='20' y2='100' class='gridLineThin'/>" +
@@ -565,18 +580,30 @@ function createDamageChart100Max(damageArr, distanceArr){
                "<line x1='170' y1='0' x2='170' y2='100' class='gridLineThin'/>" +
                "<line x1='180' y1='0' x2='180' y2='100' class='gridLineThin'/>" +
                "<line x1='190' y1='0' x2='190' y2='100' class='gridLineThin'/>" +
+               "<line x1='210' y1='0' x2='210' y2='100' class='gridLineThin'/>" +
+               "<line x1='220' y1='0' x2='220' y2='100' class='gridLineThin'/>" +
+               "<line x1='230' y1='0' x2='230' y2='100' class='gridLineThin'/>" +
+               "<line x1='240' y1='0' x2='240' y2='100' class='gridLineThin'/>" +
+               "<line x1='260' y1='0' x2='260' y2='100' class='gridLineThin'/>" +
+               "<line x1='270' y1='0' x2='270' y2='100' class='gridLineThin'/>" +
+               "<line x1='280' y1='0' x2='280' y2='100' class='gridLineThin'/>" +
+               "<line x1='290' y1='0' x2='290' y2='100' class='gridLineThin'/>" +
 
                "<line x1='50' y1='0' x2='50' y2='100' class='gridLineFat'/>" +
                "<line x1='100' y1='0' x2='100' y2='100' class='gridLineFat'/>" +
                "<line x1='150' y1='0' x2='150' y2='100' class='gridLineFat'/>" +
+               "<line x1='200' y1='0' x2='200' y2='100' class='gridLineFat'/>" +
+               "<line x1='250' y1='0' x2='250' y2='100' class='gridLineFat'/>" +
 
                "<text x='0' y='8' class='chartLabel'>100</text>" +
-               "<line x1='0' y1='50' x2='200' y2='50' style='stroke:rgb(175,175,175); stroke-width:.5'/>" +
+               "<line x1='0' y1='50' x2='300' y2='50' style='stroke:rgb(175,175,175); stroke-width:.5'/>" +
                "<text x='0' y='58' class='chartLabel'>50</text>" +
 
                "<text x='51' y='99' class='chartLabel'>25m</text>" +
                "<text x='101' y='99' class='chartLabel'>50m</text>" +
                "<text x='151' y='99' class='chartLabel'>75m</text>" +
+               "<text x='201' y='99' class='chartLabel'>100m</text>" +
+               "<text x='251' y='99' class='chartLabel'>125m</text>" +
 
                "<polyline class='chartDamageLine' points='" + damageLineCoords + "'/>" +
                maxDamageText +
@@ -592,7 +619,7 @@ function createDamageChart100Max200Dist(damageArr, distanceArr){
         var distanceCoord = 2 * distanceArr[i]/2;
         damageLineCoords += distanceCoord.toString() + "," + damageCoord.toString() + " ";
     }
-    damageLineCoords += "200," + (100 - damageArr[damageArr.length - 1]).toString();
+    damageLineCoords += "300," + (100 - damageArr[damageArr.length - 1]).toString();
 
     var maxDamage = roundToDecimal(damageArr[0], "1");
     var minDamage = roundToDecimal(damageArr[damageArr.length - 1], "1");
@@ -615,7 +642,7 @@ function createDamageChart100Max200Dist(damageArr, distanceArr){
         minDamageText = "<text x='175' y='" + (94 - (minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";
     }
 
-    return "<svg viewbox='0 0 200 100' class='damageChart'>" +
+    return "<svg viewbox='0 0 300 100' class='damageChart'>" +
                "<rect width='200' height='100' style='stroke:rgb(0,0,100);stroke-width:0' fill='rgb(25,25,25)' />" +
 
                "<line x1='10' y1='0' x2='10' y2='100' class='gridLineThin'/>" +
@@ -634,18 +661,30 @@ function createDamageChart100Max200Dist(damageArr, distanceArr){
                "<line x1='170' y1='0' x2='170' y2='100' class='gridLineThin'/>" +
                "<line x1='180' y1='0' x2='180' y2='100' class='gridLineThin'/>" +
                "<line x1='190' y1='0' x2='190' y2='100' class='gridLineThin'/>" +
+               "<line x1='210' y1='0' x2='210' y2='100' class='gridLineThin'/>" +
+               "<line x1='220' y1='0' x2='220' y2='100' class='gridLineThin'/>" +
+               "<line x1='230' y1='0' x2='230' y2='100' class='gridLineThin'/>" +
+               "<line x1='240' y1='0' x2='240' y2='100' class='gridLineThin'/>" +
+               "<line x1='260' y1='0' x2='260' y2='100' class='gridLineThin'/>" +
+               "<line x1='270' y1='0' x2='270' y2='100' class='gridLineThin'/>" +
+               "<line x1='280' y1='0' x2='280' y2='100' class='gridLineThin'/>" +
+               "<line x1='290' y1='0' x2='290' y2='100' class='gridLineThin'/>" +
 
                "<line x1='50' y1='0' x2='50' y2='100' class='gridLineFat'/>" +
                "<line x1='100' y1='0' x2='100' y2='100' class='gridLineFat'/>" +
                "<line x1='150' y1='0' x2='150' y2='100' class='gridLineFat'/>" +
+               "<line x1='200' y1='0' x2='200' y2='100' class='gridLineFat'/>" +
+               "<line x1='250' y1='0' x2='250' y2='100' class='gridLineFat'/>" +
 
                "<text x='0' y='8' class='chartLabel'>100</text>" +
-               "<line x1='0' y1='50' x2='200' y2='50' style='stroke:rgb(175,175,175); stroke-width:.5'/>" +
+               "<line x1='0' y1='50' x2='300' y2='50' style='stroke:rgb(175,175,175); stroke-width:.5'/>" +
                "<text x='0' y='58' class='chartLabel'>50</text>" +
 
                "<text x='51' y='99' class='chartLabel200Dist'>50m</text>" +
                "<text x='101' y='99' class='chartLabel200Dist'>100m</text>" +
                "<text x='151' y='99' class='chartLabel200Dist'>150m</text>" +
+               "<text x='201' y='99' class='chartLabel200Dist'>200m</text>" +
+               "<text x='251' y='99' class='chartLabel200Dist'>250m</text>" +
 
                "<polyline class='chartDamageLine' points='" + damageLineCoords + "'/>" +
                maxDamageText +
