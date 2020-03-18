@@ -277,7 +277,7 @@ function bf1CreateRecoilGraphic(recoilLeft, recoilRight, recoilInitialUp, recoil
                              "<div class='recoilFirstShotLabel'>1st</div>" + 
                              "<div>" + ((recoilFirstShot.toString().split(".").length) > 1 ? recoilFirstShot : recoilFirstShot + ".0") + " x</div>" + 
                          "</div>" +
-                         "<div class='recoilDec'><img src='./img/decrease.png'> " + roundToDecimal(recoilDec, 1) + "°</div>" +
+                         "<div class='recoilDec'><img src='./img/decrease.png'> " + roundToDecimal(recoilDec, 1) + "</div>" +
                      "</div>";
 
     return recoilGraphic;
