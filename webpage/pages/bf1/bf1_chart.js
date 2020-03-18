@@ -5,7 +5,7 @@ var customizations = new Object();
 var addVariantCounter = 0;
 
 function BF1initializeChartPage() {
-    printWeapons();
+    bf1PrintWeapons();
 
     $("#actionMenu").menu({
         position: {my: "left bottom", at: "left top"}
@@ -17,7 +17,7 @@ function BF1initializeChartPage() {
     );
     $("#showHideCheckboxes input").change(function(){
         this.blur();
-        showHideClasses();
+        bf1ShowHideClasses();
     });
 
     $("#showHideSubCats input").checkboxradio(
@@ -42,18 +42,18 @@ function showBlank(obj){
     obj.src="./pages/bfv/img/blankWeapon.png";
 }
 
-function printWeapons(){
+function bf1PrintWeapons(){
     var statsHtml = "";
 
-    statsHtml += printWeaponClass(2);
-    statsHtml += printWeaponClass(1);
-    statsHtml += printWeaponClass(3);
-    statsHtml += printWeaponClass(4);
-    statsHtml += printWeaponClass(8);
-    statsHtml += printWeaponClass(5);
+    statsHtml += bf1PrintWeaponClass(2);
+    statsHtml += bf1PrintWeaponClass(1);
+    statsHtml += bf1PrintWeaponClass(3);
+    statsHtml += bf1PrintWeaponClass(4);
+    statsHtml += bf1PrintWeaponClass(8);
+    statsHtml += bf1PrintWeaponClass(5);
 
     $("#pageBody").html(statsHtml);
-    showHideClasses();
+    bf1ShowHideClasses();
 
     $(".custButton").checkboxradio(
         {icon:false}
@@ -70,7 +70,7 @@ function printWeapons(){
             return element.WeapAttachmentKey == wearponName;
         });
 
-        var newWeaponRow = printWeapon(newWeaponStats);
+        var newWeaponRow = bf1PrintWeapon(newWeaponStats);
         var newWeaponRowObj = $(newWeaponRow).insertAfter(thisRow);
         $(newWeaponRowObj).find(".custButton").checkboxradio(
             {icon:false}
@@ -95,7 +95,7 @@ function printWeapons(){
     bfvChartSortLetters("lblWeaponNameValue", compareNames)
 }
 
-function printWeaponClass(weaponClass){
+function bf1PrintWeaponClass(weaponClass){
     var classImgFileName = (weaponClass == 5) ? "KitIconRiflemanLarge.png" : "KitIcon" + weaponClassTitles[weaponClass] + "Large.png";
 
     var rtnStr = "";
@@ -105,7 +105,7 @@ function printWeaponClass(weaponClass){
 
     $.each(BF1WeaponData, function( key, value ) {
         if (value.Class == weaponClass){
-            rtnStr += printWeapon(value);
+            rtnStr += bf1PrintWeapon(value);
         }
     });
 
@@ -113,16 +113,16 @@ function printWeaponClass(weaponClass){
     return rtnStr;
 }
 
-function printWeapon(weaponStats){
+function bf1PrintWeapon(weaponStats){
     var firestormIcon = (firestormWeapons.includes(weaponStats.WeapShowName) ? "<img src='./pages/bfv/img/firestorm.png' " + firestormTooltip + ">" : "");
-    var reloadData = createReloadGraphic(weaponStats.ReloadEmpty, weaponStats.ReloadLeft, weaponStats.MagSize, weaponStats.Ammo);
-    var standRecoilData = createRecoilGraphic(weaponStats.ADSRecoilLeft, weaponStats.ADSRecoilRight, weaponStats.ADSRecoilUp, weaponStats.FirstShotRecoilMul, weaponStats.ADSRecoilDec);
-    var spreadTableGraphic = createSpreadTableGraphic(weaponStats.ADSStandBaseMin,weaponStats.ADSCrouchBaseMin,weaponStats.ADSProneBaseMin,
+    var reloadData = bf1CreateReloadGraphic(weaponStats.ReloadEmpty, weaponStats.ReloadLeft, weaponStats.MagSize, weaponStats.Ammo);
+    var standRecoilData = bf1CreateRecoilGraphic(weaponStats.ADSRecoilLeft, weaponStats.ADSRecoilRight, weaponStats.ADSRecoilUp, weaponStats.FirstShotRecoilMul, weaponStats.ADSRecoilDec);
+    var spreadTableGraphic = bf1CreateSpreadTableGraphic(weaponStats.ADSStandBaseMin,weaponStats.ADSCrouchBaseMin,weaponStats.ADSProneBaseMin,
                                                       weaponStats.ADSStandMoveMin,weaponStats.ADSCrouchMoveMin,weaponStats.ADSProneMoveMin,
                                                       weaponStats.HIPStandBaseMin,weaponStats.HIPCrouchBaseMin,weaponStats.HIPProneBaseMin,
                                                       weaponStats.HIPStandMoveMin,weaponStats.HIPCrouchMoveMin,weaponStats.HIPProneMoveMin,
                                                       weaponStats.ADSStandBaseSpreadInc, weaponStats.HIPStandBaseSpreadInc);
-    var spreadIncDecTableGraphic = createSpreadIncDecTableGraphic(weaponStats.ADSStandBaseSpreadInc, weaponStats.HIPStandBaseSpreadInc,
+    var spreadIncDecTableGraphic = bf1CreateSpreadIncDecTableGraphic(weaponStats.ADSStandBaseSpreadInc, weaponStats.HIPStandBaseSpreadInc,
                                                                   weaponStats.ADSStandBaseSpreadDec, weaponStats.HIPStandBaseSpreadDec,
                                                                   weaponStats.FirstShotADSSpreadMul, weaponStats.FirstShotHIPSpreadMul);
     var rtnStr = "<tr class='" + weaponStats.WeapShowName.replace(/ |\//g,"") + " sub_" + getWeaponsSubcat(weaponStats.WeapShowName) +"'>" +
@@ -131,12 +131,12 @@ function printWeapon(weaponStats){
                             "<span class='lblWeaponNameValue'>" + weaponStats.WeapShowName + "</span>" + firestormIcon +
                          "</div>" +
                          "<div>" +
-                             "<img class='weaponImg' src='./pages/bf1/img/weapons/" + getWeaponImageFilename(weaponStats.WeapShowName.replace("/","")) + ".png' onerror='showBlank(this);'>" +
+                             "<img class='weaponImg' src='./pages/bf1/img/weapons/" + bf1GetWeaponImageFilename(weaponStats.WeapShowName.replace("/","")) + ".png' onerror='showBlank(this);'>" +
                          "</div>" +
                          "<div style='line-height: 20px;'>" +
                              "<span class='lblMagText'>" +
                                 "<span class='lblMag'>" + weaponStats.MagSize + "</span>" +
-                                "<span class='lblSuffixText'> x " + formatAmmoType(weaponStats.Ammo) + "</span>" +
+                                "<span class='lblSuffixText'> x " + bf1FormatAmmoType(weaponStats.Ammo) + "</span>" +
                              "</span>" +
                              "<span class='lblRPM'>" +
                                  "<span class='lblRPMValue' " + rpmTooltip + ">" + weaponStats.BRoF + "</span>" +
@@ -146,25 +146,25 @@ function printWeapon(weaponStats){
                      "</td>" +
 
               "<td class='secondColumn'>" +
-                  "<div class='damageChartContainer' " + damageTooltip + ">" + createDamageChart(weaponStats.Damages, weaponStats.Dmg_distances, weaponStats.ShotsPerShell, weaponStats.Class) + "</div>" +
+                  "<div class='damageChartContainer' " + damageTooltip + ">" + bf1createDamageChart(weaponStats.Damages, weaponStats.Dmg_distances, weaponStats.ShotsPerShell, weaponStats.Class) + "</div>" +
               "</td>" +
 
               "<td>" +
               //"<div class='underMagSection'>" +
               "<td>" +
-                  "<div class='reloadDataAndMagCount'>" + createBulletSpeedGraphic(weaponStats.InitialSpeed, weaponStats.Drag) + reloadData  + "</div>" +
+                  "<div class='reloadDataAndMagCount'>" + bf1CreateBulletSpeedGraphic(weaponStats.InitialSpeed, weaponStats.Drag) + reloadData  + "</div>" +
                   "<div class='deployTimeBox' " + deployTooltip + "><span class='ui-icon ui-icon-transferthick-e-w'></span><br><span class='lblDeployTime'>" + weaponStats.DeployTime + "<span class='lblSuffixText'> s</span></span></div>" +
               "</td><td>" +
                   "<div class='recoilGraphicBox' " + recoilTooltip + ">" + standRecoilData + "</div>" +
               "</td><td>" +
                   "<div>" +
                       "<div class='spreadLabels' " + adsTooltip + ">" +
-                          createSpreadLabels(weaponStats.ADSStandMoveMin, weaponStats.ADSStandBaseMin) +
+                          bf1CreateSpreadLabels(weaponStats.ADSStandMoveMin, weaponStats.ADSStandBaseMin) +
                       "</div>" +
-                      "<div class='spreadCircles' " + adsTooltip + ">" + createSpreadGraphic(weaponStats.ADSStandBaseMin, weaponStats.ADSStandMoveMin) + "</div>" +
+                      "<div class='spreadCircles' " + adsTooltip + ">" + bf1CreateSpreadGraphic(weaponStats.ADSStandBaseMin, weaponStats.ADSStandMoveMin) + "</div>" +
                   "</div>" +
               "</td><td>" +
-                  "<div class='hipSpreadContainer' " + hipfireTooltip + ">" + createHipSpreadGraphic(weaponStats.HIPStandMoveMin, weaponStats.HorDispersion) + "</div>" +
+                  "<div class='hipSpreadContainer' " + hipfireTooltip + ">" + bf1CreateHipSpreadGraphic(weaponStats.HIPStandMoveMin, weaponStats.HorDispersion) + "</div>" +
             //  "</td><td>" +
                 //  "<div class='deployTimeBox' " + deployTooltip + "><span class='ui-icon ui-icon-transferthick-e-w'></span><br><span class='lblDeployTime'>" + weaponStats.DeployTime + "<span class='lblSuffixText'> s</span></span></div>" +
               "</td><td>" +
@@ -181,7 +181,7 @@ function printWeapon(weaponStats){
         return rtnStr;
 }
 
-function getWeaponImageFilename(weaponName){
+function bf1GetWeaponImageFilename(weaponName){
     var weaponFilename = "";
     if (weaponName == "M1917 Patrol Carbine"){
         weaponFilename = "M1917 Patrol Carbine";
@@ -191,7 +191,7 @@ function getWeaponImageFilename(weaponName){
     return weaponFilename;
 }
 
-function createBulletSpeedGraphic(initialSpeed, drag){
+function bf1CreateBulletSpeedGraphic(initialSpeed, drag){
     return "<div class='bulletSpeedContainer'>" +
              "<span class='pr-3 lblSpeed' " + bulletSpeedTooltip + ">" +
                "<img src='./pages/bfv/img/speed.png'>" +
@@ -204,7 +204,7 @@ function createBulletSpeedGraphic(initialSpeed, drag){
            "</div>"
 }
 
-function createReloadGraphic(reloadEmpty, reloadLeft, magSize, ammoType){
+function bf1CreateReloadGraphic(reloadEmpty, reloadLeft, magSize, ammoType){
     var reloadData = "<div>" +
                          "<div class='sectionReload' " + reloadTooltip + ">";
     if (reloadEmpty != "N/A"){
@@ -234,7 +234,7 @@ function createReloadGraphic(reloadEmpty, reloadLeft, magSize, ammoType){
     return reloadData +  "</div>";
 }
 
-function formatAmmoType(ammo){
+function bf1FormatAmmoType(ammo){
     var newAmmo = ammo.replace("Carcano65x52mm", "6.5x52mm Carcano").replace("_Semi", "").replace("_SMG", "").replace("_Heavy", "").replace("_Pistol", "").replace("_Bolt", " ").replace("_SLR", " ").replace("Mauser", "Mauser ").replace("303", ".303").replace("792", "7.92").replace("Carbine", "").replace("Heavy", "").replace("Sniper", "").replace("_ShortBarrel", "");
     newAmmo = newAmmo.replace("75", "7.5").replace("351W", ".351 W").replace("35R", ".35 R").replace("_Fast", "").replace("_A5", "").replace("_Drilling", "").replace("_Improved", "").replace("_1897", "").replace("Incendiary", "").replace("LongRange", "").replace("_LowDrag", "").replace("Rifle", "").replace("_Aero", " ").replace("_", " ");
     newAmmo = newAmmo.replace("_Auto", "").replace(" HighROF", "").replace(" M3", "").replace(" MMG", "").replace(" MG", "").replace("_CMP", "").replace(" PzB39", "");
@@ -242,7 +242,7 @@ function formatAmmoType(ammo){
     return newAmmo;
 }
 
-function createRecoilGraphic(recoilLeft, recoilRight, recoilInitialUp, recoilFirstShot, recoilDec){
+function bf1CreateRecoilGraphic(recoilLeft, recoilRight, recoilInitialUp, recoilFirstShot, recoilDec){
 
     if (recoilInitialUp <= 2){
         var recoilUpLength = (90 - (recoilInitialUp * 30));
@@ -283,7 +283,7 @@ function createRecoilGraphic(recoilLeft, recoilRight, recoilInitialUp, recoilFir
     return recoilGraphic;
 }
 
-function createSpreadLabels(ADSStandMoveMin, ADSStandBaseMin){
+function bf1CreateSpreadLabels(ADSStandMoveMin, ADSStandBaseMin){
     var rtnStr = "";
     if (ADSStandMoveMin > 0){
         rtnStr = "<div class='speadMoveLabel'>" + roundToThree(ADSStandMoveMin) + "°</div>" +
@@ -292,7 +292,7 @@ function createSpreadLabels(ADSStandMoveMin, ADSStandBaseMin){
     return rtnStr;
 }
 
-function createSpreadGraphic(ADSBase, ADSMove){
+function bf1CreateSpreadGraphic(ADSBase, ADSMove){
     var spreadGraphic = "";
 
     var adsBaseCircle = "";
@@ -310,7 +310,7 @@ function createSpreadGraphic(ADSBase, ADSMove){
     return spreadGraphic;
 }
 
-function createHipSpreadGraphic(HIPSpread, HorDispersion){
+function bf1CreateHipSpreadGraphic(HIPSpread, HorDispersion){
     var lineOffset = HIPSpread * 2;
     var spreadGraphic = "";
 
@@ -333,7 +333,7 @@ function createHipSpreadGraphic(HIPSpread, HorDispersion){
     return spreadGraphic;
 }
 
-function createSpreadTableGraphic(ADSStand, ADSCrouch, ADSProne, ADSStandMove, ADSCrouchMove, ADSProneMove,
+function bf1CreateSpreadTableGraphic(ADSStand, ADSCrouch, ADSProne, ADSStandMove, ADSCrouchMove, ADSProneMove,
                                   HIPStand, HIPCrouch, HIPProne, HIPStandMove, HIPCrouchMove, HIPProneMove,
                                   ADSIncrease, HIPIncrease){
     var tableGraphic = "<table class='spreadTable'>" +
@@ -349,7 +349,7 @@ function createSpreadTableGraphic(ADSStand, ADSCrouch, ADSProne, ADSStandMove, A
     return tableGraphic;
 }
 
-function createSpreadIncDecTableGraphic(ADSInc, HIPInc, ADSDec, HIPDec, ADSFirst, HIPFirst){
+function bf1CreateSpreadIncDecTableGraphic(ADSInc, HIPInc, ADSDec, HIPDec, ADSFirst, HIPFirst){
     var tableGraphic = "<table class='spreadIncDecTable'>" +
                            "<tr>" + "<td></td><td>ADS</td><td>HIP</td>" + "</tr>" +
                            "<tr>" + "<td class='scaleIncreaseCell'><img src='./img/increaseFirst.png'></td><td>" + roundToThree(ADSInc * ADSFirst) + "°</td><td>" + roundToThree(HIPInc * HIPFirst) + "°</td>" + "</tr>" +
@@ -359,31 +359,22 @@ function createSpreadIncDecTableGraphic(ADSInc, HIPInc, ADSDec, HIPDec, ADSFirst
 return tableGraphic;
 }
 
-
-function formatDamagesOrDistances(dmgArray) {
-    var dmgStr = "";
-    for (var i = 0; i < dmgArray.length; i++){
-        dmgStr += dmgArray[i].toFixed(1).toString() + " - ";
-    }
-    return dmgStr;
-}
-
-function createDamageChart(damageArr, distanceArr, numOfPellets, weaponClass){
+function bf1createDamageChart(damageArr, distanceArr, numOfPellets, weaponClass){
     var damageChart;
     if (damageArr[0] > 50 ){
         //if(distanceArr.indexOf(200) == -1){
         if(distanceArr[distanceArr.length -1] > 150 || weaponClass == 4){
-            damageChart = createDamageChart100Max200Dist(damageArr, distanceArr);
+            damageChart = bf1CreateDamageChart100Max200Dist(damageArr, distanceArr);
         } else {
-            damageChart = createDamageChart100Max(damageArr, distanceArr);
+            damageChart = bf1CreateDamageChart100Max(damageArr, distanceArr);
         }
     } else {
-        damageChart = createDamageChart50Max(damageArr, distanceArr, numOfPellets)
+        damageChart = bf1CreateDamageChart50Max(damageArr, distanceArr, numOfPellets)
     }
     return damageChart;
 }
 
-function createDamageChart50Max(damageArr, distanceArr, numOfPellets){
+function bf1CreateDamageChart50Max(damageArr, distanceArr, numOfPellets){
     var damageLineCoords = "";
     damageLineCoords = distanceArr[0] == 0.0 ? "" : "0," + (120 - (2 * damageArr[0])) + " ";
     for (var i = 0; i < damageArr.length; i++){
@@ -469,7 +460,7 @@ function createDamageChart50Max(damageArr, distanceArr, numOfPellets){
            "</svg>"
 }
 
-function createDamageChart100Max(damageArr, distanceArr){
+function bf1CreateDamageChart100Max(damageArr, distanceArr){
     var damageLineCoords = "";
     damageLineCoords = distanceArr[0] == 0.0 ? "" : "0," + (120 -  damageArr[0]) + " ";
     for (var i = 0; i < damageArr.length; i++){
@@ -552,7 +543,7 @@ function createDamageChart100Max(damageArr, distanceArr){
            "</svg>"
 }
 
-function createDamageChart100Max200Dist(damageArr, distanceArr){
+function bf1CreateDamageChart100Max200Dist(damageArr, distanceArr){
     var damageLineCoords = "";
     damageLineCoords = distanceArr[0] == 0.0 ? "" : "0," + (120 -  damageArr[0]) + " ";
     for (var i = 0; i < damageArr.length; i++){
@@ -627,7 +618,7 @@ function createDamageChart100Max200Dist(damageArr, distanceArr){
 }
 
 
-function showHideClasses(){
+function bf1ShowHideClasses(){
     if ($("#showSidearmsCheck").is(":checked")){
         $("#SidearmsSection").show(0);
     } else {
@@ -658,145 +649,5 @@ function showHideClasses(){
     } else {
         $("#MiscellaneousSection").hide(0);
     }
-
-}
-
-function showHideSubCats(){
-    if ($("#showARCheck").is(":checked")){
-        $(".sub_AR").show(0);
-    } else {
-        $(".sub_AR").hide(0);
-    }
-    if ($("#showSARCheck").is(":checked")){
-        $(".sub_SAR").show(0);
-    } else {
-        $(".sub_SAR").hide(0);
-    }
-    if ($("#showSMGCheck").is(":checked")){
-        $(".sub_SMG").show(0);
-    } else {
-        $(".sub_SMG").hide(0);
-    }
-    if ($("#showBACarbineCheck").is(":checked")){
-        $(".sub_BACarbine").show(0);
-    } else {
-        $(".sub_BACarbine").hide(0);
-    }
-    if ($("#showShotgunCheck").is(":checked")){
-        $(".sub_Shotgun").show(0);
-    } else {
-        $(".sub_Shotgun").hide(0);
-    }
-    if ($("#showLMGCheck").is(":checked")){
-        $(".sub_LMG").show(0);
-    } else {
-        $(".sub_LMG").hide(0);
-    }
-    if ($("#showMMGCheck").is(":checked")){
-        $(".sub_MMG").show(0);
-    } else {
-        $(".sub_MMG").hide(0);
-    }
-    if ($("#showBACheck").is(":checked")){
-        $(".sub_BA").show(0);
-    } else {
-        $(".sub_BA").hide(0);
-    }
-    if ($("#showSLRCheck").is(":checked")){
-        $(".sub_SLR").show(0);
-    } else {
-        $(".sub_SLR").hide(0);
-    }
-    if ($("#showAMCheck").is(":checked")){
-        $(".sub_AntiMaterial").show(0);
-    } else {
-        $(".sub_AntiMaterial").hide(0);
-    }
-    if ($("#showPCCheck").is(":checked")){
-        $(".sub_PistolCarbine").show(0);
-    } else {
-        $(".sub_PistolCarbine").hide(0);
-    }
-}
-
-
-
-var weaponSubCats = new Object();
-
-weaponSubCats._AGM42 = "SAR";
-weaponSubCats._BredaM1935PG = "AR"
-weaponSubCats._Gewehr15 = "SAR";
-weaponSubCats._M1Garand = "SAR";
-weaponSubCats._M1A1Carbine = "SAR";
-weaponSubCats._MAS44 = "SAR";
-weaponSubCats._Selbstlader1916 = "SAR";
-weaponSubCats._TurnerSMLE = "SAR";
-weaponSubCats._StG44 = "AR";
-weaponSubCats._Gewehr43 = "SAR";
-weaponSubCats._M1907SF = "AR";
-weaponSubCats._M2Carbine = "AR"
-weaponSubCats._Ribeyrolles1918 = "AR";
-weaponSubCats._StG44 = "AR";
-weaponSubCats._Sturmgewehr15 = "AR";
-weaponSubCats._Karabin1938M = "SAR";
-
-weaponSubCats._EMP = "SMG";
-weaponSubCats._M1928A1 = "SMG";
-weaponSubCats._M3GreaseGun = "SMG";
-weaponSubCats._MAB38 = "SMG";
-weaponSubCats._MP28 = "SMG";
-weaponSubCats._MP34 = "SMG";
-weaponSubCats._MP40 = "SMG";
-weaponSubCats._NambuType2A = "SMG";
-weaponSubCats._STEN = "SMG";
-weaponSubCats._SuomiKP31 = "SMG";
-weaponSubCats._Zk383 = "SMG";
-weaponSubCats._Type100 = "SMG";
-weaponSubCats._M28Tromboncino = "BACarbine";
-weaponSubCats._CommandoCarbine = "BACarbine";
-weaponSubCats._JungleCarbine = "BACarbine";
-
-weaponSubCats._12gAutomatic = "Shotgun";
-weaponSubCats._M30Drilling = "Shotgun";
-weaponSubCats._M97 = "Shotgun";
-weaponSubCats._Model37 = "Shotgun"
-weaponSubCats._BARM1918A2 = "LMG";
-weaponSubCats._BrenGun = "LMG";
-weaponSubCats._FG42 = "LMG";
-weaponSubCats._KE7 = "LMG";
-weaponSubCats._LewisGun = "LMG";
-weaponSubCats._LS26 = "LMG";
-weaponSubCats._M1922MMG = "MMG";
-weaponSubCats._MadsenMG = "LMG";
-weaponSubCats._Type11MG = "LMG";
-weaponSubCats._Type97MG = "LMG";
-weaponSubCats._MG34 = "MMG";
-weaponSubCats._MG42 = "MMG";
-weaponSubCats._S2200 = "MMG";
-weaponSubCats._VGO = "MMG";
-weaponSubCats._M1919A6 = "MMG";
-
-weaponSubCats._BoysATRifle = "AntiMaterial";
-weaponSubCats._Panzerbüchse39 = "AntiMaterial";
-weaponSubCats._GewehrM9530 = "BA";
-weaponSubCats._Kar98k = "BA";
-weaponSubCats._KragJorgensen = "BA";
-weaponSubCats._LeeEnfieldNo4Mk1 = "BA";
-weaponSubCats._RossRifleMkIII = "BA";
-weaponSubCats._Type99Arisaka = "BA";
-weaponSubCats._Model8 = "SLR";
-weaponSubCats._RSC = "SLR";
-weaponSubCats._Selbstlader1906 = "SLR";
-weaponSubCats._ZH29 = "SLR";
-weaponSubCats._P08Carbine = "PistolCarbine";
-weaponSubCats._C96TrenchCarbine = "PistolCarbine";
-
-
-function cleanUpStuff(){
-    var speacialRow = $("span:contains('Karabin')").parentsUntil("tbody", "tr");
-    //$(speacialRow).find(".recoilGraphicBox").css("visibility","hidden");
-    //$(speacialRow).find(".recoilGraphicBox > svg").empty();
-    $(speacialRow).find(".variantButton").remove();
-    $(speacialRow).find(".custButtons").empty().html("<div class='tbdBox'>Soon</div>");
 
 }
