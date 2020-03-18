@@ -467,6 +467,13 @@ fiveMline {
     margin: 0 !important;
 }
 
+.spreadMoveCicleBG {
+    stroke-width: 2px;
+    stroke: #222;
+    fill: #333;
+}
+
+
 .hipSpreadContainer{
     margin: 0 !important;
     text-align: center;
