@@ -1,5 +1,5 @@
 
-var weaponClassTitles = ["","Medic","Assault","Support","Recon", "Tanker / Pilot / Elite", "", "", "Sidearms"];
+var weaponClassTitles = ["","Medic","Assault","Support","Scout", "Miscellaneous", "", "", "Sidearms"];
 var firestormWeapons = []//["Gewehr 43","M1A1 Carbine","Sturmgewehr 1-5","StG 44","MP40","De Lisle Commando","STEN","Suomi KP/-31","M1928A1","LS/26","FG-42","Bren Gun","MG42","VGO","M97","12g Automatic","Lee-Enfield No4 Mk1","Kar98k","ZH-29","Boys AT Rifle","P38 Pistol","P08 Pistol","M1911","Liberator","Mk VI Revoler"];
 var customizations = new Object();
 var addVariantCounter = 0;
@@ -96,9 +96,11 @@ function printWeapons(){
 }
 
 function printWeaponClass(weaponClass){
+    var classImgFileName = (weaponClass == 5) ? "KitIconRiflemanLarge.png" : "KitIcon" + weaponClassTitles[weaponClass] + "Large.png";
+
     var rtnStr = "";
     rtnStr += "<div id='" + weaponClassTitles[weaponClass] + "Section'>" +
-              "<div class='classHeader'><img src='./pages/bfv/img/" + weaponClassTitles[weaponClass] + "-icon.png'>" + weaponClassTitles[weaponClass] + "</div>";
+              "<div class='classHeader'><img src='./pages/bf1/img/" + classImgFileName + "'>" + weaponClassTitles[weaponClass] + "</div>";
     rtnStr += "<table class='table classTable'><tbody class='sortableTable'>";
 
     $.each(BF1WeaponData, function( key, value ) {
@@ -169,7 +171,11 @@ function printWeapon(weaponStats){
                   spreadTableGraphic +
               "</td><td>" +
                   spreadIncDecTableGraphic +
-              "</td>" +
+              "</td><td>" +
+                  "<div>" +
+                      "<img class='sortDragIcon' src='./pages/bfv/img/sortDrag.png' " + dragTooltip + ">" +
+                  "</div>" +
+               "</td>" +
               //"<div>DeployTime   : " + weaponStats.DeployTime + "</div>" +
               "</tr>";
         return rtnStr;
@@ -316,12 +322,12 @@ function createHipSpreadGraphic(HIPSpread, HorDispersion){
                         "<line y1='50' x1='" + (lineOffset + 52) + "' y2='50' x2='" + (lineOffset + 65) + "' class='hipSpreadLine'></line>" +
                         "<line y1='50' x1='" + (48 - lineOffset) + "' y2='50' x2='" + (35 - lineOffset) + "' class='hipSpreadLine'></line>" +
 
-                        "<text x='5' y='91' class='hipSpreadValue'>" + roundToThree(HIPSpread) + "°</text>" +
+                        "<text x='10' y='91' class='hipSpreadValue'>" + roundToThree(HIPSpread) + "°</text>" +
                         "</svg>";
     } else {
         spreadGraphic = "<svg viewBox='0 0 100 100' style='width: 100px;'>" +
                         "<circle cx='50' cy='50' r='" + (HorDispersion * 10).toString() + "' class='hipSpreadLine'></circle>" +
-                        "<text x='5' y='23' class='hipSpreadValue'>" + roundToThree(HorDispersion) + "°</text>" +
+                        "<text x='10' y='23' class='hipSpreadValue'>" + roundToThree(HorDispersion) + "°</text>" +
                         "</svg>";
     }
     return spreadGraphic;
@@ -643,10 +649,16 @@ function showHideClasses(){
         $("#SupportSection").hide(0);
     }
     if ($("#showReconCheck").is(":checked")){
-        $("#ReconSection").show(0);
+        $("#ScoutSection").show(0);
     } else {
-        $("#ReconSection").hide(0);
+        $("#ScoutSection").hide(0);
     }
+    if ($("#showOthersCheck").is(":checked")){
+        $("#MiscellaneousSection").show(0);
+    } else {
+        $("#MiscellaneousSection").hide(0);
+    }
+
 }
 
 function showHideSubCats(){
