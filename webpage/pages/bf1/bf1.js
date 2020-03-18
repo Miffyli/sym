@@ -355,6 +355,7 @@ function BF1initializeIndexPage(){
 }
 
 function BF1SetupPageHeader(){
+  loadBF1Stylesheet()
   $('.sym-pageSelections > div').click(function () {
     var clicked = $(this).attr('id')
     var pageName

@@ -138,7 +138,21 @@ function roundToThree(num) {
 }
 
 function roundToDecimal(num, decimalSpots){
-  return +(Math.round(num + 'e+' + decimalSpots)  + 'e-' + decimalSpots);
+  return +(Math.round(num + 'e+' + decimalSpots)  + 'e-' + decimalSpots)
+}
+
+/*
+   Load the stylesheets for each game dynamically because they share a lot of styles.
+   Otherwise you would have to rename/de-conflict each entry in the css files and html.
+*/
+function loadBFVStylesheet(){
+  //$('#gameCSS').attr('href', './pages/bfv/bfv.css')
+  $('#chartCSS').attr('href', './pages/bfv/bfv_chart.css')
+}
+
+function loadBF1Stylesheet(){
+  //$('#gameCSS').attr('href', './pages/bf1/bf1.css')
+  $('#chartCSS').attr('href', './pages/bf1/bf1_chart.css')
 }
 
 /*
