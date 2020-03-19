@@ -314,7 +314,7 @@ function bf1CreateHipSpreadGraphic(HIPSpread, HorDispersion){
     var lineOffset = HIPSpread * 2;
     var spreadGraphic = "";
 
-    if (HIPSpread > 0) {
+    if (HorDispersion == 0 || HorDispersion == .5) { //Villa Perosa hordispersion = .5
         spreadGraphic = "<svg viewBox='0 0 100 100' style='width: 100px;'>" +
                         "<line x1='50' y1='" + (lineOffset + 52) + "' x2='50' y2='" + (lineOffset + 65) + "' class='hipSpreadLine'></line>" +
                         "<line x1='50' y1='" + (48 - lineOffset) + "' x2='50' y2='" + (35 - lineOffset) + "' class='hipSpreadLine'></line>" +
