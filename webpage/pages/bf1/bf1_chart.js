@@ -1,5 +1,5 @@
 
-var weaponClassTitles = ["","Medic","Assault","Support","Scout", "Miscellaneous", "", "", "Sidearms"];
+var bf1WeaponClassTitles = ["","Medic","Assault","Support","Scout", "Miscellaneous", "", "", "Sidearms"];
 var firestormWeapons = []//["Gewehr 43","M1A1 Carbine","Sturmgewehr 1-5","StG 44","MP40","De Lisle Commando","STEN","Suomi KP/-31","M1928A1","LS/26","FG-42","Bren Gun","MG42","VGO","M97","12g Automatic","Lee-Enfield No4 Mk1","Kar98k","ZH-29","Boys AT Rifle","P38 Pistol","P08 Pistol","M1911","Liberator","Mk VI Revoler"];
 var customizations = new Object();
 var addVariantCounter = 0;
@@ -96,11 +96,11 @@ function bf1PrintWeapons(){
 }
 
 function bf1PrintWeaponClass(weaponClass){
-    var classImgFileName = (weaponClass == 5) ? "KitIconRiflemanLarge.png" : "KitIcon" + weaponClassTitles[weaponClass] + "Large.png";
+    var classImgFileName = (weaponClass == 5) ? "KitIconRiflemanLarge.png" : "KitIcon" + bf1WeaponClassTitles[weaponClass] + "Large.png";
 
     var rtnStr = "";
-    rtnStr += "<div id='" + weaponClassTitles[weaponClass] + "Section'>" +
-              "<div class='classHeader'><img src='./pages/bf1/img/" + classImgFileName + "'>" + weaponClassTitles[weaponClass] + "</div>";
+    rtnStr += "<div id='" + bf1WeaponClassTitles[weaponClass] + "Section'>" +
+              "<div class='classHeader'><img src='./pages/bf1/img/" + classImgFileName + "'>" + bf1WeaponClassTitles[weaponClass] + "</div>";
     rtnStr += "<table class='table classTable'><tbody class='sortableTable'>";
 
     $.each(BF1WeaponData, function( key, value ) {
