@@ -164,7 +164,7 @@ function bf1PrintWeapon(weaponStats){
                       "<div class='spreadCircles' " + adsTooltip + ">" + bf1CreateSpreadGraphic(weaponStats.ADSStandBaseMin, weaponStats.ADSStandMoveMin) + "</div>" +
                   "</div>" +
               "</td><td>" +
-                  "<div class='hipSpreadContainer' " + hipfireTooltip + ">" + bf1CreateHipSpreadGraphic(weaponStats.HIPStandMoveMin, weaponStats.HorDispersion) + "</div>" +
+                  "<div class='hipSpreadContainer' " + hipfireTooltip + ">" + bf1CreateHipSpreadGraphic(weaponStats.HIPStandMoveMin, weaponStats.HorDispersion, weaponStats.VerDispersion) + "</div>" +
             //  "</td><td>" +
                 //  "<div class='deployTimeBox' " + deployTooltip + "><span class='ui-icon ui-icon-transferthick-e-w'></span><br><span class='lblDeployTime'>" + weaponStats.DeployTime + "<span class='lblSuffixText'> s</span></span></div>" +
               "</td><td>" +
@@ -310,7 +310,7 @@ function bf1CreateSpreadGraphic(ADSBase, ADSMove){
     return spreadGraphic;
 }
 
-function bf1CreateHipSpreadGraphic(HIPSpread, HorDispersion){
+function bf1CreateHipSpreadGraphic(HIPSpread, HorDispersion, VerDispersion){
     var lineOffset = HIPSpread * 2;
     var spreadGraphic = "";
 
@@ -325,10 +325,17 @@ function bf1CreateHipSpreadGraphic(HIPSpread, HorDispersion){
                         "<text x='10' y='91' class='hipSpreadValue'>" + roundToThree(HIPSpread) + "°</text>" +
                         "</svg>";
     } else {
-        spreadGraphic = "<svg viewBox='0 0 100 100' style='width: 100px;'>" +
-                        "<circle cx='50' cy='50' r='" + (HorDispersion * 10).toString() + "' class='hipSpreadLine'></circle>" +
-                        "<text x='10' y='23' class='hipSpreadValue'>" + roundToThree(HorDispersion) + "°</text>" +
-                        "</svg>";
+        if (HorDispersion == VerDispersion){
+            spreadGraphic = "<svg viewBox='0 0 100 100' style='width: 100px;'>" +
+                            "<circle cx='50' cy='50' r='" + (HorDispersion * 10).toString() + "' class='hipSpreadLine'></circle>" +
+                            "<text x='10' y='23' class='hipSpreadValue'>" + roundToThree(HorDispersion) + "°</text>" +
+                            "</svg>";
+        } else {
+            spreadGraphic = "<svg viewBox='0 0 100 100' style='width: 100px;'>" +
+                            "<ellipse cx='50' cy='50' rx='" + (HorDispersion * 10).toString() + "' ry='" + (VerDispersion * 10).toString() + "' class='hipSpreadLine'/>" +
+                            "<text x='10' y='23' class='hipSpreadValue'>" + roundToThree(HorDispersion) + "° / " + roundToThree(VerDispersion) + "°</text>" +
+                            "</svg>";
+        }
     }
     return spreadGraphic;
 }
