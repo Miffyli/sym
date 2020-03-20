@@ -1,5 +1,5 @@
 // Path to datafile
-const BF1_DATA = './pages/bf1/data/bf1_1.json'
+const BF1_DATA = './pages/bf1/data/bf1_2.json'
 
 // Manual dates when the data or pages have been modified.
 // In format "[day] [month three letters] [year four digits]"
