@@ -467,6 +467,13 @@ fiveMline {
     margin: 0 !important;
 }
 
+.spreadMoveCicleBG {
+    stroke-width: 2px;
+    stroke: #222;
+    fill: #333;
+}
+
+
 .hipSpreadContainer{
     margin: 0 !important;
     text-align: center;
@@ -535,5 +542,6 @@ fiveMline {
 .custom-combobox-input {
     margin: 0;
     padding: 5px 10px;
+    width: 300px;
 }
  /* End custom combobox */

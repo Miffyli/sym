@@ -7,7 +7,7 @@ const SYM_GITHUB_URL = 'https://github.com/miffyli/sym'
 // Number of news items available, stored under
 // misc/news_items/#.html . This value should be updated
 // when new entries for News are made
-const SYM_NUM_NEWS_ITEMS = 1
+const SYM_NUM_NEWS_ITEMS = 2
 
 /*
     This code runs after the page loads all resources.
@@ -123,12 +123,14 @@ function loadNewestNewsItems (itemIndex, numItems) {
     url: `./pages/misc/news_items/${itemIndex}.html`,
     success : function (data, states, jqXHR)
     {
-      $('.sym-news').append(jqXHR.responseText);
+      $('.sym-news').prepend(jqXHR.responseText.replace("%26", "&"));
       // Recursively load next news items
       loadNewestNewsItems(itemIndex + 1, numItems - 1)
     }
   })
 }
+
+
 
 /*
     Rounds a number to at most 3 decimal places but will not add trailing zeros
@@ -138,7 +140,21 @@ function roundToThree(num) {
 }
 
 function roundToDecimal(num, decimalSpots){
-  return +(Math.round(num + 'e+' + decimalSpots)  + 'e-' + decimalSpots);
+  return +(Math.round(num + 'e+' + decimalSpots)  + 'e-' + decimalSpots)
+}
+
+/*
+   Load the stylesheets for each game dynamically because they share a lot of styles.
+   Otherwise you would have to rename/de-conflict each entry in the css files and html.
+*/
+function loadBFVStylesheet(){
+  //$('#gameCSS').attr('href', './pages/bfv/bfv.css')
+  $('#chartCSS').attr('href', './pages/bfv/bfv_chart.css')
+}
+
+function loadBF1Stylesheet(){
+  //$('#gameCSS').attr('href', './pages/bf1/bf1.css')
+  $('#chartCSS').attr('href', './pages/bf1/bf1_chart.css')
 }
 
 /*
@@ -197,6 +213,9 @@ function exceuteQueryStringParams(){
           break
         case 'comparison':
           openBF1SelectionPageFromQueryString('Weapon Comparison')
+          break
+        case 'charts':
+          openBF1SelectionPageFromQueryString('Weapon Charts')
           break
       }
       break
