@@ -4,7 +4,7 @@ const BF1_DATA = './pages/bf1/data/bf1_2.json'
 // Manual dates when the data or pages have been modified.
 // In format "[day] [month three letters] [year four digits]"
 // e.g. 2nd Jan 2019
-const BF1_DATA_DATE = '2nd Nov 2019 (BF1_I)'
+const BF1_DATA_DATE = '20th March 2020 (BF1_I)'
 const BF1_PAGE_DATE = '19th March 2020'
 
 // Total version string displayed under title
