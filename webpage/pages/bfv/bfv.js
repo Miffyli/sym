@@ -454,6 +454,7 @@ function BFVinitializeIndexPage(){
 
 
 function BFVSetupPageHeader(){
+  loadBFVStylesheet()  
   $('.sym-pageSelections > div').click(function () {
     var clicked = $(this).attr('id')
     var pageName

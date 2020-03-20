@@ -5,7 +5,7 @@ const BF1_DATA = './pages/bf1/data/bf1_1.json'
 // In format "[day] [month three letters] [year four digits]"
 // e.g. 2nd Jan 2019
 const BF1_DATA_DATE = '2nd Nov 2019 (BF1_I)'
-const BF1_PAGE_DATE = '2nd Jan 2020'
+const BF1_PAGE_DATE = '19th March 2020'
 
 // Total version string displayed under title
 const BF1_VERSION_STRING = `Latest updates<br>Page: ${BF1_PAGE_DATE}<br>Data: ${BF1_DATA_DATE}`
@@ -290,6 +290,22 @@ function loadBF1ComparisonPage(){
   $('.bf1-main-content').load('./pages/bf1/bf1_comparison.html', initializeBF1Comparison)
 }
 
+/*
+  Load the BF1 chart page
+*/
+function openBF1ChartPage () {
+  if (BF1DataLoaded === false) {
+    BF1SelectedPage = "BF1_CHART"
+    BF1LoadWeaponData()
+  } else {
+    loadBF1ChartPage()
+  }
+}
+
+function loadBF1ChartPage(){
+    $('.bf1-main-content').load('./pages/bf1/bf1_chart.html', BF1initializeChartPage)
+}
+
 
 /*
   Main hub for opening different BF1 pages based on their name.
@@ -312,7 +328,11 @@ function BF1OpenPageByName(pageName) {
     $('#bf1-mainPageSelector').addClass('selected-selector')
     openBF1IndexPage()
     updateQueryString("bf1", "index")
-	}
+	} else if (pageName === 'Weapon Charts') {
+    $('#bf1-chartPageSelector').addClass('selected-selector')
+    openBF1ChartPage()
+    updateQueryString("bf1", "charts")
+  }
 }
 
 /*
@@ -335,6 +355,7 @@ function BF1initializeIndexPage(){
 }
 
 function BF1SetupPageHeader(){
+  loadBF1Stylesheet()
   $('.sym-pageSelections > div').click(function () {
     var clicked = $(this).attr('id')
     var pageName
@@ -344,6 +365,8 @@ function BF1SetupPageHeader(){
       pageName = 'Index'
 	  } else if (clicked === 'bf1-generalinfoPageSelector') {
       pageName = 'General Information'
+    } else if (clicked === 'bf1-chartPageSelector') {
+      pageName = 'Weapon Charts'
     }
     BF1OpenPageByName(pageName)
   })

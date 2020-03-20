@@ -365,6 +365,7 @@ function createSpreadGraphic(ADSBase, ADSMove){
         }
 
         spreadGraphic = "<svg viewBox='0 0 100 100' style='width: 50px;'>" +
+                        "<circle cx='0' cy='100' class='spreadMoveCicleBG' r='100'></circle>" +
                         "<circle cx='0' cy='100' r='" + (ADSMove * 200).toString() + "' class='spreadMoveCicle'></circle>" +
 	                    adsBaseCircle +
                         "</svg>";
