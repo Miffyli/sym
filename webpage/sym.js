@@ -123,12 +123,14 @@ function loadNewestNewsItems (itemIndex, numItems) {
     url: `./pages/misc/news_items/${itemIndex}.html`,
     success : function (data, states, jqXHR)
     {
-      $('.sym-news').append(jqXHR.responseText);
+      $('.sym-news').prepend(jqXHR.responseText.replace("%26", "&"));
       // Recursively load next news items
       loadNewestNewsItems(itemIndex + 1, numItems - 1)
     }
   })
 }
+
+
 
 /*
     Rounds a number to at most 3 decimal places but will not add trailing zeros
