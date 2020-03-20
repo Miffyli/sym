@@ -183,8 +183,10 @@ function bf1PrintWeapon(weaponStats){
 
 function bf1GetWeaponImageFilename(weaponName){
     var weaponFilename = "";
-    if (weaponName == "M1917 Patrol Carbine"){
-        weaponFilename = "M1917 Patrol Carbine";
+    if (weaponName == "C96"){
+        weaponFilename = "Mauser C96";
+    } else if (weaponName == "C93"){
+        weaponFilename = "Borchard C93";
     } else {
         weaponFilename =  weaponName.replace("Backbored", "").replace("Cavalry", "").replace("Hunter", "").replace("Storm", "").replace("Trench", "").replace("Factory", "").replace("Defensive", "").replace("Sweeper", "").replace("Experimental", "").replace("Optical", "").replace("Slug", "").replace("Hunter", "").replace("Marksman", "").replace("Sniper", "").replace("Telescopic", "").replace("Low Weight", "").replace("Suppressive", "").replace("Infantry", "").replace("Silenced", "").replace("Patrol", "").replace("Carbine", "").trim();
     }
