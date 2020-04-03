@@ -33,6 +33,9 @@ window.onload = function () {
     } else if (clicked === 'menuBF1') {
       openBF1SelectionPage()
       updateQueryString("bf1", "index")
+    } else if (clicked === 'menuOtherTitles') {
+      openOtherTitlesSelectionPage()
+      updateQueryString("other", "index")
     } else if (clicked === 'menuDatabrowser') {
       openNewTab(SYM_DATABROWSER_URL)
     } else if (clicked === 'menuAbout') {
@@ -148,13 +151,15 @@ function roundToDecimal(num, decimalSpots){
    Otherwise you would have to rename/de-conflict each entry in the css files and html.
 */
 function loadBFVStylesheet(){
-  //$('#gameCSS').attr('href', './pages/bfv/bfv.css')
   $('#chartCSS').attr('href', './pages/bfv/bfv_chart.css')
 }
 
 function loadBF1Stylesheet(){
-  //$('#gameCSS').attr('href', './pages/bf1/bf1.css')
   $('#chartCSS').attr('href', './pages/bf1/bf1_chart.css')
+}
+
+function loadBF3Stylesheet(){
+  $('#chartCSS').attr('href', './pages/bf3/bf3_chart.css')
 }
 
 /*
