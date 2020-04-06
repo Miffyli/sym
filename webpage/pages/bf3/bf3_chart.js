@@ -145,7 +145,7 @@ function bf1PrintWeapon(weaponStats){
                      "</td>" +
 
               "<td class='secondColumn'>" +
-                  "<div class='damageChartContainer' " + damageTooltip + ">" + bf1createDamageChart(weaponStats.Damages, weaponStats.Dmg_distances, weaponStats.ShotsPerShell, weaponStats.Class) + "</div>" +
+                  "<div class='damageChartContainer' " + damageTooltip + ">" + bf1createDamageChart(weaponStats.Damages, weaponStats.Dmg_distances, weaponStats.Pellets, weaponStats.Ammo) + "</div>" +
               "</td>" +
 
               "<td>" +
@@ -163,7 +163,7 @@ function bf1PrintWeapon(weaponStats){
                       "<div class='spreadCircles' " + adsTooltip + ">" + bf1CreateSpreadGraphic(weaponStats.ADSStandBaseMin, weaponStats.ADSStandMoveMin) + "</div>" +
                   "</div>" +
               "</td><td>" +
-                  "<div class='hipSpreadContainer' " + hipfireTooltip + ">" + bf1CreateHipSpreadGraphic(weaponStats.HIPStandMoveMin, weaponStats.HorDispersion, weaponStats.VerDispersion) + "</div>" +
+                  "<div class='hipSpreadContainer' " + hipfireTooltip + ">" + bf1CreateHipSpreadGraphic(weaponStats.HIPStandMoveMin, weaponStats.HorDispersion) + "</div>" +
             //  "</td><td>" +
                 //  "<div class='deployTimeBox' " + deployTooltip + "><span class='ui-icon ui-icon-transferthick-e-w'></span><br><span class='lblDeployTime'>" + weaponStats.DeployTime + "<span class='lblSuffixText'> s</span></span></div>" +
               "</td><td>" +
@@ -183,7 +183,7 @@ function bf1PrintWeapon(weaponStats){
 function bf1GetWeaponImageFilename(weaponName){
     var weaponFilename = "";
 
-    weaponFilename =  weaponName.replace("Slug", "").replace("Buckshot", "").replace("Flechette", "");
+    weaponFilename =  weaponName.replace("Slug", "").replace("Buckshot", "").replace("Flechette", "").replace("Frag", "");
 
     return weaponFilename.trim();
 }
@@ -194,9 +194,6 @@ function bf1CreateBulletSpeedGraphic(initialSpeed, drag){
                "<img src='./pages/bfv/img/speed.png'>" +
                "<span class='lblSpeedValue'>" + initialSpeed + "</span>" +
                "<span class='lblSuffixText'> m/s</span>" +
-               "<br>" +
-               "<span class='ui-icon ui-icon-arrowthick-1-w'></span>" +
-               //"<span class='lblDragCoe' " + bulletSpeedTooltip +">" + drag.toString().substring(1) + "</span>" +
              "</span>" +
            "</div>"
 }
@@ -292,20 +289,20 @@ function bf1CreateSpreadGraphic(ADSBase, ADSMove){
 
     var adsBaseCircle = "";
     if(ADSBase >= 0.05){
-        adsBaseCircle = "<circle cx='0' cy='215' r='" + (ADSBase * 200).toString() + "' class='spreadBaseCicle'></circle>";
+        adsBaseCircle = "<circle cx='0' cy='215' r='" + (ADSBase * 133).toString() + "' class='spreadBaseCicle'></circle>";
     } else {
         adsBaseCircle = "<circle cx='0' cy='215' r='4' stroke-width='2' style='fill: none; stroke: #C8C63A; fill: #C8C63A;'></circle>";
     }
 
     spreadGraphic = "<svg viewBox='0 0 215 215' style='width: 80px;'>" +
                     "<circle cx='0' cy='215' class='spreadMoveCicleBG' r='214'></circle>" +
-                    "<circle cx='0' cy='215' r='" + (ADSMove * 200).toString() + "' class='spreadMoveCicle'></circle>" +
+                    "<circle cx='0' cy='215' r='" + (ADSMove * 133).toString() + "' class='spreadMoveCicle'></circle>" +
                     adsBaseCircle +
                     "</svg>";
     return spreadGraphic;
 }
 
-function bf1CreateHipSpreadGraphic(HIPSpread, HorDispersion, VerDispersion){
+function bf1CreateHipSpreadGraphic(HIPSpread, HorDispersion){
     var lineOffset = HIPSpread * 2;
     var spreadGraphic = "";
 
@@ -320,17 +317,10 @@ function bf1CreateHipSpreadGraphic(HIPSpread, HorDispersion, VerDispersion){
                         "<text x='10' y='91' class='hipSpreadValue'>" + roundToThree(HIPSpread) + "°</text>" +
                         "</svg>";
     } else {
-        if (HorDispersion == VerDispersion){
-            spreadGraphic = "<svg viewBox='0 0 100 100' style='width: 100px;'>" +
-                            "<circle cx='50' cy='50' r='" + (HorDispersion * 10).toString() + "' class='hipSpreadLine'></circle>" +
-                            "<text x='10' y='23' class='hipSpreadValue'>" + roundToThree(HorDispersion) + "°</text>" +
-                            "</svg>";
-        } else {
-            spreadGraphic = "<svg viewBox='0 0 100 100' style='width: 100px;'>" +
-                            "<ellipse cx='50' cy='50' rx='" + (HorDispersion * 10).toString() + "' ry='" + (VerDispersion * 10).toString() + "' class='hipSpreadLine'/>" +
-                            "<text x='10' y='23' class='hipSpreadValue'>" + roundToThree(HorDispersion) + "° / " + roundToThree(VerDispersion) + "°</text>" +
-                            "</svg>";
-        }
+        spreadGraphic = "<svg viewBox='0 0 100 100' style='width: 100px;'>" +
+                        "<circle cx='50' cy='50' r='" + (HorDispersion * 10).toString() + "' class='hipSpreadLine'></circle>" +
+                        "<text x='7' y='20' class='hipSpreadValue'>" + roundToThree(HorDispersion) + "°</text>" +
+                        "</svg>";
     }
     return spreadGraphic;
 }
@@ -359,22 +349,26 @@ function bf1CreateSpreadIncDecTableGraphic(spreadIncrease, spreadDecrease){
 return tableGraphic;
 }
 
-function bf1createDamageChart(damageArr, distanceArr, numOfPellets, weaponClass){
+function bf1createDamageChart(damageArr, distanceArr, numOfPellets, ammoType){
     var damageChart;
     if (damageArr[0] > 50 ){
-        //if(distanceArr.indexOf(200) == -1){
-        if(distanceArr[distanceArr.length -1] > 150 || weaponClass == 4){
-            damageChart = bf1CreateDamageChart100Max200Dist(damageArr, distanceArr);
-        } else {
-            damageChart = bf1CreateDamageChart100Max(damageArr, distanceArr);
-        }
+        damageChart = bf1CreateDamageChart100Max(damageArr, distanceArr);
     } else {
-        damageChart = bf1CreateDamageChart50Max(damageArr, distanceArr, numOfPellets)
+        damageChart = bf1CreateDamageChart50Max(damageArr, distanceArr, numOfPellets, ammoType)
     }
     return damageChart;
 }
 
-function bf1CreateDamageChart50Max(damageArr, distanceArr, numOfPellets){
+
+/*
+<polyline class="chartDamageLine" style="stroke: orange;" points="0,70 100,70  125,120"></polyline>
+<text x="51" class="chartLabel" style="fill: orange;" y="9">1m</text>
+<text x="101" class="chartLabel" style="fill: orange;" y="9">2m</text>
+<text x="151" class="chartLabel" style="fill: orange;" y="9">3m</text>
+<text x="201" class="chartLabel" style="fill: orange;" y="9">4m</text>
+<text x="251" class="chartLabel" style="fill: orange;" y="9">5m</text>
+*/
+function bf1CreateDamageChart50Max(damageArr, distanceArr, numOfPellets, ammoType){
     var damageLineCoords = "";
     damageLineCoords = distanceArr[0] == 0.0 ? "" : "0," + (120 - (2 * damageArr[0])) + " ";
     for (var i = 0; i < damageArr.length; i++){
@@ -388,11 +382,11 @@ function bf1CreateDamageChart50Max(damageArr, distanceArr, numOfPellets){
     var minDamage = roundToDecimal(damageArr[damageArr.length - 1], "1");
 
     var maxDamageText = "";
-    if(damageArr[0] > 40){
-        maxDamageText = "<text x='" + distanceArr[1] + "' y='" + (138 - (2 * maxDamage)).toString() + "' class='chartMinMaxLabel maxDamageText'>" + maxDamage + "</text>";
-    } else {
-        maxDamageText = "<text x='" + distanceArr[1] + "' y='" + (116 - (2 * maxDamage)).toString() + "' class='chartMinMaxLabel maxDamageText'>" + maxDamage + "</text>";
-    }
+    //if(damageArr[0] > 40){
+       // maxDamageText = "<text x='" + distanceArr[1] + "' y='" + (138 - (2 * maxDamage)).toString() + "' class='chartMinMaxLabel maxDamageText'>" + maxDamage + "</text>";
+    //} else {
+        maxDamageText = "<text x='" + (distanceArr[1] - 20) + "' y='" + (116 - (2 * maxDamage)).toString() + "' class='chartMinMaxLabel maxDamageText'>" + maxDamage + "</text>";
+    //}
 
     var minDamageText = "";
     if(distanceArr[distanceArr.length - 1] < 150){
@@ -404,6 +398,17 @@ function bf1CreateDamageChart50Max(damageArr, distanceArr, numOfPellets){
     var pelletsLabel = "";
     if (numOfPellets > 1){
         pelletsLabel = "<text x='230' y='85' class='chartMinMaxLabel'>" + numOfPellets + " pellets</text>";
+    }
+
+    var fragSplash = "";
+    if(ammoType == "12g Frag"){
+        fragSplash = "<polyline class='chartSplashDamageLine' style='stroke: orange;' points='0,70 100,70  125,120'></polyline>" +
+                     "<text x='51' class='chartSplashLabel' y='9'>1m</text>" +
+                     "<text x='101' class='chartSplashLabel' y='9'>2m</text>" +
+                     "<text x='151' class='chartSplashLabel' y='9'>3m</text>" +
+                     "<text x='201' class='chartSplashLabel' y='9'>4m</text>" +
+                     "<text x='251' class='chartSplashLabel' y='9'>5m</text>" +
+                     "<text y='66' class='chartMinMaxSplashLabel' x='103'>25 (Splash Damage)</text>";
     }
 
     return "<svg viewbox='0 0 300 120' class='damageChart'>" +
@@ -457,6 +462,7 @@ function bf1CreateDamageChart50Max(damageArr, distanceArr, numOfPellets){
                maxDamageText +
                minDamageText +
                pelletsLabel +
+               fragSplash +
            "</svg>"
 }
 
@@ -542,81 +548,6 @@ function bf1CreateDamageChart100Max(damageArr, distanceArr){
                oneHitKillText +
            "</svg>"
 }
-
-function bf1CreateDamageChart100Max200Dist(damageArr, distanceArr){
-    var damageLineCoords = "";
-    damageLineCoords = distanceArr[0] == 0.0 ? "" : "0," + (120 -  damageArr[0]) + " ";
-    for (var i = 0; i < damageArr.length; i++){
-        var damageCoord = 120 - damageArr[i];
-        var distanceCoord = 2 * distanceArr[i]/2;
-        damageLineCoords += distanceCoord.toString() + "," + damageCoord.toString() + " ";
-    }
-    damageLineCoords += "300," + (120 - damageArr[damageArr.length - 1]).toString();
-
-    var maxDamage = roundToDecimal(damageArr[0], "1");
-    var minDamage = roundToDecimal(damageArr[damageArr.length - 1], "1");
-
-    var maxDamageText = "";
-    maxDamageText = "<text x='3' y='" + (113 - (maxDamage)).toString() + "' class='chartMinMaxLabel maxDamageText'>" + maxDamage + "</text>";
-
-    var minDamageText = "";
-    if(distanceArr[distanceArr.length - 1] < 100){
-        minDamageText = "<text x='" + (distanceArr[distanceArr.length - 1] * 2) + "' y='" + (114 - (minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";
-    } else {
-        minDamageText = "<text x='185' y='" + (114 - (minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";
-    }
-
-    return "<svg viewbox='0 0 300 120' class='damageChart'>" +
-               "<rect width='300' height='120' style='stroke:rgb(0,0,100);stroke-width:0' fill='rgb(25,25,25)' />" +
-
-               "<line x1='10' y1='0' x2='10' y2='120' class='gridLineThin'/>" +
-               "<line x1='20' y1='0' x2='20' y2='120' class='gridLineThin'/>" +
-               "<line x1='30' y1='0' x2='30' y2='120' class='gridLineThin'/>" +
-               "<line x1='40' y1='0' x2='40' y2='120' class='gridLineThin'/>" +
-               "<line x1='60' y1='0' x2='60' y2='120' class='gridLineThin'/>" +
-               "<line x1='70' y1='0' x2='70' y2='120' class='gridLineThin'/>" +
-               "<line x1='80' y1='0' x2='80' y2='120' class='gridLineThin'/>" +
-               "<line x1='90' y1='0' x2='90' y2='120' class='gridLineThin'/>" +
-               "<line x1='110' y1='0' x2='110' y2='120' class='gridLineThin'/>" +
-               "<line x1='120' y1='0' x2='120' y2='120' class='gridLineThin'/>" +
-               "<line x1='130' y1='0' x2='130' y2='120' class='gridLineThin'/>" +
-               "<line x1='140' y1='0' x2='140' y2='120' class='gridLineThin'/>" +
-               "<line x1='160' y1='0' x2='160' y2='120' class='gridLineThin'/>" +
-               "<line x1='170' y1='0' x2='170' y2='120' class='gridLineThin'/>" +
-               "<line x1='180' y1='0' x2='180' y2='120' class='gridLineThin'/>" +
-               "<line x1='190' y1='0' x2='190' y2='120' class='gridLineThin'/>" +
-               "<line x1='210' y1='0' x2='210' y2='120' class='gridLineThin'/>" +
-               "<line x1='220' y1='0' x2='220' y2='120' class='gridLineThin'/>" +
-               "<line x1='230' y1='0' x2='230' y2='120' class='gridLineThin'/>" +
-               "<line x1='240' y1='0' x2='240' y2='120' class='gridLineThin'/>" +
-               "<line x1='260' y1='0' x2='260' y2='120' class='gridLineThin'/>" +
-               "<line x1='270' y1='0' x2='270' y2='120' class='gridLineThin'/>" +
-               "<line x1='280' y1='0' x2='280' y2='120' class='gridLineThin'/>" +
-               "<line x1='290' y1='0' x2='290' y2='120' class='gridLineThin'/>" +
-
-               "<line x1='50' y1='0' x2='50' y2='120' class='gridLineFat'/>" +
-               "<line x1='100' y1='0' x2='100' y2='120' class='gridLineFat'/>" +
-               "<line x1='150' y1='0' x2='150' y2='120' class='gridLineFat'/>" +
-               "<line x1='200' y1='0' x2='200' y2='120' class='gridLineFat'/>" +
-               "<line x1='250' y1='0' x2='250' y2='120' class='gridLineFat'/>" +
-
-               "<line x1='0' y1='20' x2='300' y2='20' style='stroke:rgb(175,175,175); stroke-width:.5'/>" +
-               "<text x='0' y='28' class='chartLabel'>100</text>" +
-               "<line x1='0' y1='70' x2='300' y2='70' style='stroke:rgb(175,175,175); stroke-width:.5'/>" +
-               "<text x='0' y='78' class='chartLabel'>50</text>" +
-
-               "<text x='51' y='119' class='chartLabel200Dist'>50m</text>" +
-               "<text x='101' y='119' class='chartLabel200Dist'>100m</text>" +
-               "<text x='151' y='119' class='chartLabel200Dist'>150m</text>" +
-               "<text x='201' y='119' class='chartLabel200Dist'>200m</text>" +
-               "<text x='251' y='119' class='chartLabel200Dist'>250m</text>" +
-
-               "<polyline class='chartDamageLine' points='" + damageLineCoords + "'/>" +
-               maxDamageText +
-               minDamageText +
-           "</svg>";
-}
-
 
 function bf1ShowHideClasses(){
     if ($("#showSidearmsCheck").is(":checked")){
