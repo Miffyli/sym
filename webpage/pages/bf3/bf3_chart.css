@@ -295,6 +295,7 @@
     font-size: 15px;
     color: #A9D852;
     font-weight: bold;
+    padding-top: 4px;
 }
 
 .lblWeaponName img{
@@ -364,6 +365,24 @@
     fill:none;
     stroke:#A9D852;
     stroke-width:2;
+}
+
+.chartSplashDamageLine{
+    fill:none;
+    stroke:#FF9000;
+    stroke-width:2;
+}
+
+.chartSplashLabel {
+    font-size: 8px;
+    fill: #FF9000;
+    opacity: 0.8;
+}
+
+.chartMinMaxSplashLabel{
+    font-size: 12px;
+    fill: #FF9000;
+    font-weight: bold;
 }
 
 .gridLineThin {
