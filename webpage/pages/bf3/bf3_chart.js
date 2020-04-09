@@ -52,6 +52,7 @@ function bf1PrintWeapons(){
     statsHtml += bf1PrintWeaponClass(6);
     statsHtml += bf1PrintWeaponClass(7);
     statsHtml += bf1PrintWeaponClass(5);
+	statsHtml += bf1PrintWeaponClass(8);
 
     $("#pageBody").html(statsHtml);
     bf1ShowHideClasses();
@@ -183,7 +184,7 @@ function bf1PrintWeapon(weaponStats){
 function bf1GetWeaponImageFilename(weaponName){
     var weaponFilename = "";
 
-    weaponFilename =  weaponName.replace("Slug", "").replace("Buckshot", "").replace("Flechette", "").replace("Frag", "");
+    weaponFilename =  weaponName.replace("Slug", "").replace("Buckshot", "").replace("Flechette", "").replace("Frag", "").replace("SMOKE", "").replace("LVG", "").replace("BUCK", "").replace("Balanced", "").replace("HE", "").replace("SCAN", "");
 
     return weaponFilename.trim();
 }
