@@ -411,6 +411,21 @@ function bf1CreateDamageChart50Max(damageArr, distanceArr, numOfPellets, ammoTyp
                      "<text x='251' class='chartSplashLabel' y='9'>5m</text>" +
                      "<text y='66' class='chartMinMaxSplashLabel' x='103'>25 (Splash Damage)</text>";
     }
+	
+	var scanRadius = "";
+    if(ammoType == "Scan Bolt"){
+        scanRadius = "<polyline class='chartScanRadiusLine' style='stroke: #C5CED2;' points='20,0 20,150'></polyline>" +
+                     "<text y='46' class='chartScanRadiusLabel' x='27'>10m Scan Radius</text>";
+    }
+	
+	if (minDamage == 0){
+        var noImpactDamageText = "<text x='179' y='60' class='chartMinMaxLabel'>No Impact Damage</text>"
+		damageLineCoords = "x1='10' y1='0' x2='10' y2='120'";  //This is a hackjob fix but hides an otherwise useless damageLine
+    }
+	
+	if (maxDamage == minDamage){
+        minDamageText = "<text x='2000' y='" + (114 - (minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";//This is a hackjob fix but it hides duplicate damage values
+    }
 
     return "<svg viewbox='0 0 300 120' class='damageChart'>" +
                "<rect width='300' height='120' style='stroke:rgb(0,0,100);stroke-width:0' fill='rgb(25,25,25)' />" +
@@ -459,11 +474,13 @@ function bf1CreateDamageChart50Max(damageArr, distanceArr, numOfPellets, ammoTyp
                "<text x='201' y='119' class='chartLabel'>100m</text>" +
                "<text x='251' y='119' class='chartLabel'>125m</text>" +
 
-               "<polyline class='chartDamageLine' points='" + damageLineCoords + "'/>" +
+               fragSplash +
+			   scanRadius +
+			   "<polyline class='chartDamageLine' points='" + damageLineCoords + "'/>" +
                maxDamageText +
                minDamageText +
                pelletsLabel +
-               fragSplash +
+			   noImpactDamageText +
            "</svg>"
 }
 
@@ -480,6 +497,7 @@ function bf1CreateDamageChart100Max(damageArr, distanceArr){
     var maxDamage = roundToDecimal(damageArr[0], "1");
     var minDamage = roundToDecimal(damageArr[damageArr.length - 1], "1");
 
+
     var maxDamageText = "";
     if(damageArr[0] > 80){
         maxDamageText = "<text x='" + (distanceArr[1] + 15) + "' y='" + (131 - (maxDamage)).toString() + "' class='chartMinMaxLabel maxDamageText'>" + maxDamage + "</text>";
@@ -493,11 +511,17 @@ function bf1CreateDamageChart100Max(damageArr, distanceArr){
     } else {
         minDamageText = "<text x='175' y='" + (114 - (minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";
     }
-
-    if (minDamage > 115){
-        var oneHitKillText = "<text x='85' y='60' class='chartMinMaxLabel'>1 Hit Kill at all ranges</text>";
+	
+	if (maxDamage == minDamage){
+        minDamageText = "<text x='2000' y='" + (114 - (minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";//This is a hackjob fix but it hides duplicate damage values
     }
-
+	
+	//	var smokeRadius = "";
+    //if(ammoType == "40mm Smoke"){
+    //   smokeRadius = "<polyline class='smokeRadiusLine' style='stroke: #C5CED2;' points='14,0 14,150'></polyline>" +
+    //                 "<text y='46' class='smokeRadiusLabel' x='27'>7m Smoke Radius</text>";
+    //}
+	
     return "<svg viewbox='0 0 300 120' class='damageChart'>" +
                "<rect width='300' height='120' style='stroke:rgb(0,0,100);stroke-width:0' fill='rgb(25,25,25)' />" +
 
@@ -543,12 +567,13 @@ function bf1CreateDamageChart100Max(damageArr, distanceArr){
                "<text x='201' y='119' class='chartLabel'>100m</text>" +
                "<text x='251' y='119' class='chartLabel'>125m</text>" +
 
-               "<polyline class='chartDamageLine' points='" + damageLineCoords + "'/>" +
+			   //smokeRadius +
+			   "<polyline class='chartDamageLine' points='" + damageLineCoords + "'/>" +
                maxDamageText +
                minDamageText +
-               oneHitKillText +
            "</svg>"
 }
+
 
 function bf1ShowHideClasses(){
     if ($("#showSidearmsCheck").is(":checked")){

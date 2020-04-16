@@ -384,6 +384,29 @@
     fill: #FF9000;
     font-weight: bold;
 }
+.chartScanRadiusLine{
+    fill:none;
+    stroke: #C5CED2;
+    stroke-width:3;
+}
+
+.chartScanRadiusLabel{
+    font-size: 10px;
+    fill: #C5CED2;
+    font-weight: bold;
+}
+
+.smokeRadiusLine{
+    fill:none;
+    stroke: #C5CED2;
+    stroke-width:3;
+}
+
+.smokeRadiusLabel{
+    font-size: 10px;
+    fill: #C5CED2;
+    font-weight: bold;
+}
 
 .gridLineThin {
     stroke: #2b2b2b;
