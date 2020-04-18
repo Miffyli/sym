@@ -1,5 +1,5 @@
-
-var bf3WeaponClassTitles = ["","Medic","Engineer","Support","Recon","Sidearms","Personal Defense Weapons","Shotguns"];
+var gravityTooltip = "Gravity"
+var bf3WeaponClassTitles = ["","Medic","Engineer","Support","Recon","Sidearms","Personal Defense Weapons","Shotguns", "Miscellaneous"];
 var firestormWeapons = []//["Gewehr 43","M1A1 Carbine","Sturmgewehr 1-5","StG 44","MP40","De Lisle Commando","STEN","Suomi KP/-31","M1928A1","LS/26","FG-42","Bren Gun","MG42","VGO","M97","12g Automatic","Lee-Enfield No4 Mk1","Kar98k","ZH-29","Boys AT Rifle","P38 Pistol","P08 Pistol","M1911","Liberator","Mk VI Revoler"];
 var customizations = new Object();
 var addVariantCounter = 0;
@@ -41,7 +41,7 @@ function showBlank(obj){
     obj.onerror=null;
     obj.src="./pages/bfv/img/blankWeapon.png";
 }
-var bf3WeaponClassTitles = ["","Medic","Engineer","Support","Recon","Sidearms","Personal Defense Weapons","Shotguns"];
+
 function bf1PrintWeapons(){
     var statsHtml = "";
 
@@ -98,11 +98,11 @@ function bf1PrintWeapons(){
 }
 
 function bf1PrintWeaponClass(weaponClass){
-    var classImgFileName = (weaponClass == 5) ? "KitIconRiflemanLarge.png" : "KitIcon" + bf1WeaponClassTitles[weaponClass] + "Large.png";
+    var classImgFileName = (weaponClass == 5) ? "KitIconRiflemanLarge.png" : "KitIcon" + bf3WeaponClassTitles[weaponClass] + "Large.png";
 
     var rtnStr = "";
-    rtnStr += "<div id='" + bf1WeaponClassTitles[weaponClass] + "Section'>" +
-              "<div class='classHeader'><img src='./pages/bf1/img/" + classImgFileName + "'>" + bf1WeaponClassTitles[weaponClass] + "</div>";
+    rtnStr += "<div id='" + bf3WeaponClassTitles[weaponClass] + "Section'>" +
+              "<div class='classHeader'><img src='./pages/bf1/img/" + classImgFileName + "'>" + bf3WeaponClassTitles[weaponClass] + "</div>";
     rtnStr += "<table class='table classTable'><tbody class='sortableTable'>";
 
     $.each(BF3WeaponData, function( key, value ) {
@@ -138,10 +138,7 @@ function bf1PrintWeapon(weaponStats){
                                 "<span class='lblMag'>" + weaponStats.MagSize + "</span>" +
                                 "<span class='lblSuffixText'> x " + bf1FormatAmmoType(weaponStats.Ammo) + "</span>" +
                              "</span>" +
-                             "<span class='lblRPM'>" +
-                                 "<span class='lblRPMValue' " + rpmTooltip + ">" + weaponStats.BRoF + "</span>" +
-                                 "<span class='lblSuffixText'> rpm</span>" +
-                             "</span>" +
+                             bf3CreateRPMGrpahic(weaponStats.BRoF) +
                          "</div>" +
                      "</td>" +
 
@@ -153,7 +150,7 @@ function bf1PrintWeapon(weaponStats){
               //"<div class='underMagSection'>" +
               "<td>" +
                   "<div class='reloadDataAndMagCount'>" + bf1CreateBulletSpeedGraphic(weaponStats.InitialSpeed, weaponStats.Drag) + reloadData  + "</div>" +
-                  //"<div class='deployTimeBox' " + deployTooltip + "><span class='ui-icon ui-icon-transferthick-e-w'></span><br><span class='lblDeployTime'>" + weaponStats.DeployTime + "<span class='lblSuffixText'> s</span></span></div>" +
+                  "<div class='deployTimeBox' " + gravityTooltip + "><span class='ui-icon  ui-icon-arrowthick-1-s'></span><span class='lblDeployTime'>" + weaponStats.Gravity + "<span class='lblSuffixText'> m/s²</span></span></div>" +
               "</td><td>" +
                   "<div class='recoilGraphicBox' " + recoilTooltip + ">" + standRecoilData + "</div>" +
               "</td><td>" +
@@ -166,7 +163,7 @@ function bf1PrintWeapon(weaponStats){
               "</td><td>" +
                   "<div class='hipSpreadContainer' " + hipfireTooltip + ">" + bf1CreateHipSpreadGraphic(weaponStats.HIPStandMoveMin, weaponStats.HorDispersion) + "</div>" +
             //  "</td><td>" +
-                //  "<div class='deployTimeBox' " + deployTooltip + "><span class='ui-icon ui-icon-transferthick-e-w'></span><br><span class='lblDeployTime'>" + weaponStats.DeployTime + "<span class='lblSuffixText'> s</span></span></div>" +
+                  
               "</td><td>" +
                   spreadTableGraphic +
               "</td><td>" +
@@ -187,6 +184,21 @@ function bf1GetWeaponImageFilename(weaponName){
     weaponFilename =  weaponName.replace("Slug", "").replace("Buckshot", "").replace("Flechette", "").replace("Frag", "").replace("SMOKE", "").replace("LVG", "").replace("BUCK", "").replace("Balanced", "").replace("HE", "").replace("SCAN", "");
 
     return weaponFilename.trim();
+}
+
+function bf3CreateRPMGrpahic(BRoF){
+    var rpmGrpahic = "";
+    if (BRoF > 0){
+        rpmGrpahic = "<span class='lblRPM'>" +
+                         "<span class='lblRPMValue' " + rpmTooltip + ">" + BRoF + "</span>" +
+                         "<span class='lblSuffixText'> rpm</span>" +
+                     "</span>";
+    } else {
+        rpmGrpahic = "<span class='lblRPM'>" +
+                         "<span class='lblRPMValue' " + rpmTooltip + ">Single-Fire</span>" +
+                     "</span>";        
+    }
+    return rpmGrpahic;
 }
 
 function bf1CreateBulletSpeedGraphic(initialSpeed, drag){
@@ -353,22 +365,19 @@ return tableGraphic;
 function bf1createDamageChart(damageArr, distanceArr, numOfPellets, ammoType){
     var damageChart;
     if (damageArr[0] > 50 ){
-        damageChart = bf1CreateDamageChart100Max(damageArr, distanceArr);
+        damageChart = bf1CreateDamageChart100Max(damageArr, distanceArr, ammoType);
     } else {
         damageChart = bf1CreateDamageChart50Max(damageArr, distanceArr, numOfPellets, ammoType)
     }
     return damageChart;
 }
 
+var fragLabels = "<text x='51' class='chartSplashLabel' y='9'>1m</text>" +
+                 "<text x='101' class='chartSplashLabel' y='9'>2m</text>" +
+                 "<text x='151' class='chartSplashLabel' y='9'>3m</text>" +
+                 "<text x='201' class='chartSplashLabel' y='9'>4m</text>" +
+                 "<text x='251' class='chartSplashLabel' y='9'>5m</text>";
 
-/*
-<polyline class="chartDamageLine" style="stroke: orange;" points="0,70 100,70  125,120"></polyline>
-<text x="51" class="chartLabel" style="fill: orange;" y="9">1m</text>
-<text x="101" class="chartLabel" style="fill: orange;" y="9">2m</text>
-<text x="151" class="chartLabel" style="fill: orange;" y="9">3m</text>
-<text x="201" class="chartLabel" style="fill: orange;" y="9">4m</text>
-<text x="251" class="chartLabel" style="fill: orange;" y="9">5m</text>
-*/
 function bf1CreateDamageChart50Max(damageArr, distanceArr, numOfPellets, ammoType){
     var damageLineCoords = "";
     damageLineCoords = distanceArr[0] == 0.0 ? "" : "0," + (120 - (2 * damageArr[0])) + " ";
@@ -404,11 +413,11 @@ function bf1CreateDamageChart50Max(damageArr, distanceArr, numOfPellets, ammoTyp
     var fragSplash = "";
     if(ammoType == "12g Frag"){
         fragSplash = "<polyline class='chartSplashDamageLine' style='stroke: orange;' points='0,70 100,70  125,120'></polyline>" +
-                     "<text x='51' class='chartSplashLabel' y='9'>1m</text>" +
-                     "<text x='101' class='chartSplashLabel' y='9'>2m</text>" +
-                     "<text x='151' class='chartSplashLabel' y='9'>3m</text>" +
-                     "<text x='201' class='chartSplashLabel' y='9'>4m</text>" +
-                     "<text x='251' class='chartSplashLabel' y='9'>5m</text>" +
+                     fragLabels +
+                     "<text y='66' class='chartMinMaxSplashLabel' x='103'>25 (Splash Damage)</text>";
+    } else if(ammoType == "HE Bolt"){
+        fragSplash = "<polyline class='chartSplashDamageLine' style='stroke: orange;' points='0,45 100,45  125,120'></polyline>" +
+                     fragLabels +
                      "<text y='66' class='chartMinMaxSplashLabel' x='103'>25 (Splash Damage)</text>";
     }
 	
@@ -484,7 +493,7 @@ function bf1CreateDamageChart50Max(damageArr, distanceArr, numOfPellets, ammoTyp
            "</svg>"
 }
 
-function bf1CreateDamageChart100Max(damageArr, distanceArr){
+function bf1CreateDamageChart100Max(damageArr, distanceArr, ammoType){
     var damageLineCoords = "";
     damageLineCoords = distanceArr[0] == 0.0 ? "" : "0," + (120 -  damageArr[0]) + " ";
     for (var i = 0; i < damageArr.length; i++){
@@ -515,12 +524,23 @@ function bf1CreateDamageChart100Max(damageArr, distanceArr){
 	if (maxDamage == minDamage){
         minDamageText = "<text x='2000' y='" + (114 - (minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";//This is a hackjob fix but it hides duplicate damage values
     }
+    
+    if (minDamage > 115){
+        var oneHitKillText = "<text x='85' y='50' class='chartMinMaxLabel'>1 Hit Kill at all ranges</text>";
+    }
+
+    var fragSplash = "";
+    if(ammoType == "HE Bolt"){
+        fragSplash = "<polyline class='chartSplashDamageLine' style='stroke: orange;' points='0,67 15,67 100,120'></polyline>" +
+                     fragLabels +
+                     "<text y='72' class='chartMinMaxSplashLabel' x='30'>56 (Splash Damage)</text>";
+    }
 	
-	//	var smokeRadius = "";
-    //if(ammoType == "40mm Smoke"){
-    //   smokeRadius = "<polyline class='smokeRadiusLine' style='stroke: #C5CED2;' points='14,0 14,150'></polyline>" +
-    //                 "<text y='46' class='smokeRadiusLabel' x='27'>7m Smoke Radius</text>";
-    //}
+	var smokeRadius = "";
+    if(ammoType == "40mm Smoke"){
+        smokeRadius = "<polyline class='smokeRadiusLine' style='stroke: #C5CED2;' points='14,0 14,150'></polyline>" +
+                      "<text y='46' class='smokeRadiusLabel' x='27'>7m Smoke Radius</text>";
+    }
 	
     return "<svg viewbox='0 0 300 120' class='damageChart'>" +
                "<rect width='300' height='120' style='stroke:rgb(0,0,100);stroke-width:0' fill='rgb(25,25,25)' />" +
@@ -566,11 +586,13 @@ function bf1CreateDamageChart100Max(damageArr, distanceArr){
                "<text x='151' y='119' class='chartLabel'>75m</text>" +
                "<text x='201' y='119' class='chartLabel'>100m</text>" +
                "<text x='251' y='119' class='chartLabel'>125m</text>" +
-
-			   //smokeRadius +
+			   
 			   "<polyline class='chartDamageLine' points='" + damageLineCoords + "'/>" +
                maxDamageText +
                minDamageText +
+               oneHitKillText +
+               fragSplash +
+               smokeRadius +
            "</svg>"
 }
 
