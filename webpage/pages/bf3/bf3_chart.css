@@ -311,6 +311,13 @@
     float: right;
 }
 
+.lblRPMSingle {
+    font-size: 14px;
+    color: #FF9000;
+    font-weight: bold;
+    float: right;
+}
+
 .lblSuffixText {
     font-size: 10px;
 }
