@@ -1,4 +1,4 @@
-
+const OTHER_TITLES_VERSION_STRING = ""
 // Path to datafile
 const BF3_DATA = './pages/bf3/data/bf3.json'
 // Keeps track of which page to load after the data is loaded.
@@ -7,6 +7,8 @@ var BF3SelectedPage = ""
 var bf3PageToLoad = ""
 // A flag to tell if we have loaded BF1 data already
 var BF3DataLoaded = false
+// Keeps track of which page to load when loading from a querystring
+var otherTitlesPageToLoad = ""
 
 
 /*
@@ -34,7 +36,7 @@ function initializeOtherTitlesSelection () {
   /*
     Add handlers for the click events for the bf1 index page
   */
-  function otherTitlesinitializeIndexPage(){
+  function otherTitlesInitializeIndexPage(){
     $('.indexPageItem').click(function () {
         var itemClicked = $(this).find("h4").text()
         OtherTitlesOpenPageByName(itemClicked)
@@ -67,17 +69,17 @@ function OtherTitlesOpenPageByName(pageName) {
     // button and open the page
     if (pageName === 'Index') {
       $('#otherTitles-mainPageSelector').addClass('selected-selector')
-      openOtherTItlesIndexPage()
+      openOtherTitlesIndexPage()
       updateQueryString("other", "index")
     } else if (pageName === 'BF3 Weapon Charts') {
       $('#bf3-chartPageSelector').addClass('selected-selector')
       openBF3ChartPage()
-      updateQueryString("bf3", "charts")
+      updateQueryString("other", "bf3-charts")
     }
   }
 
-  function openOtherTitlesIndexPage(){
-
+  function openOtherTitlesIndexPage () {
+    $('.otherTitles-main-content').load('./pages/otherTitles/otherTitles_index.html', otherTitlesInitializeIndexPage)
   }
 
   function openBF3ChartPage(){
@@ -116,4 +118,15 @@ function BF3LoadSuccessCallback (data) {
 
 function loadBF3ChartPage(){
   $('.otherTitles-main-content').load('./pages/bf3/bf3_chart.html', BF3initializeChartPage)
+}
+
+
+function openOtherTitlesSelectionPageFromQueryString (pageStr){
+  otherTitlesPageToLoad = pageStr
+  loadPageWithHeader('./pages/otherTitles/otherTitles_header.html', 'Other Titles', OtherTitlesLoadPageFromQueryString, OTHER_TITLES_VERSION_STRING)
+}
+
+function OtherTitlesLoadPageFromQueryString(){
+  otherTitlesSetupPageHeader()
+  OtherTitlesOpenPageByName(otherTitlesPageToLoad)
 }

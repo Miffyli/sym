@@ -412,11 +412,7 @@ function bf1CreateDamageChart50Max(damageArr, distanceArr, numOfPellets, ammoTyp
 
     var fragSplash = "";
     if(ammoType == "12g Frag"){
-        fragSplash = "<polyline class='chartSplashDamageLine' style='stroke: orange;' points='0,70 100,70  125,120'></polyline>" +
-                     fragLabels +
-                     "<text y='66' class='chartMinMaxSplashLabel' x='103'>25 (Splash Damage)</text>";
-    } else if(ammoType == "HE Bolt"){
-        fragSplash = "<polyline class='chartSplashDamageLine' style='stroke: orange;' points='0,45 100,45  125,120'></polyline>" +
+        fragSplash = "<polyline class='chartSplashDamageLine' style='stroke: orange;' points='0,70 100,70 125,120'></polyline>" +
                      fragLabels +
                      "<text y='66' class='chartMinMaxSplashLabel' x='103'>25 (Splash Damage)</text>";
     }
@@ -534,6 +530,10 @@ function bf1CreateDamageChart100Max(damageArr, distanceArr, ammoType){
         fragSplash = "<polyline class='chartSplashDamageLine' style='stroke: orange;' points='0,67 15,67 100,120'></polyline>" +
                      fragLabels +
                      "<text y='72' class='chartMinMaxSplashLabel' x='30'>56 (Splash Damage)</text>";
+    } else if(ammoType == "40mm HE"){
+        fragSplash = "<polyline class='chartSplashDamageLine' style='stroke: orange;' points='0,67 105,67 300,120'></polyline>" +
+                     fragLabels +
+                     "<text y='63' class='chartMinMaxSplashLabel' x='115'>56 (Splash Damage)</text>";
     }
 	
 	var smokeRadius = "";
