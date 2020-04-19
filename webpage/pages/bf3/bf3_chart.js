@@ -1,5 +1,5 @@
 var gravityTooltip = "Gravity"
-var bf3WeaponClassTitles = ["","Medic","Engineer","Support","Recon","Sidearms","Personal Defense Weapons","Shotguns", "Miscellaneous"];
+var bf3WeaponClassTitles = ["","Assault","Engineer","Support","Recon","Sidearms","PDWs","Shotguns", "Gadgets"];
 var firestormWeapons = []//["Gewehr 43","M1A1 Carbine","Sturmgewehr 1-5","StG 44","MP40","De Lisle Commando","STEN","Suomi KP/-31","M1928A1","LS/26","FG-42","Bren Gun","MG42","VGO","M97","12g Automatic","Lee-Enfield No4 Mk1","Kar98k","ZH-29","Boys AT Rifle","P38 Pistol","P08 Pistol","M1911","Liberator","Mk VI Revoler"];
 var customizations = new Object();
 var addVariantCounter = 0;
@@ -98,11 +98,11 @@ function bf1PrintWeapons(){
 }
 
 function bf1PrintWeaponClass(weaponClass){
-    var classImgFileName = (weaponClass == 5) ? "KitIconRiflemanLarge.png" : "KitIcon" + bf3WeaponClassTitles[weaponClass] + "Large.png";
+    var classImgFileName = (weaponClass == 5) ? "Sidearms.png" : bf3WeaponClassTitles[weaponClass] + ".png";
 
     var rtnStr = "";
     rtnStr += "<div id='" + bf3WeaponClassTitles[weaponClass] + "Section'>" +
-              "<div class='classHeader'><img src='./pages/bf1/img/" + classImgFileName + "'>" + bf3WeaponClassTitles[weaponClass] + "</div>";
+              "<div class='classHeader'><img src='./pages/bf3/img/" + classImgFileName + "'>" + bf3WeaponClassTitles[weaponClass] + "</div>";
     rtnStr += "<table class='table classTable'><tbody class='sortableTable'>";
 
     $.each(BF3WeaponData, function( key, value ) {
@@ -181,7 +181,7 @@ function bf1PrintWeapon(weaponStats){
 function bf1GetWeaponImageFilename(weaponName){
     var weaponFilename = "";
 
-    weaponFilename =  weaponName.replace("Slug", "").replace("Buckshot", "").replace("Flechette", "").replace("Frag", "").replace("SMOKE", "").replace("LVG", "").replace("BUCK", "").replace("Balanced", "").replace("HE", "").replace("SCAN", "");
+    weaponFilename =  weaponName.replace("Slug", "").replace("Buckshot", "").replace("Flechette", "").replace("Frag", "").replace("SMOKE", "").replace("LVG", "").replace("BUCK", "").replace("BA", "").replace("HE", "").replace("SCAN", "");
 
     return weaponFilename.trim();
 }
@@ -194,7 +194,7 @@ function bf3CreateRPMGrpahic(BRoF){
                          "<span class='lblSuffixText'> rpm</span>" +
                      "</span>";
     } else {
-        rpmGrpahic = "<span class='lblRPM'>" +
+        rpmGrpahic = "<span class='lblRPMSingle'>" +
                          "<span class='lblRPMValue' " + rpmTooltip + ">Single-Fire</span>" +
                      "</span>";        
     }
@@ -526,7 +526,7 @@ function bf1CreateDamageChart100Max(damageArr, distanceArr, ammoType){
     }
     
     if (minDamage > 115){
-        var oneHitKillText = "<text x='85' y='50' class='chartMinMaxLabel'>1 Hit Kill at all ranges</text>";
+        var oneHitKillText = "<text x='63' y='40' class='chartMinMaxLabel'>1 Hit Impact Kill at All Ranges</text>";
     }
 
     var fragSplash = "";
@@ -598,20 +598,15 @@ function bf1CreateDamageChart100Max(damageArr, distanceArr, ammoType){
 
 
 function bf1ShowHideClasses(){
-    if ($("#showSidearmsCheck").is(":checked")){
-        $("#SidearmsSection").show(0);
-    } else {
-        $("#SidearmsSection").hide(0);
-    }
     if ($("#showAssaultCheck").is(":checked")){
         $("#AssaultSection").show(0);
     } else {
         $("#AssaultSection").hide(0);
     }
-    if ($("#showMedicCheck").is(":checked")){
-        $("#MedicSection").show(0);
+    if ($("#showEngineerCheck").is(":checked")){
+        $("#EngineerSection").show(0);
     } else {
-        $("#MedicSection").hide(0);
+        $("#EngineerSection").hide(0);
     }
     if ($("#showSupportCheck").is(":checked")){
         $("#SupportSection").show(0);
@@ -619,14 +614,29 @@ function bf1ShowHideClasses(){
         $("#SupportSection").hide(0);
     }
     if ($("#showReconCheck").is(":checked")){
-        $("#ScoutSection").show(0);
+        $("#ReconSection").show(0);
     } else {
-        $("#ScoutSection").hide(0);
+        $("#ReconSection").hide(0);
     }
-    if ($("#showOthersCheck").is(":checked")){
-        $("#MiscellaneousSection").show(0);
+	if ($("#showPDWsCheck").is(":checked")){
+        $("#PDWsSection").show(0);
     } else {
-        $("#MiscellaneousSection").hide(0);
+        $("#PDWsSection").hide(0);
+    }
+	if ($("#showShotgunsCheck").is(":checked")){
+        $("#ShotgunsSection").show(0);
+    } else {
+        $("#ShotgunsSection").hide(0);
+    }
+	if ($("#showSidearmsCheck").is(":checked")){
+        $("#SidearmsSection").show(0);
+    } else {
+        $("#SidearmsSection").hide(0);
+    }
+    if ($("#showGadgetsCheck").is(":checked")){
+        $("#GadgetsSection").show(0);
+    } else {
+        $("#GadgetsSection").hide(0);
     }
 
 }
