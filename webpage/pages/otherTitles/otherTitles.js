@@ -39,7 +39,7 @@ function initializeOtherTitlesSelection () {
   function otherTitlesInitializeIndexPage(){
     $('.indexPageItem').click(function () {
         var itemClicked = $(this).find("h4").text()
-        OtherTitlesOpenPageByName(itemClicked)
+        otherTitlesOpenPageByName(itemClicked)
     })
   }
   
@@ -53,7 +53,7 @@ function initializeOtherTitlesSelection () {
       } else if (clicked === 'bf3-chartPageSelector') {
         pageName = 'BF3 Weapon Charts'
       }
-      OtherTitlesOpenPageByName(pageName)
+      otherTitlesOpenPageByName(pageName)
     })
   }
 
@@ -62,7 +62,7 @@ function initializeOtherTitlesSelection () {
   Main hub for opening different pages based on their name.
   Handles coloring of the buttons etc
 */
-function OtherTitlesOpenPageByName(pageName) {
+function otherTitlesOpenPageByName(pageName) {
     // Remove highlighting
     $('.sym-pageSelections > div').removeClass('selected-selector')
     // Select right page according to pageName, highlight its
@@ -128,5 +128,5 @@ function openOtherTitlesSelectionPageFromQueryString (pageStr){
 
 function OtherTitlesLoadPageFromQueryString(){
   otherTitlesSetupPageHeader()
-  OtherTitlesOpenPageByName(otherTitlesPageToLoad)
+  otherTitlesOpenPageByName(otherTitlesPageToLoad)
 }
