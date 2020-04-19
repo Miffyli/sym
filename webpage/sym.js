@@ -134,7 +134,6 @@ function loadNewestNewsItems (itemIndex, numItems) {
 }
 
 
-
 /*
     Rounds a number to at most 3 decimal places but will not add trailing zeros
 */
@@ -221,6 +220,17 @@ function exceuteQueryStringParams(){
           break
         case 'charts':
           openBF1SelectionPageFromQueryString('Weapon Charts')
+          break
+      }
+      break
+    case 'other':
+      switch(page){
+        case 'index':
+          openOtherTitlesSelectionPage()
+          updateQueryString("other", "index")
+        break
+        case 'bf3-charts':
+          openOtherTitlesSelectionPageFromQueryString('BF3 Weapon Charts')
           break
       }
       break
