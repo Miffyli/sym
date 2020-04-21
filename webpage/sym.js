@@ -33,6 +33,9 @@ window.onload = function () {
     } else if (clicked === 'menuBF1') {
       openBF1SelectionPage()
       updateQueryString("bf1", "index")
+    } else if (clicked === 'menuBF4') {
+      openBF4SelectionPage()
+      updateQueryString("bf4", "index")
     } else if (clicked === 'menuDatabrowser') {
       openNewTab(SYM_DATABROWSER_URL)
     } else if (clicked === 'menuAbout') {
@@ -157,6 +160,11 @@ function loadBF1Stylesheet(){
   $('#chartCSS').attr('href', './pages/bf1/bf1_chart.css')
 }
 
+function loadBF4Stylesheet(){
+  // Commented out for now (charts not implemented yet)
+  //$('#chartCSS').attr('href', './pages/bf1/bf4_chart.css')
+}
+
 /*
   Writes a query string to the URL given the supplied parameters
   2 or more word values use '-' as in 'weapon-mechanics
@@ -216,6 +224,23 @@ function exceuteQueryStringParams(){
           break
         case 'charts':
           openBF1SelectionPageFromQueryString('Weapon Charts')
+          break
+      }
+      break
+    case 'bf4':
+      switch(page){
+        case 'index':
+          openBF4SelectionPage()
+          updateQueryString("bf4", "index")
+        break
+        case 'general-info':
+          openBF4SelectionPageFromQueryString('General Information')
+          break
+        case 'comparison':
+          openBF4SelectionPageFromQueryString('Weapon Comparison')
+          break
+        case 'charts':
+          openBF4SelectionPageFromQueryString('Weapon Charts')
           break
       }
       break

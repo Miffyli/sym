@@ -1,0 +1,113 @@
+<div class="bf4-content-comparison">
+    <h1 class="comp-pageTitle">Battlefield 4 General Information</h1>
+    <div class="sym-main-content-home sym-static-content sym-about">
+        <p>
+        </p>
+
+        <div class="bf4-sym-info-subheader">Recoil</div>
+        
+           <ul>
+                <li>Each shot adds RecoilUp degrees to vertical aim (pitch)</li>
+                <li>Each shot adds random_uniform(-recoilLeft, recoilRight) to horizontal aim (yaw), positive being clockwise.</li>
+                <li>For each logical frame recoil decreases by following function: <b>recoilDec * scale * time²</b><ul>
+                    <li><b>recoilDec</b>: Recoil decrease value from the site</li>
+                    <li><b>scale</b>: 0.1 if gun is not ready to fire next shot, 1 otherwise.</li>
+                    <li><b>time</b>: Time since last fired shot in seconds</li>
+                    <li>Logical frames != rendering frames. Logical FPS is locked (possibly same as server's tickrate).</li>
+                </ul></li>
+            </ul>
+        
+        <div class="bf4-sym-info-subheader">Spread</div>
+
+		<ul>
+            <li>If spread > 0.0, shot will have random dispersion from the aimpoint. Spread = radius of the circle used for random selection.</li>
+            <li>Each shot adds spreadIncrease to spread.</li>
+            <li>Spread will start to decrease when weapon is ready to fire next shot at the rate of <b>spreadDecrease/second</b>.</li>
+            <li><a href="https://forum.sym.gg/t/moving-ads-spread-values-bf4/182">Check this topic for info on movement spread</a></li>
+        </ul>
+        
+        <div class="bf4-sym-info-subheader">Bullet drop and drag</div>
+        
+        <ul>
+			<li>Bullet accelerates towards ground at <b>Gravity</b> m/s²</li>
+		</ul>
+        
+        <div class="bf4-sym-info-subheader">Body part damage multipliers</div>    
+
+        <p>
+            <span style="font-size:18px;font-weight:bold;"><b>General Multipliers</b></span>
+            </p><div class="sm" style="padding-left:25px;padding-top:10px;">
+                <table class="bf4-genInfo-table">
+                    <caption>All bullets except those in categories below</caption>
+                    <tbody>
+                    <tr><td>Headshot</td><td>2.13x</td></tr>
+                    <tr><td>Chest and Arms</td><td>1.0x</td></tr>
+                    <tr><td>Chest and Arms (Defensive spec)</td><td>0.93x</td></tr>
+                    <tr><td>Stomach and Legs</td><td>0.93x</td></tr>
+                </tbody></table>
+            </div>
+        <p></p><br>
+		<p><span style="font-size:18px;font-weight:bold;"><b>Special multipliers</b></span></p>
+        <p>    
+        </p><div style="padding-left:25px">
+            <table class="bf4-genInfo-table">
+                <caption>DMRs</caption>
+                <tbody>
+                    <tr><td>Headshot</td><td>2.00x</td></tr>
+                    <tr><td>Chest and Arms</td><td>1.0x</td></tr>
+                    <tr><td>Chest and Arms (Defensive spec)</td><td>0.93x</td></tr>
+                    <tr><td>Stomach and Legs</td><td>0.93x</td></tr>
+            </tbody></table>
+        </div>
+        <p></p><br>
+		<p>
+            </p><div style="padding-left:25px">
+                <table class="bf4-genInfo-table">
+                    <caption>Bolt Sniper Bullets, Mare's Leg</caption>
+                    <tbody>
+                        <tr><td>Headshot</td><td>2.35x</td></tr>
+                        <tr><td>Chest and Arms</td><td>1.0x</td></tr>
+                        <tr><td>Chest and Arms (Defensive spec)</td><td>0.93x</td></tr>
+                        <tr><td>Stomach and Legs</td><td>0.93x</td></tr>
+                </tbody></table>
+            </div>
+        <p></p><br>
+        <p>
+            </p><div style="padding-left:25px">
+                <table class="bf4-genInfo-table">
+                    <caption>Shotgun Slugs, Revolvers, Desert Eagle</caption>
+                    <tbody>
+                        <tr><td>Headshot</td><td>2.13x</td></tr>
+                        <tr><td>Chest and Arms</td><td>1.0x</td></tr>
+                        <tr><td>Chest and Arms (Defensive spec)</td><td>0.93x</td></tr>
+                        <tr><td>Stomach and Legs</td><td>0.93x</td></tr>
+                </tbody></table>
+            </div>
+        <p></p><br>
+        <p>
+            </p><div style="padding-left:25px">
+                <table class="bf4-genInfo-table">
+                    <caption>Shotgun Buckshot</caption>
+                    <tbody>
+                        <tr><td>Headshot</td><td>1.0x</td></tr>
+                        <tr><td>Chest and Arms</td><td>1.0x</td></tr>
+                        <tr><td>Chest and Arms (Defensive spec)</td><td>0.85x</td></tr>
+                        <tr><td>Stomach and Legs</td><td>0.93x</td></tr>
+                </tbody></table>
+            </div>
+        <p></p><br>
+        <p>
+            </p><div style="padding-left:25px">
+                <table class="bf4-genInfo-table">
+                    <caption>Shotgun Flechette (including 25/40mm Flechette)</caption>
+                    <tbody>
+                        <tr><td>Headshot</td><td>1.0x</td></tr>
+                        <tr><td>Chest and Arms</td><td>1.0x</td></tr>
+                        <tr><td>Chest and Arms (Defensive spec)</td><td>1.0x</td></tr>
+                        <tr><td>Stomach and Legs</td><td>0.93x</td></tr>
+                </tbody></table>
+            </div>
+        <p></p><br>
+    <p></p>
+	</div>
+</div>
