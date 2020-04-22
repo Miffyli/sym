@@ -1,29 +1,29 @@
-.bf4-header-content {
+.bfh-header-content {
   text-align: center;
   padding: 100px;
   margin: auto;
   width: 400px;
 }
 
-.bf4-content-comparison {
+.bfh-content-comparison {
     width: 1200px;
     margin: auto;
 }
 
 /* Remove unnecessary paddings */
-.bf4-content-comparison > div {
+.bfh-content-comparison > div {
     padding: 0px 0px;
 }
 
-.bf4-content-comparison-table table {
+.bfh-content-comparison-table table {
     border-spacing: 0px;
 }
 
-.bf4-content-comparison-table tr:nth-child(even) {
+.bfh-content-comparison-table tr:nth-child(even) {
     background-color: #222;
 }
 
-.bf4-comp-selectorContainer{
+.bfh-comp-selectorContainer{
     display: inline-block;
     vertical-align: top;
     padding: 19px;
@@ -35,7 +35,7 @@
 }
 
 /* Attachment dropdown boxes */
-.bf4-comp-selectorContainerAttachments select {
+.bfh-comp-selectorContainerAttachments select {
     color: #444;
     font-size: 14px;
     font-weight: bold;
@@ -44,7 +44,7 @@
 }
 
 /* "Attachments" text */
-.bf4-comp-selectorContainer div:first-of-type {
+.bfh-comp-selectorContainer div:first-of-type {
     text-align: center;
     color: #AAA;
     font-size: 16px;
@@ -55,59 +55,59 @@
 
 /* Do not color the first row */
 
-.bf4-content-comparison-table tr:nth-child(odd):not(:first-child) {
+.bfh-content-comparison-table tr:nth-child(odd):not(:first-child) {
     background-color: #333;
 }
 
-.bf4-content-comparison-table th {
+.bfh-content-comparison-table th {
     height: 30pt;
 }
 
-.bf4-content-comparison-table td:first-child {
+.bfh-content-comparison-table td:first-child {
     padding-right: 30pt
 }
 
 
 /* Center values in the table, but on the first column (names) */
 
-.bf4-content-comparison-table td:not(:first-child) {
+.bfh-content-comparison-table td:not(:first-child) {
     text-align: center;
     width: 100pt;
 }
 
 
-.bf4-sym-info-subheader{
+.bfh-sym-info-subheader{
     font-size: 24px;
     font-weight: bold;
     padding: 20px 0px 0px;
     border-top: 1px solid #444;
 }
 
-.bf4-genInfo-table {
+.bfh-genInfo-table {
     margin-bottom: 20px;
     background: #333;
     border-spacing: 0;
 }
 
-.bf4-genInfo-table caption{
+.bfh-genInfo-table caption{
     font-weight: bold;
     font-size: 13px;
 }
 
-.bf4-genInfo-table tr:nth-child(even){
+.bfh-genInfo-table tr:nth-child(even){
     background: #222;
 }
 
-.bf4-genInfo-table td{
+.bfh-genInfo-table td{
     padding: 2px 12px;
     font-size: 16px;
 }
 
-.bf4-genInfo-table tr td:nth-child(1){
+.bfh-genInfo-table tr td:nth-child(1){
     text-align: right;
     font-style: italic;
 }
 
-.bf4-genInfo-table tr td:nth-child(2){
+.bfh-genInfo-table tr td:nth-child(2){
     font-weight: bold;
 }

@@ -73,6 +73,9 @@ const BF4_ALLOWED_ATTACHMENTS = [
     'bipod',
     'bipod_lmg',
     'bipod_sniper'
+  ], [
+    'none',
+    'accesory_targetpointer'
   ]
 ]
 
@@ -90,6 +93,7 @@ BF4_ATTACHMENT_NAME_MAPPING.barrel_suppressor = 'Suppressor (Any)'
 BF4_ATTACHMENT_NAME_MAPPING.grip_firstshotrecoil = 'Angled/Folding grip'
 BF4_ATTACHMENT_NAME_MAPPING.grip_movingdispersion = 'Ergo/Vertical grip'
 BF4_ATTACHMENT_NAME_MAPPING.grip_sprintrecovery = 'Potato/Stubby grip'
+BF4_ATTACHMENT_NAME_MAPPING.accesory_targetpointer = 'Laser (Any, active)'
 BF4_ATTACHMENT_NAME_MAPPING.none = 'None'
 
 // A flag to tell if we have loaded BF4 data already

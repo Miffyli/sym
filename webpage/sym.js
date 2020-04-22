@@ -36,6 +36,9 @@ window.onload = function () {
     } else if (clicked === 'menuBF4') {
       openBF4SelectionPage()
       updateQueryString("bf4", "index")
+    }else if (clicked === 'menuBFH') {
+      openBFHSelectionPage()
+      updateQueryString("bfh", "index")
     } else if (clicked === 'menuDatabrowser') {
       openNewTab(SYM_DATABROWSER_URL)
     } else if (clicked === 'menuAbout') {
@@ -162,7 +165,12 @@ function loadBF1Stylesheet(){
 
 function loadBF4Stylesheet(){
   // Commented out for now (charts not implemented yet)
-  //$('#chartCSS').attr('href', './pages/bf1/bf4_chart.css')
+  //$('#chartCSS').attr('href', './pages/bf4/bf4_chart.css')
+}
+
+function loadBFHStylesheet(){
+  // Commented out for now (charts not implemented yet)
+  //$('#chartCSS').attr('href', './pages/bfh/bfh_chart.css')
 }
 
 /*
@@ -241,6 +249,23 @@ function exceuteQueryStringParams(){
           break
         case 'charts':
           openBF4SelectionPageFromQueryString('Weapon Charts')
+          break
+      }
+      break
+    case 'bfh':
+      switch(page){
+        case 'index':
+          openBFHSelectionPage()
+          updateQueryString("bfh", "index")
+        break
+        case 'general-info':
+          openBFHSelectionPageFromQueryString('General Information')
+          break
+        case 'comparison':
+          openBFHSelectionPageFromQueryString('Weapon Comparison')
+          break
+        case 'charts':
+          openBFHSelectionPageFromQueryString('Weapon Charts')
           break
       }
       break

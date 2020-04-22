@@ -1,26 +1,26 @@
 // Logic behind comparison pages
 
 // Text for the "no weapon selected" box
-const BF4_SELECT_OPTION_0_TEXT = 'Select Weapon...'
+const BFH_SELECT_OPTION_0_TEXT = 'Select Weapon...'
 
 // Color codes for the best/worst value
-const BF4_NEUTRAL_VALUE_COLOR = [255, 255, 255]
-const BF4_BEST_VALUE_COLOR = [0, 255, 0]
-const BF4_WORST_VALUE_COLOR = [255, 0, 0]
+const BFH_NEUTRAL_VALUE_COLOR = [255, 255, 255]
+const BFH_BEST_VALUE_COLOR = [0, 255, 0]
+const BFH_WORST_VALUE_COLOR = [255, 0, 0]
 
 // Used to prepend to id of customization buttons to make them all unique
 // in order to accomodate mulitple instances of the same weapon.
-var BF4AddVariantCounter = 0
+var BFHAddVariantCounter = 0
 
 /*
   Return list of select weapons (the
   full directory), according to
   select weapon names and attachments.
 */
-function BF4GetSelectedWeapons () {
+function BFHGetSelectedWeapons () {
   var selectedWeapons = []
 
-  $('.bf4-comp-selectorContainer').each(function () {
+  $('.bfh-comp-selectorContainer').each(function () {
     if ($(this).find('select')[0].selectedIndex !== 0) {
       var selectedData = $(this).find('select option:selected')
       var selectedWeapName = selectedData[0].text.trim()
@@ -31,7 +31,7 @@ function BF4GetSelectedWeapons () {
       var attachmentString = selectedAttachment1 + "-" + selectedAttachment2 + "-" + selectedAttachment3
 
       // Find right weapon + attachments combination
-      var weaponStats = BF4WeaponData.find(function (weapon) {
+      var weaponStats = BFHWeaponData.find(function (weapon) {
         return (
           weapon.WeapShowName === selectedWeapName &&
           weapon.attachments === attachmentString
@@ -51,7 +51,7 @@ function BF4GetSelectedWeapons () {
   filters: List of filter keywords
   includeOnlyDiffering: If false, only include variables where weapons differ
 */
-function BF4FilterTable (variableName, weaponValues, filters, includeOnlyDiffering) {
+function BFHFilterTable (variableName, weaponValues, filters, includeOnlyDiffering) {
   var shouldInclude = true
 
   // Hardcoded: Only include numeric values in the table (including "N/A")
@@ -80,43 +80,43 @@ function BF4FilterTable (variableName, weaponValues, filters, includeOnlyDifferi
   variableName: Name of the variable
   weaponValues: List of values for variableName from different weapons
 */
-function BF4ColorVariables(variableName, weaponValues) {
+function BFHColorVariables(variableName, weaponValues) {
   var colorCodes
 
   if (weaponValues.length == 1 || weaponValues.some(weaponValue => isNaN(weaponValue))) {
     // Only one item in the list or there are non-numeric values
     // -> Return neutral color
-    colorCodes = weaponValues.map(weaponValue => BF4_NEUTRAL_VALUE_COLOR)
+    colorCodes = weaponValues.map(weaponValue => BFH_NEUTRAL_VALUE_COLOR)
   } else {
     // Get unique values
     var uniqueValues = Array.from(new Set(weaponValues))
     // If we only have , do not bother with coloring
     if (uniqueValues.length === 1) {
-      colorCodes = weaponValues.map(weaponValue => BF4_NEUTRAL_VALUE_COLOR)
+      colorCodes = weaponValues.map(weaponValue => BFH_NEUTRAL_VALUE_COLOR)
     } else {
       // Sort by value so that "lower is worse".
       uniqueValues.sort((a, b) => a - b)
 
       // Values are now "higher is better".
-      // If variable is not in BF4_LOWER_IS_WORSE, then
+      // If variable is not in BFH_LOWER_IS_WORSE, then
       // reverse the list
-      if (!BF4_LOWER_IS_WORSE.has(variableName)) {
+      if (!BFH_LOWER_IS_WORSE.has(variableName)) {
         uniqueValues.reverse()
       }
 
       colorCodes = []
       // Lower rank in uniqueValues -> worse value
       for (var i = 0; i < weaponValues.length; i++) {
-        // -1 so that final value (best) has BF4_BEST_VALUE_COLOR
+        // -1 so that final value (best) has BFH_BEST_VALUE_COLOR
         var rankRatio = uniqueValues.indexOf(weaponValues[i]) / (uniqueValues.length - 1)
         colorCodes.push(
-          BF4InterpolateRGB(BF4_WORST_VALUE_COLOR, BF4_BEST_VALUE_COLOR, rankRatio)
+          BFHInterpolateRGB(BFH_WORST_VALUE_COLOR, BFH_BEST_VALUE_COLOR, rankRatio)
         )
       }
     }
   }
   // Turn RGB arrays to html color code
-  colorCodes = colorCodes.map(colorCode => BF4ArrayToRGB(colorCode))
+  colorCodes = colorCodes.map(colorCode => BFHArrayToRGB(colorCode))
   return colorCodes
 }
 
@@ -126,7 +126,7 @@ function BF4ColorVariables(variableName, weaponValues) {
   Takes in a list of selected weapons, filter keywords (list)
   and boolean if only differing values should be included.
 */
-function BF4UpdateTable (selectedWeapons, filters, includeOnlyDiffering) {
+function BFHUpdateTable (selectedWeapons, filters, includeOnlyDiffering) {
   if (selectedWeapons.length > 0) {
     // Construct table as a HTML string we append later
     // to correct table. Hopefully this is fast enough.
@@ -139,15 +139,15 @@ function BF4UpdateTable (selectedWeapons, filters, includeOnlyDiffering) {
     tableHtml += '</tr>'
 
     // Now for each row, show variable name and numbers
-    for (var variableIndex = 0; variableIndex < BF4WeaponKeys.length; variableIndex++) {
+    for (var variableIndex = 0; variableIndex < BFHWeaponKeys.length; variableIndex++) {
       // Check filtering: Get variable name and the values, check if want
       // to include that variable and then include it
-      var variableKey = BF4WeaponKeys[variableIndex]
+      var variableKey = BFHWeaponKeys[variableIndex]
       var weaponVariables = selectedWeapons.map(weapon => weapon[variableKey])
 
-      if (BF4FilterTable(variableKey, weaponVariables, filters, includeOnlyDiffering) === true) {
+      if (BFHFilterTable(variableKey, weaponVariables, filters, includeOnlyDiffering) === true) {
         // Get coloring of the items
-        var variableColoring = BF4ColorVariables(variableKey, weaponVariables)
+        var variableColoring = BFHColorVariables(variableKey, weaponVariables)
         // Begin row and add variable name
         tableHtml += '<tr><td>' + variableKey + '</td>'
         for (var weaponIndex = 0; weaponIndex < weaponVariables.length; weaponIndex++) {
@@ -167,13 +167,13 @@ function BF4UpdateTable (selectedWeapons, filters, includeOnlyDiffering) {
   Update damage graph with the selected weapons.
   Takes in a list of selected weapons.
 */
-function BF4UpdateDamageGraph (selectedWeapons) {
+function BFHUpdateDamageGraph (selectedWeapons) {
   var serieses = []
   for (var i = 0; i < selectedWeapons.length; i++) {
     var weapon = selectedWeapons[i]
     serieses.push({
       name: weapon['WeapShowName'],
-      data: BF4GetDamageOverDistance(weapon)
+      data: BFHGetDamageOverDistance(weapon)
     })
   }
 
@@ -215,18 +215,18 @@ function BF4UpdateDamageGraph (selectedWeapons) {
   Update BTK and TTK graphs according to selected weapons.
   Takes in a list of selected weapons.
 */
-function BF4UpdateTTKAndBTKGraphs (selectedWeapons) {
+function BFHUpdateTTKAndBTKGraphs (selectedWeapons) {
   var btkSerieses = []
   var ttkSerieses = []
   for (var i = 0; i < selectedWeapons.length; i++) {
     var weapon = selectedWeapons[i]
     btkSerieses.push({
       name: weapon['WeapShowName'],
-      data: BF4GetBTKUpperBoundOverDistance(weapon)
+      data: BFHGetBTKUpperBoundOverDistance(weapon)
     })
     ttkSerieses.push({
       name: weapon['WeapShowName'],
-      data: BF4GetTTKUpperBoundOverDistance(weapon)
+      data: BFHGetTTKUpperBoundOverDistance(weapon)
     })
   }
 
@@ -308,14 +308,14 @@ function BF4UpdateTTKAndBTKGraphs (selectedWeapons) {
   Callback function for when filters change
   (only redo table, not graphs).
 */
-function BF4FilterOnChange () {
-  var selectedWeapons = BF4GetSelectedWeapons()
+function BFHFilterOnChange () {
+  var selectedWeapons = BFHGetSelectedWeapons()
 
   var filters = $('#column_filter')[0].value.toLowerCase()
   var includeOnlyDiffering = $('#column_onlydiffering')[0].checked
   filters = filters.split(',')
 
-  BF4UpdateTable(selectedWeapons, filters, includeOnlyDiffering)
+  BFHUpdateTable(selectedWeapons, filters, includeOnlyDiffering)
 }
 
 /*
@@ -323,44 +323,44 @@ function BF4FilterOnChange () {
   (different weapon, different attachments, different
   filters)
 */
-function BF4SelectorsOnChange (e) {
-  BF4updateSelectors()
-  printBF4CustomizationButtons(e)
-  var selectedWeapons = BF4GetSelectedWeapons()
+function BFHSelectorsOnChange (e) {
+  BFHupdateSelectors()
+  printBFHCustomizationButtons(e)
+  var selectedWeapons = BFHGetSelectedWeapons()
 
   // Get filters for updating the table.
   var filters = $('#column_filter')[0].value.toLowerCase()
   var includeOnlyDiffering = $('#column_onlydiffering')[0].checked
   filters = filters.split(',')
 
-  BF4UpdateTable(selectedWeapons, filters, includeOnlyDiffering)
-  BF4UpdateDamageGraph(selectedWeapons)
-  BF4UpdateTTKAndBTKGraphs(selectedWeapons)
+  BFHUpdateTable(selectedWeapons, filters, includeOnlyDiffering)
+  BFHUpdateDamageGraph(selectedWeapons)
+  BFHUpdateTTKAndBTKGraphs(selectedWeapons)
 }
 
 /*
   Check correct number of selectors
   and if one of them should be removed
 */
-function BF4updateSelectors () {
-  $('.bf4-comp-selectorContainer > select').each(function() {
-    if (this.selectedIndex === 0 && $('.bf4-comp-selectorContainer > select').length > 1) {
+function BFHupdateSelectors () {
+  $('.bfh-comp-selectorContainer > select').each(function() {
+    if (this.selectedIndex === 0 && $('.bfh-comp-selectorContainer > select').length > 1) {
       $(this).parent().remove()
     }
   })
 
   var emptySelects = 0
-  $('.bf4-comp-selectorContainer > select').each(function() {
+  $('.bfh-comp-selectorContainer > select').each(function() {
     if (this.selectedIndex === 0) {
       emptySelects++
     }
   })
 
-  if (emptySelects <= 1 && $('.bf4-comp-selectorContainer').length < 6) {
-    $('.bf4-comp-selectorContainer').last().after($('.bf4-comp-selectorContainer').first().clone(true))
-    $('.bf4-comp-selectorContainer').last().children('div').remove()
-    $('.bf4-comp-selectorContainer').last().children('select').change(function (e) {
-      BF4SelectorsOnChange(e)
+  if (emptySelects <= 1 && $('.bfh-comp-selectorContainer').length < 6) {
+    $('.bfh-comp-selectorContainer').last().after($('.bfh-comp-selectorContainer').first().clone(true))
+    $('.bfh-comp-selectorContainer').last().children('div').remove()
+    $('.bfh-comp-selectorContainer').last().children('select').change(function (e) {
+      BFHSelectorsOnChange(e)
     })
   }
 }
@@ -369,18 +369,18 @@ function BF4updateSelectors () {
   Entrypoint for the comparison page.
   Note: This should called after all data has been loaded!
 */
-function initializeBF4Comparison () {
+function initializeBFHComparison () {
   var selectorParent = $('#selectors')[0]
 
   // Create different options (i.e. weapons)
   // and add them to first selector
   var firstSelector = document.createElement('select')
-  firstSelector.onchange = BF4SelectorsOnChange
+  firstSelector.onchange = BFHSelectorsOnChange
   // First add empty option
   var option = document.createElement('option')
-  option.text = BF4_SELECT_OPTION_0_TEXT
+  option.text = BFH_SELECT_OPTION_0_TEXT
   firstSelector.add(option)
-  var weaponNames = BF4WeaponData.filter(
+  var weaponNames = BFHWeaponData.filter(
     weapon => weapon['attachments'] === 'none-none-none'
   ).map(
     weapon => weapon['WeapShowName']
@@ -397,18 +397,18 @@ function initializeBF4Comparison () {
 
 
   // Set oninput for filter elements
-  document.getElementById('column_filter').oninput = BF4FilterOnChange
-  document.getElementById('column_onlydiffering').onclick = BF4FilterOnChange
+  document.getElementById('column_filter').oninput = BFHFilterOnChange
+  document.getElementById('column_onlydiffering').onclick = BFHFilterOnChange
 
-  $('#selectors > select').addClass('comp-selectors').wrap("<div class='bf4-comp-selectorContainer'></div>")
-  BF4updateSelectors()
+  $('#selectors > select').addClass('comp-selectors').wrap("<div class='bfh-comp-selectorContainer'></div>")
+  BFHupdateSelectors()
 }
 
 /*
     Search the array for the entry with the given weapon name and return
     the index for it or '-1' if not found.
 */
-function BF4getIndexOfAnyWeapon (weapon, weaponArray) {
+function BFHgetIndexOfAnyWeapon (weapon, weaponArray) {
   var weaponIndex = -1
   for (var i = 0; i < weaponArray.length; i++) {
     if (weaponArray[i].WeapShowName === weapon) {
@@ -422,47 +422,47 @@ function BF4getIndexOfAnyWeapon (weapon, weaponArray) {
 /*
   Create the html for the customization buttons for the selected weapon
 */
-function printBF4CustomizationButtons (e){
+function printBFHCustomizationButtons (e){
   var selectedSelect = ($(e.target).find('option:selected'))
   // Check it was a weapon that changed, not attachment
-  if (selectedSelect.parent()[0].options[0].text.trim().localeCompare(BF4_SELECT_OPTION_0_TEXT) != 0) {
+  if (selectedSelect.parent()[0].options[0].text.trim().localeCompare(BFH_SELECT_OPTION_0_TEXT) != 0) {
     return
   }
   var weapshowname = ($(e.target).find('option:selected').text().trim())
 
   // Check if weapon changed. If so, update the attachment selectors
-  if(weapshowname.localeCompare(BF4_SELECT_OPTION_0_TEXT) != 0){
+  if(weapshowname.localeCompare(BFH_SELECT_OPTION_0_TEXT) != 0){
     $(selectedSelect).parent().siblings('div').remove()
-    $(selectedSelect).parent().after(BF4compPrintCustomizations(weapshowname))
+    $(selectedSelect).parent().after(BFHcompPrintCustomizations(weapshowname))
   }
 }
 
 /*
   Generates the html used for the customization buttons
 */
-function BF4compPrintCustomizations (weaponName) {
+function BFHcompPrintCustomizations (weaponName) {
   var custString = ''
   // Get any weapon data of this weapon name (we need the attachment infos)
-  var weaponIndex = BF4getIndexOfAnyWeapon(weaponName, BF4WeaponData)
-  var weapon = BF4WeaponData[weaponIndex]
+  var weaponIndex = BFHgetIndexOfAnyWeapon(weaponName, BFHWeaponData)
+  var weapon = BFHWeaponData[weaponIndex]
 
   // Check which attachments are allowed for this weapon
   var allowedSlotAttachments = [0, 0]
-  allowedSlotAttachments[0] = BF4_ALLOWED_ATTACHMENTS[0].filter(name => (weapon["Exist" + name] === "Yes" || name == "none"))
-  allowedSlotAttachments[1] = BF4_ALLOWED_ATTACHMENTS[1].filter(name => (weapon["Exist" + name] === "Yes" || name == "none"))
-  allowedSlotAttachments[2] = BF4_ALLOWED_ATTACHMENTS[2].filter(name => (weapon["Exist" + name] === "Yes" || name == "none"))
+  allowedSlotAttachments[0] = BFH_ALLOWED_ATTACHMENTS[0].filter(name => (weapon["Exist" + name] === "Yes" || name == "none"))
+  allowedSlotAttachments[1] = BFH_ALLOWED_ATTACHMENTS[1].filter(name => (weapon["Exist" + name] === "Yes" || name == "none"))
+  allowedSlotAttachments[2] = BFH_ALLOWED_ATTACHMENTS[2].filter(name => (weapon["Exist" + name] === "Yes" || name == "none"))
 
   // Create dropdown selectors
   custString += '<div>Attachments</div>'
   for (var i = 0; i < 3; i++) {
-    custString += "<div class='bf4-comp-selectorContainerAttachments'><select onchange='BF4SelectorsOnChange(event)' id='" + BF4AddVariantCounter + weaponName + "1'>"
+    custString += "<div class='bfh-comp-selectorContainerAttachments'><select onchange='BFHSelectorsOnChange(event)' id='" + BFHAddVariantCounter + weaponName + "1'>"
     for (var attachmentIndex = 0; attachmentIndex < allowedSlotAttachments[i].length; attachmentIndex++) {
-      var humanName = BF4_ATTACHMENT_NAME_MAPPING[allowedSlotAttachments[i][attachmentIndex]]
+      var humanName = BFH_ATTACHMENT_NAME_MAPPING[allowedSlotAttachments[i][attachmentIndex]]
       custString += "<option value='" + allowedSlotAttachments[i][attachmentIndex] + "'>" + humanName +  '</option>'
     }
     custString += '</select></div>'
   }
-  BF4AddVariantCounter++
+  BFHAddVariantCounter++
 
   return custString
 }
