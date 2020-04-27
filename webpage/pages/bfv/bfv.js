@@ -77,6 +77,19 @@ const BFV_LOWER_IS_WORSE = new Set([
   'ADSProneRecoilDecFactor',
   'ADSStandRecoilDecFactor',
   'ADSCrouchRecoilDecFactor',
+  'ADSStandBaseSpreadIdleOffset',
+  'HIPStandBaseSpreadIdleOffset',
+  'ADSCrouchBaseSpreadIdleOffset',
+  'HIPCrouchBaseSpreadIdleOffset',
+  'ADSProneBaseSpreadIdleOffset',
+  'HIPProneBaseSpreadIdleOffset',
+  'ADSStandMoveSpreadIdleOffset',
+  'HIPStandMoveSpreadIdleOffset',
+  'ADSCrouchMoveSpreadIdleOffset',
+  'HIPCrouchMoveSpreadIdleOffset',
+  'ADSProneMoveSpreadIdleOffset',
+  'HIPProneMoveSpreadIdleOffset',
+  'ADSStandBaseSpreadIdleOffset',
   'ShotsPerShell'
 ])
 
