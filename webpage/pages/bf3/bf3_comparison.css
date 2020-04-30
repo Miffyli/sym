@@ -1,0 +1,50 @@
+.bf3-content-comparison {
+    width: 1200px;
+    margin: auto;
+}
+
+/* Remove unnecessary paddings */
+.bf3-content-comparison > div {
+    padding: 0px 0px;
+}
+
+.bf3-content-comparison-table table {
+    border-spacing: 0px;
+}
+
+.bf3-content-comparison-table tr:nth-child(even) {
+    background-color: #222;
+}
+
+.bf3-comp-selectorContainer{
+    display: inline-block;
+    vertical-align: top;
+    padding: 19px;
+    background: #222;
+    margin: 4px;
+    border: 1px solid #444;
+    width: 345px;
+    height: 25px;
+}
+
+/* Do not color the first row */
+
+.bf3-content-comparison-table tr:nth-child(odd):not(:first-child) {
+    background-color: #333;
+}
+
+.bf3-content-comparison-table th {
+    height: 30pt;
+}
+
+.bf3-content-comparison-table td:first-child {
+    padding-right: 30pt
+}
+
+
+/* Center values in the table, but on the first column (names) */
+
+.bf3-content-comparison-table td:not(:first-child) {
+    text-align: center;
+    width: 100pt;
+}

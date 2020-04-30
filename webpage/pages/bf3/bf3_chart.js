@@ -5,7 +5,7 @@ var customizations = new Object();
 var addVariantCounter = 0;
 
 function BF3initializeChartPage() {
-    bf1PrintWeapons();
+    bf3PrintWeapons();
 
     $("#actionMenu").menu({
         position: {my: "left bottom", at: "left top"}
@@ -17,7 +17,7 @@ function BF3initializeChartPage() {
     );
     $("#showHideCheckboxes input").change(function(){
         this.blur();
-        bf1ShowHideClasses();
+        bf3ShowHideClasses();
     });
 
     $("#showHideSubCats input").checkboxradio(
@@ -42,20 +42,20 @@ function showBlank(obj){
     obj.src="./pages/bfv/img/blankWeapon.png";
 }
 
-function bf1PrintWeapons(){
+function bf3PrintWeapons(){
     var statsHtml = "";
 
-    statsHtml += bf1PrintWeaponClass(1);
-    statsHtml += bf1PrintWeaponClass(2);
-    statsHtml += bf1PrintWeaponClass(3);
-    statsHtml += bf1PrintWeaponClass(4);
-    statsHtml += bf1PrintWeaponClass(6);
-    statsHtml += bf1PrintWeaponClass(7);
-    statsHtml += bf1PrintWeaponClass(5);
-	statsHtml += bf1PrintWeaponClass(8);
+    statsHtml += bf3PrintWeaponClass(1);
+    statsHtml += bf3PrintWeaponClass(2);
+    statsHtml += bf3PrintWeaponClass(3);
+    statsHtml += bf3PrintWeaponClass(4);
+    statsHtml += bf3PrintWeaponClass(6);
+    statsHtml += bf3PrintWeaponClass(7);
+    statsHtml += bf3PrintWeaponClass(5);
+	statsHtml += bf3PrintWeaponClass(8);
 
     $("#pageBody").html(statsHtml);
-    bf1ShowHideClasses();
+    bf3ShowHideClasses();
 /*
     $(".custButton").checkboxradio(
         {icon:false}
@@ -68,11 +68,11 @@ function bf1PrintWeapons(){
         var thisRow = $(this).parentsUntil("tbody", "tr");
         var wearponName = $(thisRow).find(".lblWeaponName").text();
 
-        var newWeaponStats = BF1WeaponData.find(function(element){
+        var newWeaponStats = BF3WeaponData.find(function(element){
             return element.WeapAttachmentKey == wearponName;
         });
 
-        var newWeaponRow = bf1PrintWeapon(newWeaponStats);
+        var newWeaponRow = bf3PrintWeapon(newWeaponStats);
         var newWeaponRowObj = $(newWeaponRow).insertAfter(thisRow);
         $(newWeaponRowObj).find(".custButton").checkboxradio(
             {icon:false}
@@ -97,7 +97,7 @@ function bf1PrintWeapons(){
     bfvChartSortLetters("lblWeaponNameValue", compareNames)
 }
 
-function bf1PrintWeaponClass(weaponClass){
+function bf3PrintWeaponClass(weaponClass){
     var classImgFileName = (weaponClass == 5) ? "Sidearms.png" : bf3WeaponClassTitles[weaponClass] + ".png";
 
     var rtnStr = "";
@@ -107,7 +107,7 @@ function bf1PrintWeaponClass(weaponClass){
 
     $.each(BF3WeaponData, function( key, value ) {
         if (value.Class == weaponClass){
-            rtnStr += bf1PrintWeapon(value);
+            rtnStr += bf3PrintWeapon(value);
         }
     });
 
@@ -115,53 +115,53 @@ function bf1PrintWeaponClass(weaponClass){
     return rtnStr;
 }
 
-function bf1PrintWeapon(weaponStats){
+function bf3PrintWeapon(weaponStats){
     var firestormIcon = (firestormWeapons.includes(weaponStats.WeapShowName) ? "<img src='./pages/bfv/img/firestorm.png' " + firestormTooltip + ">" : "");
-    var reloadData = bf1CreateReloadGraphic(weaponStats.ReloadEmpty, weaponStats.ReloadLeft, weaponStats.MagSize, weaponStats.Ammo);
-    var standRecoilData = bf1CreateRecoilGraphic(weaponStats.ADSRecoilLeft, weaponStats.ADSRecoilRight, weaponStats.ADSRecoilUp, weaponStats.FirstShotRecoilMul, weaponStats.ADSRecoilDec);
-    var spreadTableGraphic = bf1CreateSpreadTableGraphic(weaponStats.ADSStandBaseMin,weaponStats.ADSCrouchBaseMin,weaponStats.ADSProneBaseMin,
+    var reloadData = bf3CreateReloadGraphic(weaponStats.ReloadEmpty, weaponStats.ReloadLeft, weaponStats.MagSize, weaponStats.Ammo);
+    var standRecoilData = bf3CreateRecoilGraphic(weaponStats.ADSRecoilLeft, weaponStats.ADSRecoilRight, weaponStats.ADSRecoilUp, weaponStats.FirstShotRecoilMul, weaponStats.ADSRecoilDec);
+    var spreadTableGraphic = bf3CreateSpreadTableGraphic(weaponStats.ADSStandBaseMin,weaponStats.ADSCrouchBaseMin,weaponStats.ADSProneBaseMin,
                                                       weaponStats.ADSStandMoveMin,weaponStats.ADSCrouchMoveMin,weaponStats.ADSProneMoveMin,
                                                       weaponStats.HIPStandBaseMin,weaponStats.HIPCrouchBaseMin,weaponStats.HIPProneBaseMin,
                                                       weaponStats.HIPStandMoveMin,weaponStats.HIPCrouchMoveMin,weaponStats.HIPProneMoveMin,
                                                       weaponStats.ADSStandBaseSpreadInc, weaponStats.HIPStandBaseSpreadInc);
-    var spreadIncDecTableGraphic = bf1CreateSpreadIncDecTableGraphic(weaponStats.SpreadInc, weaponStats.SpreadDec);
+    var spreadIncDecTableGraphic = bf3CreateSpreadIncDecTableGraphic(weaponStats.SpreadInc, weaponStats.SpreadDec);
     var rtnStr = "<tr class='" + weaponStats.WeapShowName.replace(/ |\//g,"") + " sub_" + getWeaponsSubcat(weaponStats.WeapShowName) +"'>" +
                      "<td class='firstColumn'>" +
                          "<div class='lblWeaponName'>" +
                             "<span class='lblWeaponNameValue'>" + weaponStats.WeapShowName + "</span>" + firestormIcon +
                          "</div>" +
                          "<div class='weaponImgContainer'>" +
-                             "<img class='weaponImg' src='./pages/bf3/img/weapons/" + bf1GetWeaponImageFilename(weaponStats.WeapShowName.replace("/","")) + ".png' onerror='showBlank(this);'>" +
+                             "<img class='weaponImg' src='./pages/bf3/img/weapons/" + bf3GetWeaponImageFilename(weaponStats.WeapShowName.replace("/","")) + ".png' onerror='showBlank(this);'>" +
                          "</div>" +
                          "<div style='line-height: 20px;'>" +
                              "<span class='lblMagText'>" +
                                 "<span class='lblMag'>" + weaponStats.MagSize + "</span>" +
-                                "<span class='lblSuffixText'> x " + bf1FormatAmmoType(weaponStats.Ammo) + "</span>" +
+                                "<span class='lblSuffixText'> x " + bf3FormatAmmoType(weaponStats.Ammo) + "</span>" +
                              "</span>" +
                              bf3CreateRPMGrpahic(weaponStats.BRoF) +
                          "</div>" +
                      "</td>" +
 
               "<td class='secondColumn'>" +
-                  "<div class='damageChartContainer' " + damageTooltip + ">" + bf1createDamageChart(weaponStats.Damages, weaponStats.Dmg_distances, weaponStats.Pellets, weaponStats.Ammo) + "</div>" +
+                  "<div class='damageChartContainer' " + damageTooltip + ">" + bf3createDamageChart(weaponStats.Damages, weaponStats.Dmg_distances, weaponStats.Pellets, weaponStats.Ammo) + "</div>" +
               "</td>" +
 
               "<td>" +
               //"<div class='underMagSection'>" +
               "<td>" +
-                  "<div class='reloadDataAndMagCount'>" + bf1CreateBulletSpeedGraphic(weaponStats.InitialSpeed, weaponStats.Drag) + reloadData  + "</div>" +
+                  "<div class='reloadDataAndMagCount'>" + bf3CreateBulletSpeedGraphic(weaponStats.InitialSpeed, weaponStats.Drag) + reloadData  + "</div>" +
                   "<div class='deployTimeBox' " + gravityTooltip + "><span class='ui-icon  ui-icon-arrowthick-1-s'></span><span class='lblDeployTime'>" + weaponStats.Gravity + "<span class='lblSuffixText'> m/s²</span></span></div>" +
               "</td><td>" +
                   "<div class='recoilGraphicBox' " + recoilTooltip + ">" + standRecoilData + "</div>" +
               "</td><td>" +
                   "<div>" +
                       "<div class='spreadLabels' " + adsTooltip + ">" +
-                          bf1CreateSpreadLabels(weaponStats.ADSStandMoveMin, weaponStats.ADSStandBaseMin) +
+                          bf3CreateSpreadLabels(weaponStats.ADSStandMoveMin, weaponStats.ADSStandBaseMin) +
                       "</div>" +
-                      "<div class='spreadCircles' " + adsTooltip + ">" + bf1CreateSpreadGraphic(weaponStats.ADSStandBaseMin, weaponStats.ADSStandMoveMin) + "</div>" +
+                      "<div class='spreadCircles' " + adsTooltip + ">" + bf3CreateSpreadGraphic(weaponStats.ADSStandBaseMin, weaponStats.ADSStandMoveMin) + "</div>" +
                   "</div>" +
               "</td><td>" +
-                  "<div class='hipSpreadContainer' " + hipfireTooltip + ">" + bf1CreateHipSpreadGraphic(weaponStats.HIPStandMoveMin, weaponStats.HorDispersion) + "</div>" +
+                  "<div class='hipSpreadContainer' " + hipfireTooltip + ">" + bf3CreateHipSpreadGraphic(weaponStats.HIPStandMoveMin, weaponStats.HorDispersion) + "</div>" +
             //  "</td><td>" +
                   
               "</td><td>" +
@@ -178,7 +178,7 @@ function bf1PrintWeapon(weaponStats){
         return rtnStr;
 }
 
-function bf1GetWeaponImageFilename(weaponName){
+function bf3GetWeaponImageFilename(weaponName){
     var weaponFilename = "";
 
     weaponFilename =  weaponName.replace("Slug", "").replace("Buckshot", "").replace("Flechette", "").replace("Frag", "").replace("SMOKE", "").replace("LVG", "").replace("BUCK", "").replace("BA", "").replace("HE", "").replace("SCAN", "");
@@ -201,7 +201,7 @@ function bf3CreateRPMGrpahic(BRoF){
     return rpmGrpahic;
 }
 
-function bf1CreateBulletSpeedGraphic(initialSpeed, drag){
+function bf3CreateBulletSpeedGraphic(initialSpeed, drag){
     return "<div class='bulletSpeedContainer'>" +
              "<span class='pr-3 lblSpeed' " + bulletSpeedTooltip + ">" +
                "<img src='./pages/bfv/img/speed.png'>" +
@@ -211,7 +211,7 @@ function bf1CreateBulletSpeedGraphic(initialSpeed, drag){
            "</div>"
 }
 
-function bf1CreateReloadGraphic(reloadEmpty, reloadLeft, magSize, ammoType){
+function bf3CreateReloadGraphic(reloadEmpty, reloadLeft, magSize, ammoType){
     var reloadData = "<div>" +
                          "<div class='sectionReload' " + reloadTooltip + ">";
     if (reloadEmpty != "N/A"){
@@ -241,13 +241,13 @@ function bf1CreateReloadGraphic(reloadEmpty, reloadLeft, magSize, ammoType){
     return reloadData +  "</div>";
 }
 
-function bf1FormatAmmoType(ammo){
+function bf3FormatAmmoType(ammo){
     var newAmmo = ammo.replace("Slug", "").replace("_Semi", "").replace("_SMG", "");
     
     return newAmmo;
 }
 
-function bf1CreateRecoilGraphic(recoilLeft, recoilRight, recoilInitialUp, recoilFirstShot, recoilDec){
+function bf3CreateRecoilGraphic(recoilLeft, recoilRight, recoilInitialUp, recoilFirstShot, recoilDec){
 
     if (recoilInitialUp <= 2){
         var recoilUpLength = (90 - (recoilInitialUp * 30));
@@ -288,7 +288,7 @@ function bf1CreateRecoilGraphic(recoilLeft, recoilRight, recoilInitialUp, recoil
     return recoilGraphic;
 }
 
-function bf1CreateSpreadLabels(ADSStandMoveMin, ADSStandBaseMin){
+function bf3CreateSpreadLabels(ADSStandMoveMin, ADSStandBaseMin){
     var rtnStr = "";
     if (ADSStandMoveMin > 0){
         rtnStr = "<div class='speadMoveLabel'>" + roundToThree(ADSStandMoveMin) + "°</div>" +
@@ -297,7 +297,7 @@ function bf1CreateSpreadLabels(ADSStandMoveMin, ADSStandBaseMin){
     return rtnStr;
 }
 
-function bf1CreateSpreadGraphic(ADSBase, ADSMove){
+function bf3CreateSpreadGraphic(ADSBase, ADSMove){
     var spreadGraphic = "";
 
     var adsBaseCircle = "";
@@ -315,7 +315,7 @@ function bf1CreateSpreadGraphic(ADSBase, ADSMove){
     return spreadGraphic;
 }
 
-function bf1CreateHipSpreadGraphic(HIPSpread, HorDispersion){
+function bf3CreateHipSpreadGraphic(HIPSpread, HorDispersion){
     var lineOffset = HIPSpread * 2;
     var spreadGraphic = "";
 
@@ -338,7 +338,7 @@ function bf1CreateHipSpreadGraphic(HIPSpread, HorDispersion){
     return spreadGraphic;
 }
 
-function bf1CreateSpreadTableGraphic(ADSStand, ADSCrouch, ADSProne, ADSStandMove, ADSCrouchMove, ADSProneMove,
+function bf3CreateSpreadTableGraphic(ADSStand, ADSCrouch, ADSProne, ADSStandMove, ADSCrouchMove, ADSProneMove,
                                   HIPStand, HIPCrouch, HIPProne, HIPStandMove, HIPCrouchMove, HIPProneMove,
                                   ADSIncrease, HIPIncrease){
     var tableGraphic = "<table class='spreadTable'>" +
@@ -354,7 +354,7 @@ function bf1CreateSpreadTableGraphic(ADSStand, ADSCrouch, ADSProne, ADSStandMove
     return tableGraphic;
 }
 
-function bf1CreateSpreadIncDecTableGraphic(spreadIncrease, spreadDecrease){
+function bf3CreateSpreadIncDecTableGraphic(spreadIncrease, spreadDecrease){
     var tableGraphic = "<table class='spreadIncDecTable'>" +
                            "<tr>" + "<td class='scaleIncreaseCell'><img src='./img/increase.png'></td><td>" + roundToThree(spreadIncrease) + "°</td>" + "</tr>" +
                            "<tr>" + "<td class='scaleIncreaseCell'><img src='./img/decrease.png'></td><td>" + roundToThree(spreadDecrease) + "°</td>" + "</tr>" +
@@ -362,12 +362,12 @@ function bf1CreateSpreadIncDecTableGraphic(spreadIncrease, spreadDecrease){
 return tableGraphic;
 }
 
-function bf1createDamageChart(damageArr, distanceArr, numOfPellets, ammoType){
+function bf3createDamageChart(damageArr, distanceArr, numOfPellets, ammoType){
     var damageChart;
     if (damageArr[0] > 50 ){
-        damageChart = bf1CreateDamageChart100Max(damageArr, distanceArr, ammoType);
+        damageChart = bf3CreateDamageChart100Max(damageArr, distanceArr, ammoType);
     } else {
-        damageChart = bf1CreateDamageChart50Max(damageArr, distanceArr, numOfPellets, ammoType)
+        damageChart = bf3CreateDamageChart50Max(damageArr, distanceArr, numOfPellets, ammoType)
     }
     return damageChart;
 }
@@ -378,7 +378,7 @@ var fragLabels = "<text x='51' class='chartSplashLabel' y='9'>1m</text>" +
                  "<text x='201' class='chartSplashLabel' y='9'>4m</text>" +
                  "<text x='251' class='chartSplashLabel' y='9'>5m</text>";
 
-function bf1CreateDamageChart50Max(damageArr, distanceArr, numOfPellets, ammoType){
+function bf3CreateDamageChart50Max(damageArr, distanceArr, numOfPellets, ammoType){
     var damageLineCoords = "";
     damageLineCoords = distanceArr[0] == 0.0 ? "" : "0," + (120 - (2 * damageArr[0])) + " ";
     for (var i = 0; i < damageArr.length; i++){
@@ -489,7 +489,7 @@ function bf1CreateDamageChart50Max(damageArr, distanceArr, numOfPellets, ammoTyp
            "</svg>"
 }
 
-function bf1CreateDamageChart100Max(damageArr, distanceArr, ammoType){
+function bf3CreateDamageChart100Max(damageArr, distanceArr, ammoType){
     var damageLineCoords = "";
     damageLineCoords = distanceArr[0] == 0.0 ? "" : "0," + (120 -  damageArr[0]) + " ";
     for (var i = 0; i < damageArr.length; i++){
@@ -597,7 +597,7 @@ function bf1CreateDamageChart100Max(damageArr, distanceArr, ammoType){
 }
 
 
-function bf1ShowHideClasses(){
+function bf3ShowHideClasses(){
     if ($("#showAssaultCheck").is(":checked")){
         $("#AssaultSection").show(0);
     } else {
