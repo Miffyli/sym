@@ -47,6 +47,9 @@ window.onload = function () {
     } else if (clicked === 'menuStaff') {
       loadPageWithHeader('./pages/misc/staff.html', 'Site Staff')
       updateQueryString("sym", "staff")
+    } else if (clicked === 'menuPartners') {
+      loadPageWithHeader('./pages/misc/partners.html', 'Our Partners')
+      updateQueryString("sym", "partners")
     } else if (clicked === 'menuGithub') {
       openNewTab(SYM_GITHUB_URL)
     }
@@ -240,6 +243,10 @@ function exceuteQueryStringParams(){
         case 'staff':
           loadPageWithHeader('./pages/misc/staff.html', 'Site Staff')
           updateQueryString("sym", "staff")
+          break
+		case 'partners':
+          loadPageWithHeader('./pages/misc/partners.html', 'Our Partners')
+          updateQueryString("sym", "partners")
           break
       }
       break;
