@@ -232,6 +232,9 @@ function exceuteQueryStringParams(){
         case 'bf3-charts':
           openOtherTitlesSelectionPageFromQueryString('BF3 Weapon Charts')
           break
+        case 'bf3-comparison':
+          openOtherTitlesSelectionPageFromQueryString('BF3 Comparison')
+          break
       }
       break
     case 'sym':
