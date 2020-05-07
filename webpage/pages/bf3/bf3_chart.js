@@ -364,7 +364,7 @@ return tableGraphic;
 
 function bf3createDamageChart(damageArr, distanceArr, numOfPellets, ammoType){
     var damageChart;
-    if (damageArr[0] > 50 ){
+    if (damageArr[0] > 50 || damageArr[0] == 0){ // damage == 0 is for LVG becuase it has splash damage > 50.
         damageChart = bf3CreateDamageChart100Max(damageArr, distanceArr, ammoType);
     } else {
         damageChart = bf3CreateDamageChart50Max(damageArr, distanceArr, numOfPellets, ammoType)
@@ -420,11 +420,6 @@ function bf3CreateDamageChart50Max(damageArr, distanceArr, numOfPellets, ammoTyp
     if(ammoType == "Scan Bolt"){
         scanRadius = "<polyline class='chartScanRadiusLine' style='stroke: #C5CED2;' points='20,0 20,150'></polyline>" +
                      "<text y='46' class='chartScanRadiusLabel' x='27'>10m Scan Radius</text>";
-    }
-	
-	if (minDamage == 0){
-        var noImpactDamageText = "<text x='95' y='60' class='chartMinMaxLabel'>No Impact Damage</text>"
-		damageLineCoords = "x1='10' y1='0' x2='10' y2='120'";  //This is a hackjob fix but hides an otherwise useless damageLine
     }
 	
 	if (maxDamage == minDamage){
@@ -484,7 +479,6 @@ function bf3CreateDamageChart50Max(damageArr, distanceArr, numOfPellets, ammoTyp
                maxDamageText +
                minDamageText +
                pelletsLabel +
-			   noImpactDamageText +
            "</svg>"
 }
 
@@ -524,13 +518,24 @@ function bf3CreateDamageChart100Max(damageArr, distanceArr, ammoType){
         var oneHitKillText = "<text x='63' y='40' class='chartMinMaxLabel'>1 Hit Impact Kill at All Ranges</text>";
     }
 
+    
     var fragSplash = "";
+    var noImpactDamageText = "";
+    if (maxDamage == 0){
+        maxDamageText = "";
+        noImpactDamageText = "<text x='15' y='72' class='chartMinMaxLabel'>No Impact Damage</text>"
+        damageLineCoords = "x1='10' y1='0' x2='10' y2='120'";
+        
+        fragSplash = "<polyline class='chartSplashDamageLine' style='stroke: orange;' points='0,11 75,11 250,120'></polyline>" +
+            fragLabels + "<text class='chartMinMaxSplashLabel' x='103' y='23'>112 (Splash Damage)</text>";
+    }
+
     if(ammoType == "HE Bolt"){
         fragSplash = "<polyline class='chartSplashDamageLine' style='stroke: orange;' points='0,67 15,67 100,120'></polyline>" +
                      fragLabels +
                      "<text y='72' class='chartMinMaxSplashLabel' x='30'>56 (Splash Damage)</text>";
     } else if(ammoType == "40mm HE"){
-        fragSplash = "<polyline class='chartSplashDamageLine' style='stroke: orange;' points='0,67 105,67 300,120'></polyline>" +
+        fragSplash = "<polyline class='chartSplashDamageLine' style='stroke: orange;' points='0,67 105,67 250,120'></polyline>" +
                      fragLabels +
                      "<text y='63' class='chartMinMaxSplashLabel' x='115'>56 (Splash Damage)</text>";
     }
@@ -592,6 +597,7 @@ function bf3CreateDamageChart100Max(damageArr, distanceArr, ammoType){
                oneHitKillText +
                fragSplash +
                smokeRadius +
+			   noImpactDamageText +
            "</svg>"
 }
 
