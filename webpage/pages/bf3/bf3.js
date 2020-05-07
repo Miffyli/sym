@@ -220,3 +220,7 @@ function loadBF3ChartPage(){
 function loadBF3ComparisonPage(){
   $('.otherTitles-main-content').load('./pages/bf3/bf3_comparison.html', initializeBF3Comparison)
 }
+
+function openBF3GeneralInfoPage () {
+  $('.otherTitles-main-content').load('./pages/bf3/bf3_generalinfo.html')
+}
