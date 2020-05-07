@@ -138,7 +138,7 @@ function bf3PrintWeapon(weaponStats){
                                 "<span class='lblMag'>" + weaponStats.MagSize + "</span>" +
                                 "<span class='lblSuffixText'> x " + bf3FormatAmmoType(weaponStats.Ammo) + "</span>" +
                              "</span>" +
-                             bf3CreateRPMGrpahic(weaponStats.BRoF) +
+                             bf3CreateRPMGrpahic(weaponStats.RoF) +
                          "</div>" +
                      "</td>" +
 
@@ -186,11 +186,11 @@ function bf3GetWeaponImageFilename(weaponName){
     return weaponFilename.trim();
 }
 
-function bf3CreateRPMGrpahic(BRoF){
+function bf3CreateRPMGrpahic(RoF){
     var rpmGrpahic = "";
-    if (BRoF > 0){
+    if (RoF > 0){
         rpmGrpahic = "<span class='lblRPM'>" +
-                         "<span class='lblRPMValue' " + rpmTooltip + ">" + BRoF + "</span>" +
+                         "<span class='lblRPMValue' " + rpmTooltip + ">" + RoF + "</span>" +
                          "<span class='lblSuffixText'> rpm</span>" +
                      "</span>";
     } else {
