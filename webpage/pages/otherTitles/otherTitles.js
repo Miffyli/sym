@@ -45,6 +45,8 @@ function otherTitlesSetupPageHeader(){
       pageName = 'BF3 Weapon Charts'
     } else if (clicked === 'bf3-comparisonPageSelector') {
       pageName = 'BF3 Comparison'
+    } else if (clicked === 'bf3-generalInfoPageSelector') {
+      pageName = 'BF3 General Information'
     }
     otherTitlesOpenPageByName(pageName)
   })
@@ -71,6 +73,10 @@ function otherTitlesOpenPageByName(pageName) {
     $('#bf3-comparisonPageSelector').addClass('selected-selector')
     openBF3ComparisonPage()
     updateQueryString("other", "bf3-comparison")
+  } else if (pageName === 'BF3 General Information') {
+    $('#bf3-generalInfoPageSelector').addClass('selected-selector')
+    openBF3GeneralInfoPage()
+    updateQueryString("other", "bf3-general-info")
   }
 }
 
