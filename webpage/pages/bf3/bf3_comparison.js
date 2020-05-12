@@ -8,6 +8,9 @@ const BF3_NEUTRAL_VALUE_COLOR = [255, 255, 255]
 const BF3_BEST_VALUE_COLOR = [0, 255, 0]
 const BF3_WORST_VALUE_COLOR = [255, 0, 0]
 
+// Used to prepend to id of customization buttons to make them all unique
+// in order to accomodate mulitple instances of the same weapon.
+var BF3AddVariantCounter = 0
 
 /*
   Return list of select weapons (the
@@ -19,10 +22,18 @@ function BF3GetSelectedWeapons () {
 
   $('.bf3-comp-selectorContainer').each(function () {
     if ($(this).find('select')[0].selectedIndex !== 0) {
-      var selectedWeapName = $(this).find('select option:selected').text().trim()
+      var selectedData = $(this).find('select option:selected')
+      var selectedWeapName = selectedData[0].text.trim()
+      var selectedAttachment1 = selectedData[1].value.trim()
+      var selectedAttachment2 = selectedData[2].value.trim()
+
+      var attachmentString = selectedAttachment1 + '-' + selectedAttachment2
 
       var weaponStats = BF3WeaponData.find(function (weapon) {
-        return weapon.WeapShowName === selectedWeapName
+        return (
+          weapon.WeapShowName === selectedWeapName &&
+          weapon.Attachments === attachmentString
+        )
       })
       selectedWeapons.push(weaponStats)
     }
@@ -313,6 +324,7 @@ function BF3FilterOnChange () {
 */
 function BF3SelectorsOnChange (e) {
   BF3updateSelectors()
+  printBF3CustomizationButtons(e)
   var selectedWeapons = BF3GetSelectedWeapons()
 
   // Get filters for updating the table.
@@ -367,7 +379,9 @@ function initializeBF3Comparison () {
   var option = document.createElement('option')
   option.text = BF3_SELECT_OPTION_0_TEXT
   firstSelector.add(option)
-  var weaponNames = BF3WeaponData.map(
+  var weaponNames = BF3WeaponData.filter(
+    weapon => weapon['Attachments'] === 'none-none'
+  ).map(
     weapon => weapon['WeapShowName']
   )
   weaponNames.sort()
@@ -376,10 +390,21 @@ function initializeBF3Comparison () {
     option.text = weaponNames[i]
     firstSelector.add(option)
   }
+  // Create all weapon name to attachments combinations
+  for (var i = 0; i < BF3WeaponData.length; i++) {
+    var weapon = BF3WeaponData[i]
+    var attachments = weapon['Attachments']
+    attachments = attachments.split('-')
+    var weaponToAttachments = BF3WeaponToAllowedAttachments[weapon['WeapShowName']] || new Set()
+    weaponToAttachments.add(attachments[0])
+    weaponToAttachments.add(attachments[1])
+    // Assign it back in case we created a new Set
+    BF3WeaponToAllowedAttachments[weapon['WeapShowName']] = weaponToAttachments
+  }
+
   // Start with two empty choices already
   // (reminds people of it being a comparison)
   selectorParent.appendChild(firstSelector)
-
 
   // Set oninput for filter elements
   document.getElementById('column_filter').oninput = BF3FilterOnChange
@@ -387,4 +412,67 @@ function initializeBF3Comparison () {
 
   $('#selectors > select').addClass('comp-selectors').wrap("<div class='bf3-comp-selectorContainer'></div>")
   BF3updateSelectors()
+}
+
+/*
+    Search the array for the entry with the given weapon name and return
+    the index for it or '-1' if not found.
+*/
+function BF3getIndexOfAnyWeapon (weapon, weaponArray) {
+  var weaponIndex = -1
+  for (var i = 0; i < weaponArray.length; i++) {
+    if (weaponArray[i].WeapShowName === weapon) {
+      weaponIndex = i
+      break  // I hate breaks but this increases performance
+    }
+  }
+  return weaponIndex
+}
+
+/*
+  Create the html for the customization buttons for the selected weapon
+*/
+function printBF3CustomizationButtons (e){
+  var selectedSelect = ($(e.target).find('option:selected'))
+  // Check it was a weapon that changed, not attachment
+  if (selectedSelect.parent()[0].options[0].text.trim().localeCompare(BF3_SELECT_OPTION_0_TEXT) != 0) {
+    return
+  }
+  var weapshowname = ($(e.target).find('option:selected').text().trim())
+
+  // Check if weapon changed. If so, update the attachment selectors
+  if(weapshowname.localeCompare(BF3_SELECT_OPTION_0_TEXT) != 0){
+    $(selectedSelect).parent().siblings('div').remove()
+    $(selectedSelect).parent().after(BF3compPrintCustomizations(weapshowname))
+  }
+}
+
+/*
+  Generates the html used for the customization buttons
+*/
+function BF3compPrintCustomizations (weaponName) {
+  var custString = ''
+  // Get any weapon data of this weapon name (we need the attachment infos)
+  var weaponIndex = BF3getIndexOfAnyWeapon(weaponName, BF3WeaponData)
+  var weapon = BF3WeaponData[weaponIndex]
+
+  // Check which attachments are allowed for this weapon
+  var allowedSlotAttachments = [0, 0]
+  var weaponAllowedAttachments = BF3WeaponToAllowedAttachments[weaponName]
+  allowedSlotAttachments[0] = BF3_ALLOWED_ATTACHMENTS[0].filter(attachmentName => weaponAllowedAttachments.has(attachmentName))
+  allowedSlotAttachments[1] = BF3_ALLOWED_ATTACHMENTS[1].filter(attachmentName => weaponAllowedAttachments.has(attachmentName))
+
+  // Create dropdown selectors
+  custString += '<div>Attachments</div>'
+  for (var i = 0; i < 2; i++) {
+    custString += "<div class='BF3-comp-selectorContainerAttachments'><select onchange='BF3SelectorsOnChange(event)' id='" + BF3AddVariantCounter + weaponName + "1'>"
+    for (var attachmentIndex = 0; attachmentIndex < allowedSlotAttachments[i].length; attachmentIndex++) {
+      var humanName = BF3_ATTACHMENT_NAME_MAPPING[allowedSlotAttachments[i][attachmentIndex]]
+      custString += "<option value='" + allowedSlotAttachments[i][attachmentIndex] + "'>" + humanName +  '</option>'
+    }
+    custString += '</select></div>'
+  }
+  BF3AddVariantCounter++
+
+  return custString
 }

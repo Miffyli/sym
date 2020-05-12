@@ -9,6 +9,10 @@ var BF3DataLoaded = false
 // (i.e. variable names)
 var BF3WeaponKeys = []
 
+// Mapping from WeaponShowNames to Set of
+// allowed attachments
+var BF3WeaponToAllowedAttachments = {}
+
 // Minimum damage multiplier
 const BF3_MIN_DAMAGE_MULTIPLIER = 1.0
 
@@ -35,6 +39,32 @@ const BF3_LOWER_IS_WORSE = new Set([
   'SockwaveRadius',
   'SpreadDec'
 ])
+
+// List of attachments allowed in the two separate losts
+// (one attachment per slot)
+const BF3_ALLOWED_ATTACHMENTS = [
+  [
+    'none',
+    'bipod',
+    'foregrip',
+  ], ['none',
+    'flash_suppressor',
+    'heavy_barrel',
+    'laser',
+    'silencer',
+  ]
+]
+
+// Map previous attachment names to something prettier
+// for human consumption
+var BF3_ATTACHMENT_NAME_MAPPING = new Object();
+BF3_ATTACHMENT_NAME_MAPPING.bipod = 'Bipod'
+BF3_ATTACHMENT_NAME_MAPPING.foregrip = 'Foregrip'
+BF3_ATTACHMENT_NAME_MAPPING.flash_suppressor = 'Flash Suppressor'
+BF3_ATTACHMENT_NAME_MAPPING.heavy_barrel = 'Heavy Barrel'
+BF3_ATTACHMENT_NAME_MAPPING.laser = 'Laser'
+BF3_ATTACHMENT_NAME_MAPPING.silencer = 'Suppressor'
+BF3_ATTACHMENT_NAME_MAPPING.none = 'None'
 
 /*
   Returns html RGB color code for given array
