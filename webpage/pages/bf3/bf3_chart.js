@@ -106,7 +106,7 @@ function bf3PrintWeaponClass(weaponClass){
     rtnStr += "<table class='table classTable'><tbody class='sortableTable'>";
 
     $.each(BF3WeaponData, function( key, value ) {
-        if (value.Class == weaponClass){
+        if (value.Class == weaponClass && value.Attachments == "none-none"){
             rtnStr += bf3PrintWeapon(value);
         }
     });
