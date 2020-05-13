@@ -34,6 +34,7 @@ const BF3_LOWER_IS_WORSE = new Set([
   'InnerBlastRadius',
   'MagSize',
   'Pellets',
+  'RoF',
   'ShockwaveRadius',
   'SpreadDec'
 ])
