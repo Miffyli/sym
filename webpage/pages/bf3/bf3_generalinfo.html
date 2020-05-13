@@ -1,34 +1,107 @@
-<div class="bf3-content-comparison">
+<div class="bfv-content-comparison">
     <h1 class="comp-pageTitle">Battlefield 3 General Information</h1>
-    <div class="sym-main-content-home sym-static-content sym-about">
-        <p>
-        </p>
+    <div class="sym-main-content-home bfv-general-info">
 
-        <div class="bf1-sym-info-subheader">Damage & health</div>
-        
-        <ul>
+		<div class="bfv-sym-info-section-header">
+			<span>Gameplay Mechanics</span>
+		</div>
 
-       	  <li>The player health is 100. In hardcore the default is 60.000004.
-		  Player can still be alive with 0% health as the health shown in UI (or calculated<br>
-		  in assists) is rounded so they actually can have in example 0.3 healthpoints left.<br><br>
-		  Player's health and bullet damage may be different on custom preset servers.<BR>
-		  Admins can change the `BULLET DAMAGE MODIFIER IN %´ and `PLAYER HEALTH IN %´.<BR></li>
-		  
-		  <li>Standing on health kit gives you 10 hp/sec.</li>
-		  <li>Without health kit the regenartion rate is 5 hp/sec.</li>
-		  <li>You start recovering health 16 seconds after taking damage.</li>
-		  <li>If you run into a health kit range and then run out of its range before you have full hp,
-		  it will always take 12 seconds to start normal 5hp/sec regeneration again.</li>
+		<div class="bfv-sym-info-subheader">
+			<img src="./pages/bfv/img/Flag.svg">
+			<div>Objectives and Tickets</div>
+		</div>
+		<ul>
+			<li>Tickets are lost upon player respawn.</li>
+			<li>Flags are not captured unless the capturing team has the player majority within the capzone.</li>
 		</ul>
+        <div class="bfv-sym-info-subheader">
+			<img src="./pages/bfv/img/Supply_Medical_Pouch.svg">
+			<div>Health and Health Recovery</div>
+		</div>
+        <ul>
+			<li>Player health is 100 hp
+				<ul>
+					<li>In hardcore gamemodes, the default is 60 hp
+					<li>Health and bullet damage may be different on custom preset servers</li>
+				</ul>
+			</li>
+			<br>
+			<li>Players die when their health reaches zero.</li>
+			<ul>
+					<li>A player will still be alive as long as health is greater than zero, now matter how minuscule the value
+				</ul>
+				<br>
+			<li>Health starts to recover 16 seconds after taking damage
+				<ul>
+					<li>Without a health kit, the standard health regeneration rate is 5 hp/sec</li>
+					<ul>
+						<li>Standing near a health kit gives 10 hp/sec</li>
+					</ul>
+					<li>Running into and then out of a health kit's range before regaining full hp will restart the 12 seconds to start normal 5hp/sec regeneration again.</li>
+				</ul>
+			</li>
+		</ul>		
+		<div class="bfv-sym-info-subheader">
+			<img src="./pages/bfv/img/Headshot.svg">
+			<div>Damage Multipliers</div>
+		</div>
+		  <table class="bfv-genInfo-table">
+			<caption>Standard Multis</caption>
+			<tr>
+				<td>Head</td>
+				<td>2.0x</td>
+			</tr>
+			<tr>
+				<td>Upper Chest</td>
+				<td>1.0x</td>
+			</tr>
+			<tr>
+				<td>Lower Chest</td>
+				<td>1.0x</td>
+			</tr>
+			<tr>
+				<td>Legs</td>
+				<td>0.91x</td>
+			</tr>
+		</table>
 
-		<div class="bf1-sym-info-subheader">Body part damage multipliers</div>
-		  <ul>
-		  	<li>Head: 2.0x </li>
-		  	<li>Head (revolvers, sniper rifles and shotguns): 2.4x</li>
-		  	<li>Legs: 0.91x</li>
-		  	<li>Upper chest: 1.0x</li>
-		  	<li>Upper chest (revolvers, sniper rifles and slugs): 1.25x</li>
-		  	<li>Upper chest (M98B): 1.06x</li>
-		  </ul>
+		<table class="bfv-genInfo-table">
+			<caption>Revolvers, Sniper Rifles (except M98B), & Shotguns</caption>
+			<tr>
+				<td>Head</td>
+				<td>2.4x</td>
+			</tr>
+			<tr>
+				<td>Upper Chest</td>
+				<td>1.25x</td>
+			</tr>
+			<tr>
+				<td>Lower Chest</td>
+				<td>1.0x</td>
+			</tr>
+			<tr>
+				<td>Legs</td>
+				<td>0.91x</td>
+			</tr>
+		</table>
+		<table class="bfv-genInfo-table">
+			<caption>M98B Sniper Rifle</caption>
+			<tr>
+				<td>Head</td>
+				<td>2.4x</td>
+			</tr>
+			<tr>
+				<td>Upper Chest</td>
+				<td>1.06x</td>
+			</tr>
+			<tr>
+				<td>Lower Chest</td>
+				<td>1.0x</td>
+			</tr>
+			<tr>
+				<td>Legs</td>
+				<td>0.91x</td>
+			</tr>
+		</table>
 	</div>
 </div>

@@ -26,8 +26,6 @@ const BF3_DAMAGE_RANGE_STEP = 1
 // if the number is lower
 const BF3_LOWER_IS_WORSE = new Set([
   'ADSRecoilDec',
-  'ADSStandBaseMin',
-  'ADSStandMoveMin',
   'BRoF',
   'BlastDamage',
   'BlastRadius',
@@ -36,7 +34,7 @@ const BF3_LOWER_IS_WORSE = new Set([
   'InnerBlastRadius',
   'MagSize',
   'Pellets',
-  'SockwaveRadius',
+  'ShockwaveRadius',
   'SpreadDec'
 ])
 
