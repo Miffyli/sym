@@ -16970,7 +16970,8 @@
     {
         "Class": 3,
         "WeapShowName": "M240B",
-        "BRoF": 550,
+        "RoF": 650,
+		"BRoF": 550,
         "MagSize": 100,
         "Ammo": "7.62x51mm NATO",
         "Damages": [
@@ -17011,7 +17012,8 @@
     {
         "Class": 3,
         "WeapShowName": "M240B",
-        "BRoF": 550,
+        "RoF": 650,
+		"BRoF": 550,
         "MagSize": 100,
         "Ammo": "7.62x51mm NATO",
         "Damages": [
@@ -17052,7 +17054,8 @@
     {
         "Class": 3,
         "WeapShowName": "M240B",
-        "BRoF": 550,
+        "RoF": 650,
+		"BRoF": 550,
         "MagSize": 100,
         "Ammo": "7.62x51mm NATO",
         "Damages": [
@@ -17093,7 +17096,8 @@
     {
         "Class": 3,
         "WeapShowName": "M240B",
-        "BRoF": 550,
+        "RoF": 650,
+		"BRoF": 550,
         "MagSize": 100,
         "Ammo": "7.62x51mm NATO",
         "Damages": [
@@ -17134,7 +17138,8 @@
     {
         "Class": 3,
         "WeapShowName": "M240B",
-        "BRoF": 550,
+        "RoF": 650,
+		"BRoF": 550,
         "MagSize": 100,
         "Ammo": "7.62x51mm NATO",
         "Damages": [
@@ -17175,7 +17180,8 @@
     {
         "Class": 3,
         "WeapShowName": "M240B",
-        "BRoF": 550,
+        "RoF": 650,
+		"BRoF": 550,
         "MagSize": 100,
         "Ammo": "7.62x51mm NATO",
         "Damages": [
@@ -17216,7 +17222,8 @@
     {
         "Class": 3,
         "WeapShowName": "M240B",
-        "BRoF": 550,
+        "RoF": 650,
+		"BRoF": 550,
         "MagSize": 100,
         "Ammo": "7.62x51mm NATO",
         "Damages": [
@@ -17257,7 +17264,8 @@
     {
         "Class": 3,
         "WeapShowName": "M240B",
-        "BRoF": 550,
+        "RoF": 650,
+		"BRoF": 550,
         "MagSize": 100,
         "Ammo": "7.62x51mm NATO",
         "Damages": [
@@ -17298,7 +17306,8 @@
     {
         "Class": 3,
         "WeapShowName": "M240B",
-        "BRoF": 550,
+        "RoF": 650,
+		"BRoF": 550,
         "MagSize": 100,
         "Ammo": "7.62x51mm NATO",
         "Damages": [
@@ -17339,7 +17348,8 @@
     {
         "Class": 3,
         "WeapShowName": "M240B",
-        "BRoF": 550,
+        "RoF": 650,
+		"BRoF": 550,
         "MagSize": 100,
         "Ammo": "7.62x51mm NATO",
         "Damages": [
@@ -17380,7 +17390,8 @@
     {
         "Class": 3,
         "WeapShowName": "M240B",
-        "BRoF": 550,
+        "RoF": 650,
+		"BRoF": 550,
         "MagSize": 100,
         "Ammo": "7.62x51mm NATO",
         "Damages": [
@@ -17421,7 +17432,8 @@
     {
         "Class": 3,
         "WeapShowName": "M240B",
-        "BRoF": 550,
+        "RoF": 650,
+		"BRoF": 550,
         "MagSize": 100,
         "Ammo": "7.62x51mm NATO",
         "Damages": [
