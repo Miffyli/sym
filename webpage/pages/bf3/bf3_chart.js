@@ -143,7 +143,7 @@ function bf3PrintWeapon(weaponStats){
                      "</td>" +
 
               "<td class='secondColumn'>" +
-                  "<div class='damageChartContainer' " + damageTooltip + ">" + bf3createDamageChart([[weaponStats['SDmg'], weaponStats['SDmg']], [weaponStats['DOStart'], weaponStats['DOEnd']], weaponStats.Pellets, weaponStats.Ammo) + "</div>" +
+                  "<div class='damageChartContainer' " + damageTooltip + ">" + bf3createDamageChart([[weaponStats['SDmg'], weaponStats['EDmg']], [weaponStats['DOStart'], weaponStats['DOEnd']], weaponStats.Pellets, weaponStats.Ammo) + "</div>" +
               "</td>" +
 
               "<td>" +

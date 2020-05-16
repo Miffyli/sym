@@ -118,7 +118,7 @@ function BF3InterpolateDamage (dist, damages, distances) {
   defined above
 */
 function BF3GetDamageOverDistance (weapon) {
-  var damages = [weapon['SDmg'], weapon['SDmg']]
+  var damages = [weapon['SDmg'], weapon['EDmg']]
   var distances = [weapon['DOStart'], weapon['DOEnd']]
   var damageOverDistance = []
 
@@ -135,7 +135,7 @@ function BF3GetDamageOverDistance (weapon) {
   defined above
 */
 function BF3GetBTKUpperBoundOverDistance (weapon) {
-  var damages = [weapon['SDmg'], weapon['SDmg']]
+  var damages = [weapon['SDmg'], weapon['EDmg']]
   var distances = [weapon['DOStart'], weapon['DOEnd']]
   var BTKUBOverDistance = []
 
@@ -154,7 +154,7 @@ function BF3GetBTKUpperBoundOverDistance (weapon) {
   defined above
 */
 function BF3GetTTKUpperBoundOverDistance (weapon) {
-  var damages = [weapon['SDmg'], weapon['SDmg']]
+  var damages = [weapon['SDmg'], weapon['EDmg']]
   var distances = [weapon['DOStart'], weapon['DOEnd']]
   var bulletVelocity = weapon['InitialSpeed']
   var numShots = weapon['Pellets'] || 1
