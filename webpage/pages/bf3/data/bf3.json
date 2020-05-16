@@ -179,10 +179,10 @@
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 580,
+        "InitialSpeed": 320,
         "ReloadEmpty": 3.68,
         "ReloadLeft": 2.55,
         "ADSRecoilLeft": 0.5,
@@ -389,10 +389,10 @@
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 580,
+        "InitialSpeed": 320,
         "ReloadEmpty": 3.68,
         "ReloadLeft": 2.55,
         "ADSRecoilLeft": 0.25,
@@ -599,10 +599,10 @@
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 580,
+        "InitialSpeed": 320,
         "ReloadEmpty": 3.68,
         "ReloadLeft": 2.55,
         "ADSRecoilLeft": 0.375,
@@ -635,7 +635,7 @@
         "RoF": 650,
         "BRoF": 650,
         "MagSize": 31,
-        "Ammo": "5.45x45mm WP",
+        "Ammo": "5.45x39mm WP",
         "Damages": [
             25,
             18.4
@@ -677,7 +677,7 @@
         "RoF": 650,
         "BRoF": 650,
         "MagSize": 31,
-        "Ammo": "5.45x45mm WP",
+        "Ammo": "5.45x39mm WP",
         "Damages": [
             25,
             18.4
@@ -719,7 +719,7 @@
         "RoF": 650,
         "BRoF": 650,
         "MagSize": 31,
-        "Ammo": "5.45x45mm WP",
+        "Ammo": "5.45x39mm WP",
         "Damages": [
             25,
             18.4
@@ -761,7 +761,7 @@
         "RoF": 650,
         "BRoF": 650,
         "MagSize": 31,
-        "Ammo": "5.45x45mm WP",
+        "Ammo": "5.45x39mm WP",
         "Damages": [
             25,
             18.4
@@ -803,16 +803,16 @@
         "RoF": 650,
         "BRoF": 650,
         "MagSize": 31,
-        "Ammo": "5.45x45mm WP",
+        "Ammo": "5.45x39mm WP",
         "Damages": [
             25,
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 600,
+        "InitialSpeed": 330,
         "ReloadEmpty": 3.1,
         "ReloadLeft": 2.1,
         "ADSRecoilLeft": 0.2,
@@ -845,7 +845,7 @@
         "RoF": 650,
         "BRoF": 650,
         "MagSize": 31,
-        "Ammo": "5.45x45mm WP",
+        "Ammo": "5.45x39mm WP",
         "Damages": [
             25,
             18.4
@@ -887,7 +887,7 @@
         "RoF": 650,
         "BRoF": 650,
         "MagSize": 31,
-        "Ammo": "5.45x45mm WP",
+        "Ammo": "5.45x39mm WP",
         "Damages": [
             25,
             18.4
@@ -929,7 +929,7 @@
         "RoF": 650,
         "BRoF": 650,
         "MagSize": 31,
-        "Ammo": "5.45x45mm WP",
+        "Ammo": "5.45x39mm WP",
         "Damages": [
             25,
             18.4
@@ -971,7 +971,7 @@
         "RoF": 650,
         "BRoF": 650,
         "MagSize": 31,
-        "Ammo": "5.45x45mm WP",
+        "Ammo": "5.45x39mm WP",
         "Damages": [
             25,
             18.4
@@ -1013,16 +1013,16 @@
         "RoF": 650,
         "BRoF": 650,
         "MagSize": 31,
-        "Ammo": "5.45x45mm WP",
+        "Ammo": "5.45x39mm WP",
         "Damages": [
             25,
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 600,
+        "InitialSpeed": 330,
         "ReloadEmpty": 3.1,
         "ReloadLeft": 2.1,
         "ADSRecoilLeft": 0.1,
@@ -1055,7 +1055,7 @@
         "RoF": 650,
         "BRoF": 650,
         "MagSize": 31,
-        "Ammo": "5.45x45mm WP",
+        "Ammo": "5.45x39mm WP",
         "Damages": [
             25,
             18.4
@@ -1097,7 +1097,7 @@
         "RoF": 650,
         "BRoF": 650,
         "MagSize": 31,
-        "Ammo": "5.45x45mm WP",
+        "Ammo": "5.45x39mm WP",
         "Damages": [
             25,
             18.4
@@ -1139,7 +1139,7 @@
         "RoF": 650,
         "BRoF": 650,
         "MagSize": 31,
-        "Ammo": "5.45x45mm WP",
+        "Ammo": "5.45x39mm WP",
         "Damages": [
             25,
             18.4
@@ -1181,7 +1181,7 @@
         "RoF": 650,
         "BRoF": 650,
         "MagSize": 31,
-        "Ammo": "5.45x45mm WP",
+        "Ammo": "5.45x39mm WP",
         "Damages": [
             25,
             18.4
@@ -1223,16 +1223,16 @@
         "RoF": 650,
         "BRoF": 650,
         "MagSize": 31,
-        "Ammo": "5.45x45mm WP",
+        "Ammo": "5.45x39mm WP",
         "Damages": [
             25,
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 600,
+        "InitialSpeed": 330,
         "ReloadEmpty": 3.1,
         "ReloadLeft": 2.1,
         "ADSRecoilLeft": 0.132,
@@ -1265,7 +1265,7 @@
         "RoF": 600,
         "BRoF": 1200,
         "MagSize": 31,
-        "Ammo": "5.45x45mm WP",
+        "Ammo": "5.45x39mm WP",
         "Damages": [
             25,
             18.4
@@ -1307,7 +1307,7 @@
         "RoF": 600,
         "BRoF": 1200,
         "MagSize": 31,
-        "Ammo": "5.45x45mm WP",
+        "Ammo": "5.45x39mm WP",
         "Damages": [
             25,
             18.4
@@ -1349,7 +1349,7 @@
         "RoF": 600,
         "BRoF": 1200,
         "MagSize": 31,
-        "Ammo": "5.45x45mm WP",
+        "Ammo": "5.45x39mm WP",
         "Damages": [
             25,
             18.4
@@ -1391,7 +1391,7 @@
         "RoF": 600,
         "BRoF": 1200,
         "MagSize": 31,
-        "Ammo": "5.45x45mm WP",
+        "Ammo": "5.45x39mm WP",
         "Damages": [
             25,
             18.4
@@ -1433,16 +1433,16 @@
         "RoF": 600,
         "BRoF": 1200,
         "MagSize": 31,
-        "Ammo": "5.45x45mm WP",
+        "Ammo": "5.45x39mm WP",
         "Damages": [
             25,
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 600,
+        "InitialSpeed": 330,
         "ReloadEmpty": 3.3,
         "ReloadLeft": 2.45,
         "ADSRecoilLeft": 0.2,
@@ -1475,7 +1475,7 @@
         "RoF": 600,
         "BRoF": 1200,
         "MagSize": 31,
-        "Ammo": "5.45x45mm WP",
+        "Ammo": "5.45x39mm WP",
         "Damages": [
             25,
             18.4
@@ -1517,7 +1517,7 @@
         "RoF": 600,
         "BRoF": 1200,
         "MagSize": 31,
-        "Ammo": "5.45x45mm WP",
+        "Ammo": "5.45x39mm WP",
         "Damages": [
             25,
             18.4
@@ -1559,7 +1559,7 @@
         "RoF": 600,
         "BRoF": 1200,
         "MagSize": 31,
-        "Ammo": "5.45x45mm WP",
+        "Ammo": "5.45x39mm WP",
         "Damages": [
             25,
             18.4
@@ -1601,7 +1601,7 @@
         "RoF": 600,
         "BRoF": 1200,
         "MagSize": 31,
-        "Ammo": "5.45x45mm WP",
+        "Ammo": "5.45x39mm WP",
         "Damages": [
             25,
             18.4
@@ -1643,16 +1643,16 @@
         "RoF": 600,
         "BRoF": 1200,
         "MagSize": 31,
-        "Ammo": "5.45x45mm WP",
+        "Ammo": "5.45x39mm WP",
         "Damages": [
             25,
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 600,
+        "InitialSpeed": 330,
         "ReloadEmpty": 3.3,
         "ReloadLeft": 2.45,
         "ADSRecoilLeft": 0.1,
@@ -1685,7 +1685,7 @@
         "RoF": 600,
         "BRoF": 1200,
         "MagSize": 31,
-        "Ammo": "5.45x45mm WP",
+        "Ammo": "5.45x39mm WP",
         "Damages": [
             25,
             18.4
@@ -1727,7 +1727,7 @@
         "RoF": 600,
         "BRoF": 1200,
         "MagSize": 31,
-        "Ammo": "5.45x45mm WP",
+        "Ammo": "5.45x39mm WP",
         "Damages": [
             25,
             18.4
@@ -1769,7 +1769,7 @@
         "RoF": 600,
         "BRoF": 1200,
         "MagSize": 31,
-        "Ammo": "5.45x45mm WP",
+        "Ammo": "5.45x39mm WP",
         "Damages": [
             25,
             18.4
@@ -1811,7 +1811,7 @@
         "RoF": 600,
         "BRoF": 1200,
         "MagSize": 31,
-        "Ammo": "5.45x45mm WP",
+        "Ammo": "5.45x39mm WP",
         "Damages": [
             25,
             18.4
@@ -1853,16 +1853,16 @@
         "RoF": 600,
         "BRoF": 1200,
         "MagSize": 31,
-        "Ammo": "5.45x45mm WP",
+        "Ammo": "5.45x39mm WP",
         "Damages": [
             25,
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 600,
+        "InitialSpeed": 330,
         "ReloadEmpty": 3.3,
         "ReloadLeft": 2.45,
         "ADSRecoilLeft": 0.132,
@@ -2069,10 +2069,10 @@
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 670,
+        "InitialSpeed": 340,
         "ReloadEmpty": 2.9,
         "ReloadLeft": 2.5,
         "ADSRecoilLeft": 0.3,
@@ -2279,10 +2279,10 @@
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 670,
+        "InitialSpeed": 340,
         "ReloadEmpty": 2.9,
         "ReloadLeft": 2.5,
         "ADSRecoilLeft": 0.15,
@@ -2489,10 +2489,10 @@
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 670,
+        "InitialSpeed": 340,
         "ReloadEmpty": 2.9,
         "ReloadLeft": 2.5,
         "ADSRecoilLeft": 0.225,
@@ -2699,10 +2699,10 @@
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 600,
+        "InitialSpeed": 380,
         "ReloadEmpty": 3.5,
         "ReloadLeft": 2.5,
         "ADSRecoilLeft": 0.5,
@@ -2909,10 +2909,10 @@
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 600,
+        "InitialSpeed": 380,
         "ReloadEmpty": 3.5,
         "ReloadLeft": 2.5,
         "ADSRecoilLeft": 0.25,
@@ -3119,10 +3119,10 @@
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 600,
+        "InitialSpeed": 380,
         "ReloadEmpty": 3.5,
         "ReloadLeft": 2.5,
         "ADSRecoilLeft": 0.375,
@@ -3329,10 +3329,10 @@
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 630,
+        "InitialSpeed": 380,
         "ReloadEmpty": 3.9,
         "ReloadLeft": 3.05,
         "ADSRecoilLeft": 0.35,
@@ -3539,10 +3539,10 @@
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 630,
+        "InitialSpeed": 380,
         "ReloadEmpty": 3.9,
         "ReloadLeft": 3.05,
         "ADSRecoilLeft": 0.1225,
@@ -3749,10 +3749,10 @@
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 630,
+        "InitialSpeed": 380,
         "ReloadEmpty": 3.9,
         "ReloadLeft": 3.05,
         "ADSRecoilLeft": 0.2485,
@@ -3959,10 +3959,10 @@
             22
         ],
         "Dmg_distances": [
-            8,
-            60
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 500,
+        "InitialSpeed": 300,
         "ReloadEmpty": 3.3,
         "ReloadLeft": 2,
         "ADSRecoilLeft": 0.2,
@@ -4169,10 +4169,10 @@
             22
         ],
         "Dmg_distances": [
-            8,
-            60
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 500,
+        "InitialSpeed": 300,
         "ReloadEmpty": 3.3,
         "ReloadLeft": 2,
         "ADSRecoilLeft": 0.1,
@@ -4379,10 +4379,10 @@
             22
         ],
         "Dmg_distances": [
-            8,
-            60
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 500,
+        "InitialSpeed": 300,
         "ReloadEmpty": 3.3,
         "ReloadLeft": 2,
         "ADSRecoilLeft": 0.1,
@@ -4589,10 +4589,10 @@
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 650,
+        "InitialSpeed": 380,
         "ReloadEmpty": 3.4,
         "ReloadLeft": 2.9,
         "ADSRecoilLeft": 0.4,
@@ -4799,10 +4799,10 @@
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 650,
+        "InitialSpeed": 380,
         "ReloadEmpty": 3.4,
         "ReloadLeft": 2.9,
         "ADSRecoilLeft": 0.2,
@@ -5009,10 +5009,10 @@
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 650,
+        "InitialSpeed": 380,
         "ReloadEmpty": 3.4,
         "ReloadLeft": 2.9,
         "ADSRecoilLeft": 0.3,
@@ -5219,10 +5219,10 @@
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 600,
+        "InitialSpeed": 380,
         "ReloadEmpty": 3.35,
         "ReloadLeft": 2.8,
         "ADSRecoilLeft": 0.28,
@@ -5429,10 +5429,10 @@
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 600,
+        "InitialSpeed": 380,
         "ReloadEmpty": 3.35,
         "ReloadLeft": 2.8,
         "ADSRecoilLeft": 0.14,
@@ -5639,10 +5639,10 @@
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 600,
+        "InitialSpeed": 380,
         "ReloadEmpty": 3.35,
         "ReloadLeft": 2.8,
         "ADSRecoilLeft": 0.1876,
@@ -5849,10 +5849,10 @@
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 650,
+        "InitialSpeed": 380,
         "ReloadEmpty": 2.37,
         "ReloadLeft": 1.8,
         "ADSRecoilLeft": 0.1,
@@ -6059,10 +6059,10 @@
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 650,
+        "InitialSpeed": 380,
         "ReloadEmpty": 2.37,
         "ReloadLeft": 1.8,
         "ADSRecoilLeft": 0.05,
@@ -6269,10 +6269,10 @@
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 650,
+        "InitialSpeed": 380,
         "ReloadEmpty": 2.37,
         "ReloadLeft": 1.8,
         "ADSRecoilLeft": 0.075,
@@ -6479,10 +6479,10 @@
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 650,
+        "InitialSpeed": 380,
         "ReloadEmpty": 2.37,
         "ReloadLeft": 1.8,
         "ADSRecoilLeft": 0.075,
@@ -6689,10 +6689,10 @@
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 650,
+        "InitialSpeed": 380,
         "ReloadEmpty": 2.37,
         "ReloadLeft": 1.8,
         "ADSRecoilLeft": 0.0375,
@@ -6899,10 +6899,10 @@
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 650,
+        "InitialSpeed": 380,
         "ReloadEmpty": 2.37,
         "ReloadLeft": 1.8,
         "ADSRecoilLeft": 0.0562,
@@ -7109,10 +7109,10 @@
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 600,
+        "InitialSpeed": 330,
         "ReloadEmpty": 2.5,
         "ReloadLeft": 1.75,
         "ADSRecoilLeft": 0.1,
@@ -7319,10 +7319,10 @@
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 600,
+        "InitialSpeed": 330,
         "ReloadEmpty": 2.5,
         "ReloadLeft": 1.75,
         "ADSRecoilLeft": 0.04,
@@ -7529,10 +7529,10 @@
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 600,
+        "InitialSpeed": 330,
         "ReloadEmpty": 2.5,
         "ReloadLeft": 1.75,
         "ADSRecoilLeft": 0.06,
@@ -7739,10 +7739,10 @@
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 580,
+        "InitialSpeed": 320,
         "ReloadEmpty": 3,
         "ReloadLeft": 2.35,
         "ADSRecoilLeft": 0.225,
@@ -7949,10 +7949,10 @@
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 580,
+        "InitialSpeed": 320,
         "ReloadEmpty": 3,
         "ReloadLeft": 2.35,
         "ADSRecoilLeft": 0.1508,
@@ -8159,10 +8159,10 @@
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 580,
+        "InitialSpeed": 320,
         "ReloadEmpty": 3,
         "ReloadLeft": 2.35,
         "ADSRecoilLeft": 0.1305,
@@ -8369,10 +8369,10 @@
             14.3
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 420,
+        "InitialSpeed": 280,
         "ReloadEmpty": 3.3,
         "ReloadLeft": 2.62,
         "ADSRecoilLeft": 0.5,
@@ -8579,10 +8579,10 @@
             14.3
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 420,
+        "InitialSpeed": 280,
         "ReloadEmpty": 3.3,
         "ReloadLeft": 2.62,
         "ADSRecoilLeft": 0.335,
@@ -8789,10 +8789,10 @@
             14.3
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 420,
+        "InitialSpeed": 280,
         "ReloadEmpty": 3.3,
         "ReloadLeft": 2.62,
         "ADSRecoilLeft": 0.4,
@@ -8999,10 +8999,10 @@
             16.7
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 500,
+        "InitialSpeed": 300,
         "ReloadEmpty": 2.5,
         "ReloadLeft": 1.85,
         "ADSRecoilLeft": 0.1,
@@ -9209,10 +9209,10 @@
             16.7
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 500,
+        "InitialSpeed": 300,
         "ReloadEmpty": 2.5,
         "ReloadLeft": 1.85,
         "ADSRecoilLeft": 0.067,
@@ -9419,10 +9419,10 @@
             16.7
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 500,
+        "InitialSpeed": 300,
         "ReloadEmpty": 2.5,
         "ReloadLeft": 1.85,
         "ADSRecoilLeft": 0.067,
@@ -9455,7 +9455,7 @@
         "RoF": 650,
         "BRoF": 650,
         "MagSize": 31,
-        "Ammo": "5.45x45mm WP",
+        "Ammo": "5.45x39mm WP",
         "Damages": [
             25,
             14.3
@@ -9497,7 +9497,7 @@
         "RoF": 650,
         "BRoF": 650,
         "MagSize": 31,
-        "Ammo": "5.45x45mm WP",
+        "Ammo": "5.45x39mm WP",
         "Damages": [
             25,
             14.3
@@ -9539,7 +9539,7 @@
         "RoF": 650,
         "BRoF": 650,
         "MagSize": 31,
-        "Ammo": "5.45x45mm WP",
+        "Ammo": "5.45x39mm WP",
         "Damages": [
             25,
             14.3
@@ -9581,7 +9581,7 @@
         "RoF": 650,
         "BRoF": 650,
         "MagSize": 31,
-        "Ammo": "5.45x45mm WP",
+        "Ammo": "5.45x39mm WP",
         "Damages": [
             25,
             14.3
@@ -9623,16 +9623,16 @@
         "RoF": 650,
         "BRoF": 650,
         "MagSize": 31,
-        "Ammo": "5.45x45mm WP",
+        "Ammo": "5.45x39mm WP",
         "Damages": [
             25,
             14.3
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 440,
+        "InitialSpeed": 290,
         "ReloadEmpty": 3,
         "ReloadLeft": 1.9,
         "ADSRecoilLeft": 0.2,
@@ -9665,7 +9665,7 @@
         "RoF": 650,
         "BRoF": 650,
         "MagSize": 31,
-        "Ammo": "5.45x45mm WP",
+        "Ammo": "5.45x39mm WP",
         "Damages": [
             25,
             14.3
@@ -9707,7 +9707,7 @@
         "RoF": 650,
         "BRoF": 650,
         "MagSize": 31,
-        "Ammo": "5.45x45mm WP",
+        "Ammo": "5.45x39mm WP",
         "Damages": [
             25,
             14.3
@@ -9749,7 +9749,7 @@
         "RoF": 650,
         "BRoF": 650,
         "MagSize": 31,
-        "Ammo": "5.45x45mm WP",
+        "Ammo": "5.45x39mm WP",
         "Damages": [
             25,
             14.3
@@ -9791,7 +9791,7 @@
         "RoF": 650,
         "BRoF": 650,
         "MagSize": 31,
-        "Ammo": "5.45x45mm WP",
+        "Ammo": "5.45x39mm WP",
         "Damages": [
             25,
             14.3
@@ -9833,16 +9833,16 @@
         "RoF": 650,
         "BRoF": 650,
         "MagSize": 31,
-        "Ammo": "5.45x45mm WP",
+        "Ammo": "5.45x39mm WP",
         "Damages": [
             25,
             14.3
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 440,
+        "InitialSpeed": 290,
         "ReloadEmpty": 3,
         "ReloadLeft": 1.9,
         "ADSRecoilLeft": 0.134,
@@ -10049,10 +10049,10 @@
             14.3
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 500,
+        "InitialSpeed": 320,
         "ReloadEmpty": 2.85,
         "ReloadLeft": 1.9,
         "ADSRecoilLeft": 0.3,
@@ -10259,10 +10259,10 @@
             14.3
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 500,
+        "InitialSpeed": 320,
         "ReloadEmpty": 2.85,
         "ReloadLeft": 1.9,
         "ADSRecoilLeft": 0.15,
@@ -10469,10 +10469,10 @@
             14.3
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 500,
+        "InitialSpeed": 320,
         "ReloadEmpty": 2.85,
         "ReloadLeft": 1.9,
         "ADSRecoilLeft": 0.201,
@@ -10679,10 +10679,10 @@
             14.3
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 450,
+        "InitialSpeed": 320,
         "ReloadEmpty": 3.2,
         "ReloadLeft": 2.3,
         "ADSRecoilLeft": 0.2,
@@ -10889,10 +10889,10 @@
             14.3
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 450,
+        "InitialSpeed": 320,
         "ReloadEmpty": 3.2,
         "ReloadLeft": 2.3,
         "ADSRecoilLeft": 0.134,
@@ -11099,10 +11099,10 @@
             14.3
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 580,
+        "InitialSpeed": 320,
         "ReloadEmpty": 2.48,
         "ReloadLeft": 1.85,
         "ADSRecoilLeft": 0.1,
@@ -11309,10 +11309,10 @@
             14.3
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 580,
+        "InitialSpeed": 320,
         "ReloadEmpty": 2.48,
         "ReloadLeft": 1.85,
         "ADSRecoilLeft": 0.067,
@@ -11519,10 +11519,10 @@
             14.3
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 580,
+        "InitialSpeed": 320,
         "ReloadEmpty": 2.48,
         "ReloadLeft": 1.85,
         "ADSRecoilLeft": 0.075,
@@ -11729,10 +11729,10 @@
             14.3
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 580,
+        "InitialSpeed": 320,
         "ReloadEmpty": 2.48,
         "ReloadLeft": 1.85,
         "ADSRecoilLeft": 0.075,
@@ -11939,10 +11939,10 @@
             14.3
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 580,
+        "InitialSpeed": 320,
         "ReloadEmpty": 2.48,
         "ReloadLeft": 1.85,
         "ADSRecoilLeft": 0.0503,
@@ -12149,10 +12149,10 @@
             14.3
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 580,
+        "InitialSpeed": 320,
         "ReloadEmpty": 2.48,
         "ReloadLeft": 1.85,
         "ADSRecoilLeft": 0.0562,
@@ -12359,10 +12359,10 @@
             14.3
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 570,
+        "InitialSpeed": 320,
         "ReloadEmpty": 3.3,
         "ReloadLeft": 3,
         "ADSRecoilLeft": 0.25,
@@ -12569,10 +12569,10 @@
             14.3
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 570,
+        "InitialSpeed": 320,
         "ReloadEmpty": 3.3,
         "ReloadLeft": 3,
         "ADSRecoilLeft": 0.2,
@@ -12779,10 +12779,10 @@
             14.3
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 490,
+        "InitialSpeed": 330,
         "ReloadEmpty": 2.9,
         "ReloadLeft": 2.3,
         "ADSRecoilLeft": 0.3,
@@ -12989,10 +12989,10 @@
             20
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 420,
+        "InitialSpeed": 320,
         "ReloadEmpty": 2.75,
         "ReloadLeft": 2.1,
         "ADSRecoilLeft": 0.2,
@@ -13199,10 +13199,10 @@
             20
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 420,
+        "InitialSpeed": 320,
         "ReloadEmpty": 2.75,
         "ReloadLeft": 2.1,
         "ADSRecoilLeft": 0.1,
@@ -13409,10 +13409,10 @@
             20
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 420,
+        "InitialSpeed": 320,
         "ReloadEmpty": 2.75,
         "ReloadLeft": 2.1,
         "ADSRecoilLeft": 0.1,
@@ -13619,10 +13619,10 @@
             14.3
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 430,
+        "InitialSpeed": 320,
         "ReloadEmpty": 2.65,
         "ReloadLeft": 2.1,
         "ADSRecoilLeft": 0.2,
@@ -13829,10 +13829,10 @@
             14.3
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 430,
+        "InitialSpeed": 320,
         "ReloadEmpty": 2.65,
         "ReloadLeft": 2.1,
         "ADSRecoilLeft": 0.1,
@@ -14039,10 +14039,10 @@
             14.3
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 430,
+        "InitialSpeed": 320,
         "ReloadEmpty": 2.65,
         "ReloadLeft": 2.1,
         "ADSRecoilLeft": 0.15,
@@ -14249,10 +14249,10 @@
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 650,
+        "InitialSpeed": 340,
         "ReloadEmpty": 2.5,
         "ReloadLeft": 1.9,
         "ADSRecoilLeft": 0.1,
@@ -14459,10 +14459,10 @@
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 650,
+        "InitialSpeed": 340,
         "ReloadEmpty": 2.5,
         "ReloadLeft": 1.9,
         "ADSRecoilLeft": 0.035,
@@ -14669,10 +14669,10 @@
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 650,
+        "InitialSpeed": 340,
         "ReloadEmpty": 2.5,
         "ReloadLeft": 1.9,
         "ADSRecoilLeft": 0.067,
@@ -14705,7 +14705,7 @@
         "RoF": 700,
         "BRoF": 700,
         "MagSize": 46,
-        "Ammo": "5.45x45mm WP",
+        "Ammo": "5.45x39mm WP",
         "Damages": [
             25,
             18.4
@@ -14747,7 +14747,7 @@
         "RoF": 700,
         "BRoF": 700,
         "MagSize": 46,
-        "Ammo": "5.45x45mm WP",
+        "Ammo": "5.45x39mm WP",
         "Damages": [
             25,
             18.4
@@ -14789,7 +14789,7 @@
         "RoF": 700,
         "BRoF": 700,
         "MagSize": 46,
-        "Ammo": "5.45x45mm WP",
+        "Ammo": "5.45x39mm WP",
         "Damages": [
             25,
             18.4
@@ -14831,7 +14831,7 @@
         "RoF": 700,
         "BRoF": 700,
         "MagSize": 46,
-        "Ammo": "5.45x45mm WP",
+        "Ammo": "5.45x39mm WP",
         "Damages": [
             25,
             18.4
@@ -14873,16 +14873,16 @@
         "RoF": 700,
         "BRoF": 700,
         "MagSize": 46,
-        "Ammo": "5.45x45mm WP",
+        "Ammo": "5.45x39mm WP",
         "Damages": [
             25,
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 600,
+        "InitialSpeed": 330,
         "ReloadEmpty": 4,
         "ReloadLeft": 3,
         "ADSRecoilLeft": 0.2,
@@ -14915,7 +14915,7 @@
         "RoF": 700,
         "BRoF": 700,
         "MagSize": 46,
-        "Ammo": "5.45x45mm WP",
+        "Ammo": "5.45x39mm WP",
         "Damages": [
             25,
             18.4
@@ -14957,7 +14957,7 @@
         "RoF": 700,
         "BRoF": 700,
         "MagSize": 46,
-        "Ammo": "5.45x45mm WP",
+        "Ammo": "5.45x39mm WP",
         "Damages": [
             25,
             18.4
@@ -14999,7 +14999,7 @@
         "RoF": 700,
         "BRoF": 700,
         "MagSize": 46,
-        "Ammo": "5.45x45mm WP",
+        "Ammo": "5.45x39mm WP",
         "Damages": [
             25,
             18.4
@@ -15041,7 +15041,7 @@
         "RoF": 700,
         "BRoF": 700,
         "MagSize": 46,
-        "Ammo": "5.45x45mm WP",
+        "Ammo": "5.45x39mm WP",
         "Damages": [
             25,
             18.4
@@ -15083,16 +15083,16 @@
         "RoF": 700,
         "BRoF": 700,
         "MagSize": 46,
-        "Ammo": "5.45x45mm WP",
+        "Ammo": "5.45x39mm WP",
         "Damages": [
             25,
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 600,
+        "InitialSpeed": 330,
         "ReloadEmpty": 4,
         "ReloadLeft": 3,
         "ADSRecoilLeft": 0.15,
@@ -15125,7 +15125,7 @@
         "RoF": 700,
         "BRoF": 700,
         "MagSize": 46,
-        "Ammo": "5.45x45mm WP",
+        "Ammo": "5.45x39mm WP",
         "Damages": [
             25,
             18.4
@@ -15167,7 +15167,7 @@
         "RoF": 700,
         "BRoF": 700,
         "MagSize": 46,
-        "Ammo": "5.45x45mm WP",
+        "Ammo": "5.45x39mm WP",
         "Damages": [
             25,
             18.4
@@ -15209,7 +15209,7 @@
         "RoF": 700,
         "BRoF": 700,
         "MagSize": 46,
-        "Ammo": "5.45x45mm WP",
+        "Ammo": "5.45x39mm WP",
         "Damages": [
             25,
             18.4
@@ -15251,7 +15251,7 @@
         "RoF": 700,
         "BRoF": 700,
         "MagSize": 46,
-        "Ammo": "5.45x45mm WP",
+        "Ammo": "5.45x39mm WP",
         "Damages": [
             25,
             18.4
@@ -15293,16 +15293,16 @@
         "RoF": 700,
         "BRoF": 700,
         "MagSize": 46,
-        "Ammo": "5.45x45mm WP",
+        "Ammo": "5.45x39mm WP",
         "Damages": [
             25,
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 600,
+        "InitialSpeed": 330,
         "ReloadEmpty": 4,
         "ReloadLeft": 3,
         "ADSRecoilLeft": 0.1,
@@ -15509,10 +15509,10 @@
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 640,
+        "InitialSpeed": 340,
         "ReloadEmpty": 3.3,
         "ReloadLeft": 2.8,
         "ADSRecoilLeft": 0.15,
@@ -15719,10 +15719,10 @@
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 640,
+        "InitialSpeed": 340,
         "ReloadEmpty": 3.3,
         "ReloadLeft": 2.8,
         "ADSRecoilLeft": 0.075,
@@ -15929,10 +15929,10 @@
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 640,
+        "InitialSpeed": 340,
         "ReloadEmpty": 3.3,
         "ReloadLeft": 2.8,
         "ADSRecoilLeft": 0.1005,
@@ -16097,10 +16097,10 @@
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 620,
+        "InitialSpeed": 330,
         "ReloadEmpty": 5.6,
         "ReloadLeft": 0,
         "ADSRecoilLeft": 0.35,
@@ -16265,10 +16265,10 @@
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 620,
+        "InitialSpeed": 330,
         "ReloadEmpty": 5.6,
         "ReloadLeft": 0,
         "ADSRecoilLeft": 0.14,
@@ -16433,10 +16433,10 @@
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 620,
+        "InitialSpeed": 330,
         "ReloadEmpty": 5.6,
         "ReloadLeft": 0,
         "ADSRecoilLeft": 0.2345,
@@ -16601,10 +16601,10 @@
             22
         ],
         "Dmg_distances": [
-            8,
-            60
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 560,
+        "InitialSpeed": 310,
         "ReloadEmpty": 7.2,
         "ReloadLeft": 0,
         "ADSRecoilLeft": 0.2,
@@ -16769,10 +16769,10 @@
             22
         ],
         "Dmg_distances": [
-            8,
-            60
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 560,
+        "InitialSpeed": 310,
         "ReloadEmpty": 7.2,
         "ReloadLeft": 0,
         "ADSRecoilLeft": 0.1,
@@ -16937,10 +16937,10 @@
             22
         ],
         "Dmg_distances": [
-            8,
-            60
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 560,
+        "InitialSpeed": 310,
         "ReloadEmpty": 7.2,
         "ReloadLeft": 0,
         "ADSRecoilLeft": 0.1,
@@ -16971,7 +16971,7 @@
         "Class": 3,
         "WeapShowName": "M240B",
         "RoF": 650,
-		"BRoF": 550,
+        "BRoF": 550,
         "MagSize": 100,
         "Ammo": "7.62x51mm NATO",
         "Damages": [
@@ -17013,7 +17013,7 @@
         "Class": 3,
         "WeapShowName": "M240B",
         "RoF": 650,
-		"BRoF": 550,
+        "BRoF": 550,
         "MagSize": 100,
         "Ammo": "7.62x51mm NATO",
         "Damages": [
@@ -17055,7 +17055,7 @@
         "Class": 3,
         "WeapShowName": "M240B",
         "RoF": 650,
-		"BRoF": 550,
+        "BRoF": 550,
         "MagSize": 100,
         "Ammo": "7.62x51mm NATO",
         "Damages": [
@@ -17097,7 +17097,7 @@
         "Class": 3,
         "WeapShowName": "M240B",
         "RoF": 650,
-		"BRoF": 550,
+        "BRoF": 550,
         "MagSize": 100,
         "Ammo": "7.62x51mm NATO",
         "Damages": [
@@ -17105,10 +17105,10 @@
             22
         ],
         "Dmg_distances": [
-            8,
-            60
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 610,
+        "InitialSpeed": 330,
         "ReloadEmpty": 6.2,
         "ReloadLeft": 0,
         "ADSRecoilLeft": 0.5,
@@ -17139,7 +17139,7 @@
         "Class": 3,
         "WeapShowName": "M240B",
         "RoF": 650,
-		"BRoF": 550,
+        "BRoF": 550,
         "MagSize": 100,
         "Ammo": "7.62x51mm NATO",
         "Damages": [
@@ -17181,7 +17181,7 @@
         "Class": 3,
         "WeapShowName": "M240B",
         "RoF": 650,
-		"BRoF": 550,
+        "BRoF": 550,
         "MagSize": 100,
         "Ammo": "7.62x51mm NATO",
         "Damages": [
@@ -17223,7 +17223,7 @@
         "Class": 3,
         "WeapShowName": "M240B",
         "RoF": 650,
-		"BRoF": 550,
+        "BRoF": 550,
         "MagSize": 100,
         "Ammo": "7.62x51mm NATO",
         "Damages": [
@@ -17265,7 +17265,7 @@
         "Class": 3,
         "WeapShowName": "M240B",
         "RoF": 650,
-		"BRoF": 550,
+        "BRoF": 550,
         "MagSize": 100,
         "Ammo": "7.62x51mm NATO",
         "Damages": [
@@ -17273,10 +17273,10 @@
             22
         ],
         "Dmg_distances": [
-            8,
-            60
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 610,
+        "InitialSpeed": 330,
         "ReloadEmpty": 6.2,
         "ReloadLeft": 0,
         "ADSRecoilLeft": 0.125,
@@ -17307,7 +17307,7 @@
         "Class": 3,
         "WeapShowName": "M240B",
         "RoF": 650,
-		"BRoF": 550,
+        "BRoF": 550,
         "MagSize": 100,
         "Ammo": "7.62x51mm NATO",
         "Damages": [
@@ -17349,7 +17349,7 @@
         "Class": 3,
         "WeapShowName": "M240B",
         "RoF": 650,
-		"BRoF": 550,
+        "BRoF": 550,
         "MagSize": 100,
         "Ammo": "7.62x51mm NATO",
         "Damages": [
@@ -17391,7 +17391,7 @@
         "Class": 3,
         "WeapShowName": "M240B",
         "RoF": 650,
-		"BRoF": 550,
+        "BRoF": 550,
         "MagSize": 100,
         "Ammo": "7.62x51mm NATO",
         "Damages": [
@@ -17433,7 +17433,7 @@
         "Class": 3,
         "WeapShowName": "M240B",
         "RoF": 650,
-		"BRoF": 550,
+        "BRoF": 550,
         "MagSize": 100,
         "Ammo": "7.62x51mm NATO",
         "Damages": [
@@ -17441,10 +17441,10 @@
             22
         ],
         "Dmg_distances": [
-            8,
-            60
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 610,
+        "InitialSpeed": 330,
         "ReloadEmpty": 6.2,
         "ReloadLeft": 0,
         "ADSRecoilLeft": 0.4,
@@ -17609,10 +17609,10 @@
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 620,
+        "InitialSpeed": 330,
         "ReloadEmpty": 6.2,
         "ReloadLeft": 0,
         "ADSRecoilLeft": 0.4,
@@ -17777,10 +17777,10 @@
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 620,
+        "InitialSpeed": 330,
         "ReloadEmpty": 6.2,
         "ReloadLeft": 0,
         "ADSRecoilLeft": 0.16,
@@ -17945,10 +17945,10 @@
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 620,
+        "InitialSpeed": 330,
         "ReloadEmpty": 6.2,
         "ReloadLeft": 0,
         "ADSRecoilLeft": 0.3,
@@ -18155,10 +18155,10 @@
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 550,
+        "InitialSpeed": 310,
         "ReloadEmpty": 4.6,
         "ReloadLeft": 2.8,
         "ADSRecoilLeft": 0.1,
@@ -18365,10 +18365,10 @@
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 550,
+        "InitialSpeed": 310,
         "ReloadEmpty": 4.6,
         "ReloadLeft": 2.8,
         "ADSRecoilLeft": 0.035,
@@ -18575,10 +18575,10 @@
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 550,
+        "InitialSpeed": 310,
         "ReloadEmpty": 4.6,
         "ReloadLeft": 2.8,
         "ADSRecoilLeft": 0.067,
@@ -18701,10 +18701,10 @@
             22
         ],
         "Dmg_distances": [
-            8,
-            60
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 560,
+        "InitialSpeed": 330,
         "ReloadEmpty": 5.38,
         "ReloadLeft": 0,
         "ADSRecoilLeft": 0.4,
@@ -18827,10 +18827,10 @@
             22
         ],
         "Dmg_distances": [
-            8,
-            60
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 560,
+        "InitialSpeed": 330,
         "ReloadEmpty": 5.38,
         "ReloadLeft": 0,
         "ADSRecoilLeft": 0.136,
@@ -18953,10 +18953,10 @@
             22
         ],
         "Dmg_distances": [
-            8,
-            60
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 560,
+        "InitialSpeed": 330,
         "ReloadEmpty": 5.38,
         "ReloadLeft": 0,
         "ADSRecoilLeft": 0.3,
@@ -19163,10 +19163,10 @@
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 670,
+        "InitialSpeed": 340,
         "ReloadEmpty": 4.5,
         "ReloadLeft": 3.8,
         "ADSRecoilLeft": 0.3,
@@ -19373,10 +19373,10 @@
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 670,
+        "InitialSpeed": 340,
         "ReloadEmpty": 4.5,
         "ReloadLeft": 3.8,
         "ADSRecoilLeft": 0.102,
@@ -19583,10 +19583,10 @@
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 670,
+        "InitialSpeed": 340,
         "ReloadEmpty": 4.5,
         "ReloadLeft": 3.8,
         "ADSRecoilLeft": 0.201,
@@ -19751,10 +19751,10 @@
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 600,
+        "InitialSpeed": 380,
         "ReloadEmpty": 7.4,
         "ReloadLeft": 3.6,
         "ADSRecoilLeft": 0.3,
@@ -19919,10 +19919,10 @@
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 600,
+        "InitialSpeed": 380,
         "ReloadEmpty": 7.4,
         "ReloadLeft": 3.6,
         "ADSRecoilLeft": 0.12,
@@ -20087,10 +20087,10 @@
             18.4
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 600,
+        "InitialSpeed": 380,
         "ReloadEmpty": 7.4,
         "ReloadLeft": 3.6,
         "ADSRecoilLeft": 0.201,
@@ -20213,10 +20213,10 @@
             59
         ],
         "Dmg_distances": [
-            15,
-            100
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 560,
+        "InitialSpeed": 310,
         "ReloadEmpty": 4.6,
         "ReloadLeft": 2.5,
         "ADSRecoilLeft": 0,
@@ -20339,10 +20339,10 @@
             59
         ],
         "Dmg_distances": [
-            15,
-            100
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 560,
+        "InitialSpeed": 310,
         "ReloadEmpty": 4.6,
         "ReloadLeft": 2.5,
         "ADSRecoilLeft": 0,
@@ -20465,10 +20465,10 @@
             59
         ],
         "Dmg_distances": [
-            15,
-            100
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 540,
+        "InitialSpeed": 310,
         "ReloadEmpty": 4.8,
         "ReloadLeft": 2.6,
         "ADSRecoilLeft": 0,
@@ -20591,10 +20591,10 @@
             59
         ],
         "Dmg_distances": [
-            15,
-            100
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 540,
+        "InitialSpeed": 310,
         "ReloadEmpty": 4.8,
         "ReloadLeft": 2.6,
         "ADSRecoilLeft": 0,
@@ -20759,10 +20759,10 @@
             37.5
         ],
         "Dmg_distances": [
-            15,
-            75
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 570,
+        "InitialSpeed": 320,
         "ReloadEmpty": 3.4,
         "ReloadLeft": 2.15,
         "ADSRecoilLeft": 0.2,
@@ -20927,10 +20927,10 @@
             37.5
         ],
         "Dmg_distances": [
-            15,
-            75
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 570,
+        "InitialSpeed": 320,
         "ReloadEmpty": 3.4,
         "ReloadLeft": 2.15,
         "ADSRecoilLeft": 0.2,
@@ -21095,10 +21095,10 @@
             37.5
         ],
         "Dmg_distances": [
-            15,
-            75
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 570,
+        "InitialSpeed": 320,
         "ReloadEmpty": 3.4,
         "ReloadLeft": 2.15,
         "ADSRecoilLeft": 0.1,
@@ -21221,10 +21221,10 @@
             59
         ],
         "Dmg_distances": [
-            15,
-            100
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 490,
+        "InitialSpeed": 310,
         "ReloadEmpty": 4,
         "ReloadLeft": 2.7,
         "ADSRecoilLeft": 0,
@@ -21347,10 +21347,10 @@
             59
         ],
         "Dmg_distances": [
-            15,
-            100
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 490,
+        "InitialSpeed": 310,
         "ReloadEmpty": 4,
         "ReloadLeft": 2.7,
         "ADSRecoilLeft": 0,
@@ -21476,7 +21476,7 @@
             8,
             120
         ],
-        "InitialSpeed": 650,
+        "InitialSpeed": 310,
         "ReloadEmpty": 4.7,
         "ReloadLeft": 2.9,
         "ADSRecoilLeft": 0,
@@ -21602,7 +21602,7 @@
             8,
             120
         ],
-        "InitialSpeed": 650,
+        "InitialSpeed": 310,
         "ReloadEmpty": 4.7,
         "ReloadLeft": 2.9,
         "ADSRecoilLeft": 0,
@@ -21767,10 +21767,10 @@
             37.5
         ],
         "Dmg_distances": [
-            15,
-            75
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 450,
+        "InitialSpeed": 290,
         "ReloadEmpty": 2.4,
         "ReloadLeft": 1.8,
         "ADSRecoilLeft": -0.25,
@@ -21935,10 +21935,10 @@
             37.5
         ],
         "Dmg_distances": [
-            15,
-            75
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 450,
+        "InitialSpeed": 290,
         "ReloadEmpty": 2.4,
         "ReloadLeft": 1.8,
         "ADSRecoilLeft": -0.25,
@@ -22103,10 +22103,10 @@
             37.5
         ],
         "Dmg_distances": [
-            15,
-            75
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 450,
+        "InitialSpeed": 290,
         "ReloadEmpty": 2.4,
         "ReloadLeft": 1.8,
         "ADSRecoilLeft": -0.2,
@@ -22271,10 +22271,10 @@
             37.5
         ],
         "Dmg_distances": [
-            15,
-            75
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 550,
+        "InitialSpeed": 310,
         "ReloadEmpty": 2.4,
         "ReloadLeft": 1.85,
         "ADSRecoilLeft": -0.3,
@@ -22439,10 +22439,10 @@
             37.5
         ],
         "Dmg_distances": [
-            15,
-            75
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 550,
+        "InitialSpeed": 310,
         "ReloadEmpty": 2.4,
         "ReloadLeft": 1.85,
         "ADSRecoilLeft": -0.3,
@@ -22607,10 +22607,10 @@
             37.5
         ],
         "Dmg_distances": [
-            15,
-            75
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 550,
+        "InitialSpeed": 310,
         "ReloadEmpty": 2.4,
         "ReloadLeft": 1.85,
         "ADSRecoilLeft": -0.201,
@@ -22775,10 +22775,10 @@
             37.5
         ],
         "Dmg_distances": [
-            15,
-            75
+            6.0,
+            55.0
         ],
-        "InitialSpeed": 550,
+        "InitialSpeed": 310,
         "ReloadEmpty": 3.6,
         "ReloadLeft": 2.7,
         "ADSRecoilLeft": 0.3,
@@ -22943,10 +22943,10 @@
             37.5
         ],
         "Dmg_distances": [
-            15,
-            75
+            6.0,
+            55.0
         ],
-        "InitialSpeed": 550,
+        "InitialSpeed": 310,
         "ReloadEmpty": 3.6,
         "ReloadLeft": 2.7,
         "ADSRecoilLeft": 0.3,
@@ -23111,10 +23111,10 @@
             37.5
         ],
         "Dmg_distances": [
-            15,
-            75
+            6.0,
+            55.0
         ],
-        "InitialSpeed": 550,
+        "InitialSpeed": 310,
         "ReloadEmpty": 3.6,
         "ReloadLeft": 2.7,
         "ADSRecoilLeft": 0.201,
@@ -23279,10 +23279,10 @@
             27
         ],
         "Dmg_distances": [
-            15,
-            60
+            6.0,
+            45.0
         ],
-        "InitialSpeed": 440,
+        "InitialSpeed": 290,
         "ReloadEmpty": 3.4,
         "ReloadLeft": 2.2,
         "ADSRecoilLeft": 0.3,
@@ -23447,10 +23447,10 @@
             27
         ],
         "Dmg_distances": [
-            15,
-            60
+            6.0,
+            45.0
         ],
-        "InitialSpeed": 440,
+        "InitialSpeed": 290,
         "ReloadEmpty": 3.4,
         "ReloadLeft": 2.2,
         "ADSRecoilLeft": 0.15,
@@ -23615,10 +23615,10 @@
             27
         ],
         "Dmg_distances": [
-            15,
-            60
+            6.0,
+            45.0
         ],
-        "InitialSpeed": 440,
+        "InitialSpeed": 290,
         "ReloadEmpty": 3.4,
         "ReloadLeft": 2.2,
         "ADSRecoilLeft": 0.225,
@@ -23741,10 +23741,10 @@
             50
         ],
         "Dmg_distances": [
-            20,
-            80
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 520,
+        "InitialSpeed": 310,
         "ReloadEmpty": 4.8,
         "ReloadLeft": 2.4,
         "ADSRecoilLeft": 0,
@@ -23867,10 +23867,10 @@
             50
         ],
         "Dmg_distances": [
-            20,
-            80
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 520,
+        "InitialSpeed": 310,
         "ReloadEmpty": 4.8,
         "ReloadLeft": 2.4,
         "ADSRecoilLeft": 0,
@@ -24035,10 +24035,10 @@
             37.5
         ],
         "Dmg_distances": [
-            15,
-            75
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 530,
+        "InitialSpeed": 310,
         "ReloadEmpty": 3.3,
         "ReloadLeft": 2.15,
         "ADSRecoilLeft": -0.3,
@@ -24203,10 +24203,10 @@
             37.5
         ],
         "Dmg_distances": [
-            15,
-            75
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 530,
+        "InitialSpeed": 310,
         "ReloadEmpty": 3.3,
         "ReloadLeft": 2.15,
         "ADSRecoilLeft": -0.3,
@@ -24371,10 +24371,10 @@
             37.5
         ],
         "Dmg_distances": [
-            15,
-            75
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 530,
+        "InitialSpeed": 310,
         "ReloadEmpty": 3.3,
         "ReloadLeft": 2.15,
         "ADSRecoilLeft": -0.201,
@@ -25463,10 +25463,10 @@
             13.75
         ],
         "Dmg_distances": [
-            12,
-            50
+            6.0,
+            30.0
         ],
-        "InitialSpeed": 380,
+        "InitialSpeed": 300,
         "ReloadEmpty": 3,
         "ReloadLeft": 2.2,
         "ADSRecoilLeft": 0.48,
@@ -25631,10 +25631,10 @@
             11.2
         ],
         "Dmg_distances": [
-            12,
-            45
+            6.0,
+            40.0
         ],
-        "InitialSpeed": 390,
+        "InitialSpeed": 270,
         "ReloadEmpty": 2.6,
         "ReloadLeft": 2.4,
         "ADSRecoilLeft": 0.45,
@@ -25799,10 +25799,10 @@
             11.2
         ],
         "Dmg_distances": [
-            12,
-            45
+            6.0,
+            40.0
         ],
-        "InitialSpeed": 420,
+        "InitialSpeed": 280,
         "ReloadEmpty": 3,
         "ReloadLeft": 2.5,
         "ADSRecoilLeft": 0.4,
@@ -25967,10 +25967,10 @@
             14.3
         ],
         "Dmg_distances": [
-            8,
-            50
+            4.0,
+            35.0
         ],
-        "InitialSpeed": 430,
+        "InitialSpeed": 280,
         "ReloadEmpty": 3.4,
         "ReloadLeft": 2.5,
         "ADSRecoilLeft": 0.2,
@@ -26135,10 +26135,10 @@
             12.5
         ],
         "Dmg_distances": [
-            12,
-            40
+            6.0,
+            32.0
         ],
-        "InitialSpeed": 320,
+        "InitialSpeed": 280,
         "ReloadEmpty": 3.8,
         "ReloadLeft": 2.4,
         "ADSRecoilLeft": 0.3,
@@ -26303,10 +26303,10 @@
             13.75
         ],
         "Dmg_distances": [
-            12,
-            50
+            6.0,
+            30.0
         ],
-        "InitialSpeed": 360,
+        "InitialSpeed": 280,
         "ReloadEmpty": 3.45,
         "ReloadLeft": 2.45,
         "ADSRecoilLeft": 0.3,
@@ -26471,8 +26471,8 @@
             12.5
         ],
         "Dmg_distances": [
-            8,
-            40
+            4.0,
+            32.0
         ],
         "InitialSpeed": 320,
         "ReloadEmpty": 2.7,
@@ -28297,48 +28297,6 @@
     },
     {
         "Class": 7,
-        "WeapShowName": "DAO-12 Buckshot",
-        "RoF": 220,
-        "BRoF": 220,
-        "MagSize": 8,
-        "Ammo": "12g Buckshot",
-        "Damages": [
-            18,
-            6
-        ],
-        "Dmg_distances": [
-            8,
-            25
-        ],
-        "InitialSpeed": 300,
-        "ReloadEmpty": 2.3,
-        "ReloadLeft": 0.69,
-        "ADSRecoilLeft": -0.3,
-        "ADSRecoilRight": -0.1,
-        "ADSRecoilUp": 1.08,
-        "FirstShotRecoilMul": 1,
-        "ADSRecoilDec": 15,
-        "ADSStandBaseMin": 0.4,
-        "ADSCrouchBaseMin": 0.4,
-        "ADSProneBaseMin": 0.4,
-        "ADSStandMoveMin": 0.8,
-        "ADSCrouchMoveMin": 1.2,
-        "ADSProneMoveMin": 1.2,
-        "HIPStandBaseMin": 2.505,
-        "HIPCrouchBaseMin": 1.67,
-        "HIPProneBaseMin": 1.67,
-        "HIPStandMoveMin": 3.34,
-        "HIPCrouchMoveMin": 2.505,
-        "HIPProneMoveMin": 2.505,
-        "SpreadInc": 0.6,
-        "SpreadDec": 15,
-        "Pellets": 9,
-        "HorDispersion": 3,
-        "Gravity": -9.81,
-        "Attachments": "none-silencer"
-    },
-    {
-        "Class": 7,
         "WeapShowName": "DAO-12 Flechette",
         "RoF": 220,
         "BRoF": 220,
@@ -28423,48 +28381,6 @@
     },
     {
         "Class": 7,
-        "WeapShowName": "DAO-12 Flechette",
-        "RoF": 220,
-        "BRoF": 220,
-        "MagSize": 8,
-        "Ammo": "12g Flechette",
-        "Damages": [
-            12.5,
-            8.4
-        ],
-        "Dmg_distances": [
-            15,
-            30
-        ],
-        "InitialSpeed": 450,
-        "ReloadEmpty": 2.3,
-        "ReloadLeft": 0.69,
-        "ADSRecoilLeft": -0.3,
-        "ADSRecoilRight": -0.1,
-        "ADSRecoilUp": 1.08,
-        "FirstShotRecoilMul": 1,
-        "ADSRecoilDec": 15,
-        "ADSStandBaseMin": 0.4,
-        "ADSCrouchBaseMin": 0.4,
-        "ADSProneBaseMin": 0.4,
-        "ADSStandMoveMin": 0.8,
-        "ADSCrouchMoveMin": 1.2,
-        "ADSProneMoveMin": 1.2,
-        "HIPStandBaseMin": 2.505,
-        "HIPCrouchBaseMin": 1.67,
-        "HIPProneBaseMin": 1.67,
-        "HIPStandMoveMin": 3.34,
-        "HIPCrouchMoveMin": 2.505,
-        "HIPProneMoveMin": 2.505,
-        "SpreadInc": 0.6,
-        "SpreadDec": 15,
-        "Pellets": 9,
-        "HorDispersion": 2.5,
-        "Gravity": -9.81,
-        "Attachments": "none-silencer"
-    },
-    {
-        "Class": 7,
         "WeapShowName": "DAO-12 Slug",
         "RoF": 220,
         "BRoF": 220,
@@ -28546,48 +28462,6 @@
         "HorDispersion": 0,
         "Gravity": -12,
         "Attachments": "none-flash_suppressor"
-    },
-    {
-        "Class": 7,
-        "WeapShowName": "DAO-12 Slug",
-        "RoF": 220,
-        "BRoF": 220,
-        "MagSize": 8,
-        "Ammo": "12g Slug",
-        "Damages": [
-            75,
-            37.5
-        ],
-        "Dmg_distances": [
-            15,
-            50
-        ],
-        "InitialSpeed": 300,
-        "ReloadEmpty": 2.3,
-        "ReloadLeft": 0.69,
-        "ADSRecoilLeft": -0.3,
-        "ADSRecoilRight": -0.1,
-        "ADSRecoilUp": 1.08,
-        "FirstShotRecoilMul": 1,
-        "ADSRecoilDec": 15,
-        "ADSStandBaseMin": 0.4,
-        "ADSCrouchBaseMin": 0.4,
-        "ADSProneBaseMin": 0.4,
-        "ADSStandMoveMin": 0.8,
-        "ADSCrouchMoveMin": 1.2,
-        "ADSProneMoveMin": 1.2,
-        "HIPStandBaseMin": 2.505,
-        "HIPCrouchBaseMin": 1.67,
-        "HIPProneBaseMin": 1.67,
-        "HIPStandMoveMin": 3.34,
-        "HIPCrouchMoveMin": 2.505,
-        "HIPProneMoveMin": 2.505,
-        "SpreadInc": 0.6,
-        "SpreadDec": 15,
-        "Pellets": 0,
-        "HorDispersion": 0,
-        "Gravity": -12,
-        "Attachments": "none-silencer"
     },
     {
         "Class": 7,
@@ -28678,51 +28552,6 @@
         "BlastRadius": 2.5,
         "InnerBlastRadius": 2,
         "Attachments": "none-flash_suppressor"
-    },
-    {
-        "Class": 7,
-        "WeapShowName": "DAO-12 Frag",
-        "RoF": 180,
-        "BRoF": 180,
-        "MagSize": 8,
-        "Ammo": "12g Frag",
-        "Damages": [
-            20,
-            5.0
-        ],
-        "Dmg_distances": [
-            8,
-            40
-        ],
-        "InitialSpeed": 150,
-        "ReloadEmpty": 2.3,
-        "ReloadLeft": 0.69,
-        "ADSRecoilLeft": -0.3,
-        "ADSRecoilRight": -0.1,
-        "ADSRecoilUp": 1.08,
-        "FirstShotRecoilMul": 1,
-        "ADSRecoilDec": 15,
-        "ADSStandBaseMin": 0.4,
-        "ADSCrouchBaseMin": 0.4,
-        "ADSProneBaseMin": 0.4,
-        "ADSStandMoveMin": 0.8,
-        "ADSCrouchMoveMin": 1.2,
-        "ADSProneMoveMin": 1.2,
-        "HIPStandBaseMin": 2.505,
-        "HIPCrouchBaseMin": 1.67,
-        "HIPProneBaseMin": 1.67,
-        "HIPStandMoveMin": 3.34,
-        "HIPCrouchMoveMin": 2.505,
-        "HIPProneMoveMin": 2.505,
-        "SpreadInc": 0.6,
-        "SpreadDec": 15,
-        "Pellets": 0,
-        "HorDispersion": 0,
-        "Gravity": -15,
-        "BlastDamage": 25,
-        "BlastRadius": 2.5,
-        "InnerBlastRadius": 2,
-        "Attachments": "none-silencer"
     },
     {
         "Class": 7,
