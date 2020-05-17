@@ -263,8 +263,8 @@ function bf3CreateRecoilGraphic(recoilLeft, recoilRight, recoilInitialUp, recoil
                                 point5inc + oneinc + onepoint5inc +
                                 "<line x1='" + recoilHorLenth1 + "' y1='90' x2='" + recoilHorLenth2 + "' y2='90' style='stroke:white; stroke-width:2'/>" + // Left - Right
                                 "<line x1='60' y1='90' x2='60' y2='" + recoilUpLength + "' style='stroke:white; stroke-width:2'/>" + // Up - Down
-                                "<text x='" + (recoilHorLenth1 - 4).toString() + "' y='95' text-anchor='end' class='recoilValue recoilHorValue'>" + roundToThree(recoilLeft) + "°</text>" +
-                                "<text x='" + (recoilHorLenth2 + 4).toString() + "' y='95' class='recoilValue'>" + roundToThree(Math.abs(recoilRight)) + "°</text>" +
+                                "<text x='" + (recoilHorLenth1 - 4).toString() + "' y='100' text-anchor='end' class='recoilValue recoilHorValue'>" + roundToThree(recoilLeft) + "°</text>" +
+                                "<text x='" + (recoilHorLenth2 + 4).toString() + "' y='100' class='recoilValue'>" + roundToThree(recoilRight) + "°</text>" +
                                 "<text x='60' y='" + recoilInitUpTextY + "' text-anchor='middle' class='recoilValue recoilInitUpValue'>" + roundToThree(recoilInitialUp) + "°</text>" +
                             "</svg>";
     } else {
