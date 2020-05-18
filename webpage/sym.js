@@ -33,12 +33,6 @@ window.onload = function () {
     } else if (clicked === 'menuBF1') {
       openBF1SelectionPage()
       updateQueryString("bf1", "index")
-    } else if (clicked === 'menuBF4') {
-      openBF4SelectionPage()
-      updateQueryString("bf4", "index")
-    }else if (clicked === 'menuBFH') {
-      openBFHSelectionPage()
-      updateQueryString("bfh", "index")
     } else if (clicked === 'menuOtherTitles') {
       openOtherTitlesSelectionPage()
       updateQueryString("other", "index")
@@ -242,39 +236,6 @@ function exceuteQueryStringParams(){
           break
       }
       break
-    case 'bf4':
-      switch(page){
-        case 'index':
-          openBF4SelectionPage()
-          updateQueryString("bf4", "index")
-        break
-        case 'general-info':
-          openBF4SelectionPageFromQueryString('General Information')
-          break
-        case 'comparison':
-          openBF4SelectionPageFromQueryString('Weapon Comparison')
-          break
-        case 'charts':
-          openBF4SelectionPageFromQueryString('Weapon Charts')
-          break
-      }
-      break
-    case 'bfh':
-      switch(page){
-        case 'index':
-          openBFHSelectionPage()
-          updateQueryString("bfh", "index")
-        break
-        case 'general-info':
-          openBFHSelectionPageFromQueryString('General Information')
-          break
-        case 'comparison':
-          openBFHSelectionPageFromQueryString('Weapon Comparison')
-          break
-        case 'charts':
-          openBFHSelectionPageFromQueryString('Weapon Charts')
-          break
-      }
     case 'other':
       switch(page){
         case 'index':
@@ -289,6 +250,24 @@ function exceuteQueryStringParams(){
           break
         case 'bf3-general-info':
           openOtherTitlesSelectionPageFromQueryString('BF3 General Info')
+          break
+        case 'bf4-general-info':
+          openOtherTitlesSelectionPageFromQueryString('BF4 General Info')
+          break
+        case 'bf4-comparison':
+          openOtherTitlesSelectionPageFromQueryString('BF4 Comparison')
+          break
+        case 'bf4-charts':
+          openOtherTitlesSelectionPageFromQueryString('BF4 Weapon Charts')
+          break
+        case 'bfh-general-info':
+          openOtherTitlesSelectionPageFromQueryString('BFH General Info')
+          break
+        case 'bfh-comparison':
+          openOtherTitlesSelectionPageFromQueryString('BFH Comparison')
+          break
+        case 'bfh-charts':
+          openOtherTitlesSelectionPageFromQueryString('BFH Weapon Charts')
           break
       }
       break

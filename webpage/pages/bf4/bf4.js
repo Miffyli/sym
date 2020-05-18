@@ -283,34 +283,6 @@ function BF4LoadWeaponData () {
 }
 
 /*
-  Load the BF4 selector page that contains the buttons to allow
-  the user to select which page to navigate to (chart, comp, etc...).
-*/
-function openBF4SelectionPage () {
-  loadPageWithHeader('./pages/bf4/bf4_header.html', 'Battlefield 4', initializeBF4Selection, BF4_VERSION_STRING)
-}
-
-function openBF4SelectionPageFromQueryString (pageStr){
-  bf4PageToLoad = pageStr
-  loadPageWithHeader('./pages/bf4/bf4_header.html', 'Battlefield 4', BF4LoadPageFromQueryString, BF4_VERSION_STRING)
-}
-
-/*
-  Load the BF4 main/entry/index page
-*/
-function openBF4IndexPage () {
-  $('.bf4-main-content').load('./pages/bf4/bf4_index.html', BF4initializeIndexPage)
-}
-
-/*
-  Load the BF4 General Info page
-*/
-function openBF4GeneralInfoPage () {
-  $('.bf4-main-content').load('./pages/bf4/bf4_generalinfo.html')
-}
-
-
-/*
   Display BF4 page to user. This should be
   done after data has been succesfully loaded
 */
@@ -324,7 +296,7 @@ function openBF4ComparisonPage () {
 }
 
 function loadBF4ComparisonPage(){
-  $('.bf4-main-content').load('./pages/bf4/bf4_comparison.html', initializeBF4Comparison)
+  $('.otherTitles-main-content').load('./pages/bf4/bf4_comparison.html', initializeBF4Comparison)
 }
 
 /*
@@ -340,76 +312,9 @@ function openBF4ChartPage () {
 }
 
 function loadBF4ChartPage(){
-    $('.bf4-main-content').load('./pages/bf4/bf4_chart.html', BF4initializeChartPage)
+  $('.otherTitles-main-content').load('./pages/bf4/bf4_chart.html', BF4initializeChartPage)
 }
 
-
-/*
-  Main hub for opening different BF4 pages based on their name.
-  Handles coloring of the buttons etc
-*/
-function BF4OpenPageByName(pageName) {
-  // Remove highlighting
-  $('.sym-pageSelections > div').removeClass('selected-selector')
-  // Select right page according to pageName, highlight its
-  // button and open the page
-  if (pageName === 'Weapon Comparison') {
-    $('#bf4-comparisonPageSelector').addClass('selected-selector')
-    openBF4ComparisonPage()
-    updateQueryString("bf4", "comparison")
-  } else if (pageName === 'General Information') {
-    $('#bf4-generalinfoPageSelector').addClass('selected-selector')
-    openBF4GeneralInfoPage()
-    updateQueryString("bf4", "general-info")
-  } else if (pageName === 'Index') {
-    $('#bf4-mainPageSelector').addClass('selected-selector')
-    openBF4IndexPage()
-    updateQueryString("bf4", "index")
-	} else if (pageName === 'Weapon Charts') {
-    $('#bf4-chartPageSelector').addClass('selected-selector')
-    openBF4ChartPage()
-    updateQueryString("bf4", "charts")
-  }
-}
-
-/*
-  Add handlers for the click events for the bf4 selector page and open
-  the entry page for BF4
-*/
-function initializeBF4Selection () {
-  BF4SetupPageHeader()
-  openBF4IndexPage()
-}
-
-/*
-  Add handlers for the click events for the bf4 index page
-*/
-function BF4initializeIndexPage(){
-  $('.indexPageItem').click(function () {
-      var itemClicked = $(this).find("h4").text()
-      BF4OpenPageByName(itemClicked)
-  })
-}
-
-function BF4SetupPageHeader(){
-  loadBF4Stylesheet()
-  $('.sym-pageSelections > div').click(function () {
-    var clicked = $(this).attr('id')
-    var pageName
-    if (clicked === 'bf4-comparisonPageSelector') {
-      pageName = 'Weapon Comparison'
-    } else if (clicked === 'bf4-mainPageSelector') {
-      pageName = 'Index'
-	  } else if (clicked === 'bf4-generalinfoPageSelector') {
-      pageName = 'General Information'
-    } else if (clicked === 'bf4-chartPageSelector') {
-      pageName = 'Weapon Charts'
-    }
-    BF4OpenPageByName(pageName)
-  })
-}
-
-function BF4LoadPageFromQueryString(){
-  BF4SetupPageHeader()
-  BF4OpenPageByName(bf4PageToLoad)
+function openBF4GeneralInfoPage () {
+  $('.otherTitles-main-content').load('./pages/bf4/bf4_generalinfo.html')
 }

@@ -47,6 +47,18 @@ function otherTitlesSetupPageHeader(){
       pageName = 'BF3 Comparison'
     } else if (clicked === 'bf3-generalInfoPageSelector') {
       pageName = 'BF3 General Information'
+    } else if (clicked === 'bf4-chartPageSelector') {
+      pageName = 'BF4 Weapon Charts'
+    } else if (clicked === 'bf4-comparisonPageSelector') {
+      pageName = 'BF4 Comparison'
+    } else if (clicked === 'bf4-generalInfoPageSelector') {
+      pageName = 'BF4 General Information'
+    } else if (clicked === 'bfh-chartPageSelector') {
+      pageName = 'BFH Weapon Charts'
+    } else if (clicked === 'bfh-comparisonPageSelector') {
+      pageName = 'BFH Comparison'
+    } else if (clicked === 'bfh-generalInfoPageSelector') {
+      pageName = 'BFH General Information'
     }
     otherTitlesOpenPageByName(pageName)
   })
@@ -77,6 +89,22 @@ function otherTitlesOpenPageByName(pageName) {
     $('#bf3-generalInfoPageSelector').addClass('selected-selector')
     openBF3GeneralInfoPage()
     updateQueryString("other", "bf3-general-info")
+  } else if (pageName === 'BF4 Comparison') {
+    $('#bf4-comparisonPageSelector').addClass('selected-selector')
+    openBF4ComparisonPage()
+    updateQueryString("other", "bf4-comparison")
+  } else if (pageName === 'BF4 General Information') {
+    $('#bf4-generalInfoPageSelector').addClass('selected-selector')
+    openBF4GeneralInfoPage()
+    updateQueryString("other", "bf4-general-info")
+  } else if (pageName === 'BFH Comparison') {
+    $('#bfh-comparisonPageSelector').addClass('selected-selector')
+    openBFHComparisonPage()
+    updateQueryString("other", "bfh-comparison")
+  } else if (pageName === 'BFH General Information') {
+    $('#bfh-generalInfoPageSelector').addClass('selected-selector')
+    openBFHGeneralInfoPage()
+    updateQueryString("other", "bfh-general-info")
   }
 }
 

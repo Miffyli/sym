@@ -286,38 +286,11 @@ function BFHLoadWeaponData () {
 }
 
 /*
-  Load the BFH selector page that contains the buttons to allow
-  the user to select which page to navigate to (chart, comp, etc...).
-*/
-function openBFHSelectionPage () {
-  loadPageWithHeader('./pages/bfh/bfh_header.html', 'Battlefield Hardline', initializeBFHSelection, BFH_VERSION_STRING)
-}
-
-function openBFHSelectionPageFromQueryString (pageStr){
-  bfhPageToLoad = pageStr
-  loadPageWithHeader('./pages/bfh/bfh_header.html', 'Battlefield Hardline', BFHLoadPageFromQueryString, BFH_VERSION_STRING)
-}
-
-/*
-  Load the BFH main/entry/index page
-*/
-function openBFHIndexPage () {
-  $('.bfh-main-content').load('./pages/bfh/bfh_index.html', BFHinitializeIndexPage)
-}
-
-/*
-  Load the BFH General Info page
-*/
-function openBFHGeneralInfoPage () {
-  $('.bfh-main-content').load('./pages/bfh/bfh_generalinfo.html')
-}
-
-
-/*
   Display BFH page to user. This should be
   done after data has been succesfully loaded
 */
 function openBFHComparisonPage () {
+
   if (BFHDataLoaded === false) {
     BFHSelectedPage = "BFH_COMPARISON"
     BFHLoadWeaponData()
@@ -327,7 +300,7 @@ function openBFHComparisonPage () {
 }
 
 function loadBFHComparisonPage(){
-  $('.bfh-main-content').load('./pages/bfh/bfh_comparison.html', initializeBFHComparison)
+  $('.otherTitles-main-content').load('./pages/bfh/bfh_comparison.html', initializeBFHComparison)
 }
 
 /*
@@ -343,76 +316,9 @@ function openBFHChartPage () {
 }
 
 function loadBFHChartPage(){
-    $('.bfh-main-content').load('./pages/bfh/bfh_chart.html', BFHinitializeChartPage)
+  $('.otherTitles-main-content').load('./pages/bfh/bfh_chart.html', BFHinitializeChartPage)
 }
 
-
-/*
-  Main hub for opening different BFH pages based on their name.
-  Handles coloring of the buttons etc
-*/
-function BFHOpenPageByName(pageName) {
-  // Remove highlighting
-  $('.sym-pageSelections > div').removeClass('selected-selector')
-  // Select right page according to pageName, highlight its
-  // button and open the page
-  if (pageName === 'Weapon Comparison') {
-    $('#bfh-comparisonPageSelector').addClass('selected-selector')
-    openBFHComparisonPage()
-    updateQueryString("bfh", "comparison")
-  } else if (pageName === 'General Information') {
-    $('#bfh-generalinfoPageSelector').addClass('selected-selector')
-    openBFHGeneralInfoPage()
-    updateQueryString("bfh", "general-info")
-  } else if (pageName === 'Index') {
-    $('#bfh-mainPageSelector').addClass('selected-selector')
-    openBFHIndexPage()
-    updateQueryString("bfh", "index")
-	} else if (pageName === 'Weapon Charts') {
-    $('#bfh-chartPageSelector').addClass('selected-selector')
-    openBFHChartPage()
-    updateQueryString("bfh", "charts")
-  }
-}
-
-/*
-  Add handlers for the click events for the bfh selector page and open
-  the entry page for BFH
-*/
-function initializeBFHSelection () {
-  BFHSetupPageHeader()
-  openBFHIndexPage()
-}
-
-/*
-  Add handlers for the click events for the bfh index page
-*/
-function BFHinitializeIndexPage(){
-  $('.indexPageItem').click(function () {
-      var itemClicked = $(this).find("h4").text()
-      BFHOpenPageByName(itemClicked)
-  })
-}
-
-function BFHSetupPageHeader(){
-  loadBFHStylesheet()
-  $('.sym-pageSelections > div').click(function () {
-    var clicked = $(this).attr('id')
-    var pageName
-    if (clicked === 'bfh-comparisonPageSelector') {
-      pageName = 'Weapon Comparison'
-    } else if (clicked === 'bfh-mainPageSelector') {
-      pageName = 'Index'
-	  } else if (clicked === 'bfh-generalinfoPageSelector') {
-      pageName = 'General Information'
-    } else if (clicked === 'bfh-chartPageSelector') {
-      pageName = 'Weapon Charts'
-    }
-    BFHOpenPageByName(pageName)
-  })
-}
-
-function BFHLoadPageFromQueryString(){
-  BFHSetupPageHeader()
-  BFHOpenPageByName(bfhPageToLoad)
+function openBFHGeneralInfoPage () {
+  $('.otherTitles-main-content').load('./pages/bfh/bfh_generalinfo.html')
 }
