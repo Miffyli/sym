@@ -318,7 +318,3 @@ function openBFHChartPage () {
 function loadBFHChartPage(){
   $('.otherTitles-main-content').load('./pages/bfh/bfh_chart.html', BFHinitializeChartPage)
 }
-
-function openBFHGeneralInfoPage () {
-  $('.otherTitles-main-content').load('./pages/bfh/bfh_generalinfo.html')
-}

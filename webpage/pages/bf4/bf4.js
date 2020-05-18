@@ -316,5 +316,5 @@ function loadBF4ChartPage(){
 }
 
 function openBF4GeneralInfoPage () {
-  $('.otherTitles-main-content').load('./pages/bf4/bf4_generalinfo.html')
+  $('.otherTitles-main-content').load('./pages/bf4/bf4_bfh_generalinfo.html')
 }

@@ -252,16 +252,13 @@ function exceuteQueryStringParams(){
           openOtherTitlesSelectionPageFromQueryString('BF3 General Info')
           break
         case 'bf4-general-info':
-          openOtherTitlesSelectionPageFromQueryString('BF4 General Info')
+          openOtherTitlesSelectionPageFromQueryString('BF4/BFH General Info')
           break
         case 'bf4-comparison':
           openOtherTitlesSelectionPageFromQueryString('BF4 Comparison')
           break
         case 'bf4-charts':
           openOtherTitlesSelectionPageFromQueryString('BF4 Weapon Charts')
-          break
-        case 'bfh-general-info':
-          openOtherTitlesSelectionPageFromQueryString('BFH General Info')
           break
         case 'bfh-comparison':
           openOtherTitlesSelectionPageFromQueryString('BFH Comparison')
