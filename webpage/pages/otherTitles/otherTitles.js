@@ -52,7 +52,7 @@ function otherTitlesSetupPageHeader(){
     } else if (clicked === 'bf4-comparisonPageSelector') {
       pageName = 'BF4 Comparison'
     } else if (clicked === 'bf4-generalInfoPageSelector') {
-      pageName = 'BF4/BFH General Information'
+      pageName = 'BF4/BFH General Info'
     } else if (clicked === 'bfh-chartPageSelector') {
       pageName = 'BFH Weapon Charts'
     } else if (clicked === 'bfh-comparisonPageSelector') {
