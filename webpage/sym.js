@@ -7,7 +7,7 @@ const SYM_GITHUB_URL = 'https://github.com/miffyli/sym'
 // Number of news items available, stored under
 // misc/news_items/#.html . This value should be updated
 // when new entries for News are made
-const SYM_NUM_NEWS_ITEMS = 2
+const SYM_NUM_NEWS_ITEMS = 3
 
 /*
     This code runs after the page loads all resources.
@@ -39,6 +39,9 @@ window.onload = function () {
     }else if (clicked === 'menuBFH') {
       openBFHSelectionPage()
       updateQueryString("bfh", "index")
+    } else if (clicked === 'menuOtherTitles') {
+      openOtherTitlesSelectionPage()
+      updateQueryString("other", "index")
     } else if (clicked === 'menuDatabrowser') {
       openNewTab(SYM_DATABROWSER_URL)
     } else if (clicked === 'menuAbout') {
@@ -53,6 +56,9 @@ window.onload = function () {
     } else if (clicked === 'menuStaff') {
       loadPageWithHeader('./pages/misc/staff.html', 'Site Staff')
       updateQueryString("sym", "staff")
+    } else if (clicked === 'menuPartners') {
+      loadPageWithHeader('./pages/misc/partners.html', 'Our Partners')
+      updateQueryString("sym", "partners")
     } else if (clicked === 'menuGithub') {
       openNewTab(SYM_GITHUB_URL)
     }
@@ -137,7 +143,6 @@ function loadNewestNewsItems (itemIndex, numItems) {
 }
 
 
-
 /*
     Rounds a number to at most 3 decimal places but will not add trailing zeros
 */
@@ -154,12 +159,10 @@ function roundToDecimal(num, decimalSpots){
    Otherwise you would have to rename/de-conflict each entry in the css files and html.
 */
 function loadBFVStylesheet(){
-  //$('#gameCSS').attr('href', './pages/bfv/bfv.css')
   $('#chartCSS').attr('href', './pages/bfv/bfv_chart.css')
 }
 
 function loadBF1Stylesheet(){
-  //$('#gameCSS').attr('href', './pages/bf1/bf1.css')
   $('#chartCSS').attr('href', './pages/bf1/bf1_chart.css')
 }
 
@@ -171,6 +174,10 @@ function loadBF4Stylesheet(){
 function loadBFHStylesheet(){
   // Commented out for now (charts not implemented yet)
   //$('#chartCSS').attr('href', './pages/bfh/bfh_chart.css')
+}
+
+function loadBF3Stylesheet(){
+  $('#chartCSS').attr('href', './pages/bf3/bf3_chart.css')
 }
 
 /*
@@ -268,6 +275,22 @@ function exceuteQueryStringParams(){
           openBFHSelectionPageFromQueryString('Weapon Charts')
           break
       }
+    case 'other':
+      switch(page){
+        case 'index':
+          openOtherTitlesSelectionPage()
+          updateQueryString("other", "index")
+        break
+        case 'bf3-charts':
+          openOtherTitlesSelectionPageFromQueryString('BF3 Weapon Charts')
+          break
+        case 'bf3-comparison':
+          openOtherTitlesSelectionPageFromQueryString('BF3 Comparison')
+          break
+        case 'bf3-general-info':
+          openOtherTitlesSelectionPageFromQueryString('BF3 General Info')
+          break
+      }
       break
     case 'sym':
       switch(page){
@@ -291,10 +314,13 @@ function exceuteQueryStringParams(){
           loadPageWithHeader('./pages/misc/staff.html', 'Site Staff')
           updateQueryString("sym", "staff")
           break
+        case 'partners':
+          loadPageWithHeader('./pages/misc/partners.html', 'Our Partners')
+          updateQueryString("sym", "partners")
+          break
       }
-      break;
+      break
   }
-
 }
 
 $(document).ready(function() {
