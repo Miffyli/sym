@@ -91,6 +91,10 @@ function otherTitlesOpenPageByName(pageName) {
     $('#bf4-comparisonPageSelector').addClass('selected-selector')
     openBF4ComparisonPage()
     updateQueryString("other", "bf4-comparison")
+  } else if (pageName === 'BF4 Weapon Charts') {
+    $('#bf4-chartPageSelector').addClass('selected-selector')
+    openBF4ChartPage()
+    updateQueryString("other", "bf4-charts")
   } else if (pageName === 'BF4/BFH General Info') {
     $('#bf4-generalInfoPageSelector').addClass('selected-selector')
     openBF4GeneralInfoPage()

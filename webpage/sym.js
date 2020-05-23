@@ -161,8 +161,7 @@ function loadBF1Stylesheet(){
 }
 
 function loadBF4Stylesheet(){
-  // Commented out for now (charts not implemented yet)
-  //$('#chartCSS').attr('href', './pages/bf4/bf4_chart.css')
+  $('#chartCSS').attr('href', './pages/bf4/bf4_chart.css')
 }
 
 function loadBFHStylesheet(){

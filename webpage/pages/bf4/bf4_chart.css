@@ -1,0 +1,632 @@
+/*body{
+    font-family: Arial;
+    background: #333;
+    color: white;
+    cursor: default;
+} */
+
+.classTable table {
+    font-size: 14px;
+}
+
+.classTable td {
+    border-top: 1px solid #dee2e6;
+    text-align: center;
+}
+
+.spreadTable{
+    font-size: 13px !important;
+}
+
+.spreadTable tr:nth-child(2) td,
+.spreadTable tr:nth-child(5) td,
+.spreadTable tr:nth-child(8) td{
+    padding-top: 7px
+}
+
+.spreadTable tr:nth-child(1) td{
+    font-style: italic;
+    text-align: center;
+}
+
+.spreadTable tr:nth-child(2) td:nth-child(2){
+    color: #A9D852;
+}
+
+.spreadTable tr:nth-child(5) td:nth-child(2){
+    color: #FF9000;
+}
+
+.spreadTable td {
+    border: none;
+    text-align: left;
+    line-height: 10px;
+}
+
+.spreadTable img{
+    width: 35px;
+}
+
+.spreadIncDecTable{
+    font-size: 13px !important;
+    padding-bottom: 4px;
+}
+
+.spreadIncDecTable tr:nth-child(1) td{
+    font-style: italic;
+    text-align: center;
+}
+.spreadIncDecTable td {
+    border: none;
+    text-align: left;
+    height: 28px;
+}
+
+.spreadIncDecTable img{
+    width: 35px;
+}
+
+
+.scaleIncreaseCell img{
+    width: 15px !important;
+}
+
+.scaleIncreaseCell{
+    text-align: center !important;
+}
+
+.tbdBox{
+    width: 243px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    height: 40px;
+}
+
+.robContainer{
+    display: inline-block;
+    text-align: center;
+    padding-left: 35px;
+}
+
+.robLabel{
+    padding: 10px;
+    color: #333;
+    background: #eee;
+    box-shadow: 0px 2px 5px white;
+}
+
+.robLabelRob{
+    font-size: 48px;
+    font-weight: bold;
+}
+
+.robLabelPronounced{
+    font-size: 14px;
+    font-weight: bold;
+    font-style: italic;
+}
+
+.robVersion {
+    float:right;
+    font-size: 10px;
+}
+
+.robVersion img {
+    width: 24px;
+    height: 24px;
+    float: right;
+    margin-top: 30px;
+}
+
+.otherProj {
+    text-align: right;
+    margin-top: 7px;
+}
+
+.otherProj a:visited, .otherProj a:link{
+    color: white;
+    text-decoration: none;
+}
+
+.pageTitleContainer{
+    margin: 40px 10px 20px;
+    border-bottom: 1px solid #eee;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 5px;
+}
+
+.aquiredFrom{
+    border-radius: 5px;
+    margin: 30px auto 10px;
+    font-size: 18px;
+    background: #eee;
+    color: #222;
+    padding: 10px;
+    font-weight: bold;
+    width: 500px;
+    text-align: center;
+}
+
+.feedback{
+    border-radius: 5px;
+    margin: 20px auto 0px;
+    font-size: 14px;
+    background: #eee;
+    color: #222;
+    padding: 5px;
+    font-weight: bold;
+    width: 500px;
+    text-align: center;
+}
+
+.feedback a > img{
+    width: 20px;
+    height: 20px;
+    vertical-align: text-bottom;
+}
+
+.feedback a{
+    color: #222;
+}
+
+.noIE {
+    width: 36px;
+    height: 36px;
+    vertical-align: middle;
+}
+
+.aquiredFrom a{
+    font-size: larger;
+    font-weight: bold;
+    color:green;
+}
+
+.robAccordionsContainer{
+    width: 1280px;
+    margin: auto;
+}
+
+.robAccordion{
+    width: 33%;
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.robAccordion .ui-accordion-content{
+    max-height: 300px;
+}
+
+#showHideStats, #showHideSubCats{
+    font-size: 11px;
+}
+
+#showHideStats > label, #showHideSubCats > label{
+    padding: 5px 7px;
+    border-radius: 2px;
+}
+
+.ui-tooltip{
+    font-size: 12px;
+    box-shadow: 0px 0px 7px #666;
+    background: rgb(25,25,25);
+}
+
+.classTable{
+    margin: 0 auto 40px;
+    width: 1280px;
+    border-bottom: 1px solid #dee2e6;
+    border-top: 15px solid #dee2e6;
+    border-spacing: 0;
+}
+
+.classHeader {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0px auto 10px;
+    width: 1280px;
+}
+
+.classHeader img{
+    width: 48px;
+    height: 48px;
+    margin: 0 5px -15px;
+}
+
+
+/* ************ */
+/* Toolbar      */
+/* ************ */
+#weaponsToolbar{
+    font-size: 14px;
+    width: 1280px;
+    margin: 10px auto;
+}
+
+#weaponsToolbar > .toolboxRow > div {
+    margin: 10px 40px;
+    text-align: center;
+}
+
+.bfvChart-dropdownRow > div{
+    display: inline-block;
+}
+
+.bfvChart-dropdownRow{
+    text-align: center;
+}
+
+.ui-menu{
+    width: 185px;
+}
+
+#showHideCheckboxes label {
+    width: 100px;
+    margin-bottom: 8px;
+    border-radius: 2px;
+}
+
+#showHideCheckboxes img{
+    width: 40px;
+    height: 40px;
+}
+
+/* ************ */
+/* Pre-Chart    */
+/* ************ */
+
+.firstColumn{
+    width: 220px;
+    text-align: left !important;
+}
+
+.weaponImgContainer{
+    text-align: center;
+}
+
+.weaponImg{
+    margin: 9px 0;
+}
+
+.lblWeaponName {
+    font-size: 15px;
+    color: #A9D852;
+    font-weight: bold;
+    padding-top: 4px;
+}
+
+.lblWeaponName img{
+    height: 21px;
+    width: 21px;
+    float: right;
+}
+
+.lblRPM {
+    font-size: 16px;
+    color: #FF9000;
+    font-weight: bold;
+    float: right;
+}
+
+.lblRPMSingle {
+    font-size: 14px;
+    color: #FF9000;
+    font-weight: bold;
+    float: right;
+}
+
+.lblSuffixText {
+    font-size: 10px;
+}
+
+.lblSpeed {
+    font-size: 14px;
+}
+
+.lblSpeed img{
+    vertical-align: text-bottom;
+}
+
+.lblDragCoe{
+    font-size: 11px;
+    color: white;
+    vertical-align: middle;
+}
+
+/* ************ */
+/* Damage Chart */
+/* ************ */
+.secondColumn{
+    width: 252px;
+}
+
+.damageChartContainer{
+    display: inline-block;
+    border: 1px solid #444;
+}
+
+.damageChart{
+    height: 130px;
+}
+
+.chartLabel {
+    font-size: 8px;
+    fill: #555;
+}
+
+.chartLabel200Dist {
+    font-size: 10px;
+    fill: #C27070;
+}
+
+.chartMinMaxLabel{
+    font-size: 12px;
+    fill: #A9D852;
+    font-weight: bold;
+}
+
+.chartDamageLine{
+    fill:none;
+    stroke:#A9D852;
+    stroke-width:2;
+}
+
+.chartSplashDamageLine{
+    fill:none;
+    stroke:#FF9000;
+    stroke-width:2;
+}
+
+.chartSplashLabel {
+    font-size: 8px;
+    fill: #FF9000;
+    opacity: 0.8;
+}
+
+.chartMinMaxSplashLabel{
+    font-size: 12px;
+    fill: #FF9000;
+    font-weight: bold;
+}
+.chartScanRadiusLine{
+    fill:none;
+    stroke: #C5CED2;
+    stroke-width:3;
+}
+
+.chartScanRadiusLabel{
+    font-size: 10px;
+    fill: #C5CED2;
+    font-weight: bold;
+}
+
+.smokeRadiusLine{
+    fill:none;
+    stroke: #C5CED2;
+    stroke-width:3;
+}
+
+.smokeRadiusLabel{
+    font-size: 10px;
+    fill: #C5CED2;
+    font-weight: bold;
+}
+
+.gridLineThin {
+    stroke: #2b2b2b;
+    stroke-width: 1;
+}
+
+.gridLineFat {
+    stroke: #444;
+    stroke-width: 1;
+}
+
+
+/* ************ */
+/* After  Chart */
+/* ************ */
+
+.lblMag {
+    font-size: 20px;
+}
+
+.underMagSection {
+
+}
+
+.underMagSection > div {
+    display: inline-block;
+}
+
+.reloadDataAndMagCount{
+    margin : 0 !important;
+    width: 100px;
+    vertical-align: top;
+}
+
+.sectionReload{
+    text-align: center;
+    color: #FF9000;
+    height: 53px;
+}
+
+.imgReload {
+    width: 16px;
+    vertical-align: text-bottom;
+    margin-right: 10px;
+}
+
+.lblReloadLeft{
+    font-weight: bold;
+    font-size: 16px;
+    padding-top: 20px;
+}
+
+.lblReloadEmpty {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.bulletSpeedContainer{
+    text-align: center;
+    padding-top: 10px;
+}
+
+.magGraphicBox {
+    margin-top: 5px;
+}
+
+.recoilValue {
+    font-size: 15px;
+    fill: white;
+}
+
+.recoilFirstShot{
+    display: inline-block;
+    color: #FF9000;
+    font-size: 13px;
+    font-weight: bold;
+    margin-top: 8px;
+    width: 60px;
+}
+
+.recoilFirstShotLabel{
+    font-size: 10px;
+}
+
+.recoilDec{
+    display: inline-block;
+    font-size: 13px;
+    color: #A9D852;
+    font-weight: bold;
+}
+
+.recoilDec img{
+    width: 15px
+}
+
+.spreadLabels {
+    display: inline-block;
+    font-weight: bold;
+    font-size: 12px;
+    text-align: right;
+    margin-right: 5px !important;
+    line-height: 25px;
+    width: 40px;
+}
+
+.speadBaseLabel {
+    color: #A9D852;
+}
+
+.spreadBaseCicle {
+    stroke-width: 4px;
+    stroke: #A9D852;
+    fill: none;
+}
+
+.spreadBaseLine {
+    stroke-width: 5px;
+    stroke: #C8C63A;
+    fill: none;
+}
+
+.speadMoveLabel {
+    color:  #FF9000;
+}
+
+.spreadMoveCicle {
+    stroke-width: 4px;
+    stroke: #FF9000;
+    fill: none;
+}
+
+.spreadMoveCicleBG {
+    stroke-width: 4px;
+    stroke: #222;
+    fill: #333;
+}
+
+.spreadMoveLine {
+    stroke-width: 10px;
+    stroke: #C27070;
+    fill: none;
+}
+
+.spreadCircles {
+    display: inline-block;
+    margin: 0 !important;
+}
+
+.hipSpreadContainer{
+    margin: 0 !important;
+    text-align: center;
+}
+
+.hipSpreadLine {
+    stroke: white;
+    stroke-width: 3px;
+    fill: none;
+}
+
+.hipSpreadValue {
+    font-weight: bold;
+    font-size: 13px;
+    fill: white;
+}
+
+.deployTimeBox {
+    padding-top: 15px;
+    width: 100px;
+}
+
+.lblDeployTime{
+    font-size: 13px;
+}
+
+.custButtons{
+    width: 260px;
+    font-size: 8px;
+}
+
+.custButtons label{
+    margin: 1px;
+    width: 105px;
+    border-radius: 2px;
+}
+
+.variantButton{
+    border-radius: 2px;
+}
+
+.afterCustButtons{
+}
+
+.sortDragIcon{
+    width: 33px;
+    margin-bottom: 12px;
+    opacity: .8;
+}
+
+/* Custom Combobox for shortcutCombobox */
+.custom-combobox {
+    position: relative;
+    display: inline-block;
+}
+.custom-combobox-toggle {
+    position: absolute !important;
+    top: 0;
+    bottom: 0;
+    margin-left: -1px;
+    padding: 0;
+}
+.custom-combobox-input {
+    margin: 0;
+    padding: 5px 10px;
+    width: 300px;
+}
+ /* End custom combobox */

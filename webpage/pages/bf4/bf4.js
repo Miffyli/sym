@@ -240,6 +240,8 @@ function BF4GetTTKUpperBoundOverDistance (weapon) {
   arrays.
 */
 function BF4LoadSuccessCallback (data) {
+  loadBF4Stylesheet()
+
   BF4WeaponData = data
   // Create name_to_data objects
   for (var i = 0; i < BF4WeaponData.length; i++) {
