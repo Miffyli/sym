@@ -1,5 +1,5 @@
 var gravityTooltip = "Gravity"
-var bf4WeaponClassTitles = ["","Assault","Engineer","Support","Recon","Sidearms","PDWs","Shotguns", "Gadgets"];
+var bf4WeaponClassTitles = ["","Assault","Engineer","Support","Recon","Carbines","DMRs","Shotguns", "Sidearms", "Battle Pickups"];
 var firestormWeapons = [];
 var customizations = new Object();
 var addVariantCounter = 0;
@@ -53,6 +53,7 @@ function bf4PrintWeapons(){
     statsHtml += bf4PrintWeaponClass(7);
     statsHtml += bf4PrintWeaponClass(5);
 	statsHtml += bf4PrintWeaponClass(8);
+	statsHtml += bf4PrintWeaponClass(9);
 
     $("#pageBody").html(statsHtml);
     bf4ShowHideClasses();
@@ -124,7 +125,7 @@ function bf4PrintWeapon(weaponStats){
                                                       weaponStats.HIPStandBaseMin,weaponStats.HIPCrouchBaseMin,weaponStats.HIPProneBaseMin,
                                                       weaponStats.HIPStandMoveMin,weaponStats.HIPCrouchMoveMin,weaponStats.HIPProneMoveMin,
                                                       weaponStats.ADSStandBaseSpreadInc, weaponStats.HIPStandBaseSpreadInc);
-    var spreadIncDecTableGraphic = bf4CreateSpreadIncDecTableGraphic(weaponStats.SpreadInc, weaponStats.SpreadDec);
+    var spreadIncDecTableGraphic = bf4CreateSpreadIncDecTableGraphic(weaponStats.ADSStandBaseSpreadInc, weaponStats.ADSStandBaseSpreadDec);
     var rtnStr = "<tr class='" + weaponStats.WeapShowName.replace(/ |\//g,"") + " sub_" + getWeaponsSubcat(weaponStats.WeapShowName) +"'>" +
                      "<td class='firstColumn'>" +
                          "<div class='lblWeaponName'>" +
