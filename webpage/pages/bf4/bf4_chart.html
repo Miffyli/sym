@@ -4,29 +4,32 @@
         <div class="toolboxRow">
             <div>
                 <div id="showHideCheckboxes" title="Show/Hide weapon classes">
-                    <label for="showAssaultCheck"><img src="./pages/bf3/img/Assault.png"></label>
+                    <label for="showAssaultCheck"><img src="./pages/bf4/img/Assault.png"></label>
                     <input type="checkbox" id="showAssaultCheck" name="showAssaultCheck" checked>
 
-                    <label for="showEngineerCheck"><img src="./pages/bf3/img/Engineer.png"></label>
+                    <label for="showEngineerCheck"><img src="./pages/bf4/img/Engineer.png"></label>
                     <input type="checkbox" id="showEngineerCheck" name="showEngineerCheck" checked>
 
-                    <label for="showSupportCheck"><img src="./pages/bf3/img/Support.png"></label>
+                    <label for="showSupportCheck"><img src="./pages/bf4/img/Support.png"></label>
                     <input type="checkbox" id="showSupportCheck" name="showSupportCheck" checked>
 
-                    <label for="showReconCheck"><img src="./pages/bf3/img/Recon.png"></label>
+                    <label for="showReconCheck"><img src="./pages/bf4/img/Recon.png"></label>
                     <input type="checkbox" id="showReconCheck" name="showReconCheck" checked>
 					
-					<label for="showPDWsCheck"><img src="./pages/bf3/img/PDWs.png"></label>
-                    <input type="checkbox" id="showPDWsCheck" name="showPDWsCheck" checked>
+					<label for="showDMRsCheck"><img src="./pages/bf4/img/DRMs.png"></label>
+                    <input type="checkbox" id="showDMRsCheck" name="showDMRsCheck" checked>
 					
-					<label for="showShotgunsCheck"><img src="./pages/bf3/img/Shotguns.png"></label>
+					<label for="showShotgunsCheck"><img src="./pages/bf4/img/Shotguns.png"></label>
                     <input type="checkbox" id="showShotgunsCheck" name="showShotgunsCheck" checked>
 
-                    <label for="showSidearmsCheck"><img src="./pages/bf3/img/Sidearms.png"></label>
+                    <label for="showCarbinesCheck"><img src="./pages/bf4/img/Carbines.png"></label>
+                    <input type="checkbox" id="showCarbinesCheck" name="showCarbinesCheck" checked>
+
+                    <label for="showSidearmsCheck"><img src="./pages/bf4/img/Sidearms.png"></label>
                     <input type="checkbox" id="showSidearmsCheck" name="showSidearmsCheck" checked>
 
-                    <label for="showGadgetsCheck"><img src="./pages/bf3/img/Gadgets.png"></label>
-                    <input type="checkbox" id="showGadgetsCheck" name="showGadgetsCheck" checked>
+                    <label for="showPickupsCheck"><img src="./pages/bf4/img/Pickups.png"></label>
+                    <input type="checkbox" id="showPickupsCheck" name="showPickupsCheck" checked>
                 </div>
             </div>
         
@@ -42,7 +45,6 @@
                             <li><div id="sortMaxDamage">Max Damage</div></li>
                             <li><div id="sortInitVertRecoil">Vertical Recoil</div></li>
                             <li><div id="sortHorRecoil">Horizontal Recoil</div></li>
-                            <li><div id="sortDeployTime">Deploy Time</div></li>
                         </ul>
                     </li>
                 </ul>
@@ -122,40 +124,46 @@
                     <option>SKS</option>
                     <option>SVD-12</option>
                     <option>-</option>
-                    <option>870MCS Buckshot</option>
-					<option>870MCS Flechette</option>
-					<option>870MCS Frag</option>
-					<option>870MCS Slug</option>
-					<option>DAO-12 Buckshot</option>
-					<option>DAO-12 Flechette</option>
-					<option>DAO-12 Frag</option>
-					<option>DAO-12 Slug</option>
-					<option>M1014 Buckshot</option>
-					<option>M1014 Flechette</option>
-					<option>M1014 Frag</option>
-					<option>M1014 Slug</option>
-					<option>M26 Buckshot</option>
-					<option>M26 Flechette</option>
-					<option>M26 Frag</option>
-					<option>M26 Slug</option>
-					<option>M320 BUCK</option>
-					<option>MK3A1 Buckshot</option>
-					<option>MK3A1 Flechette</option>
-					<option>MK3A1 Frag</option>
-					<option>MK3A1 Slug</option>
-					<option>SPAS-12 Buckshot</option>
-					<option>SPAS-12 Flechette</option>
-					<option>SPAS-12 Frag</option>
-					<option>SPAS-12 Slug</option>
-                    <option>Saiga-12K Buckshot</option>
-					<option>Saiga-12K Flechette</option>
-					<option>Saiga-12K Frag</option>
-					<option>Saiga-12K Slug</option>
-                    <option>USAS-12 Buckshot</option>
-					<option>USAS-12 Flechette</option>
-					<option>USAS-12 Frag</option>
-					<option>USAS-12 Slug</option>
+                    <!--
+                    <option>870 MCS (Buckshot)</option>
+					<option>870 MCS (Flechette)</option>
+					<option>870 MCS (Frag)</option>
+					<option>870 MCS (Slug)</option>
+					<option>DAO-12 (Buckshot)</option>
+					<option>DAO-12 (Flechette)</option>
+					<option>DAO-12 (Frag)</option>
+					<option>DAO-12 (Slug)</option>
+					<option>DBV-12 (Buckshot)</option>
+					<option>DBV-12 (Flechette)</option>
+					<option>DBV-12 (Frag)</option>
+					<option>DBV-12 (Slug)</option>
+					<option>HAWK 12G (Buckshot)</option>
+					<option>HAWK 12G (Flechette)</option>
+					<option>HAWK 12G (Frag)</option>
+					<option>HAWK 12G (Slug)</option>
+					<option>M1014 (Buckshot)</option>
+					<option>M1014 (Flechette)</option>
+					<option>M1014 (Frag)</option>
+					<option>M1014 (Slug)</option>
+					<option>QBS-09 (Buckshot)</option>
+					<option>QBS-09 (Flechette)</option>
+					<option>QBS-09 (Frag)</option>
+					<option>QBS-09 (Slug)</option>
+                    <option>Saiga-12K (Buckshot)</option>
+					<option>Saiga-12K (Flechette)</option>
+					<option>Saiga-12K (Frag)</option>
+					<option>Saiga-12K (Slug)</option>
+					<option>Shorty 12g</option>
+                    <option>Spas-12 (Buckshot)</option>
+					<option>Spas-12 (Flechette)</option>
+					<option>Spas-12 (Frag)</option>
+					<option>Spas-12 (Slug)</option>
+                    <option>UTS 15 (Buckshot)</option>
+					<option>UTS 15 (Flechette)</option>
+					<option>UTS 15 (Frag)</option>
+					<option>UTS 15 (Slug)</option>
                     <option>-</option>
+                    -->
                     <option>A-91</option>
                     <option>ACE 21 CQB</option>
                     <option>ACE 52 CQB</option>
@@ -185,6 +193,12 @@
                     <option>QSZ-92</option>
                     <option>SW40</option>
                     <option>Unica 6</option>
+                    <option>-</option>
+                    <option>AMR-2</option>
+                    <option>M60ULT</option>
+                    <option>M82A3</option>
+                    <option>Rorsch Mk-1</option>
+                    <option>USAS-12</option>
                 </select>
             </div>
         </div>

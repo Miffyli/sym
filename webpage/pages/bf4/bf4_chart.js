@@ -1,5 +1,5 @@
 var gravityTooltip = "Gravity"
-var bf4WeaponClassTitles = ["","Assault","Engineer","Support","Recon","Carbines","DMRs","Shotguns", "Sidearms", "Battle Pickups"];
+var bf4WeaponClassTitles = ["","Assault","Engineer","Support","Recon","Carbines","DMRs","Shotguns", "Sidearms", "Pickups"];
 var firestormWeapons = [];
 var customizations = new Object();
 var addVariantCounter = 0;
@@ -118,7 +118,7 @@ function bf4PrintWeaponClass(weaponClass){
 
 function bf4PrintWeapon(weaponStats){
     var firestormIcon = (firestormWeapons.includes(weaponStats.WeapShowName) ? "<img src='./pages/bfv/img/firestorm.png' " + firestormTooltip + ">" : "");
-    var reloadData = bf4CreateReloadGraphic(weaponStats.ReloadEmpty, weaponStats.ReloadLeft, weaponStats.MagSize, weaponStats.Ammo);
+    var reloadData = bf4CreateReloadGraphic(weaponStats.ReloadEmpty, weaponStats.ReloadLeft, weaponStats.MagSize, weaponStats.AmmoName);
     var standRecoilData = bf4CreateRecoilGraphic(weaponStats.ADSRecoilLeft, weaponStats.ADSRecoilRight, weaponStats.ADSRecoilUp, weaponStats.FirstShotRecoilMul, weaponStats.ADSRecoilDec);
     var spreadTableGraphic = bf4CreateSpreadTableGraphic(weaponStats.ADSStandBaseMin,weaponStats.ADSCrouchBaseMin,weaponStats.ADSProneBaseMin,
                                                       weaponStats.ADSStandMoveMin,weaponStats.ADSCrouchMoveMin,weaponStats.ADSProneMoveMin,
@@ -137,14 +137,14 @@ function bf4PrintWeapon(weaponStats){
                          "<div style='line-height: 20px;'>" +
                              "<span class='lblMagText'>" +
                                 "<span class='lblMag'>" + weaponStats.MagSize + "</span>" +
-                                "<span class='lblSuffixText'> x " + bf4FormatAmmoType(weaponStats.Ammo) + "</span>" +
+                                "<span class='lblSuffixText'> x " + bf4FormatAmmoType(weaponStats.AmmoName) + "</span>" +
                              "</span>" +
                              bf4CreateRPMGrpahic(weaponStats.RoF) +
                          "</div>" +
                      "</td>" +
 
               "<td class='secondColumn'>" +
-                  "<div class='damageChartContainer' " + damageTooltip + ">" + bf4createDamageChart([weaponStats['SDmg'], weaponStats['EDmg']], [weaponStats['DOStart'], weaponStats['DOEnd']], weaponStats.Pellets, weaponStats.Ammo) + "</div>" +
+                  "<div class='damageChartContainer' " + damageTooltip + ">" + bf4createDamageChart([weaponStats['SDmg'], weaponStats['EDmg']], [weaponStats['DOStart'], weaponStats['DOEnd']], weaponStats.Pellets, weaponStats.AmmoName) + "</div>" +
               "</td>" +
 
               "<td>" +
@@ -182,7 +182,7 @@ function bf4PrintWeapon(weaponStats){
 function bf4GetWeaponImageFilename(weaponName){
     var weaponFilename = "";
 
-    weaponFilename =  weaponName.replace("Slug", "").replace("Buckshot", "").replace("Flechette", "").replace("Frag", "").replace("SMOKE", "").replace("LVG", "").replace("BUCK", "").replace("BA", "").replace("HE", "").replace("SCAN", "");
+    weaponFilename =  weaponName.replace("(Slug)", "").replace("(Buckshot)", "").replace("(Flechette)", "").replace("(Frag)", "");
 
     return weaponFilename.trim();
 }
@@ -408,19 +408,14 @@ function bf4CreateDamageChart50Max(damageArr, distanceArr, numOfPellets, ammoTyp
     }
 
     var fragSplash = "";
-    if(ammoType == "12g Frag"){
+    if(ammoType == "12gFrag"){
         fragSplash = "<polyline class='chartSplashDamageLine' style='stroke: orange;' points='0,70 100,70 125,120'></polyline>" +
                      fragLabels +
                      "<text y='66' class='chartMinMaxSplashLabel' x='103'>25 (Splash Damage)</text>";
         if (maxDamage == 20){
             maxDamageText = "<text x='" + (distanceArr[1] - 0) + "' y='" + (124 - (2 * maxDamage)).toString() + "' class='chartMinMaxLabel maxDamageText'>" + maxDamage + "</text>";
         }
-    }
-	
-	var scanRadius = "";
-    if(ammoType == "Scan Bolt"){
-        scanRadius = "<polyline class='chartScanRadiusLine' style='stroke: #C5CED2;' points='20,0 20,150'></polyline>" +
-                     "<text y='46' class='chartScanRadiusLabel' x='27'>10m Scan Radius</text>";
+        minDamageText = "<text x='" + ((distanceArr[distanceArr.length - 1] * 2) - 15) + "' y='" + (134 - (2 * minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";
     }
 	
 	if (maxDamage == minDamage){
@@ -475,7 +470,6 @@ function bf4CreateDamageChart50Max(damageArr, distanceArr, numOfPellets, ammoTyp
                "<text x='251' y='119' class='chartLabel'>125m</text>" +
 
                fragSplash +
-			   scanRadius +
 			   "<polyline class='chartDamageLine' points='" + damageLineCoords + "'/>" +
                maxDamageText +
                minDamageText +
@@ -624,25 +618,30 @@ function bf4ShowHideClasses(){
     } else {
         $("#ReconSection").hide(0);
     }
-	if ($("#showPDWsCheck").is(":checked")){
-        $("#PDWsSection").show(0);
+	if ($("#showDMRsCheck").is(":checked")){
+        $("#DMRsSection").show(0);
     } else {
-        $("#PDWsSection").hide(0);
+        $("#DMRsSection").hide(0);
     }
-	if ($("#showShotgunsCheck").is(":checked")){
+    if ($("#showShotgunsCheck").is(":checked")){
         $("#ShotgunsSection").show(0);
     } else {
         $("#ShotgunsSection").hide(0);
+    }
+    if ($("#showCarbinesCheck").is(":checked")){
+        $("#CarbinesSection").show(0);
+    } else {
+        $("#CarbinesSection").hide(0);
     }
 	if ($("#showSidearmsCheck").is(":checked")){
         $("#SidearmsSection").show(0);
     } else {
         $("#SidearmsSection").hide(0);
     }
-    if ($("#showGadgetsCheck").is(":checked")){
-        $("#GadgetsSection").show(0);
+    if ($("#showPickupsCheck").is(":checked")){
+        $("#PickupsSection").show(0);
     } else {
-        $("#GadgetsSection").hide(0);
+        $("#PickupsSection").hide(0);
     }
 
 }
