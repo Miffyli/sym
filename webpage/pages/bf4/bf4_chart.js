@@ -99,7 +99,7 @@ function bf4PrintWeapons(){
 }
 
 function bf4PrintWeaponClass(weaponClass){
-    var classImgFileName = (weaponClass == 5) ? "Sidearms.png" : bf4WeaponClassTitles[weaponClass] + ".png";
+    var classImgFileName = bf4WeaponClassTitles[weaponClass] + ".png";
 
     var rtnStr = "";
     rtnStr += "<div id='" + bf4WeaponClassTitles[weaponClass] + "Section'>" +
