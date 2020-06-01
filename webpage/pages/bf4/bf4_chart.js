@@ -182,7 +182,7 @@ function bf4PrintWeapon(weaponStats){
 function bf4GetWeaponImageFilename(weaponName){
     var weaponFilename = "";
 
-    weaponFilename =  weaponName.replace("(Slug)", "").replace("(Buckshot)", "").replace("(Flechette)", "").replace("(Frag)", "");
+    weaponFilename =  weaponName.replace("Slug", "").replace("Buckshot", "").replace("Flechette", "").replace("Frag", "");
 
     return weaponFilename.trim();
 }
