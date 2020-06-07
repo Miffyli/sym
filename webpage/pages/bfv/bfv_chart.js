@@ -800,6 +800,7 @@ weaponSubCats._Ribeyrolles1918 = "AR";
 weaponSubCats._StG44 = "AR";
 weaponSubCats._Sturmgewehr15 = "AR";
 weaponSubCats._Karabin1938M = "SAR";
+weaponSubCats._M1941Johnson = "SAR";
 
 weaponSubCats._EMP = "SMG";
 weaponSubCats._M1928A1 = "SMG";
@@ -816,6 +817,7 @@ weaponSubCats._Type100 = "SMG";
 weaponSubCats._M28Tromboncino = "BACarbine";
 weaponSubCats._CommandoCarbine = "BACarbine";
 weaponSubCats._JungleCarbine = "BACarbine";
+weaponSubCats._Welgun = "SMG";
 
 weaponSubCats._12gAutomatic = "Shotgun";
 weaponSubCats._M30Drilling = "Shotgun";
@@ -836,6 +838,8 @@ weaponSubCats._MG42 = "MMG";
 weaponSubCats._S2200 = "MMG";
 weaponSubCats._VGO = "MMG";
 weaponSubCats._M1919A6 = "MMG";
+//weaponSubCats._Sjögren Shotgun = "Shotgun";
+weaponSubCats._Chauchat = "LMG";
 
 weaponSubCats._BoysATRifle = "AntiMaterial";
 weaponSubCats._Panzerbüchse39 = "AntiMaterial";
@@ -851,6 +855,8 @@ weaponSubCats._Selbstlader1906 = "SLR";
 weaponSubCats._ZH29 = "SLR";
 weaponSubCats._P08Carbine = "PistolCarbine";
 weaponSubCats._C96TrenchCarbine = "PistolCarbine";
+weaponSubCats._M3Infrared = "SAR";
+weaponSubCats._K3143 = "BA";
 
 
 function cleanUpStuff(){
