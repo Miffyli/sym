@@ -162,7 +162,7 @@ function BF3GetTTKUpperBoundOverDistance (weapon) {
   var distances = [weapon['DOStart'], weapon['DOEnd']]
   var bulletVelocity = weapon['InitialSpeed']
   var numShots = weapon['Pellets'] || 1
-  var msPerShot = 60000 / (weapon['BRoF'])
+  var msPerShot = 60000 / (weapon['RoF'])
   var TTKUBOverDistance = []
 
   // Loop over distance and store damages
