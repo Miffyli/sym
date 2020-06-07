@@ -838,7 +838,7 @@ weaponSubCats._MG42 = "MMG";
 weaponSubCats._S2200 = "MMG";
 weaponSubCats._VGO = "MMG";
 weaponSubCats._M1919A6 = "MMG";
-//weaponSubCats._Sjögren Shotgun = "Shotgun";
+weaponSubCats._SjogrenShotgun = "Shotgun";
 weaponSubCats._Chauchat = "LMG";
 
 weaponSubCats._BoysATRifle = "AntiMaterial";
