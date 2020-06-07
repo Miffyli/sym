@@ -4562,8 +4562,8 @@
     {
         "Class": 1,
         "WeapShowName": "L85A2",
-        "RoF": 800,
-        "BRoF": 800,
+        "RoF": 650,
+        "BRoF": 650,
         "MagSize": 31,
         "Ammo": "5.56x45mm NATO",
         "InitialSpeed": 600,
