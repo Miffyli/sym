@@ -36,7 +36,11 @@ const BF3_LOWER_IS_WORSE = new Set([
   'Pellets',
   'RoF',
   'ShockwaveRadius',
-  'SpreadDec'
+  'SpreadDec',
+  'DOEnd',
+  'DOStart',
+  'EDmg',
+  'SDmg'
 ])
 
 // List of attachments allowed in the two separate losts
