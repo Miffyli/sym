@@ -54,6 +54,11 @@ function BF4GetSelectedWeapons () {
 function BF4FilterTable (variableName, weaponValues, filters, includeOnlyDiffering) {
   var shouldInclude = true
 
+  // Do not include the "raw_" variables
+  if (variableName.indexOf('raw_') !== -1) {
+    return false
+  }
+
   // Hardcoded: Only include numeric values in the table (including "N/A")
   // TODO this should be done before-hand
   shouldInclude = weaponValues.every(weaponValue => (!isNaN(weaponValue) || weaponValue === 'N/A'))
