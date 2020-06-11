@@ -160,6 +160,15 @@ function loadBF1Stylesheet(){
   $('#chartCSS').attr('href', './pages/bf1/bf1_chart.css')
 }
 
+function loadBF4Stylesheet(){
+  $('#chartCSS').attr('href', './pages/bf4/bf4_chart.css')
+}
+
+function loadBFHStylesheet(){
+  // Commented out for now (charts not implemented yet)
+  //$('#chartCSS').attr('href', './pages/bfh/bfh_chart.css')
+}
+
 function loadBF3Stylesheet(){
   $('#chartCSS').attr('href', './pages/bf3/bf3_chart.css')
 }
@@ -241,6 +250,15 @@ function exceuteQueryStringParams(){
         case 'bf3-general-info':
           openOtherTitlesSelectionPageFromQueryString('BF3 General Info')
           break
+        case 'bf4-general-info':
+          openOtherTitlesSelectionPageFromQueryString('BF4 General Info')
+          break
+        case 'bf4-comparison':
+          openOtherTitlesSelectionPageFromQueryString('BF4 Comparison')
+          break
+        case 'bf4-charts':
+          openOtherTitlesSelectionPageFromQueryString('BF4 Weapon Charts')
+          break
       }
       break
     case 'sym':
@@ -265,14 +283,13 @@ function exceuteQueryStringParams(){
           loadPageWithHeader('./pages/misc/staff.html', 'Site Staff')
           updateQueryString("sym", "staff")
           break
-		case 'partners':
+        case 'partners':
           loadPageWithHeader('./pages/misc/partners.html', 'Our Partners')
           updateQueryString("sym", "partners")
           break
       }
-      break;
+      break
   }
-
 }
 
 $(document).ready(function() {

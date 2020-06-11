@@ -1,0 +1,33 @@
+<div class="bfh-content-comparison">
+    <h1 class="comp-pageTitle">Battlefield Hardline Weapon Comparison </h1>
+
+    <div id="selectors"></div>
+
+    <br>
+
+    <details open>
+        <summary>Hide/Show graphs</summary>
+        <div id="graphs">
+            <div style="width:33%; float:left" id="damage_graph"></div>
+            <div style="width:33%; float:left" id="btkub_graph"></div>
+            <div style="width:33%; float:left" id="ttkub_graph"></div>
+        </div>
+    </details>
+	
+
+    <div class="comp-filterContainer">
+        <h3 class="comp-filterBorderHeader">Filters</h3>
+        <div>
+            <div class="comp-filterInput">
+                <label>Keywords (comma-separated)</label><br>
+                <input id="column_filter" type="text" autocomplete="off"  placeholder="BROF,MagSize,etc...">
+            </div>
+            <div class="comp-filterInput" >
+                <input id="column_onlydiffering" type="checkbox">
+                <label>Only include rows with different values</label>
+            </div>
+        </div>
+        <br><br>
+    </div>
+    <div class="bfh-content-comparison-table" id="compare_table"></div>
+</div>
