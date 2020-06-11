@@ -52,11 +52,7 @@ function otherTitlesSetupPageHeader(){
     } else if (clicked === 'bf4-comparisonPageSelector') {
       pageName = 'BF4 Comparison'
     } else if (clicked === 'bf4-generalInfoPageSelector') {
-      pageName = 'BF4/BFH General Info'
-    } else if (clicked === 'bfh-chartPageSelector') {
-      pageName = 'BFH Weapon Charts'
-    } else if (clicked === 'bfh-comparisonPageSelector') {
-      pageName = 'BFH Comparison'
+      pageName = 'BF4 General Info'
     }
     otherTitlesOpenPageByName(pageName)
   })
@@ -95,14 +91,10 @@ function otherTitlesOpenPageByName(pageName) {
     $('#bf4-chartPageSelector').addClass('selected-selector')
     openBF4ChartPage()
     updateQueryString("other", "bf4-charts")
-  } else if (pageName === 'BF4/BFH General Info') {
+  } else if (pageName === 'BF4 General Info') {
     $('#bf4-generalInfoPageSelector').addClass('selected-selector')
     openBF4GeneralInfoPage()
     updateQueryString("other", "bf4-general-info")
-  } else if (pageName === 'BFH Comparison') {
-    $('#bfh-comparisonPageSelector').addClass('selected-selector')
-    openBFHComparisonPage()
-    updateQueryString("other", "bfh-comparison")
   }
 }
 
