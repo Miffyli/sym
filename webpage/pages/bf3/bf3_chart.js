@@ -242,7 +242,7 @@ function bf3CreateReloadGraphic(reloadEmpty, reloadLeft, magSize, ammoType){
 }
 
 function bf3FormatAmmoType(ammo){
-    var newAmmo = ammo.replace("Slug", "").replace("_Semi", "").replace("_SMG", "");
+    var newAmmo = ammo.replace("fillertext", " ")
     
     return newAmmo;
 }

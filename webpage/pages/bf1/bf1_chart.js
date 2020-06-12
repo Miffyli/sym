@@ -237,10 +237,7 @@ function bf1CreateReloadGraphic(reloadEmpty, reloadLeft, magSize, ammoType){
 }
 
 function bf1FormatAmmoType(ammo){
-    var newAmmo = ammo.replace("Carcano65x52mm", "6.5x52mm Carcano").replace("_Semi", "").replace("_SMG", "").replace("_Heavy", "").replace("_Pistol", "").replace("_Bolt", " ").replace("_SLR", " ").replace("Mauser", "Mauser ").replace("303", ".303").replace("792", "7.92").replace("Carbine", "").replace("Heavy", "").replace("Sniper", "").replace("_ShortBarrel", "");
-    newAmmo = newAmmo.replace("75", "7.5").replace("351W", ".351 W").replace("35R", ".35 R").replace("_Fast", "").replace("_A5", "").replace("_Drilling", "").replace("_Improved", "").replace("_1897", "").replace("Incendiary", "").replace("LongRange", "").replace("_LowDrag", "").replace("Rifle", "").replace("_Aero", " ").replace("_", " ");
-    newAmmo = newAmmo.replace("_Auto", "").replace(" HighROF", "").replace(" M3", "").replace(" MMG", "").replace(" MG", "").replace("_CMP", "").replace(" PzB39", "");
-    
+    var newAmmo = ammo.replace("fillertext", " ")
     return newAmmo;
 }
 

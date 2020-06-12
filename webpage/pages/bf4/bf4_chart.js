@@ -243,7 +243,7 @@ function bf4CreateReloadGraphic(reloadEmpty, reloadLeft, magSize, ammoType){
 }
 
 function bf4FormatAmmoType(ammo){
-    var newAmmo = ammo.replace(".45cal", ".45 ACP").replace("7.62x39mmWPHeavy", "7.62x39mm").replace("5.8x42mmDAP-87", "5.8x42mm").replace(".40S&W", ".40 S&W").replace("5.45x39mmWP", "5.45x39mm").replace("9x39mmSP6", "9x39mm SP-6").replace("5.8x42mmDAP-87", "5.8x42mm").replace("7.62x51mmNATO", "7.62x51mm").replace("7.62x51mmIncendiary", "7.62x51mm Explosive").replace("5.56x45mmNATO", "5.56x45mm").replace("Railgun_Projectile", "Railgun Slug");
+    var newAmmo = ammo.replace("fillertext", " ")
     
     return newAmmo;
 }
