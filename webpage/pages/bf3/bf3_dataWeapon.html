@@ -35,7 +35,7 @@
 					<td>Horizontal Recoil</td>
 				</tr>
 				<tr>
-					<td>SDec</td>
+					<td>SDEC</td>
 					<td>Spread Decrease</td>
 				</tr>
 				<tr>
@@ -72,10 +72,6 @@
 					<td>PDW</td>
 					<td>Personal Defense Weapon</td>
 				</tr>
-				<tr>
-					<td>SMG</td>
-					<td>Submachine Gun</td>
-				</tr>
 			</table>
 		</p>
 	<div class="bfv-sym-info-section-header">
@@ -98,7 +94,7 @@
 		
 		<div class="bfv-sym-info-subheader">Spread Decrease</div>
 			<p>Spread Decrease Per Second (SDEC) is applied whenever the weapon is in a ready to fire state. After firing a shot, a weapon has a set amount of time before it can be fired again. This time is dictated by the weapon’s Rate Of Fire. A simple example using the M16A3 shows that its 800 RPM requires a 0.075 second gap between each shot. Therefore, 0.075s must pass from the previous shot fired and for no further fire inputs to be detected before SDEC activates. From there SDEC will reduce the weapon’s spread until it reaches the minimum spread value or until the weapon is fired again.</p>
-			<p>A more advanced breakdown can be performed by using frames. The 30Hz simulation rate of Battlefield 3 means the M16A3’s 800 RPM will have 2.25 frames on average between each shot. This will mean the weapon’s frame distribution is 2-2-2-3. Therefore, SDEC will only activate on the third or fourth frame depending on when no further fire input is detected.</p>
+			<p>A more advanced breakdown can be performed by using frames. The 30Hz simulation rate of <i>Battlefield 3</i> means the M16A3’s 800 RPM will have 2.25 frames on average between each shot. This will mean the weapon’s frame distribution is 2-2-2-3. Therefore, SDEC will only activate on the third or fourth frame depending on when no further fire input is detected.</p>
 		
 		<div class="bfv-sym-info-subheader">Recoil</div>
 			<p>For every shot fired, the camera is rotated a certain amount in the following frame.</p>
@@ -117,7 +113,7 @@
 				<td>+1.5 degrees minSpread<br>+100% SIPS<br>+100% SDEC<br>+100% vRec<br>+150% hRec</td>
 			</tr>
 			<tr>
-				<td>BA and DMRs</td>
+				<td>BAs and DMRs</td>
 				<td>+2 degrees minSpread<br>+0.1 degrees SIPS<br>+100% SDEC<br>+100% vRec<br>+150% hRec</td>
 			</tr>
 			<tr>

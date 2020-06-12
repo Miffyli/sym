@@ -272,6 +272,13 @@ function openBF1GeneralInfoPage () {
   $('.bf1-main-content').load('./pages/bf1/bf1_generalinfo.html')
 }
 
+/*
+  Load the BF1 Weapon Mechanics Info page
+*/
+function openBF1GeneralInfoPage () {
+  $('.bf1-main-content').load('./pages/bf1/bf1_dataWeapon.html')
+}
+
 
 /*
   Display BF1 page to user. This should be
@@ -324,6 +331,10 @@ function BF1OpenPageByName(pageName) {
     $('#bf1-generalinfoPageSelector').addClass('selected-selector')
     openBF1GeneralInfoPage()
     updateQueryString("bf1", "general-info")
+  } else if (pageName === 'Weapon Mechanics') {
+    $('#bf1-weaponinfoPageSelector').addClass('selected-selector')
+    openBF1WeaponInfoPage()
+    updateQueryString("bf1", "weapon-mechanics")
   } else if (pageName === 'Index') {
     $('#bf1-mainPageSelector').addClass('selected-selector')
     openBF1IndexPage()
@@ -363,8 +374,10 @@ function BF1SetupPageHeader(){
       pageName = 'Weapon Comparison'
     } else if (clicked === 'bf1-mainPageSelector') {
       pageName = 'Index'
-	  } else if (clicked === 'bf1-generalinfoPageSelector') {
+	} else if (clicked === 'bf1-generalinfoPageSelector') {
       pageName = 'General Information'
+	} else if (clicked === 'bf1-weaponinfoPageSelector') {
+      pageName = 'Weapon Mechanics'
     } else if (clicked === 'bf1-chartPageSelector') {
       pageName = 'Weapon Charts'
     }

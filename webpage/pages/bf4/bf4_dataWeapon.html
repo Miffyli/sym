@@ -23,15 +23,19 @@
 					<td>Estimated Frames to Kill</td>
 				</tr>
 				<tr>
+					<td>FSRM</td>
+					<td>First Shot Recoil Multiplier</td>
+				</tr>
+				<tr>
 					<td>FTK</td>
 					<td>Frames to Kill</td>
 				</tr>
 				<tr>
-					<td>HRec</td>
+					<td>hRec</td>
 					<td>Horizontal Recoil</td>
 				</tr>
 				<tr>
-					<td>SDec</td>
+					<td>SDEC</td>
 					<td>Spread Decrease</td>
 				</tr>
 				<tr>
@@ -43,35 +47,80 @@
 					<td>Time to Kill</td>
 				</tr>
 				<tr>
-					<td>VRec</td>
+					<td>vRec</td>
 					<td>Vertical Recoil</td>
 				</tr>
 			</table>
-			</p>
-			<br>
-		<div class="bfv-sym-info-section-header">
+			<table class="bfv-genInfo-table">
+				<tr>
+					<td>AR</td>
+					<td>Assault Rifle</td>
+				</tr>
+				<tr>
+					<td>BA</td>
+					<td>Bolt-Action Rifle</td>
+				</tr>
+				<tr>
+					<td>DMR</td>
+					<td>Designated Marksman Rifle</td>
+				</tr>
+				<tr>
+					<td>LMG</td>
+					<td>Light Machine Gun</td>
+				</tr>
+				<tr>
+					<td>PDW</td>
+					<td>Personal Defense Weapon</td>
+				</tr>
+			</table>
+		</p>
+	<div class="bfv-sym-info-section-header">
 			<img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_VRecoil.svg">
 			<span>Weapon Handling</span>
 			<p><i>Thanks to NoctyrneSAGA for writing this section.</i></p>
 		</div>
 		
 		<div class="bfv-sym-info-subheader">Spread Increase</div>
-			<p>Spread is applied per-shot (spread increase per shot, or “SIPS”), as it has been in previous Battlefield titles. Note that spread increase per shot is set to 0 in ADS (zoomed) fire for LMGs, MMGs, SARs, SLRs, sidearms, and BARs. Spread now decreases even when the gun is not idle (see: in between shots while firing at max rate of fire), decreasing at an accelerating rate per frame.</p>
-			<p><i>- Spread exponent:</i> Dictates rate of spread decrease acceleration<br>
-			<i>- Spread offset:</i> Fixed value for spread decrease per frame<br>
-			<i>- Spread coefficient:</i> Beta for spread decrease acceleration</p>
-			<p>\[
-				\text{spread}_n \; = \; \text{spread}_{n-1} - \frac{1}{\text{simrate}} \cdot (\text{coef} \cdot (\text{spread}_{n-1} - \text{minspread})^\text{exp} + \text{offset})
-			\]</p>
-			<p><i>Note: "n" designates the current frame, of which current spread is calculated, simrate = 60, as Battlefield 4 uses a 60Hz logic loop</i></p>
-			<p>This new system for spread decrease results in a spread curve that is vaguely logarithmic, with diminishing spread penalties for further sustained fire.  ADS (zoomed) spread uses uniform distribution over radius, which features an inner bias. Hipfire uses a uniform distribution over the area meaning that shots are distributed evenly throughout the area of the spread cone. Note that “zoomed hipfire” for the MMGs and AMRs that is used when the guns are aimed without a bipod qualifies as ADS (zoomed) spread and uses an inner bias.</p>
+			<ul>
+				<li>If spread > 0.0, shot will have random dispersion from the aimpoint. Spread = radius of the circle used for random selection.</li>
+				<li>Each shot adds spreadIncrease to spread.</li>
+				<li>Spread will start to decrease when the weapon is ready to fire the next shot at the rate of <b>spreadDecrease/second</b>.</li>
+				<li><a href="https://forum.sym.gg/t/moving-ads-spread-values-bf4/182">Check this topic for info on movement spread</a></li>
+			</ul>
 		
-		<div class="bfv-sym-info-subheader">Idle Spread Decrease</div>
-			<p>Idle spread decrease is linear (coefficient = 0.0, effectively rendering an exponent of 0.0, leading to no spread decrease acceleration) on all weapons but buckshot shotguns. This is a separate decrease rate that activates after a certain number of frames are surpassed following a shot being fired, and very rapidly decreases spread. Idle spread decrease is only in consideration for transitions in movement or firing state (ADS/zoomed to hipfire/unzoomed), very slowly pacing or tapfiring shots, or while firing the Breda without Trigger Job.</p>
-			<p>The spread decrease offset effectively sets the number of degrees of spread decreased per frame. The idle time dictates the number of frames after a shot is figured that must be surpassed before the idle spread decrease rates are used. Idle spread decrease is effectively fast enough to bring spread down to the designated minimum angle in a single frame in the vast majority of cases.</p>
-		<div class="bfv-sym-info-subheader">Vertical and Horizontal Recoil</div>
-			<p>As with all Battlefield games since Battlefield 4, vertical recoil is a fixed (non-randomized) value. While vertical recoil can accelerate, the increases and decreases are at discrete, known intervals. Horizontal recoil works as it always had in previous games, consisting of a number line (e.g. -0.3 to 0.3), where a randomly generated value is produced, with a uniform distribution. Note that SARs and SLRs do not have horizontal recoil. Spread-derived recoil is applied alongside this, which effectively adds further variance in vertical and horizontal recoil.</p>
+		<div class="bfv-sym-info-subheader">Spread Decrease</div>
+			<p>Spread Decrease Per Second (SDEC) is applied whenever the weapon is in a ready to fire state. After firing a shot, a weapon has a set amount of time before it can be fired again. This time is dictated by the weapon’s Rate Of Fire. A simple example using <i>Battlefield 3's</i> M16A3 shows that its 800 RPM requires a 0.075 second gap between each shot. Therefore, 0.075s must pass from the previous shot fired and for no further fire inputs to be detected before SDEC activates. From there SDEC will reduce the weapon’s spread until it reaches the minimum spread value or until the weapon is fired again.</p>
+			<p>A more advanced breakdown can be performed by using frames. The 30Hz simulation rate of <i>Battlefield 3</i> means the M16A3’s 800 RPM will have 2.25 frames on average between each shot. This will mean the weapon’s frame distribution is 2-2-2-3. Therefore, SDEC will only activate on the third or fourth frame depending on when no further fire input is detected.</p>
+		
 		<div class="bfv-sym-info-subheader">Recoil</div>
-			<p>Recoil decrease works as it does in Battlefield 1, persisting even when the gun is not idle, and decelerates as time passes.</p>
-	</div>
-</div>
+			<p>For every shot fired, the camera is rotated a certain amount in the following frame.</p>
+			<p>Vertical Recoil (vRec) rotates the camera around the x-axis in degrees. A positive value moves the camera upwards while a negative value would move the camera downwards.</p>
+			<p>The First Shot Recoil Multiplier (FSRM) is applied to the weapon’s vRec if the shot fired is determined to be from a new fire input. If the fire button continues to be held down afterward, only the standard vRec without FSRM will be applied. This will continue until the fire input is released or if the weapon reloads. Once either occurs, the next new fire input will apply FSRM again. Weapons set to burst mode will apply FSRM to the final shot in the burst instead of the first shot.</p>
+			<p>Horizontal Recoil (hRec) rotates the camera around the y-axis in degrees. It can be thought of as a number line with the two hRec values specifying the maximum bounds. Each time a shot is fired, the game will randomly pick a value between these two bounds with a uniform distribution to apply to the camera.</p>
+
+		<div class="bfv-sym-info-subheader">Suppression</div>
+		<p>Surrounding each soldier’s head is an invisible sphere. Projectiles passing through this sphere will deal Suppression to the soldier. The amount of Suppression imparted depends on how close to the head the projectile was and how far the soldier is from the shooter. Direct headshots yield the most Suppression.</p>
+		<p>When enough Suppression has been built up, the player will begin to experience Suppression penalties on their weapon. This threshold differs between games and is the “HighThreshold” in the game data. Once this threshold is cleared, the penalties will begin scaling up linearly until maximum Suppression is reached at which point the Suppression penalties are also at their maximum. Suppression penalties are applied before the effects of attachments take effect.</p>
+		<p>In Battlefield 4, the Suppression sphere radius is 1.5m and the HighThreshold is 0.1 or 10%. While the player’s Suppression is under 10%, they will not suffer from any Suppression penalties. Once they exceed 10%, the Suppression penalties begin to apply and scale up. At 55% Suppression, the player is experiencing half the amount of Suppression penalties specified in the game data. If the weapon has a +0.05 minSpread penalty in the data, then at this point the penalty is actually only +0.025. Only when Suppression has reached 100% will the full penalty of +0.05 be applied.</p>
+		<p>Suppression penalties in BF4 are generally:<p>
+			<table class="bfv-info-spec-table">
+			<tr>
+				<td>ARs, PDWs, LMGs, and Carbines</td>
+				<td>+0.5 degrees maxSpread<br>+100% SIPS<br>+100% SDEC<br>+33% vRec<br>+25% FSRM</td>
+			</tr>
+			<tr>
+				<td>Bolt-Action Rifles</td>
+				<td>+0.33 degrees minSpread</td>
+			</tr>
+			<tr>
+				<td>DMRs</td>
+				<td>+0.5 degrees maxSpread<br>+50% SIPS<br>+50% SDEC<br>+50%vRec</td>
+			</tr>
+			<tr>
+				<td>Shotguns</td>
+				<td>+0.5 degrees maxSpread<br>+0.115 degrees SIPS<br>+50% vRec</td>
+			</tr>
+			<tr>
+				<td>Sidearms</td>
+				<td>+0.5 degrees maxSpread<br>+50% SIPS<br>+50% SDEC<br>+50% vRec</td>
+			</tr>
