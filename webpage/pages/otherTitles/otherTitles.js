@@ -47,7 +47,11 @@ function otherTitlesSetupPageHeader(){
       pageName = 'BF3 Comparison'
     } else if (clicked === 'bf3-generalInfoPageSelector') {
       pageName = 'BF3 General Information'
-    } else if (clicked === 'bf4-chartPageSelector') {
+    } else if (clicked === 'bf3-weaponPageSelector') {
+      pageName = 'BF3 Weapon Mechanics'
+	} else if (clicked === 'bf4-weaponPageSelector') {
+      pageName = 'BF4 Weapon Mechanics'
+	} else if (clicked === 'bf4-chartPageSelector') {
       pageName = 'BF4 Weapon Charts'
     } else if (clicked === 'bf4-comparisonPageSelector') {
       pageName = 'BF4 Comparison'
@@ -75,6 +79,10 @@ function otherTitlesOpenPageByName(pageName) {
     $('#bf3-chartPageSelector').addClass('selected-selector')
     openBF3ChartPage()
     updateQueryString("other", "bf3-charts")
+  } else if (pageName === 'BF3 Weapon Mechanics') {
+    $('#bf3-weaponPageSelector').addClass('selected-selector')
+    openBF3WeaponInfoPage()
+    updateQueryString("other", "bf4-weapon-mechanics")
   } else if (pageName === 'BF3 Comparison') {
     $('#bf3-comparisonPageSelector').addClass('selected-selector')
     openBF3ComparisonPage()
@@ -87,6 +95,10 @@ function otherTitlesOpenPageByName(pageName) {
     $('#bf4-comparisonPageSelector').addClass('selected-selector')
     openBF4ComparisonPage()
     updateQueryString("other", "bf4-comparison")
+  } else if (pageName === 'BF4 Weapon Mechanics') {
+    $('#bf4-weaponPageSelector').addClass('selected-selector')
+    openBF4WeaponInfoPage()
+    updateQueryString("other", "bf4-weapon-mechanics")
   } else if (pageName === 'BF4 Weapon Charts') {
     $('#bf4-chartPageSelector').addClass('selected-selector')
     openBF4ChartPage()

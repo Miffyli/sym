@@ -286,7 +286,7 @@ function BF4LoadWeaponData () {
 
 /*
   Display BF4 page to user. This should be
-  done after data has been succesfully loaded
+  done after data has been successfully loaded
 */
 function openBF4ComparisonPage () {
   if (BF4DataLoaded === false) {
@@ -318,5 +318,11 @@ function loadBF4ChartPage(){
 }
 
 function openBF4GeneralInfoPage () {
-  $('.otherTitles-main-content').load('./pages/bf4/bf4_bfh_generalinfo.html')
+  $('.otherTitles-main-content').load('./pages/bf4/bf4_generalinfo.html')
+}
+/*
+  Load the BFV weapon data page
+*/
+function openBF4WeaponInfoPage () {
+  $('.otherTitles-main-content').load('./pages/bf4/bf4_dataWeapon.html', function(){MathJax.typeset()})
 }

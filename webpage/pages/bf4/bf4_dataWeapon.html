@@ -1,0 +1,77 @@
+<div class="bfv-content-comparison">
+    <h1 class="comp-pageTitle" style="margin-bottom: 30px;">Battlefield 4 Weapon Mechanics</h1>
+    <div class="bfv-sym-info-page sym-static-content sym-about">
+
+		<div class="bfv-sym-info-section-header">
+			&nbsp; &nbsp; &nbsp; &nbsp; <img src="./pages/bfv/img/roster_icon_allies.svg"> &nbsp; &nbsp;
+			<span>Preface</span>
+		</div>
+			<p>This page contains information regarding the functioning of weapons in <i>Battlefield 4,</i> throughout which multiple abbreviations may be used for brevity. Their individual meanings are as follows:</p>
+			
+			<p>
+			<table class="bfv-genInfo-table">
+				<tr>
+					<td>ADS</td>
+					<td>Aim Down Sight</td>
+				</tr>
+				<tr>
+					<td>BTK</td>
+					<td>Bullets to Kill</td>
+				</tr>
+				<tr>
+					<td>EFTK</td>
+					<td>Estimated Frames to Kill</td>
+				</tr>
+				<tr>
+					<td>FTK</td>
+					<td>Frames to Kill</td>
+				</tr>
+				<tr>
+					<td>HRec</td>
+					<td>Horizontal Recoil</td>
+				</tr>
+				<tr>
+					<td>SDec</td>
+					<td>Spread Decrease</td>
+				</tr>
+				<tr>
+					<td>SIPS</td>
+					<td>Spread Increase per Shot</td>
+				</tr>
+				<tr>
+					<td>TTK</td>
+					<td>Time to Kill</td>
+				</tr>
+				<tr>
+					<td>VRec</td>
+					<td>Vertical Recoil</td>
+				</tr>
+			</table>
+			</p>
+			<br>
+		<div class="bfv-sym-info-section-header">
+			<img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_VRecoil.svg">
+			<span>Weapon Handling</span>
+			<p><i>Thanks to NoctyrneSAGA for writing this section.</i></p>
+		</div>
+		
+		<div class="bfv-sym-info-subheader">Spread Increase</div>
+			<p>Spread is applied per-shot (spread increase per shot, or “SIPS”), as it has been in previous Battlefield titles. Note that spread increase per shot is set to 0 in ADS (zoomed) fire for LMGs, MMGs, SARs, SLRs, sidearms, and BARs. Spread now decreases even when the gun is not idle (see: in between shots while firing at max rate of fire), decreasing at an accelerating rate per frame.</p>
+			<p><i>- Spread exponent:</i> Dictates rate of spread decrease acceleration<br>
+			<i>- Spread offset:</i> Fixed value for spread decrease per frame<br>
+			<i>- Spread coefficient:</i> Beta for spread decrease acceleration</p>
+			<p>\[
+				\text{spread}_n \; = \; \text{spread}_{n-1} - \frac{1}{\text{simrate}} \cdot (\text{coef} \cdot (\text{spread}_{n-1} - \text{minspread})^\text{exp} + \text{offset})
+			\]</p>
+			<p><i>Note: "n" designates the current frame, of which current spread is calculated, simrate = 60, as Battlefield 4 uses a 60Hz logic loop</i></p>
+			<p>This new system for spread decrease results in a spread curve that is vaguely logarithmic, with diminishing spread penalties for further sustained fire.  ADS (zoomed) spread uses uniform distribution over radius, which features an inner bias. Hipfire uses a uniform distribution over the area meaning that shots are distributed evenly throughout the area of the spread cone. Note that “zoomed hipfire” for the MMGs and AMRs that is used when the guns are aimed without a bipod qualifies as ADS (zoomed) spread and uses an inner bias.</p>
+		
+		<div class="bfv-sym-info-subheader">Idle Spread Decrease</div>
+			<p>Idle spread decrease is linear (coefficient = 0.0, effectively rendering an exponent of 0.0, leading to no spread decrease acceleration) on all weapons but buckshot shotguns. This is a separate decrease rate that activates after a certain number of frames are surpassed following a shot being fired, and very rapidly decreases spread. Idle spread decrease is only in consideration for transitions in movement or firing state (ADS/zoomed to hipfire/unzoomed), very slowly pacing or tapfiring shots, or while firing the Breda without Trigger Job.</p>
+			<p>The spread decrease offset effectively sets the number of degrees of spread decreased per frame. The idle time dictates the number of frames after a shot is figured that must be surpassed before the idle spread decrease rates are used. Idle spread decrease is effectively fast enough to bring spread down to the designated minimum angle in a single frame in the vast majority of cases.</p>
+		<div class="bfv-sym-info-subheader">Vertical and Horizontal Recoil</div>
+			<p>As with all Battlefield games since Battlefield 4, vertical recoil is a fixed (non-randomized) value. While vertical recoil can accelerate, the increases and decreases are at discrete, known intervals. Horizontal recoil works as it always had in previous games, consisting of a number line (e.g. -0.3 to 0.3), where a randomly generated value is produced, with a uniform distribution. Note that SARs and SLRs do not have horizontal recoil. Spread-derived recoil is applied alongside this, which effectively adds further variance in vertical and horizontal recoil.</p>
+		<div class="bfv-sym-info-subheader">Recoil</div>
+			<p>Recoil decrease works as it does in Battlefield 1, persisting even when the gun is not idle, and decelerates as time passes.</p>
+	</div>
+</div>

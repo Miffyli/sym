@@ -257,3 +257,9 @@ function loadBF3ComparisonPage(){
 function openBF3GeneralInfoPage () {
   $('.otherTitles-main-content').load('./pages/bf3/bf3_generalinfo.html')
 }
+/*
+  Load the BF4 weapon data page
+*/
+function openBF3WeaponInfoPage () {
+  $('.otherTitles-main-content').load('./pages/bf3/bf3_dataWeapon.html', function(){MathJax.typeset()})
+}
