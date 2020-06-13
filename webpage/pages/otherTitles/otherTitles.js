@@ -69,6 +69,7 @@ function otherTitlesSetupPageHeader(){
 function otherTitlesOpenPageByName(pageName) {
   // Remove highlighting
   $('.sym-pageSelections > div').removeClass('selected-selector')
+  $('.otherTitles-main-content').html("<div class='sym-loading'>Loading...</div>")
   // Select right page according to pageName, highlight its
   // button and open the page
   if (pageName === 'Index') {

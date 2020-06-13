@@ -322,6 +322,7 @@ function loadBF1ChartPage(){
 function BF1OpenPageByName(pageName) {
   // Remove highlighting
   $('.sym-pageSelections > div').removeClass('selected-selector')
+  $('.bf1-main-content').html("<div class='sym-loading'>Loading...</div>")
   // Select right page according to pageName, highlight its
   // button and open the page
   if (pageName === 'Weapon Comparison') {
