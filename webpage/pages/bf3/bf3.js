@@ -228,6 +228,7 @@ function openBF3ChartPage(){
     BF3LoadWeaponData()
   } else {
     loadBF3ChartPage()
+    loadBF3Stylesheet()
   }
 }
 

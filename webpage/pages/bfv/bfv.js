@@ -377,6 +377,7 @@ function openBFVChartPage () {
     BFVLoadWeaponData()
   } else {
     loadBFVChartPage()
+    loadBFVStylesheet()
   }
 }
 

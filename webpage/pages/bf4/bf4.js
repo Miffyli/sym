@@ -310,6 +310,7 @@ function openBF4ChartPage () {
     BF4LoadWeaponData()
   } else {
     loadBF4ChartPage()
+    loadBF4Stylesheet();
   }
 }
 

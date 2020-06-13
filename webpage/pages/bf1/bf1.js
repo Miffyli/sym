@@ -306,6 +306,7 @@ function openBF1ChartPage () {
     BF1LoadWeaponData()
   } else {
     loadBF1ChartPage()
+    loadBF1Stylesheet()
   }
 }
 
