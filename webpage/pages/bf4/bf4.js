@@ -28,6 +28,7 @@ const BF4_LOWER_IS_WORSE = new Set([
   'BRoF',
   'MagSize',
   'InitialSpeed',
+  'InitialSpeed_Silencer',
   'TimeToLive',
   'MaxDistance',
   'ADSRecoilDec',
