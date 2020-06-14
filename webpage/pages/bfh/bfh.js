@@ -211,6 +211,7 @@ function BFHGetTTKUpperBoundOverDistance (weapon) {
   var damages = [weapon['SDmg'], weapon['EDmg']]
   var distances = [weapon['DOStart'], weapon['DOEnd']]
   var bulletVelocity = weapon['InitialSpeed']
+  var numShots = weapon['Pellets'] || 1
   var msPerShot = 60000 / (weapon['RoF'])
   var TTKUBOverDistance = []
 
@@ -221,7 +222,7 @@ function BFHGetTTKUpperBoundOverDistance (weapon) {
   // Used to track how long bullet has been flying
   var bulletFlightSeconds = 0.0
   for (var dist = BFH_DAMAGE_RANGE_START; dist <= BFH_DAMAGE_RANGE_END; dist += BFH_DAMAGE_RANGE_STEP) {
-    damageAtDist = BFHInterpolateDamage(dist, damages, distances)
+    damageAtDist = BFHInterpolateDamage(dist, damages, distances) * numShots
     // Floor because we do not need the last bullet
     // Small epsilon is added to fix situation with 100 damage (100 / 100 = 1)
     bulletsToKill = Math.floor(100 / (damageAtDist * BFH_MIN_DAMAGE_MULTIPLIER + 0.00001))
