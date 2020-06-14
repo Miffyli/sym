@@ -53,7 +53,8 @@ const BF4_LOWER_IS_WORSE = new Set([
   'HeatClipSize',
   'FirstShotHIPSpreadMul',
   'FirstShotADSSpreadMul',
-  'ShotsPerShell'
+  'ShotsPerShell',
+  'Pellets'
 ])
 
 // List of attachments allowed in the two separate losts
