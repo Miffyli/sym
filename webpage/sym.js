@@ -15,65 +15,58 @@ const SYM_NUM_NEWS_ITEMS = 4
     to be run when the page loads.
 */
 window.onload = function () {
-  // Handle click events for the header and footer menus
-  $('.sym-menu > span').click(function () {
-    var clicked = $(this).attr('id')
-
-    if (clicked === 'menuNews') {
-      // Only load three latest news for now
-      loadPageWithHeader('./pages/misc/news.html', 'News', function() { loadNewestNewsItems(1, 4) })
-      updateQueryString("sym", "news")
-    } else if (clicked === 'menuForums') {
-      openNewTab(SYM_FORUMS_URL)
-    } else if (clicked === 'menuDiscord') {
-      openNewTab(SYM_DISCORD_URL)
-    } else if (clicked === 'menuBFV') {
-      openBFVSelectionPage()
-      updateQueryString("bfv", "index")
-    } else if (clicked === 'menuBF1') {
-      openBF1SelectionPage()
-      updateQueryString("bf1", "index")
-    } else if (clicked === 'menuOtherTitles') {
-      openOtherTitlesSelectionPage()
-      updateQueryString("other", "index")
-    } else if (clicked === 'menuDatabrowser') {
-      openNewTab(SYM_DATABROWSER_URL)
-    } else if (clicked === 'menuAbout') {
-      loadPageWithHeader('./pages/misc/about.html', 'About Sym')
-      updateQueryString("sym", "about")
-    } else if (clicked === 'menuFAQ') {
-      loadPageWithHeader('./pages/misc/faq.html', 'Frequently Asked Questions')
-      updateQueryString("sym", "faq")
-    } else if (clicked === 'menuContact') {
-      loadPageWithHeader('./pages/misc/contact.html', 'Contact Us')
-      updateQueryString("sym", "contact-us")
-    } else if (clicked === 'menuStaff') {
-      loadPageWithHeader('./pages/misc/staff.html', 'Site Staff')
-      updateQueryString("sym", "staff")
-    } else if (clicked === 'menuPartners') {
-      loadPageWithHeader('./pages/misc/partners.html', 'Our Partners')
-      updateQueryString("sym", "partners")
-    } else if (clicked === 'menuGithub') {
-      openNewTab(SYM_GITHUB_URL)
+  const routes = {}
+  function addRoute (route, href, loadFn) {
+    routes[route] = {
+      loadFn: loadFn,
+      href: href
     }
+  }
+  function linkAnchor ($anchor, route) {
+    if (Object.prototype.hasOwnProperty.call(routes, route)) {
+      $anchor.attr('href', routes[route].href)
+      $anchor.click((e) => {
+        e.preventDefault()
+        routes[route].loadFn()
+      })
+    } else {
+      console.error('Unable to identify route "' + route + '"')
+    }
+  }
+  // Handle click events for the header and footer menus
+  addRoute('menuNews', generatePath('sym', 'news'), () => {
+    // Only load three latest news for now
+    loadPageWithHeader('./pages/misc/news.html', 'News', function () { loadNewestNewsItems(1, 4) })
+  })
+  addRoute('menuForums', SYM_FORUMS_URL, () => openNewTab(SYM_FORUMS_URL))
+  addRoute('menuDiscord', SYM_DISCORD_URL, () => openNewTab(SYM_DISCORD_URL))
+  addRoute('menuBFV', generatePath('bfv', 'index'), openBFVSelectionPage)
+  addRoute('menuBF1', generatePath('bf1', 'index'), openBF1SelectionPage)
+  addRoute('menuOtherTitles', generatePath('other', 'index'), openOtherTitlesSelectionPage)
+  addRoute('menuDatabrowser', SYM_DATABROWSER_URL, () => openNewTab(SYM_DATABROWSER_URL))
+  addRoute('menuAbout', generatePath('sym', 'about'), () => loadPageWithHeader('./pages/misc/about.html', 'About Sym'))
+  addRoute('menuFAQ', generatePath('sym', 'faq'), () => loadPageWithHeader('./pages/misc/faq.html', 'Frequently Asked Questions'))
+  addRoute('menuContact', generatePath('sym', 'contact-us'), () => loadPageWithHeader('./pages/misc/contact.html', 'Contact Us'))
+  addRoute('menuStaff', generatePath('sym', 'staff'), () => loadPageWithHeader('./pages/misc/staff.html', 'Site Staff'))
+  addRoute('menuPartners', generatePath('sym', 'partners'), () => loadPageWithHeader('./pages/misc/partners.html', 'Our Partners'))
+  addRoute('menuGithub', SYM_GITHUB_URL, () => openNewTab(SYM_GITHUB_URL))
+  $.each($('.sym-menu > a'), (idx, navItem) => {
+    const $navItem = $(navItem)
+    const route = $navItem.attr('id')
+    linkAnchor($navItem, route)
   })
 
   // Handle click for the sym logo, return to home when clicked.
-  $('.sym-banner').click(function () {
-    window.location.replace('index.html')
-    updateQueryString("sym", "home")
-  })
-
+  const bannerRoute = '.sym-banner'
+  addRoute(bannerRoute, generatePath('sym', 'home'), () => window.location.replace('index.html'))
   // Handle click for 'JUMP IN WITH BFV' button, loads bfv page.
-  $('.sym-home-jumpin-btn').click(function () {
-    openBFVSelectionPage()
-    updateQueryString("sym", "index")
-  })
-
+  const jumpInRoute = '.sym-home-jumpin-btn'
+  addRoute(jumpInRoute, generatePath('bfv', 'index'), openBFVSelectionPage)
   // Handle click for 'LEARN MORE' button, loads about page
-  $('.sym-main-desc-learnMore-btn').click(function () {
-    loadPageWithHeader('./pages/misc/about.html', 'About Sym')
-    updateQueryString("sym", "about")
+  const learnMoreRoute = '.sym-main-desc-learnMore-btn'
+  addRoute(learnMoreRoute, generatePath('sym, about'), () => loadPageWithHeader('./pages/misc/about.html', 'About Sym'))
+  $.each([bannerRoute, jumpInRoute, learnMoreRoute], (idx, selector) => {
+    linkAnchor($(selector), selector)
   })
 }
 
@@ -173,15 +166,19 @@ function loadBF3Stylesheet(){
   $('#chartCSS').attr('href', './pages/bf3/bf3_chart.css')
 }
 
+function generatePath(gameValue, pageValue) {
+  var params = {game: gameValue, 
+    page: pageValue}
+  var queryString = $.param(params)
+  return window.location.pathname + '?' + queryString;
+}
+
 /*
   Writes a query string to the URL given the supplied parameters
   2 or more word values use '-' as in 'weapon-mechanics
 */
 function updateQueryString(gameValue, pageValue){
-  var params = {game: gameValue, 
-                page: pageValue}
-  var queryString = $.param(params)
-  var newURL = window.location.protocol + "//" + window.location.host + window.location.pathname + '?' + queryString
+  var newURL = window.location.protocol + "//" + window.location.host + generatePath(gameValue, pageValue)
   window.history.pushState({path:newURL},'',newURL)
 }
 
