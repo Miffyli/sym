@@ -243,6 +243,7 @@ function BFHGetTTKUpperBoundOverDistance (weapon) {
   arrays.
 */
 function BFHLoadSuccessCallback (data) {
+  loadBFHStylesheet()
   BFHWeaponData = data
   // Create name_to_data objects
   for (var i = 0; i < BFHWeaponData.length; i++) {
@@ -312,6 +313,7 @@ function openBFHChartPage () {
     BFHLoadWeaponData()
   } else {
     loadBFHChartPage()
+    loadBFHStylesheet()
   }
 }
 
