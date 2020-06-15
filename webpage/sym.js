@@ -233,6 +233,9 @@ function exceuteQueryStringParams(){
         case 'charts':
           openBF1SelectionPageFromQueryString('Weapon Charts')
           break
+		case 'weapon-mechanics':
+          openBF1SelectionPageFromQueryString('Weapon Mechanics')
+          break
       }
       break
     case 'other':
@@ -249,6 +252,11 @@ function exceuteQueryStringParams(){
           break
         case 'bf3-general-info':
           openOtherTitlesSelectionPageFromQueryString('BF3 General Info')
+          break
+		case 'bf3-weapon-mechanics':
+          openOtherTitlesSelectionPageFromQueryString('BF3 Weapon Mechanics')
+		case 'bf4-weapon-mechanics':
+          openOtherTitlesSelectionPageFromQueryString('BF4 Weapon Mechanics')
           break
         case 'bf4-general-info':
           openOtherTitlesSelectionPageFromQueryString('BF4 General Info')
