@@ -83,7 +83,7 @@ function otherTitlesOpenPageByName(pageName) {
   } else if (pageName === 'BF3 Weapon Mechanics') {
     $('#bf3-weaponPageSelector').addClass('selected-selector')
     openBF3WeaponInfoPage()
-    updateQueryString("other", "bf4-weapon-mechanics")
+    updateQueryString("other", "bf3-weapon-mechanics")
   } else if (pageName === 'BF3 Comparison') {
     $('#bf3-comparisonPageSelector').addClass('selected-selector')
     openBF3ComparisonPage()
