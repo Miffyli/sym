@@ -19,8 +19,13 @@
 }
 
 .sym-banner {
+    display: inline-block;
     width: 300px;
     cursor: pointer;
+}
+
+.sym-banner > img {
+    width: inherit;
 }
 
 .sym-menu {
@@ -31,11 +36,13 @@
     cursor: default;
 }
 
-.sym-menu>span {
+.sym-menu>a {
     padding: 3px 7px;
+    text-decoration: inherit;
+    color: inherit;
 }
 
-.sym-menu>span:hover {
+.sym-menu>a:hover {
     cursor: pointer;
     border-bottom: 1px solid white;
 }
@@ -43,7 +50,6 @@
 .sym-headerMenu {
     float: right;
 }
-
 
 /***************************/
 /***** Main Content ********/
@@ -64,12 +70,14 @@
     font-weight: bold;
 }
 
-.sym-home-jumpin-btn {
+a.sym-home-jumpin-btn {
     border: 2px solid #B0B0B0;
 	display: inline-block;
     background: #000000;
     padding: 20px 30px;
     cursor: pointer;
+    text-decoration: inherit;
+    color: inherit;
 }
 
 .sym-separator {
@@ -95,12 +103,14 @@
     margin: 20px 0 30px 0 !important;
 }
 
-.sym-main-desc-learnMore-btn {
+a.sym-main-desc-learnMore-btn {
     border: 2px solid #B0B0B0;
     background: black;
     display: inline-block;
     padding: 10px 20px;
     cursor: pointer;
+    text-decoration: inherit;
+    color: inherit;
 }
 
 .sym-main-flask {
