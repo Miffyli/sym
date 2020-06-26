@@ -50,8 +50,6 @@ const BF1_LOWER_IS_WORSE = new Set([
     "ADSCrouchRecoilDec",
     "ADSRecoilDec",
     "HeatClipSize",
-    "FirstShotHIPSpreadMul",
-    "FirstShotADSSpreadMul",
     "ShotsPerShell"
 ])
 
