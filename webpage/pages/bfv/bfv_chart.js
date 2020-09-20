@@ -316,7 +316,7 @@ function createRecoilGraphic(recoilLeft, recoilRight, recoilUp, recoilInitialUp)
         var recoilUpTextY = (71 - (recoilInitialUp * 30));
         var recoilInitUpTextY = (86 - (recoilInitialUp * 30));
         var recoilHorLenth1 = (60 - (recoilLeft * 30));
-        var recoilHorLenth2 = (60 + (Math.abs(recoilRight) * 30));
+        var recoilHorLenth2 = (60 + (recoilRight * 30));
         var point5inc = (recoilInitialUp > .5) ? "<line x1='55' y1='75' x2='65' y2='75' style='stroke:white; stroke-width:1'/>" : "";
         var oneinc = (recoilInitialUp > 1.0) ? "<line x1='55' y1='60' x2='65' y2='60' style='stroke:white; stroke-width:1'/>" : "";
         var onepoint5inc = (recoilInitialUp > 1.5) ? "<line x1='55' y1='45' x2='65' y2='45' style='stroke:white; stroke-width:1'/>" : "";
@@ -326,7 +326,7 @@ function createRecoilGraphic(recoilLeft, recoilRight, recoilUp, recoilInitialUp)
                                 "<line x1='" + recoilHorLenth1 + "' y1='90' x2='" + recoilHorLenth2 + "' y2='90' style='stroke:white; stroke-width:2'/>" + // Left - Right
                                 "<line x1='60' y1='90' x2='60' y2='" + recoilUpLength + "' style='stroke:white; stroke-width:2'/>" + // Up - Down
                                 "<text x='" + (recoilHorLenth1 - 4).toString() + "' y='95' text-anchor='end' class='recoilValue recoilHorValue'>" + roundToThree(recoilLeft) + "°</text>" +
-                                "<text x='" + (recoilHorLenth2 + 4).toString() + "' y='95' class='recoilValue'>" + roundToThree(Math.abs(recoilRight)) + "°</text>" +
+                                "<text x='" + (recoilHorLenth2 + 4).toString() + "' y='95' class='recoilValue'>" + roundToThree(recoilRight) + "°</text>" +
                                 "<text x='64' y='" + recoilUpTextY + "' text-anchor='start' class='recoilValue recoilUpValue'>" + (recoilUp >= 0 ? "+": "") + roundToThree(recoilUp) + "°</text>" +
                                 "<text x='60' y='" + recoilInitUpTextY + "' text-anchor='middle' class='recoilValue recoilInitUpValue'>" + roundToThree(recoilInitialUp) + "°</text>" +
                             "</svg>";
@@ -335,7 +335,7 @@ function createRecoilGraphic(recoilLeft, recoilRight, recoilUp, recoilInitialUp)
                                 "<line x1='50' y1='90' x2='70' y2='90' style='stroke:#555; stroke-width:2'/>" +
                                 "<line x1='60' y1='90' x2='60' y2='80' style='stroke:#555; stroke-width:2'/>" +
                                 "<text x='44' y='95' text-anchor='end' class='recoilValue recoilHorValue'>" + roundToThree(recoilLeft) + "°</text>" +
-                                "<text x='74' y='95' class='recoilValue'>" + roundToThree(Math.abs(recoilRight)) + "°</text>" +
+                                "<text x='74' y='95' class='recoilValue'>" + roundToThree(recoilRight) + "°</text>" +
                                 "<text x='64' y='64' text-anchor='start' class='recoilValue recoilUpValue'>" + (recoilUp >= 0 ? "+": "") + roundToThree(recoilUp) + "°</text>" +
                                 "<text x='60' y='76' text-anchor='middle' class='recoilValue recoilInitUpValue'>" + roundToThree(recoilInitialUp) + "°</text>" +
                             "</svg>";
