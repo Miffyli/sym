@@ -686,6 +686,15 @@ img.fnone{width: 59px; height: 59px;float:none !important}
     font-size: 24px;
 }
 
+.magGraphicBox {
+    margin-top: 5px;
+}
+
+.recoilValue {
+    font-size: 15px;
+    fill: white;
+}
+
 .apex_wpnSwitchImg{
     height: 20px;
     width: auto;

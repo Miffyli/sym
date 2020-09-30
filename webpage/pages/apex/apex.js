@@ -1,5 +1,16 @@
 // Path to datafile
-const APEX_DATA = './pages/apex/data/apex_data_N1264_CL462547.json';
+// const APEX_DATA = './pages/apex/data/apex_data_r5-60_J321_CL589748.json';
+const APEX_DATA = './pages/apex/data/apex_data_N1791_CL475134.json';
+
+// Manual dates when the data or pages have been modified.
+// In format "[day] [month three letters] [year four digits]"
+// e.g. 2nd Jan 2019
+const APEX_DATA_DATE = '29th Jan 2020 (apex_data_r5-apex_data_N1791_CL475134)';
+const APEX_PAGE_DATE = '30th Sep 2020';
+
+// Total version string displayed under title
+const APEX_VERSION_STRING = `Latest updates<br>Page: ${APEX_PAGE_DATE}<br>Data: ${APEX_DATA_DATE}`;
+
 // Constants for APEX
 // Constants for plotting damage/ttk/etc
 const APEX_DAMAGE_RANGE_START = 0;
@@ -9,8 +20,7 @@ const APEX_DAMAGE_RANGE_STEP = 1;
 // Minimum damage multiplier (9.1.2018)
 const APEX_MIN_DAMAGE_MULTIPLIER = 1.0;
 
-const APEX_LOWER_IS_WORSE = new Set( [
-    'viewkick_pattern_data_y_avg',
+const APEX_LOWER_IS_WORSE = new Set( ['viewkick_pattern_data_y_avg',
   'viewkick_pattern_data_x_avg',
   'viewkick_pattern_data_x_min',
   'ads_move_speed_scale',
@@ -112,6 +122,9 @@ let APEXWeaponKeys = [];
 const APEXWeaponKeyToData = {};
 // Keeps track of which page to load after the data is loaded.
 let APEXSelectedPage = "";
+// Keeps track of which page to load when loading from a querystring
+let apexPageToLoad = "";
+
 let apex_attachments = {};
 let active_weapon_attachments = {};
 let optic_customizations = {};
@@ -197,16 +210,6 @@ function getProjectilePerShot(weapon){
     return 1
   }
 }
-
-// TODO: Figure out how to work unshielded damage multipliers into BTK/TTK functions that currently treat shields and HP the same.
-// function getUnShieldedDamageScale(weapon) {
-//   let damage_unshielded_scale = weapon['damage_unshielded_scale'];
-//   if(damage_unshielded_scale !== undefined) {
-//     return damage_unshielded_scale
-//   } else {
-//     return 1
-//   }
-// }
 
 function getMaxHSDist(weapon) {
   let hs_dist_float = weapon['headshot_distance_m'];
@@ -795,11 +798,11 @@ function APEXLoadSuccessCallback (data) {
 
   // Proceed to appropriate page
   if (APEXSelectedPage === "APEX_CHART"){
-      loadAPEXChartPage()
+    loadAPEXChartPage()
   } else if (APEXSelectedPage === "APEX_COMPARISON"){
-      loadAPEXComparisonPage()
+    loadAPEXComparisonPage()
   } else if (APEXSelectedPage === "APEX_RECOIL_PATTERNS"){
-      loadAPEXRecoilPatternPage()
+    loadAPEXRecoilPatternPage()
   }
 }
 
@@ -808,9 +811,7 @@ function APEXLoadSuccessCallback (data) {
   into the global variables
 */
 function APEXLoadWeaponData () {
-
-  // APEXLoadWeaponData_orig();
-  // APEXWeaponData = jQuery.extend(true, {}, APEXWeaponData_orig);
+  // TODO Add some kind of progress bar here?
   $.getJSON(APEX_DATA).done(APEXLoadSuccessCallback).fail(function (jqxhr, textStatus, error) {
     console.log('Loading APEX data failed: ' + textStatus + ' , ' + error)
   });
@@ -821,14 +822,19 @@ function APEXLoadWeaponData () {
   the user to select which page to navigate to (chart, comp, etc...).
 */
 function openAPEXSelectionPage () {
-  loadPageWithHeader('./pages/apex/apex_header.html', 'Apex Legends', initializeAPEXSelection)
+  loadPageWithHeader('./pages/apex/apex_header.html', 'Apex Legends', initializeAPEXSelection, APEX_VERSION_STRING)
+}
+
+function openAPEXSelectionPageFromQueryString(pageStr){
+  apexPageToLoad = pageStr;
+  loadPageWithHeader('./pages/apex/apex_header.html', 'Apex Legends', APEXLoadPageFromQueryString, APEX_VERSION_STRING)
 }
 
 /*
   Load the APEX main/entry/index page
 */
 function openAPEXIndexPage () {
-  $('.apex-main-content').load('./pages/apex/apex_index.html', initializeIndexPage)
+  $('.apex-main-content').load('./pages/apex/apex_index.html', APEXInitializeIndexPage)
 }
 
 /*
@@ -842,8 +848,7 @@ function openAPEXGeneralInfoPage () {
   Load the APEX weapon data page
 */
 function openAPEXWeaponPage () {
-  $('.apex-main-content').load('./pages/apex/apex_dataWeapon.html', function(){// noinspection JSUnresolvedFunction,JSUnresolvedVariable
-    MathJax.typeset()})
+  $('.apex-main-content').load('./pages/apex/apex_dataWeapon.html', function(){MathJax.typeset()})
 }
 
 /*
@@ -854,12 +859,13 @@ function openAPEXChartPage () {
     APEXSelectedPage = "APEX_CHART";
     APEXLoadWeaponData()
   } else {
-    loadAPEXChartPage()
+    loadAPEXChartPage();
+    loadApexStylesheet()
   }
 }
 
 function loadAPEXChartPage(){
-    $('.apex-main-content').load('./pages/apex/apex_chart.html', apex_initializeChartPage)
+  $('.apex-main-content').load('./pages/apex/apex_chart.html', apex_initializeChartPage)
 
 }
 
@@ -923,28 +929,36 @@ function APEXOpenPageByName(pageName) {
   // button and open the page
   if (pageName === 'Weapon Charts') {
     $('#apex-chartPageSelector').addClass('selected-selector');
-    openAPEXChartPage()
+    openAPEXChartPage();
+    updateQueryString("apex", "charts")
   } else if (pageName === 'Weapon Comparison') {
     $('#apex-comparisonPageSelector').addClass('selected-selector');
-    openAPEXComparisonPage()
+    openAPEXComparisonPage();
+    updateQueryString("apex", "comparison")
   } else if (pageName === 'General Information') {
     $('#apex-generalInfoPageSelector').addClass('selected-selector');
-    openAPEXGeneralInfoPage()
+    openAPEXGeneralInfoPage();
+    updateQueryString("apex", "general-info")
   } else if (pageName === 'Equipment Data') {
     $('#apex-equipmentPageSelector').addClass('selected-selector');
-    openAPEXEquipmentPage()
+    openAPEXEquipmentPage();
+    updateQueryString("apex", "equipment")
   } else if (pageName === 'Recoil Patterns') {
     $('#apex-recoilPatternPageSelector').addClass('selected-selector');
-    openAPEXRecoilPatternPage()
+    openAPEXRecoilPatternPage();
+    updateQueryString("apex", "recoil-patterns")
   } else if (pageName === 'Index') {
     $('#apex-mainPageSelector').addClass('selected-selector');
-    openAPEXIndexPage()
-	} else if (pageName === 'Weapon Mechanics') {
+    openAPEXIndexPage();
+    updateQueryString("apex", "index")
+  } else if (pageName === 'Weapon Mechanics') {
     $('#apex-weaponPageSelector').addClass('selected-selector');
-    openAPEXWeaponPage()
+    openAPEXWeaponPage();
+    updateQueryString("apex", "weapon-mechanics")
   } else if (pageName === 'Legend Data') {
     $('#apex-legendPageSelector').addClass('selected-selector');
-    loadAPEXLegendDataPage()
+    loadAPEXLegendDataPage();
+    updateQueryString("apex", "legends")
   }
 }
 
@@ -953,6 +967,24 @@ function APEXOpenPageByName(pageName) {
   the entry page for APEX
 */
 function initializeAPEXSelection () {
+  APEXSetupPageHeader();
+  openAPEXIndexPage()
+}
+
+/*
+  Add handlers for the click events for the apex index page
+*/
+function APEXInitializeIndexPage(){
+  $('.indexPageItem').click(function () {
+    const itemClicked = $(this).find("h4").text();
+    // TODO slippery slope: If title on the buttons changes,
+    //                      it will break opening the page
+    APEXOpenPageByName(itemClicked)
+  })
+}
+
+function APEXSetupPageHeader(){
+  loadApexStylesheet();
   $('.sym-pageSelections > div').click(function () {
     const clicked = $(this).attr('id');
     let pageName;
@@ -962,11 +994,11 @@ function initializeAPEXSelection () {
       pageName = 'Weapon Comparison'
     } else if (clicked === 'apex-mainPageSelector') {
       pageName = 'Index'
-	} else if (clicked === 'apex-generalInfoPageSelector') {
+    } else if (clicked === 'apex-generalInfoPageSelector') {
       pageName = 'General Information'
-	} else if (clicked === 'apex-equipmentPageSelector') {
+    } else if (clicked === 'apex-equipmentPageSelector') {
       pageName = 'Equipment Data'
-	} else if (clicked === 'apex-weaponPageSelector') {
+    } else if (clicked === 'apex-weaponPageSelector') {
       pageName = 'Weapon Mechanics'
     } else if (clicked === 'apex-recoilPatternPageSelector') {
       pageName = 'Recoil Patterns'
@@ -974,16 +1006,11 @@ function initializeAPEXSelection () {
       pageName = 'Legend Data'
     }
     APEXOpenPageByName(pageName)
-  });
-  openAPEXIndexPage()
-}
-
-/*
-  Add handlers for the click events for the apex index page
-*/
-function initializeIndexPage(){
-  $('.indexPageItem').click(function () {
-    const itemClicked = $(this).find("h4").text();
-      APEXOpenPageByName(itemClicked)
   })
 }
+
+function APEXLoadPageFromQueryString(){
+  APEXSetupPageHeader();
+  APEXOpenPageByName(apexPageToLoad)
+}
+

@@ -7,7 +7,7 @@ const SYM_GITHUB_URL = 'https://github.com/miffyli/sym'
 // Number of news items available, stored under
 // misc/news_items/#.html . This value should be updated
 // when new entries for News are made
-const SYM_NUM_NEWS_ITEMS = 1
+const SYM_NUM_NEWS_ITEMS = 4
 
 /*
     This code runs after the page loads all resources.
@@ -119,7 +119,7 @@ function loadNewestNewsItems (itemIndex, numItems) {
 
   // Setup AJAX request to load and include data
   $.ajax({
-    type: 'GET',   
+    type: 'GET',
     url: `./pages/misc/news_items/${itemIndex}.html`,
     success : function (data, states, jqXHR)
     {
@@ -165,6 +165,10 @@ function loadBFHStylesheet(){
 
 function loadBF3Stylesheet(){
   $('#chartCSS').attr('href', './pages/bf3/bf3_chart.css')
+}
+
+function loadApexStylesheet(){
+  $('#chartCSS').attr('href', './pages/apex/apex_chart.css')
 }
 
 function generatePath(gameValue, pageValue) {
@@ -236,6 +240,35 @@ function exceuteQueryStringParams(){
           break
       }
       break
+    case 'apex':
+      switch(page){
+        case 'index':
+          openAPEXSelectionPage();
+          updateQueryString("apex", "index");
+          break;
+        case 'charts':
+          openAPEXSelectionPageFromQueryString('Weapon Charts');
+          break;
+        case 'comparison':
+          openAPEXSelectionPageFromQueryString('Weapon Comparison');
+          break;
+        case 'general-info':
+          openAPEXSelectionPageFromQueryString('General Information');
+          break;
+        case 'equipment':
+          openAPEXSelectionPageFromQueryString('Equipment Data');
+          break;
+        case 'recoil-patterns':
+          openAPEXSelectionPageFromQueryString('Recoil Patterns');
+          break;
+        case 'weapon-mechanics':
+          openAPEXSelectionPageFromQueryString('Weapon Mechanics');
+          break;
+        case 'legends':
+          openAPEXSelectionPageFromQueryString('Legend Data');
+          break
+      }
+      break;
     case 'other':
       switch(page){
         case 'index':
