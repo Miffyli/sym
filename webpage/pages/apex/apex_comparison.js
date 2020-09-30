@@ -29,7 +29,9 @@ let APEXAddVariantCounter = 0;
 
 let use_headshot_calculations = false;
 let helm_multi = 1.0;
+let use_amped_calculations = false;
 
+let use_charge_spinup_time_calculations = true;
 /*
   Return true if given variable should be included in the
   datatable, false otherwise.
@@ -918,33 +920,52 @@ function initializeAPEXComparison () {
   });
   apex_showHideHeadShots_input.click(function(){
     const thisId = $(this).attr("id");
-    if (thisId === "useLimbShotDamage" && use_headshot_calculations === true) {
-      // noinspection JSValidateTypes
-      $(this).parent().children().prop("checked", false).change();
-      $(this).prop("checked", true).change();
-    } else if (thisId === "useHeadShotDamage" && use_ls_multi_calculations === true) {
-      // noinspection JSValidateTypes
-      $(this).parent().children().prop("checked", false).change();
-      $(this).prop("checked", true).change();
-    } else if (thisId === "useHeadShotDamage" && use_headshot_calculations === true) {
-      // noinspection JSValidateTypes
-      $(this).parent().children().prop("checked", false).change();
-      $(this).prop("checked", false).change();
-    } else if (thisId === "useLimbShotDamage" && use_ls_multi_calculations === true) {
-      // noinspection JSValidateTypes
-      $(this).parent().children().prop("checked", false).change();
-      $(this).prop("checked", false).change();
+    if (thisId === "useLimbShotDamage") {
+
+      if (use_ls_multi_calculations === true) {
+        $("input#useLimbShotDamage").prop("checked", false).change();
+      } else {
+        $("input#useLimbShotDamage").prop("checked", true).change();
+        if (use_headshot_calculations) {
+          $("input#useHeadShotDamage").prop("checked", false).change();
+        }
+      }
     }
+    if (thisId === "useHeadShotDamage") {
+      if (use_headshot_calculations === true) {
+        //turn limb off
+        $("input#useHeadShotDamage").prop("checked", false).change();
+      } else {
+        //turn limb on
+        $("input#useHeadShotDamage").prop("checked", true).change();
+        // if hs on  turn it off
+        if (use_ls_multi_calculations) {
+          $("input#useLimbShotDamage").prop("checked", false).change();
+        }
+      }
+    }
+      if (thisId === "useAmpedDamage") {
+        // noinspection JSValidateTypes
+        if (use_amped_calculations === true) {
+          $(this).prop("checked", false).change();
+        } else {
+          $(this).prop("checked", true).change();
+        }
+      }
     this.blur();
     updateGraphsForHeadShots();
   });
 
   apex_generateComparisonAttachmentArray();
-  //generateAPEXCustomizationsArray();
   $('#selectors > select').addClass('apex_comp-selectors').wrap("<div class='apex_comp-selectorContainer'></div>")
 }
 
 function updateGraphsForHeadShots(){
+  if ($("#useAmpedDamage").is(":checked")) {
+    use_amped_calculations = true;
+  } else {
+    use_amped_calculations = false;
+  }
   if ($("#useHeadShotDamage").is(":checked")){
     use_headshot_calculations = true;
     use_ls_multi_calculations = false;
@@ -1187,6 +1208,7 @@ function apex_onCompareAttachmentChange(data) {
   const weapon_comparison_string_slot = data.value.split('_X_')[2];
   const reset_attachments = ["_shotgun_bolt_l0",
     "_barrel_stabilizer_l0",
+    "sniper_mag",
     "special_mag",
     "highcal_mag",
     "bullet_mag",

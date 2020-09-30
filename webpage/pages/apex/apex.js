@@ -1,15 +1,15 @@
 // Path to datafile
-// const APEX_DATA = './pages/apex/data/apex_data_r5-60_J321_CL589748.json';
-const APEX_DATA = './pages/apex/data/apex_data_N1791_CL475134.json';
+const APEX_DATA = './pages/apex/data/apex_data_r5-60_J321_CL589748.json';
+// const APEX_DATA = './pages/apex/data/apex_data_N1791_CL475134.json';
 
 // Manual dates when the data or pages have been modified.
 // In format "[day] [month three letters] [year four digits]"
 // e.g. 2nd Jan 2019
-const APEX_DATA_DATE = '29th Jan 2020 (apex_data_r5-apex_data_N1791_CL475134)';
-const APEX_PAGE_DATE = '30th Sep 2020';
+const APEX_DATA_DATE = '30th Sep 2020 (apex_data_r5-60_J321_CL589748)'
+const APEX_PAGE_DATE = '30th Sep 2020'
 
 // Total version string displayed under title
-const APEX_VERSION_STRING = `Latest updates<br>Page: ${APEX_PAGE_DATE}<br>Data: ${APEX_DATA_DATE}`;
+const APEX_VERSION_STRING = `Latest updates<br>Page: ${APEX_PAGE_DATE}<br>Data: ${APEX_DATA_DATE}`
 
 // Constants for APEX
 // Constants for plotting damage/ttk/etc
@@ -20,7 +20,8 @@ const APEX_DAMAGE_RANGE_STEP = 1;
 // Minimum damage multiplier (9.1.2018)
 const APEX_MIN_DAMAGE_MULTIPLIER = 1.0;
 
-const APEX_LOWER_IS_WORSE = new Set( ['viewkick_pattern_data_y_avg',
+const APEX_LOWER_IS_WORSE = new Set( [
+  'viewkick_pattern_data_y_avg',
   'viewkick_pattern_data_x_avg',
   'viewkick_pattern_data_x_min',
   'ads_move_speed_scale',
@@ -152,6 +153,9 @@ const apex_weapon_name_dict = {
   "RE-45 Auto": "WPN_RE45_AUTOPISTOL",
   "Triple Take": "WPN_DOUBLETAKE",
   "VK-47 Flatline": "WPN_VINSON",
+  "Volt SMG": "WPN_VOLT_SMG",
+  "Emplaced Minigun": "WPN_MOUNTED_TURRET_WEAPON",
+  "Sentinel": "WPN_SENTINEL",
   "WPN_ALTERNATOR_SMG": "Alternator SMG",
   "WPN_WINGMAN": "Wingman",
   "WPN_CHARGE_RIFLE": "Charge Rifle",
@@ -173,7 +177,10 @@ const apex_weapon_name_dict = {
   "WPN_R97": "R-99 SMG",
   "WPN_RE45_AUTOPISTOL": "RE-45 Auto",
   "WPN_DOUBLETAKE": "Triple Take",
-  "WPN_VINSON": "VK-47 Flatline"};
+  "WPN_VINSON": "VK-47 Flatline",
+  "WPN_VOLT_SMG": "Volt SMG",
+  "WPN_MOUNTED_TURRET_WEAPON": "Emplaced Minigun",
+  "WPN_SENTINEL": "Sentinel"};
 
 /*
   Returns html RGB color code for given array
@@ -202,10 +209,28 @@ function getHSMulti(weapon) {
   }
 }
 
+function getAmpedMulti(weapon) {
+  if (use_amped_calculations ) {
+    return weapon['damage_headshot_scale'];
+  } else {
+    return 1.0;
+  }
+}
+
 function getProjectilePerShot(weapon){
   let projectiles_per_shot = weapon['projectiles_per_shot'];
   if(projectiles_per_shot !== undefined) {
     return projectiles_per_shot
+  } else {
+    return 1
+  }
+}
+
+// TODO: Figure out how to work unshielded damage multipliers into BTK/TTK functions that currently treat shields and HP the same.
+function getUnShieldedDamageScale(weapon) {
+  let damage_unshielded_scale = weapon['damage_unshielded_scale'];
+  if(damage_unshielded_scale !== undefined) {
+    return damage_unshielded_scale
   } else {
     return 1
   }
@@ -221,7 +246,7 @@ function getMaxHSDist(weapon) {
 }
 
 function getLimbMulti(weapon) {
-  if ( use_ls_multi_calculations ) {
+  if ( use_ls_multi_calculations && !use_low_profile_calculations) {
     return weapon['damage_leg_scale'];
   } else {
     return 1.0;
@@ -239,8 +264,11 @@ function getDamageScaleMulti(){
 }
 
 function getProjectileScaleMulti(){
+  if (use_amped_calculations){
+    return 1.2
+  } else {
     return 1.0
-
+  }
 }
 
 function getHelmMulti(weapon){
