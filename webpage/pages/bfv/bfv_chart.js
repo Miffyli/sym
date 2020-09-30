@@ -112,6 +112,8 @@ function printWeapons(){
         $(newWeaponRowObj).effect("highlight");
     });
 
+    $(".variantButton").removeClass("ui-button ui-corner-all ui-widget");
+
     $(document).tooltip({track: true});
 
     initializeCustomizations();
@@ -153,7 +155,7 @@ function printWeapon(weaponStats){
                                                       weaponStats.HIPStandMoveMin,weaponStats.HIPCrouchMoveMin,weaponStats.HIPProneMoveMin,
                                                       weaponStats.ADSStandBaseSpreadInc, weaponStats.HIPStandBaseSpreadInc)
     var customizationsGraphic = (weaponStats.Class == 8) ? "" : printCustomizations([weaponStats.WeapShowName]);
-    var addVariantGraphic = (weaponStats.Class == 8 || addVariantCounter != 0) ? "" : "<button class='variantButton btn btn-outline-light btn-sm' " + variantTooltip + ">+</button>";
+    var addVariantGraphic = (weaponStats.Class == 8 || addVariantCounter != 0) ? "" : "<button class='variantButton' " + variantTooltip + ">+</button>";
     var rtnStr = "<tr class='" + weaponStats.WeapShowName.replace(/ |\//g,"") + " sub_" + getWeaponsSubcat(weaponStats.WeapShowName) +"'>" +
                      "<td class='firstColumn'>" +
                          "<div class='lblWeaponName'>" +
@@ -253,6 +255,8 @@ function printCustomizations(weaponName){
         custString += "</div>"
     }
 
+    custString = BFVSwitchBayoToHeav(custString, weaponName)
+
     return custString;
 }
 
@@ -300,8 +304,8 @@ function createReloadGraphic(reloadEmpty, reloadLeft, magSize, ammoType){
 }
 
 function formatAmmoType(ammo){
-    var newAmmo = ammo.replace("Carcano65x52mm", "6.5x52mm Carcano").replace("_Semi", "").replace("_SMG", "").replace("_Heavy", "").replace("_Pistol", "").replace("_Bolt", " ").replace("_SLR", " ").replace("Mauser", "Mauser ").replace("303", ".303").replace("792", "7.92").replace("Carbine", "").replace("Heavy", "").replace("Sniper", "").replace("_ShortBarrel", "");
-    newAmmo = newAmmo.replace("75", "7.5").replace("351W", ".351 W").replace("35R", ".35 R").replace("_Fast", "").replace("_A5", "").replace("_Drilling", "").replace("_Improved", "").replace("_1897", "").replace("Incendiary", "").replace("LongRange", "").replace("_LowDrag", "").replace("Rifle", "").replace("_Aero", " ").replace("_", " ");
+    var newAmmo = ammo.replace("fillertext", " ")
+    
     return newAmmo;
 }
 
@@ -312,7 +316,7 @@ function createRecoilGraphic(recoilLeft, recoilRight, recoilUp, recoilInitialUp)
         var recoilUpTextY = (71 - (recoilInitialUp * 30));
         var recoilInitUpTextY = (86 - (recoilInitialUp * 30));
         var recoilHorLenth1 = (60 - (recoilLeft * 30));
-        var recoilHorLenth2 = (60 + (Math.abs(recoilRight) * 30));
+        var recoilHorLenth2 = (60 + (recoilRight * 30));
         var point5inc = (recoilInitialUp > .5) ? "<line x1='55' y1='75' x2='65' y2='75' style='stroke:white; stroke-width:1'/>" : "";
         var oneinc = (recoilInitialUp > 1.0) ? "<line x1='55' y1='60' x2='65' y2='60' style='stroke:white; stroke-width:1'/>" : "";
         var onepoint5inc = (recoilInitialUp > 1.5) ? "<line x1='55' y1='45' x2='65' y2='45' style='stroke:white; stroke-width:1'/>" : "";
@@ -322,7 +326,7 @@ function createRecoilGraphic(recoilLeft, recoilRight, recoilUp, recoilInitialUp)
                                 "<line x1='" + recoilHorLenth1 + "' y1='90' x2='" + recoilHorLenth2 + "' y2='90' style='stroke:white; stroke-width:2'/>" + // Left - Right
                                 "<line x1='60' y1='90' x2='60' y2='" + recoilUpLength + "' style='stroke:white; stroke-width:2'/>" + // Up - Down
                                 "<text x='" + (recoilHorLenth1 - 4).toString() + "' y='95' text-anchor='end' class='recoilValue recoilHorValue'>" + roundToThree(recoilLeft) + "°</text>" +
-                                "<text x='" + (recoilHorLenth2 + 4).toString() + "' y='95' class='recoilValue'>" + roundToThree(Math.abs(recoilRight)) + "°</text>" +
+                                "<text x='" + (recoilHorLenth2 + 4).toString() + "' y='95' class='recoilValue'>" + roundToThree(recoilRight) + "°</text>" +
                                 "<text x='64' y='" + recoilUpTextY + "' text-anchor='start' class='recoilValue recoilUpValue'>" + (recoilUp >= 0 ? "+": "") + roundToThree(recoilUp) + "°</text>" +
                                 "<text x='60' y='" + recoilInitUpTextY + "' text-anchor='middle' class='recoilValue recoilInitUpValue'>" + roundToThree(recoilInitialUp) + "°</text>" +
                             "</svg>";
@@ -331,7 +335,7 @@ function createRecoilGraphic(recoilLeft, recoilRight, recoilUp, recoilInitialUp)
                                 "<line x1='50' y1='90' x2='70' y2='90' style='stroke:#555; stroke-width:2'/>" +
                                 "<line x1='60' y1='90' x2='60' y2='80' style='stroke:#555; stroke-width:2'/>" +
                                 "<text x='44' y='95' text-anchor='end' class='recoilValue recoilHorValue'>" + roundToThree(recoilLeft) + "°</text>" +
-                                "<text x='74' y='95' class='recoilValue'>" + roundToThree(Math.abs(recoilRight)) + "°</text>" +
+                                "<text x='74' y='95' class='recoilValue'>" + roundToThree(recoilRight) + "°</text>" +
                                 "<text x='64' y='64' text-anchor='start' class='recoilValue recoilUpValue'>" + (recoilUp >= 0 ? "+": "") + roundToThree(recoilUp) + "°</text>" +
                                 "<text x='60' y='76' text-anchor='middle' class='recoilValue recoilInitUpValue'>" + roundToThree(recoilInitialUp) + "°</text>" +
                             "</svg>";
@@ -358,14 +362,15 @@ function createSpreadGraphic(ADSBase, ADSMove){
             adsBaseCircle = "<circle cx='0' cy='100' r='4' stroke-width='2' style='fill: none; stroke: #C8C63A; fill: #C8C63A;'></circle>";
         }
 
-        spreadGraphic = "<svg viewBox='0 0 100 100' style='width: 60px;'>" +
+        spreadGraphic = "<svg viewBox='0 0 100 100' style='width: 50px;'>" +
+                        "<circle cx='0' cy='100' class='spreadMoveCicleBG' r='100'></circle>" +
                         "<circle cx='0' cy='100' r='" + (ADSMove * 200).toString() + "' class='spreadMoveCicle'></circle>" +
 	                    adsBaseCircle +
                         "</svg>";
     } else if (ADSMove != 0){
         var standLineOffset = ADSBase * 2;
         var moveLineOffset = ADSMove * 2;
-        spreadGraphic = "<svg viewBox='0 0 100 100' style='width: 60px;'>" +
+        spreadGraphic = "<svg viewBox='0 0 100 100' style='width: 50px;'>" +
 
                         "<line x1='50' y1='" + (standLineOffset + 52) + "' x2='50' y2='" + (standLineOffset + 65) + "' class='spreadBaseLine'></line>" +
                         "<line x1='50' y1='" + (48 - standLineOffset) + "' x2='50' y2='" + (35 - standLineOffset) + "' class='spreadBaseLine'></line>" +
@@ -450,10 +455,10 @@ function createDamageChart50Max(damageArr, distanceArr, numOfPellets){
         var distanceCoord = 2 * distanceArr[i];
         damageLineCoords += distanceCoord.toString() + "," + damageCoord.toString() + " ";
     }
-    damageLineCoords += "200," + (100 - (2 * damageArr[damageArr.length - 1])).toString();
+    damageLineCoords += "300," + (100 - (2 * damageArr[damageArr.length - 1])).toString();
 
-    var maxDamage = Math.round(damageArr[0]);
-    var minDamage = Math.round(damageArr[damageArr.length - 1]);
+    var maxDamage = roundToDecimal(damageArr[0], "1");
+    var minDamage = roundToDecimal(damageArr[damageArr.length - 1], "1");
 
     var maxDamageText = "";
     if(damageArr[0] > 40){
@@ -463,18 +468,19 @@ function createDamageChart50Max(damageArr, distanceArr, numOfPellets){
     }
 
     var minDamageText = "";
-    if(distanceArr[distanceArr.length - 1] < 100){
-        minDamageText = "<text x='" + (distanceArr[distanceArr.length - 1] * 2) + "' y='" + (96 - (2 * minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";
+    if(distanceArr[distanceArr.length - 1] < 150){
+        minDamageText = "<text x='" + (distanceArr[distanceArr.length - 1] * 2) + "' y='" + (94 - (2 * minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";
     } else {
-        minDamageText = "<text x='183' y='" + (96 - (2 * minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";
+        minDamageText = "<text x='225' y='" + (91 - (2 * minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";
     }
+    
 
     var pelletsLabel = "";
     if (numOfPellets > 1){
-        pelletsLabel = "<text x='135' y='75' class='chartMinMaxLabel'>" + numOfPellets + " pellets</text>";
+        pelletsLabel = "<text x='185' y='75' class='chartMinMaxLabel'>" + numOfPellets + " pellets</text>";
     }
 
-    return "<svg viewbox='0 0 200 100' class='damageChart'>" +
+    return "<svg viewbox='0 0 300 100' class='damageChart'>" +
                "<rect width='200' height='100' style='stroke:rgb(0,0,100);stroke-width:0' fill='rgb(25,25,25)' />" +
 
                "<line x1='10' y1='0' x2='10' y2='100' class='gridLineThin'/>" +
@@ -493,20 +499,32 @@ function createDamageChart50Max(damageArr, distanceArr, numOfPellets){
                "<line x1='170' y1='0' x2='170' y2='100' class='gridLineThin'/>" +
                "<line x1='180' y1='0' x2='180' y2='100' class='gridLineThin'/>" +
                "<line x1='190' y1='0' x2='190' y2='100' class='gridLineThin'/>" +
+               "<line x1='210' y1='0' x2='210' y2='100' class='gridLineThin'/>" +
+               "<line x1='220' y1='0' x2='220' y2='100' class='gridLineThin'/>" +
+               "<line x1='230' y1='0' x2='230' y2='100' class='gridLineThin'/>" +
+               "<line x1='240' y1='0' x2='240' y2='100' class='gridLineThin'/>" +
+               "<line x1='260' y1='0' x2='260' y2='100' class='gridLineThin'/>" +
+               "<line x1='270' y1='0' x2='270' y2='100' class='gridLineThin'/>" +
+               "<line x1='280' y1='0' x2='280' y2='100' class='gridLineThin'/>" +
+               "<line x1='290' y1='0' x2='290' y2='100' class='gridLineThin'/>" +
 
                "<line x1='50' y1='0' x2='50' y2='100' class='gridLineFat'/>" +
                "<line x1='100' y1='0' x2='100' y2='100' class='gridLineFat'/>" +
                "<line x1='150' y1='0' x2='150' y2='100' class='gridLineFat'/>" +
+               "<line x1='200' y1='0' x2='200' y2='100' class='gridLineFat'/>" +
+               "<line x1='250' y1='0' x2='250' y2='100' class='gridLineFat'/>" +
 
-               "<line x1='0' y1='50' x2='200' y2='50' style='stroke:rgb(175,175,175); stroke-width:.5'/>" +
+               "<line x1='0' y1='50' x2='300' y2='50' style='stroke:rgb(175,175,175); stroke-width:.5'/>" +
                "<text x='0' y='58' class='chartLabel'>25</text>" +
-               "<line x1='0' y1='33' x2='200' y2='33' style='stroke:rgb(175,175,175); stroke-width:.25'/>" +
+               "<line x1='0' y1='33' x2='300' y2='33' style='stroke:rgb(175,175,175); stroke-width:.25'/>" +
                "<text x='0' y='41' class='chartLabel'>33</text>" +
                "<text x='0' y='8' class='chartLabel'>50</text>" +
 
                "<text x='51' y='99' class='chartLabel'>25m</text>" +
                "<text x='101' y='99' class='chartLabel'>50m</text>" +
                "<text x='151' y='99' class='chartLabel'>75m</text>" +
+               "<text x='201' y='99' class='chartLabel'>100m</text>" +
+               "<text x='251' y='99' class='chartLabel'>125m</text>" +
 
                "<polyline class='chartDamageLine' points='" + damageLineCoords + "'/>" +
                maxDamageText +
@@ -523,10 +541,10 @@ function createDamageChart100Max(damageArr, distanceArr){
         var distanceCoord = 2 * distanceArr[i];
         damageLineCoords += distanceCoord.toString() + "," + damageCoord.toString() + " ";
     }
-    damageLineCoords += "200," + (100 - damageArr[damageArr.length - 1]).toString();
+    damageLineCoords += "300," + (100 - damageArr[damageArr.length - 1]).toString();
 
-    var maxDamage = Math.round(damageArr[0]);
-    var minDamage = Math.round(damageArr[damageArr.length - 1]);
+    var maxDamage = roundToDecimal(damageArr[0], "1");
+    var minDamage = roundToDecimal(damageArr[damageArr.length - 1], "1");
 
     var maxDamageText = "";
     if(damageArr[0] > 80){
@@ -536,14 +554,14 @@ function createDamageChart100Max(damageArr, distanceArr){
     }
 
     var minDamageText = "";
-    if(distanceArr[distanceArr.length - 1] < 100){
-        minDamageText = "<text x='" + (distanceArr[distanceArr.length - 1] * 2) + "' y='" + (96 - (minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";
+    if(distanceArr[distanceArr.length - 1] < 150){
+        minDamageText = "<text x='" + (distanceArr[distanceArr.length - 1] * 2) + "' y='" + (94 - (minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";
     } else {
-        minDamageText = "<text x='183' y='" + (96 - (minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";
+        minDamageText = "<text x='175' y='" + (94 - (minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";
     }
 
-    return "<svg viewbox='0 0 200 100' class='damageChart'>" +
-               "<rect width='200' height='100' style='stroke:rgb(0,0,100);stroke-width:0' fill='rgb(25,25,25)' />" +
+    return "<svg viewbox='0 0 300 100' class='damageChart'>" +
+               "<rect width='250' height='100' style='stroke:rgb(0,0,100);stroke-width:0' fill='rgb(25,25,25)' />" +
 
                "<line x1='10' y1='0' x2='10' y2='100' class='gridLineThin'/>" +
                "<line x1='20' y1='0' x2='20' y2='100' class='gridLineThin'/>" +
@@ -561,18 +579,30 @@ function createDamageChart100Max(damageArr, distanceArr){
                "<line x1='170' y1='0' x2='170' y2='100' class='gridLineThin'/>" +
                "<line x1='180' y1='0' x2='180' y2='100' class='gridLineThin'/>" +
                "<line x1='190' y1='0' x2='190' y2='100' class='gridLineThin'/>" +
+               "<line x1='210' y1='0' x2='210' y2='100' class='gridLineThin'/>" +
+               "<line x1='220' y1='0' x2='220' y2='100' class='gridLineThin'/>" +
+               "<line x1='230' y1='0' x2='230' y2='100' class='gridLineThin'/>" +
+               "<line x1='240' y1='0' x2='240' y2='100' class='gridLineThin'/>" +
+               "<line x1='260' y1='0' x2='260' y2='100' class='gridLineThin'/>" +
+               "<line x1='270' y1='0' x2='270' y2='100' class='gridLineThin'/>" +
+               "<line x1='280' y1='0' x2='280' y2='100' class='gridLineThin'/>" +
+               "<line x1='290' y1='0' x2='290' y2='100' class='gridLineThin'/>" +
 
                "<line x1='50' y1='0' x2='50' y2='100' class='gridLineFat'/>" +
                "<line x1='100' y1='0' x2='100' y2='100' class='gridLineFat'/>" +
                "<line x1='150' y1='0' x2='150' y2='100' class='gridLineFat'/>" +
+               "<line x1='200' y1='0' x2='200' y2='100' class='gridLineFat'/>" +
+               "<line x1='250' y1='0' x2='250' y2='100' class='gridLineFat'/>" +
 
                "<text x='0' y='8' class='chartLabel'>100</text>" +
-               "<line x1='0' y1='50' x2='200' y2='50' style='stroke:rgb(175,175,175); stroke-width:.5'/>" +
+               "<line x1='0' y1='50' x2='300' y2='50' style='stroke:rgb(175,175,175); stroke-width:.5'/>" +
                "<text x='0' y='58' class='chartLabel'>50</text>" +
 
                "<text x='51' y='99' class='chartLabel'>25m</text>" +
                "<text x='101' y='99' class='chartLabel'>50m</text>" +
                "<text x='151' y='99' class='chartLabel'>75m</text>" +
+               "<text x='201' y='99' class='chartLabel'>100m</text>" +
+               "<text x='251' y='99' class='chartLabel'>125m</text>" +
 
                "<polyline class='chartDamageLine' points='" + damageLineCoords + "'/>" +
                maxDamageText +
@@ -588,10 +618,10 @@ function createDamageChart100Max200Dist(damageArr, distanceArr){
         var distanceCoord = 2 * distanceArr[i]/2;
         damageLineCoords += distanceCoord.toString() + "," + damageCoord.toString() + " ";
     }
-    damageLineCoords += "200," + (100 - damageArr[damageArr.length - 1]).toString();
+    damageLineCoords += "300," + (100 - damageArr[damageArr.length - 1]).toString();
 
-    var maxDamage = Math.round(damageArr[0]);
-    var minDamage = Math.round(damageArr[damageArr.length - 1]);
+    var maxDamage = roundToDecimal(damageArr[0], "1");
+    var minDamage = roundToDecimal(damageArr[damageArr.length - 1], "1");
 
     var maxDamageText = "";
     if(damageArr[0] > 80){
@@ -606,12 +636,12 @@ function createDamageChart100Max200Dist(damageArr, distanceArr){
 
     var minDamageText = "";
     if(distanceArr[distanceArr.length - 1] < 100){
-        minDamageText = "<text x='" + (distanceArr[distanceArr.length - 1] * 2) + "' y='" + (96 - (minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";
+        minDamageText = "<text x='" + (distanceArr[distanceArr.length - 1] * 2) + "' y='" + (94 - (minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";
     } else {
-        minDamageText = "<text x='183' y='" + (96 - (minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";
+        minDamageText = "<text x='175' y='" + (94 - (minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";
     }
 
-    return "<svg viewbox='0 0 200 100' class='damageChart'>" +
+    return "<svg viewbox='0 0 300 100' class='damageChart'>" +
                "<rect width='200' height='100' style='stroke:rgb(0,0,100);stroke-width:0' fill='rgb(25,25,25)' />" +
 
                "<line x1='10' y1='0' x2='10' y2='100' class='gridLineThin'/>" +
@@ -630,18 +660,30 @@ function createDamageChart100Max200Dist(damageArr, distanceArr){
                "<line x1='170' y1='0' x2='170' y2='100' class='gridLineThin'/>" +
                "<line x1='180' y1='0' x2='180' y2='100' class='gridLineThin'/>" +
                "<line x1='190' y1='0' x2='190' y2='100' class='gridLineThin'/>" +
+               "<line x1='210' y1='0' x2='210' y2='100' class='gridLineThin'/>" +
+               "<line x1='220' y1='0' x2='220' y2='100' class='gridLineThin'/>" +
+               "<line x1='230' y1='0' x2='230' y2='100' class='gridLineThin'/>" +
+               "<line x1='240' y1='0' x2='240' y2='100' class='gridLineThin'/>" +
+               "<line x1='260' y1='0' x2='260' y2='100' class='gridLineThin'/>" +
+               "<line x1='270' y1='0' x2='270' y2='100' class='gridLineThin'/>" +
+               "<line x1='280' y1='0' x2='280' y2='100' class='gridLineThin'/>" +
+               "<line x1='290' y1='0' x2='290' y2='100' class='gridLineThin'/>" +
 
                "<line x1='50' y1='0' x2='50' y2='100' class='gridLineFat'/>" +
                "<line x1='100' y1='0' x2='100' y2='100' class='gridLineFat'/>" +
                "<line x1='150' y1='0' x2='150' y2='100' class='gridLineFat'/>" +
+               "<line x1='200' y1='0' x2='200' y2='100' class='gridLineFat'/>" +
+               "<line x1='250' y1='0' x2='250' y2='100' class='gridLineFat'/>" +
 
                "<text x='0' y='8' class='chartLabel'>100</text>" +
-               "<line x1='0' y1='50' x2='200' y2='50' style='stroke:rgb(175,175,175); stroke-width:.5'/>" +
+               "<line x1='0' y1='50' x2='300' y2='50' style='stroke:rgb(175,175,175); stroke-width:.5'/>" +
                "<text x='0' y='58' class='chartLabel'>50</text>" +
 
                "<text x='51' y='99' class='chartLabel200Dist'>50m</text>" +
                "<text x='101' y='99' class='chartLabel200Dist'>100m</text>" +
                "<text x='151' y='99' class='chartLabel200Dist'>150m</text>" +
+               "<text x='201' y='99' class='chartLabel200Dist'>200m</text>" +
+               "<text x='251' y='99' class='chartLabel200Dist'>250m</text>" +
 
                "<polyline class='chartDamageLine' points='" + damageLineCoords + "'/>" +
                maxDamageText +
@@ -745,34 +787,41 @@ weaponSubCats._BredaM1935PG = "AR"
 weaponSubCats._Gewehr15 = "SAR";
 weaponSubCats._M1Garand = "SAR";
 weaponSubCats._M1A1Carbine = "SAR";
-weaponSubCats._Modele1944 = "SAR";
+weaponSubCats._MAS44 = "SAR";
 weaponSubCats._Selbstlader1916 = "SAR";
 weaponSubCats._TurnerSMLE = "SAR";
 weaponSubCats._StG44 = "AR";
 weaponSubCats._Gewehr43 = "SAR";
 weaponSubCats._M1907SF = "AR";
-weaponSubCats._Ribeyrolles = "AR";
+weaponSubCats._M2Carbine = "AR"
+weaponSubCats._Ribeyrolles1918 = "AR";
 weaponSubCats._StG44 = "AR";
 weaponSubCats._Sturmgewehr15 = "AR";
 weaponSubCats._Karabin1938M = "SAR";
+weaponSubCats._M1941Johnson = "SAR";
 
 weaponSubCats._EMP = "SMG";
 weaponSubCats._M1928A1 = "SMG";
+weaponSubCats._M3GreaseGun = "SMG";
 weaponSubCats._MAB38 = "SMG";
 weaponSubCats._MP28 = "SMG";
 weaponSubCats._MP34 = "SMG";
 weaponSubCats._MP40 = "SMG";
+weaponSubCats._NambuType2A = "SMG";
 weaponSubCats._STEN = "SMG";
 weaponSubCats._SuomiKP31 = "SMG";
 weaponSubCats._Zk383 = "SMG";
 weaponSubCats._Type100 = "SMG";
 weaponSubCats._M28Tromboncino = "BACarbine";
-weaponSubCats._DeLisleCommando = "BACarbine";
+weaponSubCats._CommandoCarbine = "BACarbine";
 weaponSubCats._JungleCarbine = "BACarbine";
+weaponSubCats._Welgun = "SMG";
 
 weaponSubCats._12gAutomatic = "Shotgun";
 weaponSubCats._M30Drilling = "Shotgun";
 weaponSubCats._M97 = "Shotgun";
+weaponSubCats._Model37 = "Shotgun"
+weaponSubCats._BARM1918A2 = "LMG";
 weaponSubCats._BrenGun = "LMG";
 weaponSubCats._FG42 = "LMG";
 weaponSubCats._KE7 = "LMG";
@@ -780,11 +829,15 @@ weaponSubCats._LewisGun = "LMG";
 weaponSubCats._LS26 = "LMG";
 weaponSubCats._M1922MMG = "MMG";
 weaponSubCats._MadsenMG = "LMG";
+weaponSubCats._Type11MG = "LMG";
+weaponSubCats._Type97MG = "LMG";
 weaponSubCats._MG34 = "MMG";
 weaponSubCats._MG42 = "MMG";
 weaponSubCats._S2200 = "MMG";
 weaponSubCats._VGO = "MMG";
 weaponSubCats._M1919A6 = "MMG";
+weaponSubCats._SjogrenShotgun = "Shotgun";
+weaponSubCats._Chauchat = "LMG";
 
 weaponSubCats._BoysATRifle = "AntiMaterial";
 weaponSubCats._Panzerbüchse39 = "AntiMaterial";
@@ -800,6 +853,8 @@ weaponSubCats._Selbstlader1906 = "SLR";
 weaponSubCats._ZH29 = "SLR";
 weaponSubCats._P08Carbine = "PistolCarbine";
 weaponSubCats._C96TrenchCarbine = "PistolCarbine";
+weaponSubCats._M3Infrared = "SAR";
+weaponSubCats._K3143 = "BA";
 
 
 function cleanUpStuff(){

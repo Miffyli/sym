@@ -1,5 +1,14 @@
 // Path to datafile
-const BFV_DATA = './pages/bfv/data/bfv_H.json'
+const BFV_DATA = './pages/bfv/data/bfv_O.json'
+
+// Manual dates when the data or pages have been modified.
+// In format "[day] [month three letters] [year four digits]"
+// e.g. 2nd Jan 2019
+const BFV_DATA_DATE = '26th Jun 2020 (BFV_O)'
+const BFV_PAGE_DATE = '15th Mar 2020'
+
+// Total version string displayed under title
+const BFV_VERSION_STRING = `Latest updates<br>Page: ${BFV_PAGE_DATE}<br>Data: ${BFV_DATA_DATE}`
 
 // Constants for BFV
 // Constants for plotting damage/ttk/etc
@@ -68,6 +77,19 @@ const BFV_LOWER_IS_WORSE = new Set([
   'ADSProneRecoilDecFactor',
   'ADSStandRecoilDecFactor',
   'ADSCrouchRecoilDecFactor',
+  'ADSStandBaseSpreadIdleOffset',
+  'HIPStandBaseSpreadIdleOffset',
+  'ADSCrouchBaseSpreadIdleOffset',
+  'HIPCrouchBaseSpreadIdleOffset',
+  'ADSProneBaseSpreadIdleOffset',
+  'HIPProneBaseSpreadIdleOffset',
+  'ADSStandMoveSpreadIdleOffset',
+  'HIPStandMoveSpreadIdleOffset',
+  'ADSCrouchMoveSpreadIdleOffset',
+  'HIPCrouchMoveSpreadIdleOffset',
+  'ADSProneMoveSpreadIdleOffset',
+  'HIPProneMoveSpreadIdleOffset',
+  'ADSStandBaseSpreadIdleOffset',
   'ShotsPerShell'
 ])
 
@@ -116,6 +138,9 @@ customizationStrings.BROF = "Trigger Job";
 customizationStrings.GLau = 'Grenade Launcher'
 customizationStrings.Fire = 'Fully Automatic Fire'
 customizationStrings.QCyP = 'Machined Bolt'
+customizationStrings.Supp = 'Suppressor'
+customizationStrings.TopU = 'Top Up'
+customizationStrings.HiPo = 'High Power Optics'
 
 // A flag to tell if we have loaded BFV data already
 var BFVDataLoaded = false
@@ -134,6 +159,9 @@ var BFVWeaponKeys = []
 var BFVWeaponKeyToData = {}
 // Keeps track of which page to load after the data is loaded.
 var BFVSelectedPage = ""
+// Keeps track of which page to load when loading from a querystring
+var bfvPageToLoad = ""
+
 
 /*
   Returns html RGB color code for given array
@@ -314,7 +342,12 @@ function BFVLoadWeaponData () {
   the user to select which page to navigate to (chart, comp, etc...).
 */
 function openBFVSelectionPage () {
-  loadPageWithHeader('./pages/bfv/bfv_header.html', 'Battlefield V', initializeBFVSelectrion)
+  loadPageWithHeader('./pages/bfv/bfv_header.html', 'Battlefield V', initializeBFVSelection, BFV_VERSION_STRING)
+}
+
+function openBFVSelectionPageFromQueryString(pageStr){
+  bfvPageToLoad = pageStr
+  loadPageWithHeader('./pages/bfv/bfv_header.html', 'Battlefield V', BFVLoadPageFromQueryString, BFV_VERSION_STRING)
 }
 
 /*
@@ -347,6 +380,7 @@ function openBFVChartPage () {
     BFVLoadWeaponData()
   } else {
     loadBFVChartPage()
+    loadBFVStylesheet()
   }
 }
 
@@ -378,13 +412,6 @@ function openBFVEquipmentPage () {
 }
 
 /*
-  Load the BFV vehicle data page
-*/
-function openBFVVehiclePage () {
-  $('.bfv-main-content').load('./pages/bfv/bfv_dataVehicle.html')
-}
-
-/*
   Main hub for opening different BFV pages based on their name.
   Handles coloring of the buttons etc
 */
@@ -397,24 +424,27 @@ function BFVOpenPageByName(pageName) {
   if (pageName === 'Weapon Charts') {
     $('#bfv-chartPageSelector').addClass('selected-selector')
     openBFVChartPage()
+    updateQueryString("bfv", "charts")
   } else if (pageName === 'Weapon Comparison') {
     $('#bfv-comparisonPageSelector').addClass('selected-selector')
     openBFVComparisonPage()
+    updateQueryString("bfv", "comparison")
   } else if (pageName === 'General Information') {
     $('#bfv-generalinfoPageSelector').addClass('selected-selector')
     openBFVGeneralInfoPage()
+    updateQueryString("bfv", "general-info")
   } else if (pageName === 'Equipment Data') {
     $('#bfv-equipmentPageSelector').addClass('selected-selector')
     openBFVEquipmentPage()
-  } else if (pageName === 'Vehicle Data') {
-    $('#bfv-vehiclePageSelector').addClass('selected-selector')
-    openBFVVehiclePage()
+    updateQueryString("bfv", "equipment")
   } else if (pageName === 'Index') {
     $('#bfv-mainPageSelector').addClass('selected-selector')
     openBFVIndexPage()
-	} else if (pageName === 'Weapon Mechanics') {
+    updateQueryString("bfv", "index")
+  } else if (pageName === 'Weapon Mechanics') {
     $('#bfv-weaponPageSelector').addClass('selected-selector')
     openBFVWeaponPage()
+    updateQueryString("bfv", "weapon-mechanics")
   }
 }
 
@@ -422,27 +452,8 @@ function BFVOpenPageByName(pageName) {
   Add handlers for the click events for the bfv selector page and open
   the entry page for BFV
 */
-function initializeBFVSelectrion () {
-  $('.sym-pageSelections > div').click(function () {
-    var clicked = $(this).attr('id')
-    var pageName
-    if (clicked === 'bfv-chartPageSelector') {
-      pageName = 'Weapon Charts'
-    } else if (clicked === 'bfv-comparisonPageSelector') {
-      pageName = 'Weapon Comparison'
-    } else if (clicked === 'bfv-mainPageSelector') {
-      pageName = 'Index'
-	  } else if (clicked === 'bfv-generalinfoPageSelector') {
-      pageName = 'General Information'
-	  } else if (clicked === 'bfv-equipmentPageSelector') {
-      pageName = 'Equipment Data'
-	  } else if (clicked === 'bfv-weaponPageSelector') {
-      pageName = 'Weapon Mechanics'
-    } else if (clicked === 'bfv-vehiclePageSelector') {
-      pageName = 'Vehicle Data'
-    }
-    BFVOpenPageByName(pageName)
-  })
+function initializeBFVSelection () {
+  BFVSetupPageHeader()
   openBFVIndexPage()
 }
 
@@ -457,4 +468,58 @@ function BFVinitializeIndexPage(){
       //                      it will break opening the page
       BFVOpenPageByName(itemClicked)
   })
+}
+
+
+function BFVSetupPageHeader(){
+  loadBFVStylesheet()  
+  $('.sym-pageSelections > div').click(function () {
+    var clicked = $(this).attr('id')
+    var pageName
+    if (clicked === 'bfv-chartPageSelector') {
+      pageName = 'Weapon Charts'
+    } else if (clicked === 'bfv-comparisonPageSelector') {
+      pageName = 'Weapon Comparison'
+    } else if (clicked === 'bfv-mainPageSelector') {
+      pageName = 'Index'
+	} else if (clicked === 'bfv-generalinfoPageSelector') {
+      pageName = 'General Information'
+	} else if (clicked === 'bfv-equipmentPageSelector') {
+      pageName = 'Equipment Data'
+	} else if (clicked === 'bfv-weaponPageSelector') {
+      pageName = 'Weapon Mechanics'
+    }
+    BFVOpenPageByName(pageName)
+  })
+}
+
+function BFVLoadPageFromQueryString(){
+  BFVSetupPageHeader()
+  BFVOpenPageByName(bfvPageToLoad)
+}
+
+/*
+  Add handlers for the click events for the bfv index page
+*/
+function BFVinitializeIndexPage(){
+  $('.indexPageItem').click(function () {
+    console.log("hererere")
+      var itemClicked = $(this).find("h4").text()
+      // TODO slippery slope: If title on the buttons changes,
+      //                      it will break opening the page
+      BFVOpenPageByName(itemClicked)
+  })
+}
+
+/*
+  Hackish fix to accomodate the M1 Garand having 3 tier 4 customizations.  We are replacing Bayonet with Heavy Load
+  since Bayonets don't affect weapon stats.
+*/
+function BFVSwitchBayoToHeav(custString, weaponName){
+  if(weaponName == "M1 Garand"){
+    custString = custString.replace(/Bayonet/g, 'Heavy Load')
+    custString = custString.replace(/Bayo/g, "Heav")
+  }
+
+  return custString
 }

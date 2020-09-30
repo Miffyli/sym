@@ -1,0 +1,113 @@
+.bfh-header-content {
+  text-align: center;
+  padding: 100px;
+  margin: auto;
+  width: 400px;
+}
+
+.bfh-content-comparison {
+    width: 1200px;
+    margin: auto;
+}
+
+/* Remove unnecessary paddings */
+.bfh-content-comparison > div {
+    padding: 0px 0px;
+}
+
+.bfh-content-comparison-table table {
+    border-spacing: 0px;
+}
+
+.bfh-content-comparison-table tr:nth-child(even) {
+    background-color: #222;
+}
+
+.bfh-comp-selectorContainer{
+    display: inline-block;
+    vertical-align: top;
+    padding: 19px;
+    background: #222;
+    margin: 4px;
+    border: 1px solid #444;
+    width: 345px;
+    height: 125px;
+}
+
+/* Attachment dropdown boxes */
+.bfh-comp-selectorContainerAttachments select {
+    color: #444;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    width: 100%;
+}
+
+/* "Attachments" text */
+.bfh-comp-selectorContainer div:first-of-type {
+    text-align: center;
+    color: #AAA;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    width: 100%;
+}
+
+/* Do not color the first row */
+
+.bfh-content-comparison-table tr:nth-child(odd):not(:first-child) {
+    background-color: #333;
+}
+
+.bfh-content-comparison-table th {
+    height: 30pt;
+}
+
+.bfh-content-comparison-table td:first-child {
+    padding-right: 30pt
+}
+
+
+/* Center values in the table, but on the first column (names) */
+
+.bfh-content-comparison-table td:not(:first-child) {
+    text-align: center;
+    width: 100pt;
+}
+
+
+.bfh-sym-info-subheader{
+    font-size: 24px;
+    font-weight: bold;
+    padding: 20px 0px 0px;
+    border-top: 1px solid #444;
+}
+
+.bfh-genInfo-table {
+    margin-bottom: 20px;
+    background: #333;
+    border-spacing: 0;
+}
+
+.bfh-genInfo-table caption{
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.bfh-genInfo-table tr:nth-child(even){
+    background: #222;
+}
+
+.bfh-genInfo-table td{
+    padding: 2px 12px;
+    font-size: 16px;
+}
+
+.bfh-genInfo-table tr td:nth-child(1){
+    text-align: right;
+    font-style: italic;
+}
+
+.bfh-genInfo-table tr td:nth-child(2){
+    font-weight: bold;
+}

@@ -6,7 +6,7 @@
 			&nbsp; &nbsp; &nbsp; &nbsp; <img src="./pages/bfv/img/roster_icon_allies.svg"> &nbsp; &nbsp;
 			<span>Preface</span>
 		</div>
-			<p>This page contains information regarding the functioning of weapons in <i>Battlefield V,</i> throughout which multiple abbreviations will be used for brevity. Their individual meanings are as follows:</p>
+			<p>This page contains information regarding the functioning of weapons in <i>Battlefield V,</i> throughout which multiple abbreviations may be used for brevity. Their individual meanings are as follows:</p>
 			
 			<p>
 			<table class="bfv-genInfo-table">
@@ -15,16 +15,32 @@
 					<td>Aim Down Sight</td>
 				</tr>
 				<tr>
+					<td>BTK</td>
+					<td>Bullets to Kill</td>
+				</tr>
+				<tr>
+					<td>EFTK</td>
+					<td>Estimated Frames to Kill</td>
+				</tr>
+				<tr>
+					<td>FTK</td>
+					<td>Frames to Kill</td>
+				</tr>
+				<tr>
 					<td>HRec</td>
 					<td>Horizontal Recoil</td>
 				</tr>
 				<tr>
-					<td>SDec</td>
+					<td>SDEC</td>
 					<td>Spread Decrease</td>
 				</tr>
 				<tr>
 					<td>SIPS</td>
 					<td>Spread Increase per Shot</td>
+				</tr>
+				<tr>
+					<td>TTK</td>
+					<td>Time to Kill</td>
 				</tr>
 				<tr>
 					<td>VRec</td>
@@ -48,7 +64,7 @@
 					<td>Bolt-Action Carbine</td>
 				</tr>
 				<tr>
-					<td>BAR</td>
+					<td>BA</td>
 					<td>Bolt-Action Rifle</td>
 				</tr>
 				<tr>
@@ -89,6 +105,7 @@
 					<li>0.5x initial VRec</li>
 					<li>0.75x recoil pattern yaw</li>
 				</ul>
+			<br><i>As of Update 6.2, there are reports of this modifier no longer functioning. Please know this may no longer be in-effect.</i>
 			</p>
 			
 		<div class="bfv-sym-info-subheader">Selected Semi-Automatic Shooting</div>
@@ -124,10 +141,11 @@
 		<div class="bfv-sym-info-section-header">
 			<img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_VRecoil.svg">
 			<span>Weapon Handling</span>
+			<p><i>Thanks to kht120 for writing this section.</i></p>
 		</div>
 		
 		<div class="bfv-sym-info-subheader">Spread Increase</div>
-			<p>Spread is applied per-shot (spread increase per shot, or “SIPS”), as it has been in previous Battlefield titles. Note that spread increase per shot is set to 0 in ADS (zoomed) fire for LMGs, MMGs, SARs, SLRs, sidearms, and BARs. Spread now decreases even when the gun is not idle (see: in between shots while firing at max rate of fire), decreasing at an accelerating rate per frame.</p>
+			<p>Spread is applied per-shot (spread increase per shot, or “SIPS”), as it has been in previous Battlefield titles. Note that spread increase per shot is set to 0 in ADS (zoomed) fire for LMGs, MMGs, SARs, SLRs, sidearms, and BAs. Spread decreases even when the gun is not idle (see: in between shots while firing at max rate of fire), decreasing at an accelerating rate per frame.</p>
 			<p><i>- Spread exponent:</i> Dictates rate of spread decrease acceleration<br>
 			<i>- Spread offset:</i> Fixed value for spread decrease per frame<br>
 			<i>- Spread coefficient:</i> Beta for spread decrease acceleration</p>
@@ -148,8 +166,7 @@
 		<div class="bfv-sym-info-subheader">Recoil Patterns</div>
 			<p>Recoil patterns are designated by an integer RecoilPatternSeed value. Recoil patterns are generated randomly, and the RecoilPatternSeed value acts as a random seed to produce a reproducible result from random generation, allowing recoil patterns to be a fixed, non-randomized value. RecoilPatternYaw dictates the strength of the recoil pattern’s horizontal movement. RecoilPatternPitch exists, which would presumably dictate the strength of a recoil pattern’s vertical movement, but is currently set at 0.0 for all weapons. While the recoil pattern itself is fixed and non-randomized, vertical recoil, horizontal recoil, and spread converted into recoil are imposed atop this system, creating a slight variance in the pattern, which increases with sustained fire with submachine guns and assault rifles. Note that recoil patterns cannot be isolated for accurate visualization.</p>
 		<div class="bfv-sym-info-subheader">Recoil Decrease</div>
-			<p>Recoil decrease works as it does in Battlefield 1, persisting even when the gun is not idle, and decelerates as time passes.</p>
-		
+			<p>Recoil decrease works as it does in Battlefield 1, persisting even when the gun is not idle, and decelerates as time passes.</p> 
 
 		<div class="bfv-sym-info-section-header">
 			<img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_QuickADS.svg">
@@ -246,7 +263,7 @@
 			</tr>
 			<tr>
 				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_ImprovedADS_M.svg" style="height:50"></td>
-				<td>Custom Stock<br>(BACs, BARs, & LMGs)</td>
+				<td>Custom Stock<br>(BACs, BAs, & LMGs)</td>
 				<td>0.5x ADS moving base spread.</td>
 			</tr>
 			<tr>
@@ -314,6 +331,11 @@
 				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_M1Garand_Grenade.svg" style="height:50"></td>
 				<td>Grenade Launcher</td>
 				<td>Adds grenade launching abilities to the weapon.</td>
+			</tr>
+			<tr>
+				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_Zeroing.svg" style="height:50"></td>
+				<td>High Powered Optics</td>
+				<td>Increases integral scope zoom from 3x to 6x magnification.</td>
 			</tr>
 			<tr>
 				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_HeavyLoad.svg" style="height:50"></td>
@@ -409,7 +431,7 @@
 				<td><br>Adds the following effects when hipfiring:<br>
 					<ul>
 						<li>0.575x SIPS</li>
-						<li>0.68x SDec coefficient and offset</li>
+						<li>0.68x SDEC coefficient and offset</li>
 					</ul>
 				</td>
 			</tr>
@@ -419,7 +441,7 @@
 				<td><br>Adds the following effects when hipfiring:<br>
 					<ul>
 						<li>0.575x SIPS</li>
-						<li>0.71x SDec coefficient and offset</li>
+						<li>0.71x SDEC coefficient and offset</li>
 					</ul>
 				</td>
 			</tr>
@@ -429,54 +451,14 @@
 				<td><br>Adds the following effects when hipfiring:<br>
 					<ul>
 						<li>0.575x SIPS</li>
-						<li>0.75x SDec coefficient and offset</li>
+						<li>0.75x SDEC coefficient and offset</li>
 					</ul>
 				</td>
 			</tr>
 			<tr>
 				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_HRecoil.svg" style="height:50"></td>
 				<td>Ported Barrel</td>
-				<td>0.8x HRec multiplier</td>
-			</tr>
-			<tr>
-				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_HRecoil.svg" style="height:50"></td>
-				<td>Ported Barrel<br>(MP34)</td>
-				<td>0.53125x HRec multiplier</td>
-			</tr>
-			<tr>
-				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_HRecoil.svg" style="height:50"></td>
-				<td>Ported Barrel<br>(S2-200)</td>
-				<td>0.6x HRec multiplier</td>
-			</tr>
-			<tr>
-				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_HRecoil.svg" style="height:50"></td>
-				<td>Ported Barrel<br>(MG34 & M1919A6)</td>
-				<td>0.65x HRec multiplier</td>
-			</tr>
-			<tr>
-				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_HRecoil.svg" style="height:50"></td>
-				<td>Ported Barrel<br>(STEN, MP40, MAB38, Model 37, KE7, Madsen MG, & BREN)</td>
-				<td>0.667x HRec multiplier</td>
-			</tr>
-			<tr>
-				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_HRecoil.svg" style="height:50"></td>
-				<td>Ported Barrel<br>(EMP)</td>
-				<td>0.7x HRec multiplier</td>
-			</tr>
-			<tr>
-				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_HRecoil.svg" style="height:50"></td>
-				<td>Ported Barrel<br>(M1907, StG44, & Breda M1935 PG)</td>
-				<td>0.75x HRec multiplier</td>
-			</tr>
-			<tr>
-				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_HRecoil.svg" style="height:50"></td>
-				<td>Ported Barrel<br>(Chauchat)</td>
-				<td>0.78x HRec multiplier</td>
-			</tr>
-			<tr>
-				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_HRecoil.svg" style="height:50"></td>
-				<td>Ported Barrel<br>(MP28, M1922 MG, VGO)</td>
-				<td>0.84x HRec multiplier</td>
+				<td>Adds a multiplier to reduce HRec. Multiplier varies based on weapon.</td>
 			</tr>
 			<tr>
 				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_QuickADS.svg" style="height:50px"></td>
@@ -484,18 +466,13 @@
 				<td><br>Adds the following effects:<br>
 					<ul>
 						<li>Decreases ADS time, amount varying by weapon.</li>
-						<li>1.75x SDec coefficient and offset</li>
+						<li>1.75x SDEC coefficient and offset</li>
 					</ul>
 				</td>
 			</tr>
 			<tr>
 				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_VRecoil.svg" style="height:50"></td>
 				<td>Recoil Buffer</td>
-				<td>Reduces VRec and pattern yaw by 0.8x</td>
-			</tr>
-			<tr>
-				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_VRecoil.svg" style="height:50"></td>
-				<td>Recoil Buffer<br>(SARs and SLRs)</td>
 				<td>Reduces VRec and pattern yaw by 0.8x</td>
 			</tr>
 			<tr>
@@ -514,13 +491,18 @@
 				<td>Increases headshot damage by 25%</td>
 			</tr>
 			<tr>
+				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_M3SMG_Supressed.svg" style="height:50"></td>
+				<td>Suppressor</td>
+				<td>Reduces weapon firing volume and removes damage direction indicator for targets hit.</td>
+			</tr>
+			<tr>
 				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_QuickDeploy.svg" style="height:50"></td>
 				<td>Swings and Swivels</td>
 				<td><br>Adds the following effects:<br>
 					<ul>
 						<li>Decreases weapon swap time by 15%.</li>
 						<li>Improves sprint out time by 50%.</li>
-						<li>1.67x SDec coefficient and offset</li>
+						<li>1.67x SDEC coefficient and offset</li>
 					</ul>
 				</td>
 			</tr>
@@ -531,9 +513,14 @@
 					<ul>
 						<li>Decreases weapon swap time by 15%.</li>
 						<li>Improves sprint out time by 100%.</li>
-						<li>2.25x SDec coefficient and offset</li>
+						<li>2.25x SDEC coefficient and offset</li>
 					</ul>
 				</td>
+			</tr>
+			<tr>
+				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_Topup.svg" style="height:50"></td>
+				<td>Top-up</td>
+				<td>Performs an expedited reload animation when the weapon has an ammo count evenly divisible by 5.</td>
 			</tr>
 			<tr>
 				<td><img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_ImprovedTrigger.svg" style="height:50"></td>

@@ -1,4 +1,3 @@
-<!--suppress HtmlRequiredLangAttribute -->
 <html>
 <head>
     <!-- DO NOT change the order of tags in the HEAD unless you know what you are doing, order matters! -->
@@ -9,8 +8,13 @@
     <link rel="manifest" href="./site.webmanifest">
     <link rel="stylesheet" href="./sym.css" type="text/css">
     <link rel="stylesheet" href="./pages/bfv/bfv.css" type="text/css">
-    <link rel="stylesheet" href="./pages/bfv/bfv_chart.css" type="text/css">
     <link rel="stylesheet" href="./pages/bf1/bf1.css" type="text/css">
+    <link rel="stylesheet" href="./pages/bf4/bf4.css" type="text/css">
+    <link rel="stylesheet" href="./pages/bfh/bfh.css" type="text/css">
+    <link rel="stylesheet" href="./pages/bf3/bf3_comparison.css" type="text/css">
+
+    <!-- Chart stylesheets are now dyamically loaded via sym.js-->
+    <link rel="stylesheet" id="chartCSS" href="" type="text/css">
     <link rel="stylesheet" href="./pages/apex/apex.css" type="text/css">
     <link rel="stylesheet" href="./pages/apex/apex_chart.css" type="text/css">
 
@@ -39,6 +43,20 @@
     <!-- BF1 -->
     <script type="text/javascript" src="./pages/bf1/bf1.js"></script>
     <script type="text/javascript" src="./pages/bf1/bf1_comparison.js"></script>
+    <script type="text/javascript" src="./pages/bf1/bf1_chart.js"></script>
+    <script type="text/javascript" src="./pages/bf1/bf1_chart_sorting.js"></script>
+
+    <!-- BF4 -->
+    <script type="text/javascript" src="./pages/bf4/bf4.js"></script>
+    <script type="text/javascript" src="./pages/bf4/bf4_chart.js"></script>
+    <script type="text/javascript" src="./pages/bf4/bf4_comparison.js"></script>
+
+    <!-- BF3 -->
+    <script type="text/javascript" src="./pages/bf3/bf3.js"></script>
+    <script type="text/javascript" src="./pages/bf3/bf3_chart.js"></script>
+    <script type="text/javascript" src="./pages/bf3/bf3_comparison.js"></script>
+    <!-- Other Titles -->
+    <script type="text/javascript" src="./pages/otherTitles/otherTitles.js"></script>
     <!-- APEX -->
     <script type="text/javascript" src="./pages/apex/apex.js"></script>
     <script type="text/javascript" src="./pages/apex/apex_comparison.js"></script>
@@ -47,39 +65,40 @@
     <script type="text/javascript" src="./pages/apex/apex_chart_comparison.js"></script>
     <script type="text/javascript" src="./pages/apex/apex_chart_sorting.js"></script>
     <script type="text/javascript" src="./pages/apex/apex_dataLegends.js"></script>
- 
-    <script type="text/javascript" src="./sym.js"></script>
 
+    <script type="text/javascript" src="./sym.js"></script>
 
 </head>
 <body class="sym-body">
     <div class="sym-header">
-        <img class="sym-banner" src="./img/symBanner.png" alt="">
-        <div class="sym-menu sym-headerMenu">
-            <span id="menuNews">NEWS</span>
-            <span id="menuForums">FORUMS</span>
-            <span id="menuDiscord">DISCORD</span>
-            <span id="menuBFV">BFV DATA</span>
-            <span id="menuBF1">BF1 DATA</span>
-			<span id="menuAPEX">APEX DATA</span>
-            <span id="menuDatabrowser">DATABROWSER</span>
-        </div>
+        <a class="sym-banner">
+            <img src="./img/symBanner.png">
+        </a>
+        <nav class="sym-menu sym-headerMenu">
+            <a id="menuNews">NEWS</a>
+            <a id="menuForums">FORUMS</a>
+            <a id="menuDiscord">DISCORD</a>
+            <a id="menuBFV">BFV DATA</a>
+            <a id="menuBF1">BF1 DATA</a>
+            <a id="menuAPEX">APEX DATA</a>
+            <a id="menuOtherTitles">OTHER TITLES</a>
+            <a id="menuDatabrowser">DATABROWSER</a>
+        </nav>
     </div>
-    <h1 class="sym-main-content-header">
-    </h1>
+    <h1 class="sym-main-content-header"></h1>
 	
     <div class="sym-main-content">
         <div class="sym-main-content-home">
-            <div style="text-align: center;">
+            <center>
 			
 			<div class="sym-home-motto">
 				<span>THE MOST ACCURATE DATA FOR YOUR FAVORITE GAMES</span><br>
-				<img src="./img/SymFlaskBottom.png" style="width:850px" alt="">
+				<img src="./img/SymFlaskBottom.png" style="width:850px">
             </div>
 			<br>
-            <div class="sym-home-jumpin-btn">
+            <a class="sym-home-jumpin-btn">
                 <span>JUMP IN WITH BATTLEFIELD V!</span>
-            </div></div>
+            </a></center>
 
             <div class="sym-separator"></div>
 
@@ -89,10 +108,10 @@
                     <div>Sym <i>(formerly Symthic)</i> is the premier website for you to find statistical data for the most popular games, extracted straight from the gamefiles themselves.</div>
 					<div>Consisting of a community that love being gaming scientists, typical discussion consists of saying things like, "up to 12.5 meters, that weapon will kill in 4 shots" as opposed to "yeah that gun feels good - nahh that one doesn't."</div>
 					<div>We strive to examine every single aspect of a game to see exactly what it does, so that you can overcome it.</div>
-                    <div class="sym-main-desc-learnMore-btn">LEARN MORE</div>
+                    <a class="sym-main-desc-learnMore-btn">LEARN MORE</a>
                 </div>
                 <div>
-                    <img class="sym-main-flask" src="./img/tsymLogo.png" alt="">
+                    <img class="sym-main-flask" src="./img/symSolo.png">
                 </div>
             </div>
 
@@ -106,14 +125,18 @@
             <div class="sym-separator"></div>
         </div>
     </div>
+
+    <p class="sym-main-content-version"></p>
+
     <div class="sym-footer">
-        <div class="sym-menu">
-            <span id="menuAbout">ABOUT</span>
-            <span id="menuFAQ">FAQ</span>
-            <span id="menuContact">CONTACT</span>
-            <span id="menuStaff">STAFF</span>
-            <span id="menuGithub">GITHUB</span>
-        </div>
+        <nav class="sym-menu">
+            <a id="menuAbout">ABOUT</a>
+            <a id="menuFAQ">FAQ</a>
+            <a id="menuContact">CONTACT</a>
+            <a id="menuStaff">STAFF</a>
+			<a id="menuPartners">OUR PARTNERS</a>
+            <a id="menuGithub">GITHUB</a>
+        </nav>
     </div>
 </body>
 </html>

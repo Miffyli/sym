@@ -1,10 +1,14 @@
 # Local data for debugging. Fill be filled on server.
-**/bfv/data/**
 .idea/*
 *.psd
 .idea/modules.xml
 .idea/misc.xml
-.idea/misc.xml
-.idea/modules.xml
 .idea/sym.iml
 .idea/vcs.xml
+
+**/bf1/data/**
+**/bfv/data/**
+**/bf4/data/**
+**/bfh/data/**
+
+**/apex/data/**

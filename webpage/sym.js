@@ -15,51 +15,59 @@ const SYM_NUM_NEWS_ITEMS = 1
     to be run when the page loads.
 */
 window.onload = function () {
-  // Handle click events for the header and footer menus
-  $('.sym-menu > span').click(function () {
-    var clicked = $(this).attr('id')
-
-    if (clicked === 'menuNews') {
-      // Only load three latest news for now
-      loadPageWithHeader('./pages/misc/news.html', 'News', function() { loadNewestNewsItems(1, 3) })
-    } else if (clicked === 'menuForums') {
-      openNewTab(SYM_FORUMS_URL)
-    } else if (clicked === 'menuDiscord') {
-      openNewTab(SYM_DISCORD_URL)
-    } else if (clicked === 'menuBFV') {
-      openBFVSelectionPage()
-    } else if (clicked === 'menuBF1') {
-      openBF1SelectionPage()
-    } else if (clicked === 'menuAPEX') {
-      openAPEXSelectionPage()
-    } else if (clicked === 'menuDatabrowser') {
-      openNewTab(SYM_DATABROWSER_URL)
-    } else if (clicked === 'menuAbout') {
-      loadPageWithHeader('./pages/misc/about.html', 'About Sym')
-    } else if (clicked === 'menuFAQ') {
-      loadPageWithHeader('./pages/misc/faq.html', 'Frequently Asked Questions')
-    } else if (clicked === 'menuContact') {
-      loadPageWithHeader('./pages/misc/contact.html', 'Contact Us')
-    } else if (clicked === 'menuStaff') {
-      loadPageWithHeader('./pages/misc/staff.html', 'Site Staff')
-    } else if (clicked === 'menuGithub') {
-      openNewTab(SYM_GITHUB_URL)
+  const routes = {}
+  function addRoute (route, href, loadFn) {
+    routes[route] = {
+      loadFn: loadFn,
+      href: href
     }
+  }
+  function linkAnchor ($anchor, route) {
+    if (Object.prototype.hasOwnProperty.call(routes, route)) {
+      $anchor.attr('href', routes[route].href)
+      $anchor.click((e) => {
+        e.preventDefault()
+        routes[route].loadFn()
+      })
+    } else {
+      console.error('Unable to identify route "' + route + '"')
+    }
+  }
+  // Handle click events for the header and footer menus
+  addRoute('menuNews', generatePath('sym', 'news'), () => {
+    // Only load three latest news for now
+    loadPageWithHeader('./pages/misc/news.html', 'News', function () { loadNewestNewsItems(1, 4) })
   })
-  
+  addRoute('menuForums', SYM_FORUMS_URL, () => openNewTab(SYM_FORUMS_URL))
+  addRoute('menuDiscord', SYM_DISCORD_URL, () => openNewTab(SYM_DISCORD_URL))
+  addRoute('menuBFV', generatePath('bfv', 'index'), openBFVSelectionPage)
+  addRoute('menuBF1', generatePath('bf1', 'index'), openBF1SelectionPage)
+  addRoute('menuAPEX', generatePath('apex', 'index'), openAPEXSelectionPage)
+  addRoute('menuOtherTitles', generatePath('other', 'index'), openOtherTitlesSelectionPage)
+  addRoute('menuDatabrowser', SYM_DATABROWSER_URL, () => openNewTab(SYM_DATABROWSER_URL))
+  addRoute('menuAbout', generatePath('sym', 'about'), () => loadPageWithHeader('./pages/misc/about.html', 'About Sym'))
+  addRoute('menuFAQ', generatePath('sym', 'faq'), () => loadPageWithHeader('./pages/misc/faq.html', 'Frequently Asked Questions'))
+  addRoute('menuContact', generatePath('sym', 'contact-us'), () => loadPageWithHeader('./pages/misc/contact.html', 'Contact Us'))
+  addRoute('menuStaff', generatePath('sym', 'staff'), () => loadPageWithHeader('./pages/misc/staff.html', 'Site Staff'))
+  addRoute('menuPartners', generatePath('sym', 'partners'), () => loadPageWithHeader('./pages/misc/partners.html', 'Our Partners'))
+  addRoute('menuGithub', SYM_GITHUB_URL, () => openNewTab(SYM_GITHUB_URL))
+  $.each($('.sym-menu > a'), (idx, navItem) => {
+    const $navItem = $(navItem)
+    const route = $navItem.attr('id')
+    linkAnchor($navItem, route)
+  })
+
   // Handle click for the sym logo, return to home when clicked.
-  $('.sym-banner').click(function () {
-    window.location.replace('index.html')
-  })
-
+  const bannerRoute = '.sym-banner'
+  addRoute(bannerRoute, generatePath('sym', 'home'), () => window.location.replace('index.html'))
   // Handle click for 'JUMP IN WITH BFV' button, loads bfv page.
-  $('.sym-home-jumpin-btn').click(function () {
-    openBFVSelectionPage()
-  })
-
+  const jumpInRoute = '.sym-home-jumpin-btn'
+  addRoute(jumpInRoute, generatePath('bfv', 'index'), openBFVSelectionPage)
   // Handle click for 'LEARN MORE' button, loads about page
-  $('.sym-main-desc-learnMore-btn').click(function () {
-    loadPageWithHeader('./pages/misc/about.html', 'About Sym')
+  const learnMoreRoute = '.sym-main-desc-learnMore-btn'
+  addRoute(learnMoreRoute, generatePath('sym, about'), () => loadPageWithHeader('./pages/misc/about.html', 'About Sym'))
+  $.each([bannerRoute, jumpInRoute, learnMoreRoute], (idx, selector) => {
+    linkAnchor($(selector), selector)
   })
 }
 
@@ -70,10 +78,12 @@ window.onload = function () {
   If callback is undefined, no function is called after
   this.
 */
-function loadPageWithHeader (file, header, callback = undefined) {
-  // Set the header
+function loadPageWithHeader (file, header, callback = undefined, versionInfo = '') {
+  // Set the header and version info if given
   $('.sym-main-content-header').html(header)
+  $('.sym-main-content-version').html(versionInfo)
   $('.sym-main-content').load(file, callback)
+
   // Scroll back up
   $('html,body').scrollTop(0)
 }
@@ -113,16 +123,181 @@ function loadNewestNewsItems (itemIndex, numItems) {
     url: `./pages/misc/news_items/${itemIndex}.html`,
     success : function (data, states, jqXHR)
     {
-      $('.sym-news').append(jqXHR.responseText);
+      $('.sym-news').prepend(jqXHR.responseText.replace("%26", "&"));
       // Recursively load next news items
       loadNewestNewsItems(itemIndex + 1, numItems - 1)
     }
   })
 }
 
+
 /*
     Rounds a number to at most 3 decimal places but will not add trailing zeros
 */
 function roundToThree(num) {
-  return +(Math.round(num + 'e+3')  + 'e-3');
+  return +(Math.round(num + 'e+3')  + 'e-3')
 }
+
+function roundToDecimal(num, decimalSpots){
+  return +(Math.round(num + 'e+' + decimalSpots)  + 'e-' + decimalSpots)
+}
+
+/*
+   Load the stylesheets for each game dynamically because they share a lot of styles.
+   Otherwise you would have to rename/de-conflict each entry in the css files and html.
+*/
+function loadBFVStylesheet(){
+  $('#chartCSS').attr('href', './pages/bfv/bfv_chart.css')
+}
+
+function loadBF1Stylesheet(){
+  $('#chartCSS').attr('href', './pages/bf1/bf1_chart.css')
+}
+
+function loadBF4Stylesheet(){
+  $('#chartCSS').attr('href', './pages/bf4/bf4_chart.css')
+}
+
+function loadBFHStylesheet(){
+  // Commented out for now (charts not implemented yet)
+  //$('#chartCSS').attr('href', './pages/bfh/bfh_chart.css')
+}
+
+function loadBF3Stylesheet(){
+  $('#chartCSS').attr('href', './pages/bf3/bf3_chart.css')
+}
+
+function generatePath(gameValue, pageValue) {
+  var params = {game: gameValue,
+    page: pageValue}
+  var queryString = $.param(params)
+  return window.location.pathname + '?' + queryString;
+}
+
+/*
+  Writes a query string to the URL given the supplied parameters
+  2 or more word values use '-' as in 'weapon-mechanics
+*/
+function updateQueryString(gameValue, pageValue){
+  var newURL = window.location.protocol + "//" + window.location.host + generatePath(gameValue, pageValue)
+  window.history.pushState({path:newURL},'',newURL)
+}
+
+
+function exceuteQueryStringParams(){
+  const urlParams = new URLSearchParams(window.location.search)
+  const game = urlParams.get('game')
+  const page = urlParams.get('page')
+  console.log("game: " + game + ", page: " + page)
+
+  switch(game){
+    case 'bfv':
+      switch(page){
+        case 'index':
+          openBFVSelectionPage()
+          break
+        case 'general-info':
+          openBFVSelectionPageFromQueryString('General Information')
+          break
+        case 'weapon-mechanics':
+          openBFVSelectionPageFromQueryString('Weapon Mechanics')
+          break
+        case 'charts':
+            openBFVSelectionPageFromQueryString('Weapon Charts')
+          break
+        case 'comparison':
+          openBFVSelectionPageFromQueryString('Weapon Comparison')
+          break
+        case 'equipment':
+          openBFVSelectionPageFromQueryString('Equipment Data')
+          break
+        case 'vehicles':
+          openBFVSelectionPageFromQueryString('Vehicle Data')
+          break
+      }
+      break
+    case 'bf1':
+      switch(page){
+        case 'index':
+          openBF1SelectionPage()
+          updateQueryString("bf1", "index")
+        break
+        case 'general-info':
+          openBF1SelectionPageFromQueryString('General Information')
+          break
+        case 'comparison':
+          openBF1SelectionPageFromQueryString('Weapon Comparison')
+          break
+        case 'charts':
+          openBF1SelectionPageFromQueryString('Weapon Charts')
+          break
+		case 'weapon-mechanics':
+          openBF1SelectionPageFromQueryString('Weapon Mechanics')
+          break
+      }
+      break
+    case 'other':
+      switch(page){
+        case 'index':
+          openOtherTitlesSelectionPage()
+          updateQueryString("other", "index")
+        break
+        case 'bf3-charts':
+          openOtherTitlesSelectionPageFromQueryString('BF3 Weapon Charts')
+          break
+        case 'bf3-comparison':
+          openOtherTitlesSelectionPageFromQueryString('BF3 Comparison')
+          break
+        case 'bf3-general-info':
+          openOtherTitlesSelectionPageFromQueryString('BF3 General Info')
+          break
+		case 'bf3-weapon-mechanics':
+          openOtherTitlesSelectionPageFromQueryString('BF3 Weapon Mechanics')
+		case 'bf4-weapon-mechanics':
+          openOtherTitlesSelectionPageFromQueryString('BF4 Weapon Mechanics')
+          break
+        case 'bf4-general-info':
+          openOtherTitlesSelectionPageFromQueryString('BF4 General Info')
+          break
+        case 'bf4-comparison':
+          openOtherTitlesSelectionPageFromQueryString('BF4 Comparison')
+          break
+        case 'bf4-charts':
+          openOtherTitlesSelectionPageFromQueryString('BF4 Weapon Charts')
+          break
+      }
+      break
+    case 'sym':
+      switch(page){
+        case 'news':
+          loadPageWithHeader('./pages/misc/news.html', 'News', function() { loadNewestNewsItems(1, 3) })
+          updateQueryString("sym", "news")
+          break
+        case 'about':
+          loadPageWithHeader('./pages/misc/about.html', 'About Sym')
+          updateQueryString("sym", "about")
+          break
+        case 'faq':
+          loadPageWithHeader('./pages/misc/faq.html', 'Frequently Asked Questions')
+          updateQueryString("sym", "faq")
+          break
+        case 'contact-us':
+          loadPageWithHeader('./pages/misc/contact.html', 'Contact Us')
+          updateQueryString("sym", "contact-us")
+          break
+        case 'staff':
+          loadPageWithHeader('./pages/misc/staff.html', 'Site Staff')
+          updateQueryString("sym", "staff")
+          break
+        case 'partners':
+          loadPageWithHeader('./pages/misc/partners.html', 'Our Partners')
+          updateQueryString("sym", "partners")
+          break
+      }
+      break
+  }
+}
+
+$(document).ready(function() {
+  exceuteQueryStringParams()
+});

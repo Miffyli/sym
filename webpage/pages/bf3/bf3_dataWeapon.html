@@ -1,0 +1,126 @@
+<div class="bfv-content-comparison">
+    <h1 class="comp-pageTitle" style="margin-bottom: 30px;">Battlefield 3 Weapon Mechanics</h1>
+    <div class="bfv-sym-info-page sym-static-content sym-about">
+
+		<div class="bfv-sym-info-section-header">
+			&nbsp; &nbsp; &nbsp; &nbsp; <img src="./pages/bfv/img/roster_icon_allies.svg"> &nbsp; &nbsp;
+			<span>Preface</span>
+		</div>
+			<p>This page contains information regarding the functioning of weapons in <i>Battlefield 3,</i> throughout which multiple abbreviations may be used for brevity. Their individual meanings are as follows:</p>
+			
+			<p>
+			<table class="bfv-genInfo-table">
+				<tr>
+					<td>ADS</td>
+					<td>Aim Down Sight</td>
+				</tr>
+				<tr>
+					<td>BTK</td>
+					<td>Bullets to Kill</td>
+				</tr>
+				<tr>
+					<td>EFTK</td>
+					<td>Estimated Frames to Kill</td>
+				</tr>
+				<tr>
+					<td>FSRM</td>
+					<td>First Shot Recoil Multiplier</td>
+				</tr>
+				<tr>
+					<td>FTK</td>
+					<td>Frames to Kill</td>
+				</tr>
+				<tr>
+					<td>hRec</td>
+					<td>Horizontal Recoil</td>
+				</tr>
+				<tr>
+					<td>SDEC</td>
+					<td>Spread Decrease</td>
+				</tr>
+				<tr>
+					<td>SIPS</td>
+					<td>Spread Increase per Shot</td>
+				</tr>
+				<tr>
+					<td>TTK</td>
+					<td>Time to Kill</td>
+				</tr>
+				<tr>
+					<td>vRec</td>
+					<td>Vertical Recoil</td>
+				</tr>
+			</table>
+			<table class="bfv-genInfo-table">
+				<tr>
+					<td>AR</td>
+					<td>Assault Rifle</td>
+				</tr>
+				<tr>
+					<td>BA</td>
+					<td>Bolt-Action Rifle</td>
+				</tr>
+				<tr>
+					<td>DMR</td>
+					<td>Designated Marksman Rifle</td>
+				</tr>
+				<tr>
+					<td>LMG</td>
+					<td>Light Machine Gun</td>
+				</tr>
+				<tr>
+					<td>PDW</td>
+					<td>Personal Defense Weapon</td>
+				</tr>
+			</table>
+		</p>
+	<div class="bfv-sym-info-section-header">
+			<img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_VRecoil.svg">
+			<span>Weapon Handling</span>
+			<p><i>Thanks to NoctyrneSAGA for writing this section.</i></p>
+		</div>
+		
+		<div class="bfv-sym-info-subheader">Spread Increase</div>
+			<ul>
+				<li>If spread > 0.0, shot will have random dispersion from the aimpoint. Spread = radius of the circle used for random selection.</li>
+				<li>Each shot adds spreadIncrease to spread.</li>
+				<li>Spread will start to decrease when the weapon is ready to fire the next shot at the rate of <b>spreadDecrease/second</b>.</li>
+				<li><a href="https://forum.sym.gg/t/moving-ads-spread-values-bf4/182">Check this topic for info on movement spread</a></li>
+			</ul>
+		
+		<div class="bfv-sym-info-subheader">Distribution Over Radius</div>
+		
+			<p>Spread in Battlefield 3 is uniformly distributed over the radius instead of the area. This is sometimes referred to as “center bias” because the observed behavior is that 50% of shots fired will land in the central 25% of the circle’s area while the other 50% will land in the remaining 75%. The practical effect is that the spread is more likely to follow the center instead of the outer edge of the spread cone.</p>
+		
+		<div class="bfv-sym-info-subheader">Spread Decrease</div>
+			<p>Spread Decrease Per Second (SDEC) is applied whenever the weapon is in a ready to fire state. After firing a shot, a weapon has a set amount of time before it can be fired again. This time is dictated by the weapon’s Rate Of Fire. A simple example using the M16A3 shows that its 800 RPM requires a 0.075 second gap between each shot. Therefore, 0.075s must pass from the previous shot fired and for no further fire inputs to be detected before SDEC activates. From there SDEC will reduce the weapon’s spread until it reaches the minimum spread value or until the weapon is fired again.</p>
+			<p>A more advanced breakdown can be performed by using frames. The 30Hz simulation rate of <i>Battlefield 3</i> means the M16A3’s 800 RPM will have 2.25 frames on average between each shot. This will mean the weapon’s frame distribution is 2-2-2-3. Therefore, SDEC will only activate on the third or fourth frame depending on when no further fire input is detected.</p>
+		
+		<div class="bfv-sym-info-subheader">Recoil</div>
+			<p>For every shot fired, the camera is rotated a certain amount in the following frame.</p>
+			<p>Vertical Recoil (vRec) rotates the camera around the x-axis in degrees. A positive value moves the camera upwards while a negative value would move the camera downwards. In Battlefield 3, the amount of vRec applied ranges from 90% to 100% of the vRec value specified.</p>
+			<p>The First Shot Recoil Multiplier (FSRM) is applied to the weapon’s vRec if the shot fired is determined to be from a new fire input. If the fire button continues to be held down afterward, only the standard vRec without FSRM will be applied. This will continue until the fire input is released or if the weapon reloads. Once either occurs, the next new fire input will apply FSRM again.</p>
+			<p>Horizontal Recoil (hRec) rotates the camera around the y-axis in degrees. It can be thought of as a number line with the two hRec values specifying the maximum bounds. Each time a shot is fired, the game will randomly pick a value between these two bounds with a uniform distribution to apply to the camera.</p>
+
+		<div class="bfv-sym-info-subheader">Suppression</div>
+		<p>Surrounding each soldier’s head is an invisible sphere. Projectiles passing through this sphere will deal Suppression to the soldier. The amount of Suppression imparted depends on how close to the head the projectile was and how far the soldier is from the shooter. Direct headshots yield the most Suppression.</p>
+		<p>When enough Suppression has been built up, the player will begin to experience Suppression penalties on their weapon. This threshold differs between games and is the “HighThreshold” in the game data. Once this threshold is cleared, the penalties will begin scaling up linearly until maximum Suppression is reached at which point the Suppression penalties are also at their maximum. Suppression penalties are applied before the effects of attachments take effect.</p>
+		<p>In Battlefield 3, the Suppression sphere radius is 1.5m and the HighThreshold is 0.4 or 40%. While the player’s Suppression is under 40%, they will not suffer from any Suppression penalties. Once they exceed 40%, the Suppression penalties begin to apply and scale up. At 70% Suppression, the player is experiencing half the amount of Suppression penalties specified in the game data. If the weapon has a +0.05 minSpread penalty in the data, then at this point the penalty is actually only +0.025. Only when Suppression has reached 100% will the full penalty of +0.05 be applied.</p>
+		<p>Suppression penalties in BF3 are generally:<p>
+			<table class="bfv-info-spec-table">
+			<tr>
+				<td>ARs, PDWs, LMGs, and Carbines</td>
+				<td>+1.5 degrees minSpread<br>+100% SIPS<br>+100% SDEC<br>+100% vRec<br>+150% hRec</td>
+			</tr>
+			<tr>
+				<td>BAs and DMRs</td>
+				<td>+2 degrees minSpread<br>+0.1 degrees SIPS<br>+100% SDEC<br>+100% vRec<br>+150% hRec</td>
+			</tr>
+			<tr>
+				<td>Shotguns</td>
+				<td>+0.5 degrees minSpread<br>+0.1 degrees SIPS<br>+100% vRec<br>+150% hRec</td>
+			</tr>
+			<tr>
+				<td>Sidearms</td>
+				<td>+100% SIPS<br>+100% hRec</td>
+			</tr>

@@ -1,5 +1,14 @@
 // Path to datafile
-const BF1_DATA = './pages/bf1/data/bf1_1.json'
+const BF1_DATA = './pages/bf1/data/bf1_2.json'
+
+// Manual dates when the data or pages have been modified.
+// In format "[day] [month three letters] [year four digits]"
+// e.g. 2nd Jan 2019
+const BF1_DATA_DATE = '20th March 2020 (BF1_I)'
+const BF1_PAGE_DATE = '19th March 2020'
+
+// Total version string displayed under title
+const BF1_VERSION_STRING = `Latest updates<br>Page: ${BF1_PAGE_DATE}<br>Data: ${BF1_DATA_DATE}`
 
 // Constants for BF1
 // Constants for plotting damage/ttk/etc
@@ -41,8 +50,6 @@ const BF1_LOWER_IS_WORSE = new Set([
     "ADSCrouchRecoilDec",
     "ADSRecoilDec",
     "HeatClipSize",
-    "FirstShotHIPSpreadMul",
-    "FirstShotADSSpreadMul",
     "ShotsPerShell"
 ])
 
@@ -63,6 +70,8 @@ var BF1WeaponKeys = []
 var BF1WeaponKeyToData = {}
 // Keeps track of which page to load after the data is loaded.
 var BF1SelectedPage = ""
+// Keeps track of which page to load when loading from a querystring
+var bf1PageToLoad = ""
 
 /*
   Returns html RGB color code for given array
@@ -239,7 +248,12 @@ function BF1LoadWeaponData () {
   the user to select which page to navigate to (chart, comp, etc...).
 */
 function openBF1SelectionPage () {
-  loadPageWithHeader('./pages/bf1/bf1_header.html', 'Battlefield 1', initializeBF1Selectrion)
+  loadPageWithHeader('./pages/bf1/bf1_header.html', 'Battlefield 1', initializeBF1Selection, BF1_VERSION_STRING)
+}
+
+function openBF1SelectionPageFromQueryString (pageStr){
+  bf1PageToLoad = pageStr
+  loadPageWithHeader('./pages/bf1/bf1_header.html', 'Battlefield 1', BF1LoadPageFromQueryString, BF1_VERSION_STRING)
 }
 
 /*
@@ -254,6 +268,13 @@ function openBF1IndexPage () {
 */
 function openBF1GeneralInfoPage () {
   $('.bf1-main-content').load('./pages/bf1/bf1_generalinfo.html')
+}
+
+/*
+  Load the BF1 Weapon Mechanics Info page
+*/
+function openBF1GeneralInfoPage () {
+  $('.bf1-main-content').load('./pages/bf1/bf1_dataWeapon.html')
 }
 
 
@@ -274,6 +295,23 @@ function loadBF1ComparisonPage(){
   $('.bf1-main-content').load('./pages/bf1/bf1_comparison.html', initializeBF1Comparison)
 }
 
+/*
+  Load the BF1 chart page
+*/
+function openBF1ChartPage () {
+  if (BF1DataLoaded === false) {
+    BF1SelectedPage = "BF1_CHART"
+    BF1LoadWeaponData()
+  } else {
+    loadBF1ChartPage()
+    loadBF1Stylesheet()
+  }
+}
+
+function loadBF1ChartPage(){
+    $('.bf1-main-content').load('./pages/bf1/bf1_chart.html', BF1initializeChartPage)
+}
+
 
 /*
   Main hub for opening different BF1 pages based on their name.
@@ -282,37 +320,38 @@ function loadBF1ComparisonPage(){
 function BF1OpenPageByName(pageName) {
   // Remove highlighting
   $('.sym-pageSelections > div').removeClass('selected-selector')
+  $('.bf1-main-content').html("<div class='sym-loading'>Loading...</div>")
   // Select right page according to pageName, highlight its
   // button and open the page
   if (pageName === 'Weapon Comparison') {
     $('#bf1-comparisonPageSelector').addClass('selected-selector')
     openBF1ComparisonPage()
+    updateQueryString("bf1", "comparison")
   } else if (pageName === 'General Information') {
     $('#bf1-generalinfoPageSelector').addClass('selected-selector')
     openBF1GeneralInfoPage()
+    updateQueryString("bf1", "general-info")
+  } else if (pageName === 'Weapon Mechanics') {
+    $('#bf1-weaponinfoPageSelector').addClass('selected-selector')
+    openBF1WeaponInfoPage()
+    updateQueryString("bf1", "weapon-mechanics")
   } else if (pageName === 'Index') {
     $('#bf1-mainPageSelector').addClass('selected-selector')
     openBF1IndexPage()
-	}
+    updateQueryString("bf1", "index")
+	} else if (pageName === 'Weapon Charts') {
+    $('#bf1-chartPageSelector').addClass('selected-selector')
+    openBF1ChartPage()
+    updateQueryString("bf1", "charts")
+  }
 }
 
 /*
   Add handlers for the click events for the bf1 selector page and open
   the entry page for BF1
 */
-function initializeBF1Selectrion () {
-  $('.sym-pageSelections > div').click(function () {
-    var clicked = $(this).attr('id')
-    var pageName
-    if (clicked === 'bf1-comparisonPageSelector') {
-      pageName = 'Weapon Comparison'
-    } else if (clicked === 'bf1-mainPageSelector') {
-      pageName = 'Index'
-	  } else if (clicked === 'bf1-generalinfoPageSelector') {
-      pageName = 'General Information'
-    }
-    BF1OpenPageByName(pageName)
-  })
+function initializeBF1Selection () {
+  BF1SetupPageHeader()
   openBF1IndexPage()
 }
 
@@ -324,4 +363,29 @@ function BF1initializeIndexPage(){
       var itemClicked = $(this).find("h4").text()
       BF1OpenPageByName(itemClicked)
   })
+}
+
+function BF1SetupPageHeader(){
+  loadBF1Stylesheet()
+  $('.sym-pageSelections > div').click(function () {
+    var clicked = $(this).attr('id')
+    var pageName
+    if (clicked === 'bf1-comparisonPageSelector') {
+      pageName = 'Weapon Comparison'
+    } else if (clicked === 'bf1-mainPageSelector') {
+      pageName = 'Index'
+	} else if (clicked === 'bf1-generalinfoPageSelector') {
+      pageName = 'General Information'
+	} else if (clicked === 'bf1-weaponinfoPageSelector') {
+      pageName = 'Weapon Mechanics'
+    } else if (clicked === 'bf1-chartPageSelector') {
+      pageName = 'Weapon Charts'
+    }
+    BF1OpenPageByName(pageName)
+  })
+}
+
+function BF1LoadPageFromQueryString(){
+  BF1SetupPageHeader()
+  BF1OpenPageByName(bf1PageToLoad)
 }
