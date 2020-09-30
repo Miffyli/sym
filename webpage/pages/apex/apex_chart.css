@@ -152,7 +152,7 @@ body {background-color: #191919;}
 }
 
 #ttkToolBar > .apex_toolboxRow3 > div {
-    margin: -52px 475px 5px 5px;
+    margin: -52px 390px 5px 5px;
 }
 
 .TTK_toolbarRowContainer {
@@ -192,6 +192,10 @@ body {background-color: #191919;}
     width: 40px;
 }
 
+#apex_showHideAmpedShots img{
+    width: 40px;
+}
+
 #fortified_low_profile_toggle {
     width: 200px ;
 }
@@ -209,17 +213,34 @@ body {background-color: #191919;}
     text-align: left !important;
 }
 
+
+.apex_ammoIcon {
+    padding: 0 1px;
+    margin: 1px;
+}
+
 .apex_weaponImg{
     height: 70px;
     width: auto;
     max-width: 265px;
-    margin: 5px 0;
+    display: block;
+}
+
+.apex_firstColumn_BottomRow{
+    line-height: 20px;
+    padding-top: 10px;
+    min-height: 40px;
+    margin-top: 8px;
 }
 
 .apex_lblWeaponName {
     font-size: 15px;
     color: #A9D852;
     font-weight: bold;
+    padding-top: 5px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    padding-bottom: 5px;
 }
 
 .apex_lblWeaponName img{
@@ -229,7 +250,7 @@ body {background-color: #191919;}
 }
 
 .apex_lblBurstCount{
-    margin-top: -8px;
+    margin-top: 12px;
     font-size: 16px;
     color: #FF9000;
     font-weight: bold;
@@ -237,15 +258,15 @@ body {background-color: #191919;}
 }
 
 .apex_lblChargeValue {
-     margin-right: -45px;
-     font-size: 12px;
-     color: #FF9000;
-     font-weight: bold;
-     float: right;
- }
+    /* margin-right: -45px; */
+    font-size: 12px;
+    color: #FF9000;
+    font-weight: bold;
+    float: right;
+}
 
 .apex_lblSpinUpValue {
-    margin-right: -45px;
+    /* margin-right: -45px; */
     font-size: 12px;
     color: #FF9000;
     font-weight: bold;
@@ -253,7 +274,7 @@ body {background-color: #191919;}
 }
 
 .apex_lblChargeValue_Hidden {
-    margin-right: -45px;
+    /* margin-right: -45px; */
     font-size: 12px;
     color: #FF9000;
     font-weight: bold;
@@ -268,11 +289,13 @@ body {background-color: #191919;}
 }
 
 .apex_lblRPM {
-    margin-top: -18px;
+    margin-top: 11px;
     font-size: 16px;
     color: #FF9000;
     font-weight: bold;
     float: right;
+    padding-top: 10px;
+    display: block;
 }
 
 /* ************ */
@@ -639,6 +662,13 @@ img.fnone{width: 59px; height: 59px;float:none !important}
 /* ***************/
 /* Reload Labels */
 /* ***************/
+.apex_lblMagText {
+    display: block;
+    float: left;
+    padding-top: 10px;
+    margin-top: 10px;
+}
+
 .apex_lblMag {
     font-size: 20px;
 }

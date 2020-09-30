@@ -1,3 +1,5 @@
+// TODO Charge times for choke hopup (triple take/mastiff)
+// TODO: deal with r99 care package edition
 let oHandler0;
 let oHandler1;// this will be assign in on ready below
 let oHandler2;
@@ -8,7 +10,7 @@ let oHandler1x;// this will be assign in on ready below
 let oHandler2x;
 let oHandler3x;
 let oHandler4x;
-let apex_weaponClassTitles = ["AssaultRifle","SMG","Shotgun","LMG","Sniper","Special","Pistol"];
+let apex_weaponClassDic = {"ar": "AssaultRifle","smg": "SMG","shotgun": "Shotgun","lmg": "LMG","sniper": "Sniper","pistol": "Pistol"};
 let apex_addVariantCounter = 0;
 
 // TODO: MOAR Tooltips
@@ -18,6 +20,7 @@ const apex_burstTooltip = "title = 'Rounds Per Burst'";
 const apex_chargeUpTooltip = "title = 'Charge Up Time'";
 const apex_sustainedDischargeTooltip = "title = 'Sustained Discharge Duration - Time till primary attack'";
 const apex_sustainedPulseTooltip = "title = 'Discharge Pulse Frequency of damage'";
+const apex_energizeTimePerShotTooltip = "title = 'Charged Time Reduction Per Shot'";
 const apex_chargeCooldownDelayTooltip = "title = 'Charge Cooldown Delay'";
 const apex_chargeCooldownTimeTooltip = "title = 'Charge Cooldown Time'";
 const apex_chargeSpinUpTooltip = "title = 'Charge Spin Up Time'";
@@ -55,6 +58,7 @@ const apex_bulletSpeed10Tooltip = "title = 'Moving Spread Increase/Decrease Rate
 
 
 function apex_initializeChartPage() {
+    apex_addVariantCounter = 0;
     apex_printWeapons();
 
     $("#actionMenu").menu({
@@ -97,6 +101,7 @@ function apex_onAttachmentChange(data){
     const weapon_string_slot = data.value.split('_X_')[2];
     const reset_attachments = ["_shotgun_bolt_l0",
         "_barrel_stabilizer_l0",
+        "sniper_mag",
         "special_mag",
         "highcal_mag",
         "bullet_mag",
@@ -214,15 +219,13 @@ function apex_initializeVariantAttachmentOnChange(weapon_name){
 function apex_printWeapons(){
 
     let statsHtml = "";
-    // statsHtml += "<div><ab><img class='attachment_box' src='./pages/apex/icons/attachment_box.png' alt=''></ab></div>";
 
-    statsHtml += apex_printWeaponClass(0);
-    statsHtml += apex_printWeaponClass(1);
-    statsHtml += apex_printWeaponClass(2);
-    statsHtml += apex_printWeaponClass(3);
-    statsHtml += apex_printWeaponClass(4);
-    statsHtml += apex_printWeaponClass(5);
-    statsHtml += apex_printWeaponClass(6);
+    statsHtml += apex_printWeaponClass("ar");
+    statsHtml += apex_printWeaponClass("smg");
+    statsHtml += apex_printWeaponClass("shotgun");
+    statsHtml += apex_printWeaponClass("lmg");
+    statsHtml += apex_printWeaponClass("sniper");
+    statsHtml += apex_printWeaponClass("pistol");
 
     $("#pageBody").html(statsHtml);
     apex_showHideClasses();
@@ -265,16 +268,17 @@ function apex_printWeapons(){
 
     apex_showHideSubCats();
     apex_initializeAttachmentOnChange();
+
 }
 
 function apex_printWeaponClass(weaponClass){
     let rtnStr = "";
-    rtnStr += "<div id='" + apex_weaponClassTitles[weaponClass] + "Section'>" +
-        "<div class='apex_classHeader'><img src='./pages/apex/icons/rui/weapon_icons/classes/" + apex_weaponClassTitles[weaponClass] + ".png' alt=''>" + apex_weaponClassTitles[weaponClass] + "</div>";
+    rtnStr += "<div id='" + apex_weaponClassDic[weaponClass] + "Section'>" +
+        "<div class='apex_classHeader'><img src='./pages/apex/icons/rui/weapon_icons/classes/" + apex_weaponClassDic[weaponClass] + ".png' alt=''>" + apex_weaponClassDic[weaponClass] + "</div>";
     rtnStr += "<table class='table apex_classTable'><tbody class='sortableTable'>";
 
     $.each(APEXWeaponData, function( key, value ) {
-        if (parseInt(value['WeaponData']['weapon_class']) === weaponClass && value['WeaponData']['weapon_type_flags'] === "WPT_PRIMARY"){
+        if (value['WeaponData']['menu_category'].localeCompare(weaponClass) === 0 && value['WeaponData']['weapon_type_flags'] === "WPT_PRIMARY") {
             rtnStr += apex_printWeapon(value['WeaponData']);
         }
     });
@@ -289,21 +293,29 @@ function apex_printWeapon(weaponStats) {
     const attachmentGraphic = (weaponStats['menu_category'] === 8) ? "" : apex_printAttachments([formatWeaponName(weaponStats['printname'])], weaponStats['ammo_pool_type'], false, 0);
     const addVariantGraphic = (weaponStats['menu_category'] === 8 || apex_addVariantCounter !== 0) ? "" : "<button class='variantButton btn btn-outline-light btn-sm' " + apex_variantTooltip + ">+</button>";
     const charge_string = apex_createChargeSpinUpLabels(weaponStats);
+    // const ammo_type = "<span class='apex_lblSuffixText'>x" + "<img src='./pages/apex/icons/ammo/" + weaponStats['ammo_pool_type'] + ".png' alt='' height='20' width='19'>" + "</span>"; 
+    let ammo_type_string = "";
+    if (weaponStats['ammo_pool_type'] === undefined) {
+        ammo_type_string += "<img src='./pages/apex/icons/ammo/special_" + weaponStats['menu_category'] +".svg' alt='' height='40' margin-right: '25px';margin-left: '-10px';margin-bottom: '-10px'>" + "</span>";
+    } else {
+        ammo_type_string += "<img src='./pages/apex/icons/ammo/" + weaponStats['ammo_pool_type'] + ".png' alt='' height='40' margin-right: '25px';margin-left: '-10px';margin-bottom: '-10px'>" + "</span>"; 
+    }
+    
     return "<tr class='" + weaponStats['printname'] + " sub_" + getAPEXWeaponsSubcat(weaponStats['printname']) + "'>" +
         "<td class='apex_firstColumn'>" +
         "<div class='apex_lblWeaponName'>" +
         "<span class='apex_lblNameValue' title='" + weaponStats["custom_desc_long"].toString().replace("\\u0027", "\"").replace("\\u0027", "\"") + "'>" + formatWeaponName(weaponStats['custom_name']) + "</span>" +
         "</div>" +
         "<div>" +
-        "<img class='apex_weaponImg' src='./pages/apex/icons/" + weaponStats["hud_icon"] + ".png' alt=''>" +
+        "<img class='apex_weaponImg' id='wepIcon_"+ formatWeaponName(weaponStats['printname']) +"' src='./pages/apex/icons/" + weaponStats["hud_icon"] + ".png' alt=''>" +
         "</div>" +
-        "<div style='line-height:20px;'>" +
+        "<div class='apex_firstColumn_BottomRow'>" +
         "<span class='apex_lblMagText'>" +
-        "<span class='apex_lblMag'>" + weaponStats["ammo_clip_size"] + "</span>" +
-        "<span class='apex_lblSuffixText'>x" + "<img src='./pages/apex/icons/ammo/" + weaponStats['ammo_pool_type'] + ".png' alt='' height='20' width='19'>" + "</span>" +
-        "</span>" +
+        "<span class='apex_lblMag'>" + weaponStats["ammo_clip_size"] +
+        "<span class='apex_lblSuffixText'>x </span></span></span>" +
+        "<span class='apex_ammoIcon'>" + ammo_type_string + "</span>"+
         "<span class='apex_lblBurstCount' " + apex_burstTooltip + ">" + apex_createBurstLabels(weaponStats['burst_fire_count']) + "<br></span>" +
-        "<span><br></span>" +
+        // "<span><br></span>" +
         "<span class='apex_lblRPM'>" +
         "<span class='apex_lblRPMValue' " + apex_rpmTooltip + ">" + apex_createFireRateLabels(weaponStats) + "</span>" +
         "<span class='apex_lblSuffixText'>rpm</span>" +
@@ -522,12 +534,13 @@ function apex_updateWeapon(selectedAttachments, weapon_variant_id, weapon_string
             const weaponRow = document.getElementsByClassName(weaponStats['printname'])[(weapon_variant_id)];
             // TODO: Real Recoil - This is just a quick Temp recoil calculation until the values are more ironed out.
             $(weaponRow).find(".apex_lblMag").text(weaponStats['ammo_clip_size']);
-            let temp_pitchBase = formatRecoilValue(Number(parseFloat(weaponStats['viewkick_pattern_data_sizey_avg']) * parseFloat(weaponStats['viewkick_pitch_base'])), 3);
-            let temp_pitchRandAvg = formatRecoilValue(Number(Math.abs(parseFloat(weaponStats['viewkick_pattern_data_y_avg'])) * parseFloat(weaponStats['viewkick_pitch_random'])), 3);
-            let temp_YawRandAvg = formatRecoilValue(Number(parseFloat(weaponStats['viewkick_pattern_data_x_avg']) * parseFloat(weaponStats['viewkick_yaw_random'])), 3);
-            let temp_YawBaseMin = formatRecoilValue(Number(Math.abs(parseFloat(weaponStats['viewkick_pattern_data_x_min'])) * parseFloat(weaponStats['viewkick_yaw_base'])), 3);
-            let temp_YawBaseMax = formatRecoilValue(Number(parseFloat(weaponStats['viewkick_pattern_data_x_max']) * parseFloat(weaponStats['viewkick_yaw_base'])), 3);
+
             if (weaponStats['viewkick_pattern'] !== undefined) {
+                let temp_pitchBase = formatRecoilValue(Number(parseFloat(weaponStats['viewkick_pattern_data_sizey_avg']) * parseFloat(weaponStats['viewkick_pitch_base'])), 3);
+                let temp_pitchRandAvg = formatRecoilValue(Number(Math.abs(parseFloat(weaponStats['viewkick_pattern_data_y_avg'])) * parseFloat(weaponStats['viewkick_pitch_random'])), 3);
+                let temp_YawRandAvg = formatRecoilValue(Number(parseFloat(weaponStats['viewkick_pattern_data_x_avg']) * parseFloat(weaponStats['viewkick_yaw_random'])), 3);
+                let temp_YawBaseMin = formatRecoilValue(Number(Math.abs(parseFloat(weaponStats['viewkick_pattern_data_x_min'])) * parseFloat(weaponStats['viewkick_yaw_base'])), 3);
+                let temp_YawBaseMax = formatRecoilValue(Number(parseFloat(weaponStats['viewkick_pattern_data_x_max']) * parseFloat(weaponStats['viewkick_yaw_base'])), 3);
                 if (parseFloat(weaponStats['viewkick_pitch_base']) < 0.0) {
                     $(weaponRow).find(".apex_recoilGraphBox").html(apex_createNonPatternRecoilGraphic(temp_pitchRandAvg, temp_YawRandAvg, temp_YawBaseMin, temp_YawBaseMax, weaponStats['viewkick_pattern_data_sizex_avg'], temp_pitchBase, temp_pitchBase, temp_pitchRandAvg, temp_YawBaseMin, temp_YawRandAvg));
                     // $(weaponRow).find(".apex_recoilGraphBox").html(apex_createNonPatternRecoilGraphic(weaponStats['viewkick_pattern_data_y_avg'], weaponStats['viewkick_pattern_data_x_avg'], weaponStats['viewkick_pattern_data_x_min'], weaponStats['viewkick_pattern_data_x_max'], weaponStats['viewkick_pattern_data_sizex_avg'], weaponStats['viewkick_pattern_data_sizey_avg'], parseFloat(weaponStats['viewkick_pitch_base']), parseFloat(weaponStats['viewkick_pitch_random']), parseFloat(weaponStats['viewkick_yaw_base']), parseFloat(weaponStats['viewkick_yaw_random'])));
@@ -551,13 +564,8 @@ function apex_updateWeapon(selectedAttachments, weapon_variant_id, weapon_string
             $(weaponRow).find(".apex_hipSpreadContainer").html(apex_createHipSpreadGraphic(weaponStats['spread_stand_hip_run'], weaponStats['spread_air_hip'], weaponStats['spread_air_ads'], weaponStats['spread_stand_ads'], weaponStats['weapon_class'], weaponStats));
             $(weaponRow).find(".apex_lblDeployTime").html(Number(weaponStats['deployfirst_time']).toFixed(2) + "<span class='apex_lblSuffixText'>s</span><img class='apex_wpnSwitchImg'" + apex_deployTooltip + " src='./pages/apex/icons/weapon_switch_small.png' alt=''><span class='apex_lblDeployTime'" + apex_deploy_Deploy_Tooltip + ">" + Number(weaponStats['deploy_time']).toFixed(2) + "<span class='apex_lblSuffixText'>s</span><br><br><br><span class='apex_lblDeployTime_2'" + apex_deploy_Raise_Tooltip + ">" + formatWeaponValue(Number(weaponStats['raise_time']).toFixed(2)) + "<span class='apex_lblSuffixText'>s</span></span></span><span class='apex_lblDeployTime_4'" + apex_deploy_Holster_Tooltip + "'>" + Number(weaponStats['holster_time']).toFixed(2) + "<span class='apex_lblSuffixText'>s</span></span>");
             $(weaponRow).find(".apex_spreadTable").html(apex_createSpreadTableGraphic(weaponStats['spread_stand_ads'], weaponStats['spread_stand_hip'], weaponStats['spread_stand_hip_run'], weaponStats['spread_stand_hip_sprint'], weaponStats['spread_crouch_ads'], weaponStats['spread_crouch_hip'], weaponStats['spread_air_ads'], weaponStats['spread_air_hip'], weaponStats['spread_kick_on_fire_stand_ads'], weaponStats['spread_kick_on_fire_stand_hip'], weaponStats['spread_kick_on_fire_crouch_ads'], weaponStats['spread_kick_on_fire_crouch_hip'], weaponStats['spread_kick_on_fire_air_ads'], weaponStats['spread_kick_on_fire_air_hip'], weaponStats['spread_decay_delay'], weaponStats['spread_moving_decay_rate'], weaponStats['spread_decay_rate'], weaponStats['spread_moving_increase_rate']));
-
-            // APEXWeaponData_Mod = jQuery.extend(true, [], APEXWeaponData);
-            // weaponStats = {};
         }
     }
-        // }
-    // }
 }
 
 function apex_printAttachments(weaponName, weapon_ammo, isCompare, selection_id) {
@@ -614,6 +622,7 @@ function apex_printAttachments(weaponName, weapon_ammo, isCompare, selection_id)
             if(slot1 < 1) {
                 if (apex_attachments[weaponName][i].attachName[0].includes("mag")) {
                     slot1 += 1;
+                    //TODO: stop using undefined as the "special" ammo type.
                     const mag_slot_name = weapon_ammo + "_mag";
                     mag_option_string += "<option value="+ variant_count +"_X_"+ weaponName+"_X_slot1_X_"+mag_slot_name+" data-image=\"./pages/apex/icons/slots/"+weapon_ammo+"_slot.png\"></option>";
                 }
@@ -723,6 +732,9 @@ function apex_printAttachments(weaponName, weapon_ammo, isCompare, selection_id)
 }
 
 function apex_createBulletSpeedGraphic(initialSpeed, drag){
+    if (drag == undefined) {
+        drag = 0.0;
+    }
     if (initialSpeed < 99999) {
         return `<div class='apex_bulletSpeedContainer'><span class='apex_pr-3 lblSpeed' ${apex_bulletSpeedTooltip}><img src='./pages/bfv/img/speed.png' alt=''><span class='apex_lblSpeedValue'>${initialSpeed}</span><span class='apex_lblSuffixText'> m/s</span><br><span class='ui-icon ui-icon-arrowthick-1-w'></span><span class='apex_lblDragCoe' ${apex_bulletSpeedTooltip}>${drag.toString().substring(1)}</span></span></div>`
     } else {
@@ -887,10 +899,11 @@ function apex_createSpreadLabels(ads_move_speed_scale, zoom_time_in, zoom_time_o
 function apex_createShotgunBlastGraphic(weaponStats) {
     let charge_time;
     if (weaponStats['charge_time'] === undefined) {
-        charge_time = -1
+        charge_time = -1;
     } else {
         charge_time = parseFloat(weaponStats['charge_time']);
     }
+    
     let shotgunGraphic;
     const horz_01_data = weaponStats['blast_pattern_data_x'];
     const vert_01_data = weaponStats['blast_pattern_data_y'];
@@ -1008,11 +1021,11 @@ function apex_createShotgunBlastGraphic2(weaponStats) {
     return shotgunGraphic;
 }
 
-<!--suppress HtmlUnknownAttribute -->
+// <!--suppress HtmlUnknownAttribute -->
 function apex_createHipSpreadGraphic(HIPSpread, spreadStandHipRun, spread_air_ads, spread_stand_ads, weaponClass, weaponStats){
     let spreadGraphic;
     let StandADS;
-    if( weaponClass === "2") {
+    if( weaponClass === "shotgun") {
         spreadGraphic = apex_createShotgunBlastGraphic(weaponStats)
     } else if(weaponStats['blast_pattern'] !== undefined) {
         spreadGraphic = apex_createShotgunBlastGraphic(weaponStats)
@@ -1118,9 +1131,17 @@ function apex_createBurstLabels(burst_fire_count) {
 
 function apex_createChargeSpinUpLabels(weaponStats){
     if (weaponStats['charge_time'] !== undefined && parseFloat(weaponStats['charge_time']) > 0.0){
-        return "<span "+ apex_chargeUpTooltip +"><span class=\"ui-icon ui-icon-arrowthick-1-n\"></span>" + weaponStats['charge_time'] + "<span class='apex_lblSuffixText'>s</span></span>" +
-            "<span "+ apex_chargeCooldownDelayTooltip +"><span class=\"ui-icon ui-icon-transferthick-e-w\"></span><span>" + weaponStats['charge_cooldown_delay'] + "</span><span class='apex_lblSuffixText'>s</span></span>" +
-            "<span "+ apex_chargeCooldownTimeTooltip +"><span class=\"ui-icon ui-icon-arrowthick-1-s\"></span><span>" + weaponStats['charge_cooldown_time'] +"</span><span class='apex_lblSuffixText'>s</span></span>";
+        //Sentinel charge time is set to 99999 in the data. The actual charge value used is 5.0s, 120s discharge and 15s per shot. Controlled via a script.
+        //we set charge fraction directly through script, so this huge number is so that player input affects charge very very little"
+        if (parseFloat(weaponStats['charge_time']) === 99999999999) {
+            return "<span "+ apex_chargeUpTooltip +"><span class=\"ui-icon ui-icon-arrowthick-1-n\"></span>" + 5.0 + "<span class='apex_lblSuffixText'>s</span></span>" +
+                "<span "+ apex_energizeTimePerShotTooltip +"><span><img class='apex_sustainedPulseValue' src='./pages/apex/icons/beam_multi.png' alt='' height='12px' width='15px'></span>-" + 15.0 + "<span class='apex_lblSuffixText'>s</span></span>" +
+                "<span "+ apex_chargeCooldownTimeTooltip +"><span class=\"ui-icon ui-icon-arrowthick-1-s\"></span><span>" + 120.0 +"</span><span class='apex_lblSuffixText'>s</span></span>";
+        } else {
+            return "<span "+ apex_chargeUpTooltip +"><span class=\"ui-icon ui-icon-arrowthick-1-n\"></span>" + weaponStats['charge_time'] + "<span class='apex_lblSuffixText'>s</span></span>" +
+                "<span "+ apex_chargeCooldownDelayTooltip +"><span class=\"ui-icon ui-icon-transferthick-e-w\"></span><span>" + weaponStats['charge_cooldown_delay'] + "</span><span class='apex_lblSuffixText'>s</span></span>" +
+                "<span "+ apex_chargeCooldownTimeTooltip +"><span class=\"ui-icon ui-icon-arrowthick-1-s\"></span><span>" + weaponStats['charge_cooldown_time'] +"</span><span class='apex_lblSuffixText'>s</span></span>";
+        }
     } else if (weaponStats['fire_rate_max_time_speedup'] !== undefined && parseFloat(weaponStats['fire_rate_max_time_speedup']) > 0.0){
         return "<span class='apex_lblSpinUpValue'><span "+ apex_chargeSpinUpTooltip +"><span class=\"ui-icon ui-icon-arrowthick-1-n\"></span>" + weaponStats['fire_rate_max_time_speedup'] + "<span class='apex_lblSuffixText'>s</span></span>" +
             "<span "+ apex_chargeSpinUpCooldownTooltip +"><span class=\"ui-icon ui-icon-arrowthick-1-s\"></span><span>" + weaponStats['fire_rate_max_time_cooldown'] +"</span><span class='apex_lblSuffixText'>s</span></span></span>";
@@ -1342,38 +1363,37 @@ function apex_createKraberDamageChart(weaponStats, damageArr, distanceArr, numOf
     let max_Damage = Math.round(damageArr[0]);
     let mid_Damage = Math.round(damageArr[1]);
     let min_Damage = Math.round(damageArr[2]);
-    damageLineCoords = "0," + (100 - (0.333333 * max_Damage)).toString() + " ";
-    damageLineCoords += (chart_scale*distanceArr[0]).toString() + "," + (100 - (0.333333 * max_Damage)).toString() + " ";
-    damageLineCoords += (chart_scale*distanceArr[1]).toString() + "," + (100 - (0.333333 * max_Damage)).toString() + " ";
+    damageLineCoords = "0," + (100 - (0.20 * max_Damage)).toString() + " ";
+    damageLineCoords += (chart_scale*distanceArr[0]).toString() + "," + (100 - (0.20 * max_Damage)).toString() + " ";
+    damageLineCoords += (chart_scale*distanceArr[1]).toString() + "," + (100 - (0.20 * max_Damage)).toString() + " ";
 
-    damageLineCoords += (chart_scale*distanceArr[1]).toString() + "," + (100 - (0.333333 * mid_Damage)).toString() + " ";
-    damageLineCoords += (chart_scale*distanceArr[2]).toString() + "," + (100 - (0.333333 * mid_Damage)).toString() + " ";
+    damageLineCoords += (chart_scale*distanceArr[1]).toString() + "," + (100 - (0.20 * mid_Damage)).toString() + " ";
+    damageLineCoords += (chart_scale*distanceArr[2]).toString() + "," + (100 - (0.20 * mid_Damage)).toString() + " ";
 
-    damageLineCoords += (chart_scale*distanceArr[2]).toString() + "," + (100 - (0.333333 * min_Damage)).toString() + " ";
-    damageLineCoords += (distanceArr[2]+100).toString()+"," + (100 - (0.333333 * min_Damage)).toString()+ " ";
-    damageLineCoords += (200).toString()+"," + (100 - (0.333333 * min_Damage)).toString();
+    damageLineCoords += (chart_scale*distanceArr[2]).toString() + "," + (100 - (0.20 * min_Damage)).toString() + " ";
+    damageLineCoords += (distanceArr[2]+100).toString()+"," + (100 - (0.20 * min_Damage)).toString()+ " ";
 
-    let maxDamageText = "<text x='"+(chart_scale*distanceArr[0])+"' y='" + ((95 - (0.333333 * mid_Damage))).toString() + "' class='apex_chartMinMaxLabel'>" + mid_Damage + "</text>";
-    let minDamageText = "<text x='"+(25 + (chart_scale*distanceArr[2]))+"' y='" + ((95 - (0.333333 * min_Damage))).toString() + "' class='apex_chartMinMaxLabel'>" + min_Damage + "</text>";
+    let maxDamageText = "<text x='"+(chart_scale*distanceArr[0])+"' y='" + ((95 - (0.20 * mid_Damage))).toString() + "' class='apex_chartMinMaxLabel'>" + mid_Damage + "</text>";
+    let minDamageText = "<text x='"+(25 + (chart_scale*distanceArr[2]))+"' y='" + ((95 - (0.20 * min_Damage))).toString() + "' class='apex_chartMinMaxLabel'>" + min_Damage + "</text>";
 
     //Limb Damage
     if(ls_multi !== 1.0) {
         let ls_maxDamage = Math.round(damageArr[0] * ls_multi);
         let ls_midDamage = Math.round(damageArr[1] * ls_multi);
         let ls_minDamage = Math.round(damageArr[2] * ls_multi);
-        ls_damageLineCords = "0," + (100 - (0.333333 * ls_maxDamage)).toString() + " ";
-        ls_damageLineCords += (chart_scale*distanceArr[0]).toString() + "," + (100 - (0.333333 * ls_maxDamage)).toString() + " ";
-        ls_damageLineCords += (chart_scale*distanceArr[1]).toString() + "," + (100 - (0.333333 * ls_maxDamage)).toString() + " ";
+        ls_damageLineCords = "0," + (100 - (0.20 * ls_maxDamage)).toString() + " ";
+        ls_damageLineCords += (chart_scale*distanceArr[0]).toString() + "," + (100 - (0.20 * ls_maxDamage)).toString() + " ";
+        ls_damageLineCords += (chart_scale*distanceArr[1]).toString() + "," + (100 - (0.20 * ls_maxDamage)).toString() + " ";
 
-        ls_damageLineCords += (chart_scale*distanceArr[1]).toString() + "," + (100 - (0.333333 * ls_midDamage)).toString() + " ";
-        ls_damageLineCords += (chart_scale*distanceArr[2]).toString() + "," + (100 - (0.333333 * ls_midDamage)).toString() + " ";
+        ls_damageLineCords += (chart_scale*distanceArr[1]).toString() + "," + (100 - (0.20 * ls_midDamage)).toString() + " ";
+        ls_damageLineCords += (chart_scale*distanceArr[2]).toString() + "," + (100 - (0.20 * ls_midDamage)).toString() + " ";
 
-        ls_damageLineCords += (chart_scale*distanceArr[2]).toString() + "," + (100 - (0.333333 * ls_minDamage)).toString() + " ";
-        ls_damageLineCords += (distanceArr[2]+100).toString()+"," + (100 - (0.333333 * ls_minDamage)).toString()+ " ";
-        ls_damageLineCords += (200).toString()+"," + (100 - (0.333333 * ls_minDamage)).toString();
+        ls_damageLineCords += (chart_scale*distanceArr[2]).toString() + "," + (100 - (0.20 * ls_minDamage)).toString() + " ";
+        ls_damageLineCords += (distanceArr[2]+100).toString()+"," + (100 - (0.20 * ls_minDamage)).toString()+ " ";
+        ls_damageLineCords += (200).toString()+"," + (100 - (0.20 * ls_minDamage)).toString();
 
-        ls_maxDamageText = "<text x='15' y='" + ((115 - (0.333333 * ls_midDamage))).toString() + "' class='apex_ls_chartMinMaxLabel'>" + ls_maxDamage + "</text>";
-        ls_minDamageText = "<text x='175' y='" + ((115 - (0.333333 * ls_midDamage))).toString() + "' class='apex_ls_chartMinMaxLabel'>" + ls_minDamage + "</text>";
+        ls_maxDamageText = "<text x='15' y='" + ((115 - (0.20 * ls_midDamage))).toString() + "' class='apex_ls_chartMinMaxLabel'>" + ls_maxDamage + "</text>";
+        ls_minDamageText = "<text x='175' y='" + ((115 - (0.20 * ls_midDamage))).toString() + "' class='apex_ls_chartMinMaxLabel'>" + ls_minDamage + "</text>";
     }
 
     // Headshot Damage - Some weapons have very short max HS range.
@@ -1408,35 +1428,35 @@ function apex_createKraberDamageChart(weaponStats, damageArr, distanceArr, numOf
         let hs_Dmg1 = Math.round(hs_damageArr[1]);
         let hs_Dmg2 = Math.round(hs_damageArr[2]);
         let hs_Dmg3 = Math.round(hs_damageArr[3]);
-        hs_damageLineCoords = "0," + (100 - (0.333333 * hs_Dmg0)).toString() + " ";
+        hs_damageLineCoords = "0," + (100 - (0.20 * hs_Dmg0)).toString() + " ";
 
-        hs_damageLineCoords += (chart_scale * hs_distanceArr[0]).toString() + "," + (100 - (0.333333 * hs_Dmg0)).toString() + " ";
-        hs_damageLineCoords += (chart_scale * hs_distanceArr[1]).toString() + "," + (100 - (0.333333 * hs_Dmg0)).toString() + " ";
+        hs_damageLineCoords += (chart_scale * hs_distanceArr[0]).toString() + "," + (100 - (0.20 * hs_Dmg0)).toString() + " ";
+        hs_damageLineCoords += (chart_scale * hs_distanceArr[1]).toString() + "," + (100 - (0.20 * hs_Dmg0)).toString() + " ";
 
-        hs_damageLineCoords += (chart_scale * hs_distanceArr[1]).toString() + "," + (100 - (0.333333 * hs_Dmg1)).toString() + " ";
-        hs_damageLineCoords += (chart_scale * hs_distanceArr[2]).toString() + "," + (100 - (0.333333 * hs_Dmg1)).toString() + " ";
+        hs_damageLineCoords += (chart_scale * hs_distanceArr[1]).toString() + "," + (100 - (0.20 * hs_Dmg1)).toString() + " ";
+        hs_damageLineCoords += (chart_scale * hs_distanceArr[2]).toString() + "," + (100 - (0.20 * hs_Dmg1)).toString() + " ";
 
-        hs_damageLineCoords += (chart_scale * hs_distanceArr[2]).toString() + "," + (100 - (0.333333 * hs_Dmg2)).toString() + " ";
-        hs_damageLineCoords += (chart_scale * hs_distanceArr[3]).toString() + "," + (100 - (0.333333 * hs_Dmg2)).toString() + " ";
+        hs_damageLineCoords += (chart_scale * hs_distanceArr[2]).toString() + "," + (100 - (0.20 * hs_Dmg2)).toString() + " ";
+        hs_damageLineCoords += (chart_scale * hs_distanceArr[3]).toString() + "," + (100 - (0.20 * hs_Dmg2)).toString() + " ";
 
-        hs_damageLineCoords += (chart_scale * hs_distanceArr[3]).toString() + "," + (100 - (0.333333 * hs_Dmg3)).toString() + " ";
+        hs_damageLineCoords += (chart_scale * hs_distanceArr[3]).toString() + "," + (100 - (0.20 * hs_Dmg3)).toString() + " ";
         if ( hs_Dmg2 >= hs_Dmg3){
-            hs_damageLineCoords += (chart_scale * hs_distanceArr[3]).toString() + "," + (100 - (0.333333 * damageArr[2])).toString() + " ";
-            hs_damageLineCoords += (hs_distanceArr[3] + 100).toString() + "," + (100 - (0.333333 * damageArr[2])).toString()+ " ";
-            hs_damageLineCoords += (200).toString() + "," + (100 - (0.333333 * damageArr[2])).toString();
+            hs_damageLineCoords += (chart_scale * hs_distanceArr[3]).toString() + "," + (100 - (0.20 * damageArr[2])).toString() + " ";
+            hs_damageLineCoords += (hs_distanceArr[3] + 100).toString() + "," + (100 - (0.20 * damageArr[2])).toString()+ " ";
+            hs_damageLineCoords += (200).toString() + "," + (100 - (0.20 * damageArr[2])).toString();
         } else {
-            hs_damageLineCoords += (hs_distanceArr[3] + 100).toString() + "," + (100 - (0.333333 * hs_Dmg3)).toString()+ " ";
-            hs_damageLineCoords += (200).toString() + "," + (100 - (0.333333 * hs_Dmg3)).toString();
+            hs_damageLineCoords += (hs_distanceArr[3] + 100).toString() + "," + (100 - (0.20 * hs_Dmg3)).toString()+ " ";
+            hs_damageLineCoords += (200).toString() + "," + (100 - (0.20 * hs_Dmg3)).toString();
         }
         if (hs_Dmg0 > 140){
-            hs_maxDamageText = "<text x='" + (chart_scale * hs_distanceArr[1]) + "' y='" + ((115 - (0.333333 * hs_Dmg0))).toString() + "' class='apex_hs_chartMinMaxLabel'>" + hs_Dmg0 + "</text>";
+            hs_maxDamageText = "<text x='" + (chart_scale * hs_distanceArr[1]) + "' y='" + ((115 - (0.20 * hs_Dmg0))).toString() + "' class='apex_hs_chartMinMaxLabel'>" + hs_Dmg0 + "</text>";
         } else {
-            hs_maxDamageText = "<text x='" + (chart_scale * hs_distanceArr[1]) + "' y='" + ((95 - (0.333333 * hs_Dmg0))).toString() + "' class='apex_hs_chartMinMaxLabel'>" + hs_Dmg0 + "</text>";
+            hs_maxDamageText = "<text x='" + (chart_scale * hs_distanceArr[1]) + "' y='" + ((95 - (0.20 * hs_Dmg0))).toString() + "' class='apex_hs_chartMinMaxLabel'>" + hs_Dmg0 + "</text>";
         }
         if (hs_Dmg1 > 140){
-            hs_minDamageText = "<text x='" + ((chart_scale * max_hs_distance)- 25) + "' y='" + ((115 - (0.333333 * hs_Dmg1))).toString() + "' class='apex_hs_chartMinMaxLabel'>" + hs_Dmg1 + "</text>";
+            hs_minDamageText = "<text x='" + ((chart_scale * max_hs_distance)- 25) + "' y='" + ((115 - (0.20 * hs_Dmg1))).toString() + "' class='apex_hs_chartMinMaxLabel'>" + hs_Dmg1 + "</text>";
         } else {
-            hs_minDamageText = "<text x='" + (chart_scale * max_hs_distance- 20) + "' y='" + ((95 - (0.333333 * hs_Dmg1))).toString() + "' class='apex_hs_chartMinMaxLabel'>" + hs_Dmg1 + "</text>";
+            hs_minDamageText = "<text x='" + (chart_scale * max_hs_distance- 20) + "' y='" + ((95 - (0.20 * hs_Dmg1))).toString() + "' class='apex_hs_chartMinMaxLabel'>" + hs_Dmg1 + "</text>";
         }
     }
 
@@ -1465,11 +1485,15 @@ function apex_createKraberDamageChart(weaponStats, damageArr, distanceArr, numOf
         chart_gap += 1;
     }
 
-    svg_str += "<line x1='0' y1='66' x2='200' y2='66' style='stroke:rgb(175,175,175);stroke-width:.5'></line>" +"";
-    svg_str += "<line x1='0' y1='33' x2='200' y2='33' style='stroke:rgb(175,175,175);stroke-width:.25'></line>" +"";
-    svg_str += "<text x='0' y='74' class='apex_chartLabel'>100</text>" +"";
-    svg_str += "<text x='0' y='41' class='apex_chartLabel'>200</text>" +"";
-    svg_str += "<text x='0' y='8' class='apex_chartLabel'>300</text>" +"";
+    svg_str += "<line x1='0' y1='80' x2='200' y2='80' style='stroke:rgb(175, 175, 175);stroke-width:.5'></line>" +"";
+    svg_str += "<line x1='0' y1='60' x2='200' y2='60' style='stroke:rgb(175, 175, 175);stroke-width:.5'></line>" +"";
+    svg_str += "<line x1='0' y1='40' x2='200' y2='40' style='stroke:rgb(175, 175, 175);stroke-width:.5'></line>" +"";
+    svg_str += "<line x1='0' y1='20' x2='200' y2='20' style='stroke:rgb(175, 175, 175);stroke-width:.5'></line>" +"";
+    svg_str += "<text x='0' y='88.333333333' class='apex_chartLabel'>100</text>" +"";
+    svg_str += "<text x='0' y='68.333' class='apex_chartLabel'>200</text>" +"";
+    svg_str += "<text x='0' y='48' class='apex_chartLabel'>300</text>" +"";
+    svg_str += "<text x='0' y='28' class='apex_chartLabel'>400</text>" +"";
+    svg_str += "<text x='0' y='8' class='apex_chartLabel'>500</text>" +"";
 
     svg_str += "<polyline class='apex_ls_chartDamageLine' points='" + ls_damageLineCords + "'></polyline>" + ls_maxDamageText + ls_minDamageText + "";
     svg_str += "<polyline class='apex_hs_chartDamageLine' points='" + hs_damageLineCoords + "'></polyline>" + hs_maxDamageText + hs_minDamageText +"";
@@ -1906,9 +1930,9 @@ function apex_createNewDamageChart100Max(weaponStats, damageArr, distanceArr, nu
             hs_maxDamageText = "<text x='" + (chart_scale * hs_distanceArr[0]) + "' y='" + ((95 - (hs_Dmg0))).toString() + "' class='apex_hs_chartMinMaxLabel'>" + hs_Dmg0 + "</text>";
         }
         if (hs_Dmg1 > 85){
-            hs_minDamageText = "<text x='" + ((chart_scale * max_hs_distance)-16) + "' y='" + ((115 - (hs_Dmg1))).toString() + "' class='apex_hs_chartMinMaxLabel'>" + hs_Dmg1 + "</text>";
+            hs_minDamageText = "<text x='" + ((chart_scale * max_hs_distance)-1) + "' y='" + ((115 - (hs_Dmg1))).toString() + "' class='apex_hs_chartMinMaxLabel'>" + hs_Dmg1 + "</text>";
         } else {
-            hs_minDamageText = "<text x='" + ((chart_scale * max_hs_distance)-16) + "' y='" + ((95 - (hs_Dmg1))).toString() + "' class='apex_hs_chartMinMaxLabel'>" + hs_Dmg1 + "</text>";
+            hs_minDamageText = "<text x='" + ((chart_scale * max_hs_distance)-1) + "' y='" + ((95 - (hs_Dmg1))).toString() + "' class='apex_hs_chartMinMaxLabel'>" + hs_Dmg1 + "</text>";
         }
     }
 
@@ -2171,12 +2195,17 @@ function apex_showHideClasses(){
     } else {
         $(".sub_shotgun").hide(0);
     }
-    if ($("#showSpecialAmmoCheck").is(":checked")){
-        $(".sub_special").show(0);
+    if ($("#showEnergyAmmoCheck").is(":checked")){
+        $(".sub_energy").show(0);
     } else {
-        $(".sub_special").hide(0);
+        $(".sub_energy").hide(0);
     }
-    if ($("#showSpecialHeavyAmmoCheck").is(":checked")){
+    if ($("#showSniperAmmoCheck").is(":checked")){
+        $(".sub_sniper").show(0);
+    } else {
+        $(".sub_sniper").hide(0);
+    }
+    if ($("#showUndefinedAmmoCheck").is(":checked")){
         $(".sub_undefined").show(0);
     } else {
         $(".sub_undefined").hide(0);
@@ -2209,11 +2238,7 @@ function apex_showHideSubCats(){
     } else {
         $("#SniperSection").hide(0);
     }
-    if ($("#showSPECIALCheck").is(":checked")){
-        $("#SpecialSection").show(0);
-    } else {
-        $("#SpecialSection").hide(0);
-    }
+
     if ($("#showPISTOLCheck").is(":checked")){
         $("#PistolSection").show(0);
     } else {
@@ -2223,31 +2248,34 @@ function apex_showHideSubCats(){
 
 const apex_weaponSubCats = {};
 
-apex_weaponSubCats._WPN_ENERGY_AR = "special";
+apex_weaponSubCats._WPN_ENERGY_AR = "energy";
 apex_weaponSubCats._WPN_HEMLOK = "highcal";
 apex_weaponSubCats._WPN_RSPN101 = "bullet";
 apex_weaponSubCats._WPN_VINSON = "highcal";
-apex_weaponSubCats._WPN_R97 = "bullet";
+apex_weaponSubCats._WPN_R97 = "undefined";
 apex_weaponSubCats._WPN_ALTERNATOR_SMG = "bullet";
 apex_weaponSubCats._WPN_PDW = "highcal";
+apex_weaponSubCats._WPN_VOLT_SMG = "energy";
 
 apex_weaponSubCats._WPN_SHOTGUN = "shotgun";
-apex_weaponSubCats._WPN_ENERGY_SHOTGUN = "shotgun";
+apex_weaponSubCats._WPN_ENERGY_SHOTGUN = "undefined";
 apex_weaponSubCats._WPN_SHOTGUN_PISTOL = "shotgun";
 
-apex_weaponSubCats._WPN_ESAW = "special";
+apex_weaponSubCats._WPN_ESAW = "energy";
 apex_weaponSubCats._WPN_LMG = "highcal";
+apex_weaponSubCats._WPN_MOUNTED_TURRET_WEAPON = "undefined";
 
-apex_weaponSubCats._WPN_DOUBLETAKE = "special";
-apex_weaponSubCats._WPN_DMR = "highcal";
+apex_weaponSubCats._WPN_DOUBLETAKE = "sniper";
+apex_weaponSubCats._WPN_DMR = "sniper";
 apex_weaponSubCats._WPN_G2 = "bullet";
-apex_weaponSubCats._WPN_CHARGE_RIFLE = "special";
+apex_weaponSubCats._WPN_CHARGE_RIFLE = "sniper";
+apex_weaponSubCats._WPN_SENTINEL = "sniper";
 
 apex_weaponSubCats._WPN_WINGMAN = "highcal";
 apex_weaponSubCats._WPN_RE45_AUTOPISTOL = "bullet";
 apex_weaponSubCats._WPN_P2011 = "bullet";
 
-apex_weaponSubCats._WPN_MASTIFF = "undefined";
-apex_weaponSubCats._WPN_LSTAR = "undefined";
+apex_weaponSubCats._WPN_MASTIFF = "shotgun";
+apex_weaponSubCats._WPN_LSTAR = "energy";
 apex_weaponSubCats._WPN_SNIPER = "undefined";
 
