@@ -1,5 +1,6 @@
 # Local data for debugging. Fill be filled on server.
 .idea/*
+node_modules/*
 *.psd
 .idea/modules.xml
 .idea/misc.xml
@@ -12,3 +13,4 @@
 **/bfh/data/**
 
 **/apex/data/**
+

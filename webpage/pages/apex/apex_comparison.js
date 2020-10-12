@@ -40,10 +40,6 @@ let use_charge_spinup_time_calculations = true;
   filters: List of filter keywords
   includeOnlyDiffering: If false, only include variables where weapons differ
 */
-
-/**
- * @return {boolean}
- */
 function APEXFilterTable (variableName, weaponValues, filters, includeOnlyDiffering) {
   let shouldInclude;
 
@@ -79,9 +75,6 @@ function APEXFilterTable (variableName, weaponValues, filters, includeOnlyDiffer
     // Check if all values match the first one.
     shouldInclude = shouldInclude && !weaponValues.every(weaponValue => weaponValue === weaponValues[0])
   }
-  // if (shouldInclude === false){
-  //   // console.log("Table does not have value for " + variableName);
-  // }
 
   return shouldInclude
 }
@@ -250,48 +243,63 @@ function APEXUpdateDamageGraph (selectedWeapons) {
   Takes in a list of selected weapons.
 */
 function APEXUpdateTTKAndBTKGraphs (selectedWeapons) {
+  //Create an object that contains all of the selected weapons BTKs and TTKs.
+  populateBTTKData(selectedWeapons);
+
   const btk_series = [];
   const btk_white_series = [];
   const btk_blue_series = [];
   const btk_purple_series = [];
+  const btk_red_series = [];
+  const btk_combo_series = [];
   const ttk_series = [];
   const ttk_white_series = [];
   const ttk_blue_series = [];
   const ttk_purple_series = [];
+  const ttk_red_series = [];
+  const ttk_combo_series = [];
   for (let i = 0; i < selectedWeapons.length; i++) {
     const weapon = selectedWeapons[i];
     btk_white_series.push({
       name: apex_weapon_name_dict[weapon['printname']] + " #"+i,
-      data: APEXGetWhiteBTKUpperBoundOverDistance(weapon)
+      data: APEXWeaponBTTKData[apex_weapon_name_dict[weapon['printname']]+ " #"+i].White[0].BTTK.BTK
     });
     ttk_white_series.push({
       name: apex_weapon_name_dict[weapon['printname']] + " #"+i,
-      data: APEXGetWhiteTTKUpperBoundOverDistance(weapon)
+      data: APEXWeaponBTTKData[apex_weapon_name_dict[weapon['printname']]+ " #"+i].White[0].BTTK.TTK
     });
     btk_blue_series.push({
       name: apex_weapon_name_dict[weapon['printname']] + " #"+i,
-      data: APEXGetBlueBTKUpperBoundOverDistance(weapon)
+      data: APEXWeaponBTTKData[apex_weapon_name_dict[weapon['printname']]+ " #"+i].Blue[0].BTTK.BTK
     });
     ttk_blue_series.push({
       name: apex_weapon_name_dict[weapon['printname']] + " #"+i,
-      data: APEXGetBlueTTKUpperBoundOverDistance(weapon)
+      data: APEXWeaponBTTKData[apex_weapon_name_dict[weapon['printname']]+ " #"+i].Blue[0].BTTK.TTK
     });
     btk_purple_series.push({
       name: apex_weapon_name_dict[weapon['printname']] + " #"+i,
-      data: APEXGetPurpleBTKUpperBoundOverDistance(weapon)
+      data: APEXWeaponBTTKData[apex_weapon_name_dict[weapon['printname']]+ " #"+i].Purple[0].BTTK.BTK
     });
     ttk_purple_series.push({
       name: apex_weapon_name_dict[weapon['printname']] + " #"+i,
-      data: APEXGetPurpleTTKUpperBoundOverDistance(weapon)
+      data: APEXWeaponBTTKData[apex_weapon_name_dict[weapon['printname']]+ " #"+i].Purple[0].BTTK.TTK
+    });
+    btk_red_series.push({
+      name: apex_weapon_name_dict[weapon['printname']] + " #"+i,
+      data: APEXWeaponBTTKData[apex_weapon_name_dict[weapon['printname']]+ " #"+i].Red[0].BTTK.BTK
+    });
+    ttk_red_series.push({
+      name: apex_weapon_name_dict[weapon['printname']] + " #"+i,
+      data: APEXWeaponBTTKData[apex_weapon_name_dict[weapon['printname']]+ " #"+i].Red[0].BTTK.TTK
     });
     btk_series.push({
       name: apex_weapon_name_dict[weapon['printname']] + " #"+i,
-      data: APEXGetBTKUpperBoundOverDistance(weapon)
+      data: APEXWeaponBTTKData[apex_weapon_name_dict[weapon['printname']]+ " #"+i].None[0].BTTK.BTK
     });
     ttk_series.push({
       name: apex_weapon_name_dict[weapon['printname']] + " #"+i,
-      data: APEXGetTTKUpperBoundOverDistance(weapon)
-    })
+      data: APEXWeaponBTTKData[apex_weapon_name_dict[weapon['printname']]+ " #"+i].None[0].BTTK.TTK
+    });
   }
 
   // noinspection JSUnresolvedVariable
@@ -671,8 +679,195 @@ function APEXUpdateTTKAndBTKGraphs (selectedWeapons) {
     },
 
     series: ttk_purple_series
+  });
+  // noinspection JSUnresolvedVariable
+  Highcharts.chart('red_btk_ub_graph', {
+    title: {
+      text: 'Bullets-to-kill /w Red Shield'
+    },
+
+    subtitle: {
+      text: 'Maximum number of bullets required for a kill. Includes multipliers.'
+    },
+
+    yAxis: {
+      title: {
+        text: 'Bullets'
+      }
+    },
+
+    xAxis: {
+      title: {
+        text: 'Distance (m)'
+      }
+    },
+
+    tooltip: {
+      shared: true,
+      formatter: function() {
+        let btk_tooltip_str = this.x + "m";
+        const sortedPoints = this.points.sort(function (a, b) {
+          return ((a.y > b.y) ? -1 : ((a.y < b.y) ? 1 : 0));
+        });
+        $.each(sortedPoints , function(i, point) {
+          btk_tooltip_str += `<br/><span style="color:${point.color}">●</span>${point.series.name}: <b>${point.y}</b>`;
+        });
+        return btk_tooltip_str;
+      },
+    },
+
+    plotOptions: {
+      line: {
+        marker: {
+          enabled: false
+        }
+      }
+    },
+
+    series: btk_red_series
+  });
+  // noinspection JSUnresolvedVariable
+  Highcharts.chart('red_ttk_ub_graph', {
+    title: {
+      text: 'Time-to-kill w/ Red Shield'
+    },
+
+    subtitle: {
+      text: 'Based on "RoF". Assumes all shots hit. Includes bullet velocity. Includes multipliers.'
+    },
+
+    yAxis: {
+      title: {
+        text: 'Time (ms)'
+      }
+    },
+
+    xAxis: {
+      title: {
+        text: 'Distance (m)'
+      }
+    },
+
+    tooltip: {
+      shared: true,
+      // valueDecimals: 3,
+      formatter: function() {
+        let ttk_tooltip_str = this.x + "m";
+        const sortedPoints = this.points.sort(function (a, b) {
+          return ((a.y > b.y) ? -1 : ((a.y < b.y) ? 1 : 0));
+        });
+        $.each(sortedPoints , function(i, point) {
+          ttk_tooltip_str += `<br/><span style="color:${point.color}">●</span>${point.series.name}:<b>${point.y.toFixed(3)}</b>`;
+        });
+        return ttk_tooltip_str;
+      },
+    },
+
+    plotOptions: {
+      line: {
+        marker: {
+          enabled: false
+        }
+      }
+    },
+
+    series: ttk_red_series
+  });
+  // noinspection JSUnresolvedVariable
+  Highcharts.chart('combo_btk_ub_graph', {
+    title: {
+      text: 'Bullets-to-kill /w Combo Shield'
+    },
+
+    subtitle: {
+      text: 'Maximum number of bullets required for a kill. Includes multipliers.'
+    },
+
+    yAxis: {
+      title: {
+        text: 'Bullets'
+      }
+    },
+
+    xAxis: {
+      title: {
+        text: 'Distance (m)'
+      }
+    },
+
+    tooltip: {
+      shared: true,
+      formatter: function() {
+        let btk_tooltip_str = this.x + "m";
+        const sortedPoints = this.points.sort(function (a, b) {
+          return ((a.y > b.y) ? -1 : ((a.y < b.y) ? 1 : 0));
+        });
+        $.each(sortedPoints , function(i, point) {
+          btk_tooltip_str += `<br/><span style="color:${point.color}">●</span>${point.series.name}: <b>${point.y}</b>`;
+        });
+        return btk_tooltip_str;
+      },
+    },
+
+    plotOptions: {
+      line: {
+        marker: {
+          enabled: false
+        }
+      }
+    },
+
+    series: btk_combo_series
+  });
+  // noinspection JSUnresolvedVariable
+  Highcharts.chart('combo_ttk_ub_graph', {
+    title: {
+      text: 'Time-to-kill w/ Combo Shield'
+    },
+
+    subtitle: {
+      text: 'Based on "RoF". Assumes all shots hit. Includes bullet velocity. Includes multipliers.'
+    },
+
+    yAxis: {
+      title: {
+        text: 'Time (ms)'
+      }
+    },
+
+    xAxis: {
+      title: {
+        text: 'Distance (m)'
+      }
+    },
+
+    tooltip: {
+      shared: true,
+      // valueDecimals: 3,
+      formatter: function() {
+        let ttk_tooltip_str = this.x + "m";
+        const sortedPoints = this.points.sort(function (a, b) {
+          return ((a.y > b.y) ? -1 : ((a.y < b.y) ? 1 : 0));
+        });
+        $.each(sortedPoints , function(i, point) {
+          ttk_tooltip_str += `<br/><span style="color:${point.color}">●</span>${point.series.name}:<b>${point.y.toFixed(3)}</b>`;
+        });
+        return ttk_tooltip_str;
+      },
+    },
+
+    plotOptions: {
+      line: {
+        marker: {
+          enabled: false
+        }
+      }
+    },
+
+    series: ttk_combo_series
   })
 
+console.log(ttk_red_series);
 }
 
 /*
@@ -906,6 +1101,14 @@ function initializeAPEXComparison () {
       // noinspection JSValidateTypes
       $(this).parent().children().prop("checked", false).change();
       $(this).prop("checked", false).change();
+    } else if (thisId === "useAmpedDamage") {
+      // noinspection JSValidateTypes
+      // $(this).parent().children().prop("checked", false).change();
+      if (use_amped_calculations === true) {
+        $(this).prop("checked", false).change();
+      } else {
+        $(this).prop("checked", true).change();
+      }
     }
     this.blur();
     updateGraphsForTargetType();
@@ -961,11 +1164,12 @@ function initializeAPEXComparison () {
 }
 
 function updateGraphsForHeadShots(){
-  if ($("#useAmpedDamage").is(":checked")) {
-    use_amped_calculations = true;
-  } else {
-    use_amped_calculations = false;
-  }
+  use_amped_calculations = !!$("#useAmpedDamage").is(":checked");
+  // if ($("#useAmpedDamage").is(":checked")) {
+  //   use_amped_calculations = true;
+  // } else {
+  //   use_amped_calculations = false;
+  // }
   if ($("#useHeadShotDamage").is(":checked")){
     use_headshot_calculations = true;
     use_ls_multi_calculations = false;
@@ -1055,6 +1259,32 @@ function showHideGraphs(){
   } else {
     $("#purple_btk_ub_graph").hide(0);
     $("#purple_ttk_ub_graph").hide(0);
+  }
+  //
+  if ($("#showRedBTKCheck").is(":checked")){
+    $("#red_btk_ub_graph").show(0);
+  } else {
+    $("#red_btk_ub_graph").hide(0);
+  }
+  if ($("#showRedTTKCheck").is(":checked")){
+    $("#red_ttk_ub_graph").show(0);
+    $("#red_btk_ub_graph").show(0);
+  } else {
+    $("#red_btk_ub_graph").hide(0);
+    $("#red_ttk_ub_graph").hide(0);
+  }
+  //
+  if ($("#showComboBTKCheck").is(":checked")){
+    $("#combo_btk_ub_graph").show(0);
+  } else {
+    $("#combo_btk_ub_graph").hide(0);
+  }
+  if ($("#showComboTTKCheck").is(":checked")){
+    $("#combo_ttk_ub_graph").show(0);
+    $("#combo_btk_ub_graph").show(0);
+  } else {
+    $("#combo_btk_ub_graph").hide(0);
+    $("#combo_ttk_ub_graph").hide(0);
   }
 }
 
@@ -1173,20 +1403,11 @@ function apex_comparisonGetUpdatedWeaponData(active_weapon_attachments, weapon_v
       // TODO: Real Recoil - This is just a quick Temp recoil calculation until the values are more ironed out.
       // $(weaponRow).find(".apex_lblMag").text(weaponStats['ammo_clip_size']);
       return weaponStats;
-
-      // let temp_pitchBase = Number(parseFloat(weaponStats['viewkick_pattern_data_sizey_avg']) * parseFloat(weaponStats['viewkick_pitch_base'])).toFixed(3);
-      // let temp_pitchRandAvg = Number(Math.abs(parseFloat(weaponStats['viewkick_pattern_data_y_avg'])) * parseFloat(weaponStats['viewkick_pitch_random'])).toFixed(3);
-      // let temp_YawRandAvg = Number(parseFloat(weaponStats['viewkick_pattern_data_x_avg']) * parseFloat(weaponStats['viewkick_yaw_random'])).toFixed(3);
-      // let temp_YawBaseMin = Number(Math.abs(parseFloat(weaponStats['viewkick_pattern_data_x_min'])) * parseFloat(weaponStats['viewkick_yaw_base'])).toFixed(3);
-      // let temp_YawBaseMax = Number(parseFloat(weaponStats['viewkick_pattern_data_x_max']) * parseFloat(weaponStats['viewkick_yaw_base'])).toFixed(3);
     }
   }
 }
 /*
-  Creates an array used to generate the spec/customization buttons.  Each entry
-  is an array of 4 objects that represent the 4 spec tiers. 'a' is left side,
-  'b' is right side.  Each entry also has a weaponName variable There is one
-  entry per weapon.
+  Creates an array used to generate the spec/customization buttons.
 */
 function apex_generateComparisonAttachmentArray () {
   $.each(APEXWeaponData, function (key, weapon) {
