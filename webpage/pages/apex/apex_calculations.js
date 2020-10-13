@@ -139,9 +139,6 @@ function populateBTTKVars(weapon, shield) {
   }
 
 }
-function testCalculateTTK() {
-
-}
 
 function calculateBTK(weapon, shield, dist) {
   let combined_btk;

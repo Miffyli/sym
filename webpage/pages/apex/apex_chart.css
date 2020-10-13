@@ -681,8 +681,8 @@ img.fnone{width: 59px; height: 59px;float:none !important}
 }
 
 .apex_recoilGraphBox{
-    height: 101px;
-    margin-top: -25px;
+    height: 130px;
+    margin-top: -20px; /*25px*/
     color: #FFFFFF;
 }
 .apex_sectionReload{
@@ -858,9 +858,9 @@ img.fnone{width: 59px; height: 59px;float:none !important}
     text-align: right;
 }
 
-.apex_deployTimeBox {
-    padding-top: 1px;
-}
+/*.apex_deployTimeBox {*/
+/*    padding-top: 1px;*/
+/*}*/
 
 .apex_wpnSwitchImg{
     height: 40px;
@@ -916,6 +916,7 @@ img.fnone{width: 59px; height: 59px;float:none !important}
 
 .apex_deployTimeBox {
     /*margin-top: -1;*/
+    padding-top: 10px;
     padding-bottom: 10px;
 }
 

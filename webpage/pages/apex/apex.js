@@ -272,7 +272,7 @@ function getLegendDamageMulti(){
   }
 }
 
-// Note: Currently amped multis are the same across all damage dist ranges.
+// Note: Currently amped multi is the same across all damage dist ranges.
 // If that changes the multi will need to be per distance like the headshot multi.
 function getProjectileAmpedMulti(weapon){
   if (use_amped_calculations){
