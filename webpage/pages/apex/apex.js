@@ -290,6 +290,7 @@ function getHelmMulti(weapon){
   }
 }
 
+//TODO: returns 0 for one hit kills. Which forces Math.min to 1 in the BTK function. not ideal.
 function getBTKUsingUnshieldedDamage(damageAtDist, damage_unshielded_scale, target_shield, target_health) {
   let base_dmg = damageAtDist / damage_unshielded_scale;
   let shield_btk = target_shield / (base_dmg * APEX_MIN_DAMAGE_MULTIPLIER);

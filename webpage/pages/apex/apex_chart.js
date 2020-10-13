@@ -10,7 +10,7 @@ let oHandler1x;// this will be assign in on ready below
 let oHandler2x;
 let oHandler3x;
 let oHandler4x;
-let apex_weaponClassDic = {"ar": "AssaultRifle","smg": "SMG","shotgun": "Shotgun","lmg": "LMG","sniper": "Sniper","pistol": "Pistol"};
+let apex_weaponClassDic = {"ar": "AssaultRifle","smg": "SMG","shotgun": "Shotgun","lmg": "LMG","sniper": "Sniper","pistol": "Pistol", "handgun": "Pistol"};
 let apex_addVariantCounter = 0;
 
 // TODO: MOAR Tooltips
@@ -278,8 +278,12 @@ function apex_printWeaponClass(weaponClass){
         "<div class='apex_classHeader'><img src='./pages/apex/icons/rui/weapon_icons/classes/" + apex_weaponClassDic[weaponClass] + ".png' alt=''>" + apex_weaponClassDic[weaponClass] + "</div>";
     rtnStr += "<table class='table apex_classTable'><tbody class='sortableTable'>";
 
+    // TODO: look into alternatives for sorting via menu category. This may not viable if future weapons fall into odd categories like the Mozambique
     $.each(APEXWeaponData, function( key, value ) {
         if (value['WeaponData']['menu_category'].localeCompare(weaponClass) === 0 && value['WeaponData']['weapon_type_flags'] === "WPT_PRIMARY") {
+            rtnStr += apex_printWeapon(value['WeaponData']);
+        // Mozambique Shotgun menu category is unique. handgun. -.-
+        } else if(value['WeaponData']['menu_category'] === 'handgun' && weaponClass === "pistol" && value['WeaponData']['weapon_type_flags'] === "WPT_PRIMARY") {
             rtnStr += apex_printWeapon(value['WeaponData']);
         }
     });
@@ -297,7 +301,7 @@ function apex_printWeapon(weaponStats) {
     // const ammo_type = "<span class='apex_lblSuffixText'>x" + "<img src='./pages/apex/icons/ammo/" + weaponStats['ammo_pool_type'] + ".png' alt='' height='20' width='19'>" + "</span>";
     let ammo_type_string = "";
     if (weaponStats['ammo_pool_type'] === undefined) {
-        ammo_type_string += "<img src='./pages/apex/icons/ammo/special_" + weaponStats['menu_category'] +".svg' alt='' height='40' margin-right: '25px';margin-left: '-10px';margin-bottom: '-10px'>" + "</span>";
+        ammo_type_string += "<img src='./pages/apex/icons/ammo/special_" + weaponStats['menu_category'] +".png' alt='' height='40' margin-right: '25px';margin-left: '-10px';margin-bottom: '-10px'>" + "</span>";
     } else {
         ammo_type_string += "<img src='./pages/apex/icons/ammo/" + weaponStats['ammo_pool_type'] + ".png' alt='' height='40' margin-right: '25px';margin-left: '-10px';margin-bottom: '-10px'>" + "</span>";
     }

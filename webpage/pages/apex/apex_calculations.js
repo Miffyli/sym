@@ -163,7 +163,7 @@ function calculateBTK(weapon, shield, dist) {
   } else {
     combined_btk =  Math.ceil((Legend_HP + BTTK_vars.shieldHP) / base_dmg)
   }
-  return combined_btk;
+  return Math.max(1, combined_btk);
 }
 
 function calculateBTTK(weapon, shield) {

@@ -224,6 +224,8 @@ body {background-color: #191919;}
     width: auto;
     max-width: 265px;
     display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .apex_firstColumn_BottomRow{

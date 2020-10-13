@@ -866,8 +866,6 @@ function APEXUpdateTTKAndBTKGraphs (selectedWeapons) {
 
     series: ttk_combo_series
   })
-
-console.log(ttk_red_series);
 }
 
 /*
@@ -904,7 +902,6 @@ function APEXUpdateFromToolBar(){
 */
 function APEXSelectorsOnChange (e) {
   let e_selected = ($(e.target).find('option:selected').text().trim());
-  console.log(e_selected);
   apex_updateSelectors();
   // printAPEXCustomizationButtons(e);
   const selectedWeapons = apex_ComparisonGetSelectedWeapons();
@@ -1481,10 +1478,7 @@ function apex_printComparisonAttachmentButtons (e){
 
   if(selectedOption.localeCompare(SELECT_OPTION_1_TEXT) !== 0){
     $(selectedSelect).parent().siblings('div').remove();
-    //$(selectedSelect).parent().parent().siblings()
-    //$(selectedSelect).parent().parent().parent().children()
     let selection_id = $(selectedSelect).parent().parent().siblings().length;
-    console.log(selectedOption + "is id:" + selection_id);
 
     $(selectedSelect).parent().after(apex_printComparisonAttachmentHTML(apex_weapon_name_dict[selectedOption], selection_id));
     $(selectedSelect).parent().parent().find('input').checkboxradio(
