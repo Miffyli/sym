@@ -273,14 +273,14 @@ function openBF1GeneralInfoPage () {
 /*
   Load the BF1 Weapon Mechanics Info page
 */
-function openBF1GeneralInfoPage () {
+function openBF1WeaponInfoPage () {
   $('.bf1-main-content').load('./pages/bf1/bf1_dataWeapon.html')
 }
 
 
 /*
   Display BF1 page to user. This should be
-  done after data has been succesfully loaded
+  done after data has been successfully loaded
 */
 function openBF1ComparisonPage () {
   if (BF1DataLoaded === false) {
