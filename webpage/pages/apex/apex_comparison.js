@@ -151,7 +151,7 @@ function APEXUpdateTable (selectedWeapons, filters, includeOnlyDiffering) {
     let tableHtml = '<table><tr><th></th>';
     for (let i = 0; i < selectedWeapons.length; i++) {
       // Also add weapon name to table headers
-      tableHtml += '<th>' + selectedWeapons[i]['custom_name'] + '</th>'
+      tableHtml += '<th>' + selectedWeapons[i]['custom_name_short'] + '</th>'
     }
     tableHtml += '</tr>';
 
@@ -1364,10 +1364,10 @@ function apex_comparisonGetUpdatedWeaponData(active_weapon_attachments, weapon_v
           }
         }
       // Override double tap effective fire rate if also using a shotgun bolt.
-      if (APEXWeaponData_Mod[i]['WeaponData']['custom_name'].includes("EVA-8 Auto")) {
+      if (APEXWeaponData_Mod[i]['WeaponData']['custom_name_short'].includes("EVA-8 Auto")) {
         mod = apex_updateDoubleTapHopUp(active_weapon_attachments[selected_weapon_name], APEXWeaponData_Mod[i]);
       }
-      if (APEXWeaponData_Mod[i]['WeaponData']['custom_name'].includes("G7 Scout")) {
+      if (APEXWeaponData_Mod[i]['WeaponData']['custom_name_short'].includes("G7 Scout")) {
         mod = apex_updateDoubleTapHopUp(active_weapon_attachments[selected_weapon_name], APEXWeaponData_Mod[i]);
       }
 

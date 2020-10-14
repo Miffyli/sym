@@ -245,7 +245,7 @@ function apex_printWeapons(){
         const lastRow = document.getElementsByClassName(apex_weapon_name_dict[weaponName.trim()])[document.getElementsByClassName(apex_weapon_name_dict[weaponName.trim()]).length -1];
 
         const newWeaponStats = APEXWeaponData.find(function (element) {
-            return element["WeaponData"]['custom_name'] === weaponName;
+            return element["WeaponData"]['custom_name_short'] === weaponName;
         });
 
         const newWeaponRow = apex_printWeapon(newWeaponStats['WeaponData']);
@@ -309,7 +309,7 @@ function apex_printWeapon(weaponStats) {
     return "<tr class='" + weaponStats['printname'] + " sub_" + getAPEXWeaponsSubcat(weaponStats['printname']) + "'>" +
         "<td class='apex_firstColumn'>" +
         "<div class='apex_lblWeaponName'>" +
-        "<span class='apex_lblNameValue' title='" + weaponStats["custom_desc_long"].toString().replace("\\u0027", "\"").replace("\\u0027", "\"") + "'>" + formatWeaponName(weaponStats['custom_name']) + "</span>" +
+        "<span class='apex_lblNameValue' title='" + weaponStats["custom_desc_long"].toString().replace("\\u0027", "\"").replace("\\u0027", "\"") + "'>" + formatWeaponName(weaponStats['custom_name_short']) + "</span>" +
         "</div>" +
         "<div>" +
         "<img class='apex_weaponImg' id='wepIcon_"+ formatWeaponName(weaponStats['printname']) +"' src='./pages/apex/icons/" + weaponStats["hud_icon"] + ".png' alt=''>" +
@@ -504,10 +504,10 @@ function apex_updateWeapon(selectedAttachments, weapon_variant_id, weapon_string
                 }
             }
             // Override double tap effective fire rate if also using a shotgun bolt.
-            if (APEXWeaponData_Mod[i]['WeaponData']['custom_name'].includes("EVA-8 Auto")) {
+            if (APEXWeaponData_Mod[i]['WeaponData']['custom_name_short'].includes("EVA-8 Auto")) {
                 mod = apex_updateDoubleTapHopUp(selectedAttachments[selected_weapon_name], APEXWeaponData_Mod[i]);
             }
-            if (APEXWeaponData_Mod[i]['WeaponData']['custom_name'].includes("G7 Scout")) {
+            if (APEXWeaponData_Mod[i]['WeaponData']['custom_name_short'].includes("G7 Scout")) {
                 mod = apex_updateDoubleTapHopUp(selectedAttachments[selected_weapon_name], APEXWeaponData_Mod[i]);
             }
 
