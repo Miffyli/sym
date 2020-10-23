@@ -994,54 +994,50 @@ img.fnone{width: 59px; height: 59px;float:none !important}
 
 #apex_LegendsToolbar > .apex_LegendsToolboxRow_1 > div {
     text-align: left;
-    margin: 10px 40px 10px 90px;
+    margin: 10px 10px 5px 90px;
 }
 #apex_LegendsToolbar > .apex_LegendsToolboxRow_2 > div {
     text-align: left;
-    margin: 10px 40px 10px 100px;
+    margin: 5px 10px 5px 135px;
 }
 #apex_LegendsToolbar > .apex_LegendsToolboxRow_3 > div {
-    margin: 10px 0 10px 305px;
+    margin: 5px 0 5px 180px;
     text-align: left;
 }
 
 #apex_showHideLegendCheckboxes_Row1 label {
-    width: 100px;
-    margin-bottom: 8px;
+    width: 57px;
+    height: 70px;
     border-radius: 2px;
 }
 
 #apex_showHideLegendCheckboxes_Row1 img{
-    width: 20px;
-    height: 20px;
-    padding: 2px 1px 18px 19px;
-    margin-right: -60px;
+    width: 89px;
+    margin-left: -16px;
+    margin-top: -7px;
 }
 #apex_showHideLegendCheckboxes_Row2 label {
-    width: 100px;
-    margin-bottom: 8px;
+
+    width: 57px;
+    height: 70px;
     border-radius: 2px;
 }
 
 #apex_showHideLegendCheckboxes_Row2 img{
-    width: 20px;
-    height: 20px;
-    padding: 2px 1px 18px 19px;
-    margin-right: -60px;
-
-
+    width: 89px;
+    margin-left: -16px;
+    margin-top: -7px;
 }
 #apex_showHideLegendCheckboxes_Row3 label {
-    width: 80px;
-    margin-bottom: 8px;
+    width: 57px;
+    height: 70px;
     border-radius: 2px;
 }
 
 #apex_showHideLegendCheckboxes_Row3 img{
-    width: 20px;
-    height: 20px;
-    padding: 2px 1px 18px 19px;
-    margin-right: -60px;
+    width: 89px;
+    margin-left: -16px;
+    margin-top: -7px;
 
 }
 
@@ -1087,4 +1083,80 @@ img.fnone{width: 59px; height: 59px;float:none !important}
     color: #a9d852;
     font-weight: bold;
 
+}
+
+.apex_profileImg img{
+    position: relative;
+    float: left;
+    top: -350px;
+    left: 800px;
+    width: 400px;
+}
+
+#damage_graph {
+    width: 75%;
+    height: 400px;
+    margin-left: 12.5%;
+    overflow: hidden;
+}
+#ttk_ub_graph {
+    overflow: hidden;
+    width: 50%;
+    height: 400px;
+}
+#white_ttk_ub_graph {
+    overflow: hidden;
+    width: 50%;
+    height: 400px;
+}
+#blue_ttk_ub_graph {
+    overflow: hidden;
+    width: 50%;
+    height: 400px;
+}
+#purple_ttk_ub_graph {
+    overflow: hidden;
+    width: 50%;
+    height: 400px;
+}
+#red_ttk_ub_graph {
+    overflow: hidden;
+    width: 50%;
+    height: 400px;
+}
+#combo_ttk_ub_graph {
+    overflow: hidden;
+    width: 50%;
+    height: 400px;
+}
+
+#btk_ub_graph {
+    overflow: hidden;
+    width: 50%;
+    height: 400px;
+}
+#white_btk_ub_graph {
+    overflow: hidden;
+    width: 50%;
+    height: 400px;
+}
+#blue_btk_ub_graph {
+    overflow: hidden;
+    width: 50%;
+    height: 400px;
+}
+#purple_btk_ub_graph {
+    overflow: hidden;
+    width: 50%;
+    height: 400px;
+}
+#red_btk_ub_graph {
+    overflow: hidden;
+    width: 50%;
+    height: 400px;
+}
+#combo_btk_ub_graph {
+    overflow: hidden;
+    width: 50%;
+    height: 400px;
 }

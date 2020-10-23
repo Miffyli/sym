@@ -239,6 +239,201 @@ function APEXUpdateDamageGraph (selectedWeapons) {
 }
 
 /*
+  Updates Combo BTK and TTK graphs. Checks if combo is toggled and goes through every shield type checking if that type is enabled and pushing weapon
+   BTK and TTK to the combo chart for the weapons and shield types enabled/selected.
+ */
+// TODO: Implement BTK and TTK selectors. Show*shieldType*BTKChecks are currently redundant until BTK/TTK toggles are re-implemented
+function updateComboBTTKGraphs(selectedComboWeapons) {
+  const btk_combo_update_series = [];
+  const ttk_combo_update_series = [];
+  styleIndex = 0;
+  for (let i = 0; i < selectedComboWeapons.length; i++) {
+    const combo_weapon = selectedComboWeapons[i];
+
+    if (i > 10) {
+      styleIndex = Math.min((i - (dashStyles.length - 1)), (dashStyles.length - 1));
+    } else {
+      styleIndex = i;
+    }
+    if ($("#showComboTTKCheck").is(":checked") || $("#showComboBTKCheck").is(":checked")) {
+
+      if ($("#showNormalBTKCheck").is(":checked") || $("#showNormalTTKCheck").is(":checked")) {
+        btk_combo_update_series.push({
+          name: apex_weapon_name_dict[combo_weapon['printname']] + " #" + i + " - None",
+          data: APEXWeaponBTTKData[apex_weapon_name_dict[combo_weapon['printname']] + " #" + i].None[0].BTTK.BTK,
+          dashStyle: dashStyles[styleIndex],
+          color: '#DADFE1'
+        });
+        ttk_combo_update_series.push({
+          name: apex_weapon_name_dict[combo_weapon['printname']] + " #" + i + " - None",
+          data: APEXWeaponBTTKData[apex_weapon_name_dict[combo_weapon['printname']] + " #" + i].None[0].BTTK.TTK,
+          dashStyle: dashStyles[styleIndex],
+          color: '#DADFE1'
+        });
+      }
+
+      //
+      if ($("#showWhiteBTKCheck").is(":checked") || $("#showWhiteTTKCheck").is(":checked")) {
+        btk_combo_update_series.push({
+          name: apex_weapon_name_dict[combo_weapon['printname']] + " #" + i + " - White",
+          data: APEXWeaponBTTKData[apex_weapon_name_dict[combo_weapon['printname']] + " #" + i].White[0].BTTK.BTK,
+          dashStyle: dashStyles[styleIndex],
+          color: '#FFFFFF'
+        });
+        ttk_combo_update_series.push({
+          name: apex_weapon_name_dict[combo_weapon['printname']] + " #" + i + " - White",
+          data: APEXWeaponBTTKData[apex_weapon_name_dict[combo_weapon['printname']] + " #" + i].White[0].BTTK.TTK,
+          dashStyle: dashStyles[styleIndex],
+          color: '#FFFFFF'
+        });
+      }
+
+      //
+      if ($("#showBlueBTKCheck").is(":checked") || $("#showBlueTTKCheck").is(":checked")) {
+        btk_combo_update_series.push({
+          name: apex_weapon_name_dict[combo_weapon['printname']] + " #" + i + " - Blue",
+          data: APEXWeaponBTTKData[apex_weapon_name_dict[combo_weapon['printname']] + " #" + i].Blue[0].BTTK.BTK,
+          dashStyle: dashStyles[styleIndex],
+          color: '#51a8d6'
+        });
+        ttk_combo_update_series.push({
+          name: apex_weapon_name_dict[combo_weapon['printname']] + " #" + i + " - Blue",
+          data: APEXWeaponBTTKData[apex_weapon_name_dict[combo_weapon['printname']] + " #" + i].Blue[0].BTTK.TTK,
+          dashStyle: dashStyles[styleIndex],
+          color: '#64C6FF'
+        });
+      }
+
+      //
+      if ($("#showPurpleBTKCheck").is(":checked") || $("#showPurpleTTKCheck").is(":checked")) {
+        btk_combo_update_series.push({
+          name: apex_weapon_name_dict[combo_weapon['printname']] + " #" + i + " - Purple",
+          data: APEXWeaponBTTKData[apex_weapon_name_dict[combo_weapon['printname']] + " #" + i].Purple[0].BTTK.BTK,
+          dashStyle: dashStyles[styleIndex],
+          color: '#B237C8'
+        });
+        ttk_combo_update_series.push({
+          name: apex_weapon_name_dict[combo_weapon['printname']] + " #" + i + " - Purple",
+          data: APEXWeaponBTTKData[apex_weapon_name_dict[combo_weapon['printname']] + " #" + i].Purple[0].BTTK.TTK,
+          dashStyle: dashStyles[styleIndex],
+          color: '#B237C8'
+        });
+      }
+
+      //
+      if ($("#showRedBTKCheck").is(":checked") || $("#showRedTTKCheck").is(":checked")) {
+        btk_combo_update_series.push({
+          name: apex_weapon_name_dict[combo_weapon['printname']] + " #" + i + " - Red",
+          data: APEXWeaponBTTKData[apex_weapon_name_dict[combo_weapon['printname']] + " #" + i].Red[0].BTTK.BTK,
+          dashStyle: dashStyles[styleIndex],
+          color: '#C82314'
+        });
+        ttk_combo_update_series.push({
+          name: apex_weapon_name_dict[combo_weapon['printname']] + " #" + i + " - Red",
+          data: APEXWeaponBTTKData[apex_weapon_name_dict[combo_weapon['printname']] + " #" + i].Red[0].BTTK.TTK,
+          dashStyle: dashStyles[styleIndex],
+          color: '#C82314'
+        });
+      }
+    }
+  }
+
+  // noinspection JSUnresolvedVariable
+  Highcharts.chart('combo_btk_ub_graph', {
+    title: {
+      text: 'Bullets-to-kill /w Combo Shield'
+    },
+
+    subtitle: {
+      text: 'Maximum number of bullets required for a kill. Includes multipliers.'
+    },
+
+    yAxis: {
+      title: {
+        text: 'Bullets'
+      }
+    },
+
+    xAxis: {
+      title: {
+        text: 'Distance (m)'
+      }
+    },
+
+    tooltip: {
+      shared: true,
+      formatter: function() {
+        let btk_tooltip_str = this.x + "m";
+        const sortedPoints = this.points.sort(function (a, b) {
+          return ((a.y > b.y) ? -1 : ((a.y < b.y) ? 1 : 0));
+        });
+        $.each(sortedPoints , function(i, point) {
+          btk_tooltip_str += `<br/><span style="color:${point.color}">${dashStyleIcon[point.series.userOptions.dashStyle]}</span>${point.series.name}: <b>${point.y}</b>`;
+        });
+        return btk_tooltip_str;
+      },
+    },
+
+    plotOptions: {
+      line: {
+        marker: {
+          enabled: false
+        }
+      }
+    },
+
+    series: btk_combo_update_series
+  });
+  // noinspection JSUnresolvedVariable
+  Highcharts.chart('combo_ttk_ub_graph', {
+    title: {
+      text: 'Time-to-kill w/ Combo Shield'
+    },
+
+    subtitle: {
+      text: 'Based on "RoF". Assumes all shots hit. Includes bullet velocity. Includes multipliers.'
+    },
+
+    yAxis: {
+      title: {
+        text: 'Time (ms)'
+      }
+    },
+
+    xAxis: {
+      title: {
+        text: 'Distance (m)'
+      }
+    },
+
+    tooltip: {
+      shared: true,
+      // valueDecimals: 3,
+      formatter: function() {
+        let ttk_tooltip_str = this.x + "m";
+        const sortedPoints = this.points.sort(function (a, b) {
+          return ((a.y > b.y) ? -1 : ((a.y < b.y) ? 1 : 0));
+        });
+        $.each(sortedPoints , function(i, point) {
+          ttk_tooltip_str += `<br/><span style="color:${point.color}">${dashStyleIcon[point.series.userOptions.dashStyle]}</span>${point.series.name}:<b>${point.y.toFixed(3)}</b>`;
+        });
+        return ttk_tooltip_str;
+      },
+    },
+
+    plotOptions: {
+      line: {
+        marker: {
+          enabled: false
+        }
+      }
+    },
+
+    series: ttk_combo_update_series
+  })
+}
+
+/*
   Update BTK and TTK graphs according to selected weapons.
   Takes in a list of selected weapons.
 */
@@ -251,55 +446,59 @@ function APEXUpdateTTKAndBTKGraphs (selectedWeapons) {
   const btk_blue_series = [];
   const btk_purple_series = [];
   const btk_red_series = [];
-  const btk_combo_series = [];
   const ttk_series = [];
   const ttk_white_series = [];
   const ttk_blue_series = [];
   const ttk_purple_series = [];
   const ttk_red_series = [];
-  const ttk_combo_series = [];
+
   for (let i = 0; i < selectedWeapons.length; i++) {
     const weapon = selectedWeapons[i];
     btk_white_series.push({
-      name: apex_weapon_name_dict[weapon['printname']] + " #"+i,
-      data: APEXWeaponBTTKData[apex_weapon_name_dict[weapon['printname']]+ " #"+i].White[0].BTTK.BTK
+      name: apex_weapon_name_dict[weapon['printname']] + " #" + i,
+      data: APEXWeaponBTTKData[apex_weapon_name_dict[weapon['printname']] + " #" + i].White[0].BTTK.BTK
     });
     ttk_white_series.push({
-      name: apex_weapon_name_dict[weapon['printname']] + " #"+i,
-      data: APEXWeaponBTTKData[apex_weapon_name_dict[weapon['printname']]+ " #"+i].White[0].BTTK.TTK
+      name: apex_weapon_name_dict[weapon['printname']] + " #" + i,
+      data: APEXWeaponBTTKData[apex_weapon_name_dict[weapon['printname']] + " #" + i].White[0].BTTK.TTK
     });
     btk_blue_series.push({
-      name: apex_weapon_name_dict[weapon['printname']] + " #"+i,
-      data: APEXWeaponBTTKData[apex_weapon_name_dict[weapon['printname']]+ " #"+i].Blue[0].BTTK.BTK
+      name: apex_weapon_name_dict[weapon['printname']] + " #" + i,
+      data: APEXWeaponBTTKData[apex_weapon_name_dict[weapon['printname']] + " #" + i].Blue[0].BTTK.BTK
     });
     ttk_blue_series.push({
-      name: apex_weapon_name_dict[weapon['printname']] + " #"+i,
-      data: APEXWeaponBTTKData[apex_weapon_name_dict[weapon['printname']]+ " #"+i].Blue[0].BTTK.TTK
+      name: apex_weapon_name_dict[weapon['printname']] + " #" + i,
+      data: APEXWeaponBTTKData[apex_weapon_name_dict[weapon['printname']] + " #" + i].Blue[0].BTTK.TTK
     });
     btk_purple_series.push({
-      name: apex_weapon_name_dict[weapon['printname']] + " #"+i,
-      data: APEXWeaponBTTKData[apex_weapon_name_dict[weapon['printname']]+ " #"+i].Purple[0].BTTK.BTK
+      name: apex_weapon_name_dict[weapon['printname']] + " #" + i,
+      data: APEXWeaponBTTKData[apex_weapon_name_dict[weapon['printname']] + " #" + i].Purple[0].BTTK.BTK
     });
     ttk_purple_series.push({
-      name: apex_weapon_name_dict[weapon['printname']] + " #"+i,
-      data: APEXWeaponBTTKData[apex_weapon_name_dict[weapon['printname']]+ " #"+i].Purple[0].BTTK.TTK
+      name: apex_weapon_name_dict[weapon['printname']] + " #" + i,
+      data: APEXWeaponBTTKData[apex_weapon_name_dict[weapon['printname']] + " #" + i].Purple[0].BTTK.TTK
     });
     btk_red_series.push({
-      name: apex_weapon_name_dict[weapon['printname']] + " #"+i,
-      data: APEXWeaponBTTKData[apex_weapon_name_dict[weapon['printname']]+ " #"+i].Red[0].BTTK.BTK
+      name: apex_weapon_name_dict[weapon['printname']] + " #" + i,
+      data: APEXWeaponBTTKData[apex_weapon_name_dict[weapon['printname']] + " #" + i].Red[0].BTTK.BTK
     });
     ttk_red_series.push({
-      name: apex_weapon_name_dict[weapon['printname']] + " #"+i,
-      data: APEXWeaponBTTKData[apex_weapon_name_dict[weapon['printname']]+ " #"+i].Red[0].BTTK.TTK
+      name: apex_weapon_name_dict[weapon['printname']] + " #" + i,
+      data: APEXWeaponBTTKData[apex_weapon_name_dict[weapon['printname']] + " #" + i].Red[0].BTTK.TTK
     });
     btk_series.push({
-      name: apex_weapon_name_dict[weapon['printname']] + " #"+i,
-      data: APEXWeaponBTTKData[apex_weapon_name_dict[weapon['printname']]+ " #"+i].None[0].BTTK.BTK
+      name: apex_weapon_name_dict[weapon['printname']] + " #" + i,
+      data: APEXWeaponBTTKData[apex_weapon_name_dict[weapon['printname']] + " #" + i].None[0].BTTK.BTK
     });
     ttk_series.push({
-      name: apex_weapon_name_dict[weapon['printname']] + " #"+i,
-      data: APEXWeaponBTTKData[apex_weapon_name_dict[weapon['printname']]+ " #"+i].None[0].BTTK.TTK
+      name: apex_weapon_name_dict[weapon['printname']] + " #" + i,
+      data: APEXWeaponBTTKData[apex_weapon_name_dict[weapon['printname']] + " #" + i].None[0].BTTK.TTK
     });
+  }
+
+  // if combo graphs are enabled update them and print chart.
+  if ($("#showComboTTKCheck").is(":checked") || $("#showComboBTKCheck").is(":checked")) {
+    updateComboBTTKGraphs(selectedWeapons);
   }
 
   // noinspection JSUnresolvedVariable
@@ -772,99 +971,6 @@ function APEXUpdateTTKAndBTKGraphs (selectedWeapons) {
     },
 
     series: ttk_red_series
-  });
-  // noinspection JSUnresolvedVariable
-  Highcharts.chart('combo_btk_ub_graph', {
-    title: {
-      text: 'Bullets-to-kill /w Combo Shield'
-    },
-
-    subtitle: {
-      text: 'Maximum number of bullets required for a kill. Includes multipliers.'
-    },
-
-    yAxis: {
-      title: {
-        text: 'Bullets'
-      }
-    },
-
-    xAxis: {
-      title: {
-        text: 'Distance (m)'
-      }
-    },
-
-    tooltip: {
-      shared: true,
-      formatter: function() {
-        let btk_tooltip_str = this.x + "m";
-        const sortedPoints = this.points.sort(function (a, b) {
-          return ((a.y > b.y) ? -1 : ((a.y < b.y) ? 1 : 0));
-        });
-        $.each(sortedPoints , function(i, point) {
-          btk_tooltip_str += `<br/><span style="color:${point.color}">●</span>${point.series.name}: <b>${point.y}</b>`;
-        });
-        return btk_tooltip_str;
-      },
-    },
-
-    plotOptions: {
-      line: {
-        marker: {
-          enabled: false
-        }
-      }
-    },
-
-    series: btk_combo_series
-  });
-  // noinspection JSUnresolvedVariable
-  Highcharts.chart('combo_ttk_ub_graph', {
-    title: {
-      text: 'Time-to-kill w/ Combo Shield'
-    },
-
-    subtitle: {
-      text: 'Based on "RoF". Assumes all shots hit. Includes bullet velocity. Includes multipliers.'
-    },
-
-    yAxis: {
-      title: {
-        text: 'Time (ms)'
-      }
-    },
-
-    xAxis: {
-      title: {
-        text: 'Distance (m)'
-      }
-    },
-
-    tooltip: {
-      shared: true,
-      // valueDecimals: 3,
-      formatter: function() {
-        let ttk_tooltip_str = this.x + "m";
-        const sortedPoints = this.points.sort(function (a, b) {
-          return ((a.y > b.y) ? -1 : ((a.y < b.y) ? 1 : 0));
-        });
-        $.each(sortedPoints , function(i, point) {
-          ttk_tooltip_str += `<br/><span style="color:${point.color}">●</span>${point.series.name}:<b>${point.y.toFixed(3)}</b>`;
-        });
-        return ttk_tooltip_str;
-      },
-    },
-
-    plotOptions: {
-      line: {
-        marker: {
-          enabled: false
-        }
-      }
-    },
-
-    series: ttk_combo_series
   })
 }
 
@@ -901,7 +1007,6 @@ function APEXUpdateFromToolBar(){
   filters)
 */
 function APEXSelectorsOnChange (e) {
-  let e_selected = ($(e.target).find('option:selected').text().trim());
   apex_updateSelectors();
   // printAPEXCustomizationButtons(e);
   const selectedWeapons = apex_ComparisonGetSelectedWeapons();
@@ -1204,6 +1309,30 @@ function showHideCharts() {
   }
 }
 
+/*
+    Toggles the hiding and showing of the combo BTK & TTK graphs
+    Filters based on combo box being ticked rather while other graph toggles filter based on shield types selected
+*/
+function showHideComboGraph(){
+  if ($("#showComboBTKCheck").is(":checked")){
+    $("#combo_btk_ub_graph").show(0);
+  } else {
+    $("#combo_btk_ub_graph").hide(0);
+  }
+  if ($("#showComboTTKCheck").is(":checked")){
+    $("#combo_ttk_ub_graph").show(0);
+    $("#combo_btk_ub_graph").show(0);
+  } else {
+    $("#combo_btk_ub_graph").hide(0);
+    $("#combo_ttk_ub_graph").hide(0);
+  }
+
+}
+
+/*
+    Toggles the hiding and showing of the BTK & TTK graphs
+    Filters based on shield types selected
+*/
 function showHideGraphs(){
   if ($("#showNormalBTKCheck").is(":checked")){
     $("#damage_graph").show(0);
@@ -1285,6 +1414,7 @@ function showHideGraphs(){
   }
 }
 
+// TODO: refactor "target type" to something that also makes sense for including combo graph. current nomenclature is misleading
 function updateGraphsForTargetType(){
   if ($("#useFortifiedTarget").is(":checked")){
     use_fortified_calculations = true;
@@ -1296,6 +1426,7 @@ function updateGraphsForTargetType(){
     use_fortified_calculations = false;
     use_low_profile_calculations = false;
   }
+  showHideComboGraph();
   APEXUpdateFromToolBar();
 }
 

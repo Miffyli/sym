@@ -1,4 +1,7 @@
 <!--suppress HtmlUnknownTarget -->
+<!--exporting.js is the highcharts module that adds a context menu on graphs. Menu includes functionality for full screen and saving graphs as images -->
+<!--TODO: include with the rest of the libs in sym.js then disable context menu globally and enable only on apex compare. -->
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
 <div class="apex-content-comparison">
     <h1 class="comp-pageTitle">Apex Legends Weapon Comparison </h1>
     <div id ="ttkToolBar">
@@ -7,18 +10,18 @@
             <div class="TTK_toolbarRowContainer">
                 <div id="apex_showHideShieldTypes" title="Show/Hide Shield Types">
                     <input type="checkbox" id="showNormalTTKCheck" name="showNormalTTKCheck" checked>
-                    <label for="showNormalTTKCheck"><img src="pages/apex/icons/rui/gear_icons/armor/armor_none.png" alt=""></label>
+                    <label for="showNormalTTKCheck"><img src="pages/apex/icons/rui/gear_icons/armor/armor_evo_none.png" alt=""></label>
 
-                    <label for="showWhiteTTKCheck"><img src="pages/apex/icons/rui/gear_icons/armor/armor_white.png" alt=""></label>
+                    <label for="showWhiteTTKCheck"><img src="pages/apex/icons/rui/gear_icons/armor/armor_evo_white.png" alt=""></label>
                     <input type="checkbox" id="showWhiteTTKCheck" name="showWhiteTTKCheck" checked>
 
-                    <label for="showBlueTTKCheck"><img src="pages/apex/icons/rui/gear_icons/armor/armor_blue.png" alt=""></label>
+                    <label for="showBlueTTKCheck"><img src="pages/apex/icons/rui/gear_icons/armor/armor_evo_blue.png" alt=""></label>
                     <input type="checkbox" id="showBlueTTKCheck" name="showBlueTTKCheck" checked>
 
-                    <label for="showPurpleTTKCheck"><img src="pages/apex/icons/rui/gear_icons/armor/armor_purple.png" alt=""></label>
+                    <label for="showPurpleTTKCheck"><img src="pages/apex/icons/rui/gear_icons/armor/armor_evo_purple.png" alt=""></label>
                     <input type="checkbox" id="showPurpleTTKCheck" name="showPurpleTTKCheck" checked>
 
-                    <label for="showRedTTKCheck"><img src="pages/apex/icons/rui/gear_icons/armor/armor_gold.png" alt=""></label>
+                    <label for="showRedTTKCheck"><img src="pages/apex/icons/rui/gear_icons/armor/armor_evo_red.png" alt=""></label>
                     <input type="checkbox" id="showRedTTKCheck" name="showRedTTKCheck" checked>
                 </div>
                 <div id="apex_showHideHelmTypes" title="Show/Hide Helmet Types">
@@ -41,7 +44,7 @@
             <div>
                 <div id="apex_showHideTargetTypes" title="Show/Hide target types">
                     <label for="showComboTTKCheck"><img src="pages\apex\icons\misc\combo_ttk_btk.png" alt=""></label>
-                    <input type="checkbox" id="showComboTTKCheck" name="showComboTTKCheck" checked>
+                    <input type="checkbox" id="showComboTTKCheck" name="showComboTTKCheck">
 
                     <label for="useFortifiedTarget"><img src="pages/apex/icons/rui/Fortified.png" alt=""></label>
                     <input type="checkbox" id="useFortifiedTarget" name="fortified_low_profile_toggle">
@@ -92,7 +95,7 @@
         <div style="width:50%; float:left" id="combo_btk_ub_graph"></div>
         <div style="width:50%; " id="combo_ttk_ub_graph"></div>
     </div>
-	
+
 
     <div class="comp-filterContainer">
         <h3 class="comp-filterBorderHeader">Filters</h3>
