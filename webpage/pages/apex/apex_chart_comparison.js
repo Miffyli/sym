@@ -44,6 +44,8 @@ customizationAttachmentStrings.barrel_stabilizer_l2 = "barrel_stabilizer_l2";
 customizationAttachmentStrings.barrel_stabilizer_l3 = "barrel_stabilizer_l3";
 customizationAttachmentStrings.barrel_stabilizer_l4_flash_hider = "barrel_stabilizer_l4_flash_hider";
 
+customizationAttachmentStrings.energized = "energized";
+
 // Weapon Optics
 customizationOpticStrings.optic_cq_hcog_bruiser = "optic_cq_hcog_bruiser";
 customizationOpticStrings.optic_cq_hcog_classic = "optic_cq_hcog_classic";

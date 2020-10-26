@@ -497,6 +497,9 @@ function apex_updateWeapon(selectedAttachments, weapon_variant_id, weapon_string
                             mod[mod_key] = mod_value;
                         }
                     } else {
+                        if (value === 'energized') {
+                            APEXWeaponData_Mod[i]['WeaponData']['ammo_pool_type'] = 'sniper_energized';
+                        }
                         for (const [mod_key, mod_value] of Object.entries(APEXWeaponData_Mod[i]['WeaponData']['Mods'][value])) {
                             mod[mod_key] = mod_value;
                         }
@@ -538,7 +541,8 @@ function apex_updateWeapon(selectedAttachments, weapon_variant_id, weapon_string
             weaponStats = APEXWeaponData_Mod[i]['WeaponData'];
             const weaponRow = document.getElementsByClassName(weaponStats['printname'])[(weapon_variant_id)];
             // TODO: Real Recoil - This is just a quick Temp recoil calculation until the values are more ironed out.
-            $(weaponRow).find(".apex_lblMag").text(weaponStats['ammo_clip_size']);
+            // $(weaponRow).find(".apex_lblMag").text(weaponStats['ammo_clip_size']+"<span class='apex_lblSuffixText'>x </span>");
+            $(weaponRow).find(".apex_lblMag").html("<span class=\"apex_lblMag\">"+ weaponStats['ammo_clip_size']+"<span class=\"apex_lblSuffixText\">x </span></span>");
 
             if (weaponStats['viewkick_pattern'] !== undefined) {
                 let temp_pitchBase = formatRecoilValue(Number(parseFloat(weaponStats['viewkick_pattern_data_sizey_avg']) * parseFloat(weaponStats['viewkick_pitch_base'])), 3);
@@ -555,6 +559,12 @@ function apex_updateWeapon(selectedAttachments, weapon_variant_id, weapon_string
                 }
             } else {
                 $(weaponRow).find(".apex_recoilGraphBox").html(apex_createNewRecoilGraphic(weaponStats['viewkick_pattern_data_y_avg'], weaponStats['viewkick_pattern_data_x_avg'], weaponStats['viewkick_pattern_data_x_min'], weaponStats['viewkick_pattern_data_x_max'], weaponStats['viewkick_pattern_data_sizex_avg'], weaponStats['viewkick_pattern_data_sizey_avg'], weaponStats['viewkick_pitch_base'], weaponStats['viewkick_pitch_random'], weaponStats['viewkick_yaw_base'], weaponStats['viewkick_yaw_random'], weaponStats['viewkick_scale_valueDecayDelay'], weaponStats['viewkick_scale_valueDecayRate']));
+            }
+
+            if (weaponStats['ammo_pool_type'] === undefined) {
+                $(weaponRow).find(".apex_ammoIcon").children().attr('src', "./pages/apex/icons/ammo/" + weaponStats['menu_category'] + ".png");
+            } else {
+                $(weaponRow).find(".apex_ammoIcon").children().attr('src', "./pages/apex/icons/ammo/" + weaponStats['ammo_pool_type'] + ".png");
             }
             const charge_string = apex_createChargeSpinUpLabels(weaponStats);
             $(weaponRow).find(".apex_lblRPMValue").text(apex_createFireRateLabels(weaponStats));
@@ -681,13 +691,13 @@ function apex_printAttachments(weaponName, weapon_ammo, isCompare, selection_id)
             }
 
             if(slot4 < 1) {
-                if (apex_attachments[weaponName][i].attachName[0].includes("hopup")) {
+                if (apex_attachments[weaponName][i].attachName[0].includes("hopup")|| apex_attachments[weaponName][i].attachName[0].includes("energized")) {
                     slot4 += 1;
                     const hopup_name = "hopup_empty_slot";
                     hopup_option_string += "<option value="+ variant_count +"_X_"+ weaponName+"_X_slot4_X_"+hopup_name+" data-image=\"./pages/apex/icons/slots/hopup_headshot_dmg_slot.png\"></option>";
                 }
             }
-            if (apex_attachments[weaponName][i].attachName[0].includes("hopup")) {
+            if (apex_attachments[weaponName][i].attachName[0].includes("hopup") || apex_attachments[weaponName][i].attachName[0].includes("energized")) {
                 hopup_option_string += "<option value="+ variant_count +"_X_"+ weaponName+"_X_slot4_X_"+apex_attachments[weaponName][i].attachName[0]+" data-image=\"./pages/apex/icons/slots/hopups/slot_half_"+apex_attachments[weaponName][i].attachName[0]+".png\"></option>";
                 slot4 += 1;
             }
