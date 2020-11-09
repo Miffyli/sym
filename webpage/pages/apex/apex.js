@@ -1,12 +1,12 @@
 // Path to datafile
 // const APEX_DATA = './pages/apex/data/apex_data_r5-61_J150_CL625858.json';
-const APEX_DATA = './pages/apex/data/apex_data_r5-70_J171_CL673614_Abilities.json';
+const APEX_DATA = './pages/apex/data/apex_data_r5-70_J171_CL673614.json';
 
 // Manual dates when the data or pages have been modified.
 // In format "[day] [month three letters] [year four digits]"
 // e.g. 2nd Jan 2019
 const APEX_DATA_DATE = '04th Nov 2020 (apex_data_r5-70_J171_CL673614)'
-const APEX_PAGE_DATE = '05th Nov 2020'
+const APEX_PAGE_DATE = '09th Nov 2020'
 
 // Total version string displayed under title
 const APEX_VERSION_STRING = `Latest updates<br>Page: ${APEX_PAGE_DATE}<br>Data: ${APEX_DATA_DATE}`
@@ -592,6 +592,9 @@ function loadAPEXRecoilPatternPage () {
   Load the APEX Legends data page
 */
 function loadAPEXLegendDataPage () {
+  if (APEXDataLoaded === false) {
+    APEXLoadWeaponData()
+  }
   $('.apex-main-content').load('./pages/apex/apex_dataLegend.html', apex_initializeLegendsPage)
 }
 
