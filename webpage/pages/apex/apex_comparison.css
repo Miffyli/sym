@@ -1,0 +1,4 @@
+/*!*override for highcharts_custom that globally disables the context menu*!*/
+.highcharts-exporting-group {
+    display: revert;
+}

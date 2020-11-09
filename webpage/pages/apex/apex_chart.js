@@ -235,7 +235,7 @@ function apex_printWeapons(){
         {icon:false}
     );
 
-    let apex_variantButton = $(".variantButton");
+    let apex_variantButton = $(".apex_variantButton");
     apex_variantButton.button();
 
     apex_variantButton.click(function(){
@@ -264,7 +264,7 @@ function apex_printWeapons(){
     $(".sortableTable").sortable({
         opacity: 0.7,
         placeholder: "ui-state-highlight",
-        handle: ".sortDragIcon"
+        handle: ".apex_sortDragIcon"
     });
 
     apex_showHideSubCats();
@@ -280,11 +280,13 @@ function apex_printWeaponClass(weaponClass){
 
     // TODO: look into alternatives for sorting via menu category. This may not viable if future weapons fall into odd categories like the Mozambique
     $.each(APEXWeaponData, function( key, value ) {
-        if (value['WeaponData']['menu_category'].localeCompare(weaponClass) === 0 && value['WeaponData']['weapon_type_flags'] === "WPT_PRIMARY") {
-            rtnStr += apex_printWeapon(value['WeaponData']);
-        // Mozambique Shotgun menu category is unique. handgun. -.-
-        } else if(value['WeaponData']['menu_category'] === 'handgun' && weaponClass === "pistol" && value['WeaponData']['weapon_type_flags'] === "WPT_PRIMARY") {
-            rtnStr += apex_printWeapon(value['WeaponData']);
+        if (value['WeaponData']['menu_category'] !== undefined) {
+            if (value['WeaponData']['menu_category'].localeCompare(weaponClass) === 0 && value['WeaponData']['weapon_type_flags'] === "WPT_PRIMARY") {
+                rtnStr += apex_printWeapon(value['WeaponData']);
+                // Mozambique Shotgun menu category is unique. handgun. -.-
+            } else if (value['WeaponData']['menu_category'] === 'handgun' && weaponClass === "pistol" && value['WeaponData']['weapon_type_flags'] === "WPT_PRIMARY") {
+                rtnStr += apex_printWeapon(value['WeaponData']);
+            }
         }
     });
     rtnStr += "</tbody></table></div>";
@@ -296,7 +298,7 @@ function apex_printWeapon(weaponStats) {
     const standRecoilData = apex_createNewRecoilGraphic(weaponStats['viewkick_pattern_data_y_avg'], weaponStats['viewkick_pattern_data_x_avg'], weaponStats['viewkick_pattern_data_x_min'], weaponStats['viewkick_pattern_data_x_max'], weaponStats['viewkick_pattern_data_sizex_avg'], weaponStats['viewkick_pattern_data_sizey_avg'], weaponStats['viewkick_pitch_base'], weaponStats['viewkick_pitch_random'], weaponStats['viewkick_yaw_base'], weaponStats['viewkick_yaw_random'], weaponStats['viewkick_scale_valueDecayDelay'], weaponStats['viewkick_scale_valueDecayRate']);
     const apex_spreadTableGraphic = apex_createSpreadTableGraphic(weaponStats['spread_stand_ads'], weaponStats['spread_stand_hip'], weaponStats['spread_stand_hip_run'], weaponStats['spread_stand_hip_sprint'], weaponStats['spread_crouch_ads'], weaponStats['spread_crouch_hip'], weaponStats['spread_air_ads'], weaponStats['spread_air_hip'], weaponStats['spread_kick_on_fire_stand_ads'], weaponStats['spread_kick_on_fire_stand_hip'], weaponStats['spread_kick_on_fire_crouch_ads'], weaponStats['spread_kick_on_fire_crouch_hip'], weaponStats['spread_kick_on_fire_air_ads'], weaponStats['spread_kick_on_fire_air_hip'], weaponStats['spread_decay_delay'], weaponStats['spread_moving_decay_rate'], weaponStats['spread_decay_rate'], weaponStats['spread_moving_increase_rate']);
     const attachmentGraphic = (weaponStats['menu_category'] === 8) ? "" : apex_printAttachments([formatWeaponName(weaponStats['printname'])], weaponStats['ammo_pool_type'], false, 0);
-    const addVariantGraphic = (weaponStats['menu_category'] === 8 || apex_addVariantCounter !== 0) ? "" : "<button class='variantButton btn btn-outline-light btn-sm' " + apex_variantTooltip + ">+</button>";
+    const addVariantGraphic = (weaponStats['menu_category'] === 8 || apex_addVariantCounter !== 0) ? "" : "<button class='apex_variantButton' " + apex_variantTooltip + ">+</button>";
     const charge_string = apex_createChargeSpinUpLabels(weaponStats);
     // const ammo_type = "<span class='apex_lblSuffixText'>x" + "<img src='./pages/apex/icons/ammo/" + weaponStats['ammo_pool_type'] + ".png' alt='' height='20' width='19'>" + "</span>";
     let ammo_type_string = "";
@@ -341,7 +343,15 @@ function apex_printWeapon(weaponStats) {
         // "<div class='apex_recoilGraphBox' " + apex_recoilTooltip + ">" + standRecoilData + "</div><div class='apex_deployTimeBox'" + apex_deployTooltip + "><br><span class='apex_lblDeployTime'>" + weaponStats['deployfirst_time'] + "<span class='apex_lblSuffixText'>s</span><img class='apex_wpnSwitchImg' src='./pages/apex/icons/weapon_switch_small.png' alt=''><span class='apex_lblDeployTime'>" + weaponStats['deploy_time'] + "<span class='apex_lblSuffixText'>s</span><br><br><br><span class='apex_lblDeployTime_2'>" + formatWeaponValue(weaponStats['raise_time']) + "<span class='apex_lblSuffixText'>s</span></span></span><span class='apex_lblDeployTime_4'>" + weaponStats['holster_time'] + "<span class='apex_lblSuffixText'>s</span></span></span></div>" +
         "<div class='apex_recoilGraphBox'>" + standRecoilData + "</div><div class='apex_deployTimeBox'><span class='apex_lblDeployTime'" + apex_deploy_1st_Tooltip + ">" + Number(weaponStats['deployfirst_time']).toFixed(2) + "<span class='apex_lblSuffixText'>s</span><img class='apex_wpnSwitchImg'" + apex_deployTooltip + " src='./pages/apex/icons/weapon_switch_small.png' alt=''><span class='apex_lblDeployTime'" + apex_deploy_Deploy_Tooltip + ">" + Number(weaponStats['deploy_time']).toFixed(2) + "<span class='apex_lblSuffixText'>s</span><br><br><br><span class='apex_lblDeployTime_2'" + apex_deploy_Raise_Tooltip + ">" + formatWeaponValue(Number(weaponStats['raise_time']).toFixed(2)) + "<span class='apex_lblSuffixText'>s</span></span></span><span class='apex_lblDeployTime_4'" + apex_deploy_Holster_Tooltip + ">" + Number(weaponStats['holster_time']).toFixed(2) + "<span class='apex_lblSuffixText'>s</span></span></span></div>" +
         "</td><td>" +
-        "<div class='apex_hipSpreadContainer' " + apex_hipfireTooltip + ">" + apex_createHipSpreadGraphic(weaponStats['spread_stand_hip_run'], weaponStats['spread_air_hip'], weaponStats['spread_air_ads'], weaponStats['spread_stand_ads'], weaponStats['weapon_class'], weaponStats) + "</div>" +
+        "<div class='apex_hipSpreadContainer' " + apex_hipfireTooltip + ">" + apex_createHipSpreadGraphic(weaponStats['spread_stand_hip_run'], weaponStats['spread_air_hip'], weaponStats['spread_air_ads'], weaponStats['spread_stand_ads'], weaponStats['weapon_class'], weaponStats) +
+            "<div>"+
+              "<span class='apex_standADSSpreadValue'>" + weaponStats['spread_stand_ads'].toFixed(2) + "°</span>" +
+              "<span class='apex_spreadValueSeparator'> | </span>" +
+              "<span class='apex_standHipSpreadValue'>" + Number(weaponStats['spread_stand_hip_run']).toFixed(2) + "°</span>" +
+              "<span class='apex_spreadValueSeparator'> | </span>" +
+              "<span class='apex_airHipSpreadValue'>" +  weaponStats['spread_air_ads'].toFixed(2) + "°</span>" +
+            "</div>" +
+        "</div>" +
         "<div>" +
         "<div class='apex_spreadLabels' " + apex_adsTooltip + ">" +
         apex_createSpreadLabels(weaponStats['ads_move_speed_scale'], weaponStats['zoom_time_in'], weaponStats['zoom_time_out'], weaponStats['zoom_fov']) +
@@ -488,7 +498,7 @@ function apex_updateWeapon(selectedAttachments, weapon_variant_id, weapon_string
                             }
                         }
                     } else if (value === 'hopup_selectfire') {
-                        for (const [mod_key, mod_value] of Object.entries(APEXWeaponData_Mod[i]['WeaponData']['Mods']['altfire'])) {
+                        for (const [mod_key, mod_value] of Object.entries(APEXWeaponData_Mod[i]['WeaponData']['Mods']['altfire_selectfire'])) {
                             mod[mod_key] = mod_value;
                         }
                     } else if (value === 'hopup_double_tap' && !APEXWeaponData_Mod[i]['WeaponData']['printname'].includes("WPN_SHOTGUN")) {
@@ -773,6 +783,35 @@ function apex_createReloadGraphic(reloadEmpty, reloadLeft){
     return reloadData +  "</div>";
 }
 
+function apex_formatDecimalPlaces(val) {
+
+    if (val === undefined){
+        val = 0.0
+    }
+    val = Number(val);
+    let dec_places;
+
+    let match = (''+val).match(/(?:\.(\d+))?(?:[eE]([+-]?\d+))?$/);
+    if (!match) {
+        return 0.0;
+    } else {
+        dec_places = Math.max( 0,
+          // Number of digits right of decimal point.
+          (match[1] ? match[1].length : 0)
+          // Adjust for scientific notation.
+          - (match[2] ? +match[2] : 0));
+    }
+
+    if(dec_places < 1) {
+        val = val.toFixed(1);
+    } else if (dec_places > 2) {
+        val = val.toFixed(2);
+    }
+
+    return val;
+
+}
+
 function formatWeaponName(wpnName){
     // let newWpnName = wpnName.replace("#WPN_", "").replace("_", " ");
     // newWpnName = newWpnName.replace("ENERGY AR", "HAVOK").replace("RSPN101", "R-301");
@@ -876,7 +915,7 @@ function apex_createNewRecoilGraphic(viewkick_pattern_data_y_avg, viewkick_patte
         const oneIncrease = ((viewkick_pattern_data_sizey_avg + 0.5) > 1.0) ? "<line x1='55' y1='60' x2='65' y2='60' style='stroke:white;stroke-width:1'></line>" : "";
         const onePoint5Increase = ((viewkick_pattern_data_sizey_avg + 0.5) > 1.5) ? "<line x1='55' y1='45' x2='65' y2='45' style='stroke:white;stroke-width:1'></line>" : "";
         if (viewkick_pattern_data_sizey_avg <= 2) {
-            apex_recoilGraphic = "<svg viewbox='-5 0 135 100' style='width:100px;height:125px'>" +
+            apex_recoilGraphic = "<svg viewbox='-12 -15 153 153' style='width:135px;height:100%'>" +
                 point5inc + oneIncrease + onePoint5Increase +
                 "<line x1='" + recoilHorLength1 + "' y1='90' x2='" + recoilHorLength2 + "' y2='90' style='stroke:white; stroke-width:2'></line>" + // Left - Right
                 "<line x1='64' y1='90' x2='64' y2='" + recoilUpLength + "' style='stroke:white;stroke-width:2'></line>" + // Up - Down
@@ -1059,7 +1098,7 @@ function apex_createHipSpreadGraphic(HIPSpread, spreadStandHipRun, spread_air_ad
         }
 
         if (HIPSpread > 0) {
-            spreadGraphic = "<svg viewBox='0 0 100 100' style='width:100px;'>" +
+            spreadGraphic = "<svg viewBox='5 0 95 95' style='width: 110px;height: 110px;'>" +
 
                 "<circle cx='50' cy='50' r='" + (StandADS).toString() + "' class='apex_hipSpreadLine1'></circle>" +
                 "<circle cx='50' cy='50' r='" + (AirSpread).toString() + "' class='apex_hipSpreadLine2'></circle>" +
@@ -1069,11 +1108,11 @@ function apex_createHipSpreadGraphic(HIPSpread, spreadStandHipRun, spread_air_ad
                 "<line y1='50' x1='" + (lineOffset + 50) + "' y2='50' x2='" + (lineOffset + 65) + "' class='apex_hipSpreadLine01'></line>" +
                 "<line y1='50' x1='" + (50 - lineOffset) + "' y2='50' x2='" + (35 - lineOffset) + "' class='apex_hipSpreadLine01'></line>" +
 
-                "<text x='3' y='99' class='apex_standADSSpreadValue'>" + spread_stand_ads.toFixed(2) + "°</text>" +
-                "<text x='32' y='99' class='apex_spreadValueSeparator'>|</text>" +
-                "<text x='36.5' y='99' class='apex_standHipSpreadValue'>" + Number(HIPSpread).toFixed(2) + "°</text>" +
-                "<text x='65.5' y='99' class='apex_spreadValueSeparator'>|</text>" +
-                "<text x='70' y='99' class='apex_airHipSpreadValue'>" + spread_air_ads.toFixed(2) + "°</text>" +
+                // "<text x='3' y='99' class='apex_standADSSpreadValue'>" + spread_stand_ads.toFixed(2) + "°</text>" +
+                // "<text x='32' y='99' class='apex_spreadValueSeparator'>|</text>" +
+                // "<text x='36.5' y='99' class='apex_standHipSpreadValue'>" + Number(HIPSpread).toFixed(2) + "°</text>" +
+                // "<text x='65.5' y='99' class='apex_spreadValueSeparator'>|</text>" +
+                // "<text x='70' y='99' class='apex_airHipSpreadValue'>" + spread_air_ads.toFixed(2) + "°</text>" +
                 "</svg>";
         } else {
             spreadGraphic = "<!--suppress HtmlUnknownAttribute --><svg viewBox='0 0 100 100' style='width:75px;'>" +
@@ -1091,51 +1130,23 @@ function apex_createSpreadTableGraphic(spread_stand_ads, spread_stand_hip, sprea
                                        spread_kick_on_fire_stand_hip, spread_kick_on_fire_crouch_ads, spread_kick_on_fire_crouch_hip,
                                        spread_kick_on_fire_air_ads, spread_kick_on_fire_air_hip, spread_decay_delay, spread_moving_decay_rate,
                                        spread_decay_rate, spread_moving_increase_rate){
-    // This is the dumbest ever. Just want floats but normal ways were not working. to investigate
-    let variable_array = [spread_stand_ads, spread_stand_hip, spread_stand_hip_run, spread_stand_hip_sprint,
-        spread_crouch_ads, spread_crouch_hip, spread_air_ads, spread_air_hip, spread_kick_on_fire_stand_ads,
-        spread_kick_on_fire_stand_hip, spread_kick_on_fire_crouch_ads, spread_kick_on_fire_crouch_hip,
-        spread_kick_on_fire_air_ads, spread_kick_on_fire_air_hip, spread_decay_delay, spread_moving_decay_rate,
-        spread_decay_rate, spread_moving_increase_rate];
-    for (let i = 0; i < variable_array.length; i++){
-        if (variable_array[i] === undefined){
-            variable_array[i] = 0.0
-        }
-        if ( Number.isInteger(variable_array[i])){
-            variable_array[i] = parseFloat(variable_array[i]).toFixed(1);
-        }
+
+    for (let i = 0; i < arguments.length; i++) {
+        arguments[i] = apex_formatDecimalPlaces(arguments[i]);
     }
-    spread_stand_ads  = variable_array[0];
-    spread_stand_hip  = variable_array[1];
-    spread_stand_hip_run  = variable_array[2];
-    spread_stand_hip_sprint  = variable_array[3];
-    spread_crouch_ads  = variable_array[4];
-    spread_crouch_hip  = variable_array[5];
-    spread_air_ads  = variable_array[6];
-    spread_air_hip  = variable_array[7];
-    spread_kick_on_fire_stand_ads  = variable_array[8];
-    spread_kick_on_fire_stand_hip  = variable_array[9];
-    spread_kick_on_fire_crouch_ads  = variable_array[10];
-    spread_kick_on_fire_crouch_hip  = variable_array[11];
-    spread_kick_on_fire_air_ads  = variable_array[12];
-    spread_kick_on_fire_air_hip  = variable_array[13];
-    spread_decay_delay  = variable_array[14];
-    spread_moving_decay_rate  = variable_array[15];
-    spread_decay_rate  = variable_array[16];
-    spread_moving_increase_rate  = variable_array[17];
 
     return "<table class='apex_spreadTable'>" +
-        "<tr>" + "<td></td><td>ADS</td><td>HIP</td>" + "</tr>" +
-        "<tr " + apex_bulletSpeed01Tooltip + ">" + "<td rowspan='2'><img src='./img/standing.png' alt=''></td><td class='apex_spreadTableStandADSValue'>" + spread_stand_ads + "</td><td>" + spread_stand_hip + "</td>" +
-        "<tr " + apex_bulletSpeed04Tooltip + ">" + "<td>" + spread_crouch_ads + "</td><td>" + spread_crouch_hip + "</td>" + "</tr>" +
-        "<tr " + apex_bulletSpeed05Tooltip + ">" + "<td rowspan='3'><img src='./img/moving.png' alt=''></td><td class='apex_spreadTableAirHipValue'>" + spread_air_ads + "</td><td>" + spread_air_hip + "</td>" +
-        "<tr>" + "<td>&nbsp-&nbsp</td><td class='apex_spreadTableStandHipValue' "+ apex_bulletSpeed02Tooltip+">" + spread_stand_hip_run + "</td>" + "</tr>" +
-        "<tr>" + "<td>&nbsp-&nbsp</td><td class='apex_spreadTableLabels' " + apex_bulletSpeed03Tooltip+">" + spread_stand_hip_sprint + "</td>" + "</tr>" +
-        "<tr>" + "<td class='apex_scaleIncreaseCell'><img src='./img/increase.png' alt=''></td><td class='apex_spreadTableLabels' " + apex_bulletSpeed10Tooltip + ">" + spread_moving_increase_rate + "</td><td class='apex_spreadTableLabels' " + apex_bulletSpeed10Tooltip + ">" + spread_moving_decay_rate + "</td>" + "</tr>" +
-        "<tr " + apex_bulletSpeed06Tooltip + ">" + "<td class='scaleIncreaseCell' rowspan='3'><img src='./img/increase_x3.png' alt=''></td><td>" + spread_kick_on_fire_stand_ads + "</td><td>" + spread_kick_on_fire_stand_hip + "</td>" + "</tr>" +
-        "<tr " + apex_bulletSpeed07Tooltip + ">" + "<td>" + spread_kick_on_fire_crouch_ads + "</td><td>" + spread_kick_on_fire_crouch_hip + "</td>" + "</tr>" +
-        "<tr " + apex_bulletSpeed08Tooltip + ">" + "<td>" + spread_kick_on_fire_air_ads + "</td><td>" + spread_kick_on_fire_air_hip + "</td>" + "</tr>" +
-        "<tr>" + "<td class='apex_scaleDecreaseCell'><img src='./img/decrease.png' alt=''></td><td class='apex_spreadTableLabels' " + apex_bulletSpeed09Tooltip + ">" + spread_decay_delay + "</td><td class='apex_spreadTableLabels' " + apex_bulletSpeed09Tooltip + ">" + spread_decay_rate + "</td>" + "</tr>" +
+        "<tr>" + "<td class='apex_smallSpacer'></td><td class='apex_spreadTableHeader'>ADS</td><td class='apex_spreadTableHeader'>HIP</td>" + "</tr>" +
+        "<tr " + apex_bulletSpeed01Tooltip + "><td rowspan='2'><img src='./img/standing.png' alt=''></td><td class='apex_spreadTableStandADSValue'>" + spread_stand_ads + "°</td><td>" + spread_stand_hip + "°</td>" +
+        "<tr " + apex_bulletSpeed04Tooltip + "><td>" + spread_crouch_ads + "°</td><td>" + spread_crouch_hip + "°</td></tr>" +
+        "<tr " + apex_bulletSpeed05Tooltip + "><td rowspan='3'><img src='./img/moving.png' alt=''></td><td class='apex_spreadTableAirHipValue'>" + spread_air_ads + "°</td><td>" + spread_air_hip + "°</td>" +
+        "<tr>" + "<td>&nbsp-&nbsp</td><td class='apex_spreadTableStandHipValue' "+ apex_bulletSpeed02Tooltip+">" + spread_stand_hip_run + "°</td></tr>" +
+        "<tr>" + "<td>&nbsp-&nbsp</td><td class='apex_spreadTableLabels' " + apex_bulletSpeed03Tooltip+">" + spread_stand_hip_sprint + "°</td></tr>" +
+        "<tr>" + "<td class='apex_scaleIncreaseCell'><img src='./img/increase.png' alt=''></td><td class='apex_spreadTableLabels' " + apex_bulletSpeed10Tooltip + ">" + spread_moving_increase_rate + "°</td><td class='apex_spreadTableLabels' " + apex_bulletSpeed10Tooltip + ">" + spread_moving_decay_rate + "°</td></tr>" +
+        "<tr " + apex_bulletSpeed06Tooltip + "><td class='scaleIncreaseCell' rowspan='3'><img src='./img/increase_x3.png' alt=''></td><td>" + spread_kick_on_fire_stand_ads + "°</td><td>" + spread_kick_on_fire_stand_hip + "°</td></tr>" +
+        "<tr " + apex_bulletSpeed07Tooltip + "><td>" + spread_kick_on_fire_crouch_ads + "°</td><td>" + spread_kick_on_fire_crouch_hip + "°</td></tr>" +
+        "<tr " + apex_bulletSpeed08Tooltip + "><td>" + spread_kick_on_fire_air_ads + "°</td><td>" + spread_kick_on_fire_air_hip + "°</td></tr>" +
+        "<tr>" + "<td class='apex_scaleDecreaseCell'><img src='./img/decrease.png' alt=''></td><td class='apex_spreadTableLabels' " + apex_bulletSpeed09Tooltip + ">" + spread_decay_delay + "<span class='apex_lblSuffixText'>s</span></td><td class='apex_spreadTableLabels' " + apex_bulletSpeed09Tooltip + ">" + spread_decay_rate + "°</td></tr>" +
         "</table>";
 }
 

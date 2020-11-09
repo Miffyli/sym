@@ -171,6 +171,20 @@ function loadApexStylesheet(){
   $('#chartCSS').attr('href', './pages/apex/apex_chart.css')
 }
 
+/*
+  Load custom highcharts css to enable context menu on apex comparison page
+*/
+function loadApexCompareStylesheet(){
+  $('#compareCSS').attr('href', './pages/apex/apex_comparison.css')
+}
+
+/*
+  Load the highcharts custom css to override and disable context menu
+*/
+function loadHighchartsCustomStylesheet(){
+  $('#compareCSS').attr('href', './lib/highcharts-high-contrast-dark-custom.css')
+}
+
 function generatePath(gameValue, pageValue) {
   var params = {game: gameValue,
     page: pageValue}

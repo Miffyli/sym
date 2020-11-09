@@ -438,8 +438,23 @@ body {background-color: #191919;}
 /* Spread Table */
 /* *********** **/
 
+.apex_smallSpacer {
+    width: 75%;
+    /*background-color: #f0ff11;*/
+}
+.apex_spreadTableHeader{
+    font-size: 14px !important;
+    font-style: normal !important;
+    font-weight: 550;
+    padding-right: 2px;
+    padding-left: 2px;
+}
+
 .apex_spreadTable{
     font-size: 12px !important;
+    width: 100px;
+    margin-left: 2px;
+    padding: 0 4px;
 }
 
 .apex_spreadTable tr:nth-child(2) td,
@@ -686,6 +701,8 @@ img.fnone{width: 59px; height: 59px;float:none !important}
     height: 130px;
     margin-top: -20px; /*25px*/
     color: #FFFFFF;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 .apex_sectionReload{
     text-align: center;
@@ -723,7 +740,7 @@ img.fnone{width: 59px; height: 59px;float:none !important}
 }
 
 .recoilValue {
-    font-size: 15px;
+    font-size: 14px;
     fill: white;
 }
 
@@ -834,29 +851,29 @@ img.fnone{width: 59px; height: 59px;float:none !important}
 
 .apex_standADSSpreadValue {
     font-weight: bold;
-    font-size: 12px;
-    fill: #A9D852;
+    font-size: 14px;
+    color: #A9D852;
     text-align: right;
 }
 
 .apex_spreadValueSeparator {
     font-weight: bold;
     font-size: 12px;
-    fill: #ffffff;
+    color: #ffffff;
     text-align: right;
 }
 
 .apex_standHipSpreadValue {
     font-weight: bold;
-    font-size: 12px;
-    fill: #666666;
+    font-size: 14px;
+    color: #666666;
     text-align: right;
 }
 
 .apex_airHipSpreadValue {
     font-weight: bold;
-    font-size: 12px;
-    fill: #FF9000;
+    font-size: 14px;
+    color: #FF9000;
     text-align: right;
 }
 
@@ -873,16 +890,16 @@ img.fnone{width: 59px; height: 59px;float:none !important}
 }
 
 .apex_lblDeployTime{
-    font-size: 11px;
+    font-size: 12px;
 }
 
 .apex_lblDeployTime_2{
-    font-size: 11px;
+    font-size: 12px;
     margin-left: 4px;
 
 }
 .apex_lblDeployTime_4{
-    font-size: 11px;
+    font-size: 12px;
     padding-left: 50px;
 
 }
@@ -890,6 +907,8 @@ img.fnone{width: 59px; height: 59px;float:none !important}
 .apex_customButtonsApex{
     width: 298px;
     font-size: 8px;
+    margin-right: -22px;
+    margin-left: -10px;
 }
 
 .apex_customButtonsApex img {
@@ -908,24 +927,48 @@ img.fnone{width: 59px; height: 59px;float:none !important}
 }
 
 .apex_afterCustomButtons{
+    width: 30px;
+}
+
+.apex_variantButton{
+    border-radius: 2px !important;
+    background-position-x: initial !important;
+    background-position-y: initial !important;
+    background-size: initial !important;
+    background: gray initial initial !important;
+    background-origin: initial !important;
+    background-clip: initial !important;
+    border:black !important;
+    height: 20px !important;
+    margin: 0 !important;
+    padding: 1px 6px !important;
+    font: 400 13px Arial !important;
+    cursor: default !important;
+    vertical-align: middle !important;
+    position: static !important;
+    text-align: center !important;
+}
+
+.apex_afterCustButtons{
+    width: 30px
 }
 
 .apex_sortDragIcon{
-    width: 45px;
+    width: 30px;
     margin-bottom: 12px;
     opacity: .8;
 }
 
 .apex_deployTimeBox {
     /*margin-top: -1;*/
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding: 10px 2px;
 }
 
 /* Custom Combobox for shortcutCombobox */
 .apex_custom-combobox {
     position: relative;
     display: inline-block;
+
 }
 .apex_custom-combobox-toggle {
     position: absolute;

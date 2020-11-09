@@ -32,6 +32,37 @@ let helm_multi = 1.0;
 let use_amped_calculations = false;
 
 let use_charge_spinup_time_calculations = true;
+
+const dashStyles = [
+  'Solid',
+  'LongDashDot',
+  'Dot',
+  'ShortDash',
+  'DashDot',
+  'ShortDot',
+  'ShortDashDot',
+  'ShortDashDotDot',
+  'LongDash',
+  'Dash',
+  'LongDashDotDot'
+];
+
+const dashStyleIcon = {
+  'Solid': '●',
+  'ShortDash': '╴',
+  'ShortDot': '··',
+  'ShortDashDot': '╴·',
+  'ShortDashDotDot': '╴··',
+  'Dot': '·',
+  'Dash': '-',
+  'LongDash': '─',
+  'DashDot': '-·',
+  'LongDashDot': '─·',
+  'LongDashDotDot': '─··'
+};
+
+let styleIndex = 0;
+
 /*
   Return true if given variable should be included in the
   datatable, false otherwise.
@@ -1399,19 +1430,7 @@ function showHideGraphs(){
     $("#red_btk_ub_graph").hide(0);
     $("#red_ttk_ub_graph").hide(0);
   }
-  //
-  if ($("#showComboBTKCheck").is(":checked")){
-    $("#combo_btk_ub_graph").show(0);
-  } else {
-    $("#combo_btk_ub_graph").hide(0);
-  }
-  if ($("#showComboTTKCheck").is(":checked")){
-    $("#combo_ttk_ub_graph").show(0);
-    $("#combo_btk_ub_graph").show(0);
-  } else {
-    $("#combo_btk_ub_graph").hide(0);
-    $("#combo_ttk_ub_graph").hide(0);
-  }
+  showHideComboGraph();
 }
 
 // TODO: refactor "target type" to something that also makes sense for including combo graph. current nomenclature is misleading
@@ -1479,7 +1498,7 @@ function apex_comparisonGetUpdatedWeaponData(active_weapon_attachments, weapon_v
                 }
               }
             } else if (value === 'hopup_selectfire') {
-              for (const [mod_key, mod_value] of Object.entries(APEXWeaponData_Mod[i]['WeaponData']['Mods']['altfire'])) {
+              for (const [mod_key, mod_value] of Object.entries(APEXWeaponData_Mod[i]['WeaponData']['Mods']['altfire_selectfire'])) {
                 mod[mod_key] = mod_value;
               }
             } else if (value === 'hopup_double_tap' && !APEXWeaponData_Mod[i]['WeaponData']['printname'].includes("WPN_SHOTGUN")) {

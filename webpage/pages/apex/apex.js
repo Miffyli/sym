@@ -1,12 +1,12 @@
 // Path to datafile
-const APEX_DATA = './pages/apex/data/apex_data_r5-61_J150_CL625858.json';
-// const APEX_DATA = './pages/apex/data/apex_data_N1791_CL475134.json';
+// const APEX_DATA = './pages/apex/data/apex_data_r5-61_J150_CL625858.json';
+const APEX_DATA = './pages/apex/data/apex_data_r5-70_J171_CL673614_Abilities.json';
 
 // Manual dates when the data or pages have been modified.
 // In format "[day] [month three letters] [year four digits]"
 // e.g. 2nd Jan 2019
-const APEX_DATA_DATE = '06th Oct 2020 (apex_data_r5-61_J150_CL625858)'
-const APEX_PAGE_DATE = '06th Oct 2020'
+const APEX_DATA_DATE = '04th Nov 2020 (apex_data_r5-70_J171_CL673614)'
+const APEX_PAGE_DATE = '05th Nov 2020'
 
 // Total version string displayed under title
 const APEX_VERSION_STRING = `Latest updates<br>Page: ${APEX_PAGE_DATE}<br>Data: ${APEX_DATA_DATE}`
@@ -426,42 +426,44 @@ function APEXLoadSuccessCallback (data) {
   active_weapon_attachments = {};
   // Create attachments array for each main weapon
   $.each(APEXWeaponData_orig, function(key, weapon) {
-    let i;
-    let attachment_list = [];
-    let optic_list = [];
-    for (const [key] of Object.entries( weapon['WeaponData']['Mods'])) {
-      if(customizationHopupStrings[key] !== undefined) {
-        attachment_list.push(key);
+    if (weapon.WeaponData.weapon_type_flags === 'WPT_PRIMARY') {
+      let i;
+      let attachment_list = [];
+      let optic_list = [];
+      for (const [key] of Object.entries(weapon['WeaponData']['Mods'])) {
+        if (customizationHopupStrings[key] !== undefined) {
+          attachment_list.push(key);
+        }
+        if (customizationAttachmentStrings[key] !== undefined) {
+          attachment_list.push(key);
+        }
+        if (customizationOpticStrings[key] !== undefined) {
+          optic_list.push(key);
+        }
       }
-      if(customizationAttachmentStrings[key] !== undefined) {
-        attachment_list.push(key);
+      weapon['WeaponData']["attachment_list"] = attachment_list;
+      weapon['WeaponData']["optic_list"] = optic_list;
+      const formatted_name = formatWeaponName(weapon['WeaponData']['printname']);
+      weapon['WeaponData']['printname'] = formatted_name.replace(" -", "");
+      if (apex_attachments[formatted_name] === undefined) {
+        apex_attachments[formatted_name] = [];
       }
-      if(customizationOpticStrings[key] !== undefined) {
-        optic_list.push(key);
-      }
-    }
-    weapon['WeaponData']["attachment_list"] = attachment_list;
-    weapon['WeaponData']["optic_list"] = optic_list;
-    const formatted_name = formatWeaponName(weapon['WeaponData']['printname']);
-    weapon['WeaponData']['printname'] = formatted_name.replace(" -", "");
-    if(apex_attachments[formatted_name] === undefined){
-      apex_attachments[formatted_name] = [];
-    }
-    for (i = 0; i <  weapon['WeaponData']["attachment_list"].length; i++) {
-      if( weapon['WeaponData']['Mods'][ weapon['WeaponData']["attachment_list"][i]] !== undefined) {
+      for (i = 0; i < weapon['WeaponData']["attachment_list"].length; i++) {
+        if (weapon['WeaponData']['Mods'][weapon['WeaponData']["attachment_list"][i]] !== undefined) {
 
-        apex_attachments[formatted_name][i] =  weapon['WeaponData']['Mods'][ weapon['WeaponData']["attachment_list"][i]];
-        apex_attachments[formatted_name][i].attachName = [ weapon['WeaponData']["attachment_list"][i]];
+          apex_attachments[formatted_name][i] = weapon['WeaponData']['Mods'][weapon['WeaponData']["attachment_list"][i]];
+          apex_attachments[formatted_name][i].attachName = [weapon['WeaponData']["attachment_list"][i]];
+        }
       }
-    }
-    if(optic_customizations[formatted_name] === undefined){
-      optic_customizations[formatted_name] = [];
-    }
-    for (i = 0; i <  weapon['WeaponData']["optic_list"].length; i++) {
-      if( weapon['WeaponData']['Mods'][ weapon['WeaponData']["optic_list"][i]] !== undefined) {
+      if (optic_customizations[formatted_name] === undefined) {
+        optic_customizations[formatted_name] = [];
+      }
+      for (i = 0; i < weapon['WeaponData']["optic_list"].length; i++) {
+        if (weapon['WeaponData']['Mods'][weapon['WeaponData']["optic_list"][i]] !== undefined) {
 
-        optic_customizations[formatted_name][i] =  weapon['WeaponData']['Mods'][ weapon['WeaponData']["optic_list"][i]];
-        optic_customizations[formatted_name][i].attachName = [ weapon['WeaponData']["optic_list"][i]];
+          optic_customizations[formatted_name][i] = weapon['WeaponData']['Mods'][weapon['WeaponData']["optic_list"][i]];
+          optic_customizations[formatted_name][i].attachName = [weapon['WeaponData']["optic_list"][i]];
+        }
       }
     }
   });
@@ -551,6 +553,7 @@ function openAPEXComparisonPage () {
     APEXLoadWeaponData()
   } else {
     loadAPEXComparisonPage()
+    loadApexCompareStylesheet()
   }
 }
 
@@ -660,6 +663,7 @@ function APEXInitializeIndexPage(){
 
 function APEXSetupPageHeader(){
   loadApexStylesheet();
+  loadApexCompareStylesheet();
   $('.sym-pageSelections > div').click(function () {
     const clicked = $(this).attr('id');
     let pageName;

@@ -93,7 +93,7 @@ const BFV_LOWER_IS_WORSE = new Set([
   'ShotsPerShell'
 ])
 
-/* 
+/*
    Used by chart and comparison pages
    These mappings are used for the labels on the customization buttons
    These need to be updated if DICE comes out with new customization types.
@@ -398,6 +398,7 @@ function openBFVComparisonPage () {
     BFVLoadWeaponData()
   } else {
     loadBFVComparisonPage()
+    loadHighchartsCustomStylesheet()
   }
 }
 
@@ -472,7 +473,8 @@ function BFVinitializeIndexPage(){
 
 
 function BFVSetupPageHeader(){
-  loadBFVStylesheet()  
+  loadBFVStylesheet()
+  loadHighchartsCustomStylesheet()
   $('.sym-pageSelections > div').click(function () {
     var clicked = $(this).attr('id')
     var pageName

@@ -288,11 +288,13 @@ function openBF1ComparisonPage () {
     BF1LoadWeaponData()
   } else {
     loadBF1ComparisonPage()
+    loadHighchartsCustomStylesheet()
   }
 }
 
 function loadBF1ComparisonPage(){
   $('.bf1-main-content').load('./pages/bf1/bf1_comparison.html', initializeBF1Comparison)
+  loadHighchartsCustomStylesheet()
 }
 
 /*
@@ -367,6 +369,7 @@ function BF1initializeIndexPage(){
 
 function BF1SetupPageHeader(){
   loadBF1Stylesheet()
+  loadHighchartsCustomStylesheet()
   $('.sym-pageSelections > div').click(function () {
     var clicked = $(this).attr('id')
     var pageName

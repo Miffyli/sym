@@ -1,0 +1,4 @@
+/*Disables the context menu that highcharts export module shows by default*/
+.highcharts-exporting-group {
+    display: none;
+}

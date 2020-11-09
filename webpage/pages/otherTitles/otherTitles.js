@@ -10,7 +10,7 @@ var otherTitlesPageToLoad = ""
 function openOtherTitlesSelectionPage () {
     loadPageWithHeader('./pages/otherTitles/otherTitles_header.html', 'Other Titles', initializeOtherTitlesSelection, "")
   }
-  
+
   function openOtherTitlesSelectionPageFromQueryString (pageStr){
     bf1PageToLoad = pageStr
     loadPageWithHeader('./pages/otherTitles/otherTitles_header.html', 'Other Titles', initializeOtherTitlesSelection, "")
@@ -36,6 +36,7 @@ function otherTitlesInitializeIndexPage(){
 }
 
 function otherTitlesSetupPageHeader(){
+  loadHighchartsCustomStylesheet()
   $('.sym-pageSelections > div').click(function () {
     var clicked = $(this).attr('id')
     var pageName

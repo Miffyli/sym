@@ -139,3 +139,70 @@
 .apex_indexPageItem div{
     color: #ccc;
 }
+/*!*tabs*!*/
+/*.apex_ability-tabs {*/
+/*    border: 0 solid #2b2b2b !important;*/
+/*    background: #555555 none !important;*/
+/*    font-size: 1em;*/
+/*    width: 1280px;*/
+/*    margin: auto;*/
+/*    padding: 0 !important;*/
+/*    text-align: left !important;*/
+/*}*/
+/*!*outer later containing all 3 tab selectors*!*/
+/*.apex_ability-ulist{*/
+/*    margin: 0 !important;*/
+/*    height: 275px;*/
+/*    width: 1280px;*/
+/*    padding: 0 !important;*/
+/*    border: 2px solid #191919!important;*/
+/*    background: #191919 none !important;*/
+/*    line-height: revert;*/
+/*    position: relative !important;*/
+/*}*/
+
+/*.apex_ability-list {*/
+/*    width: auto;*/
+/*    float: right !important;*/
+/*    color: #ff0000 !important;*/
+/*    background-color: #555555;*/
+/*    background-position-y: bottom;*/
+/*}*/
+/*.apex_ability-list a {*/
+
+/*}*/
+/*.apex_ability-list p {*/
+/*    text-align: center;*/
+/*    font-weight: bold;*/
+
+/*}*/
+/*.apex_ability-list img {*/
+/*    height: 200px;*/
+
+/*}*/
+
+/*.apex_ability-details {*/
+/*    border: 0 solid #2b2b2b;*/
+/*    padding: 0 !important;*/
+/*    min-height: 200px;*/
+/*    text-align: left;*/
+/*    display: inline-block;*/
+/*}*/
+
+/*.apex_ability-details p{*/
+/*    margin-left: 0;*/
+/*    display: inline-block;*/
+/*    position: absolute;*/
+/*}*/
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+table {
+    font-size: 1em;
+}
+
+.ui-draggable, .ui-droppable {
+    background-position: top;
+}
