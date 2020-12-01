@@ -24,6 +24,8 @@ const BFV_MIN_DAMAGE_MULTIPLIER = 1.0
 const BFV_LOWER_IS_WORSE = new Set([
   'SDmg',
   'EDmg',
+  'DOStart',
+  'DOEnd',
   'RoF',
   'BRoF',
   'MagSize',
