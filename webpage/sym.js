@@ -250,9 +250,10 @@ function exceuteQueryStringParams(){
         case 'bf3-general-info':
           openOtherTitlesSelectionPageFromQueryString('BF3 General Info')
           break
-		case 'bf3-weapon-mechanics':
+		    case 'bf3-weapon-mechanics':
           openOtherTitlesSelectionPageFromQueryString('BF3 Weapon Mechanics')
-		case 'bf4-weapon-mechanics':
+          break
+		    case 'bf4-weapon-mechanics':
           openOtherTitlesSelectionPageFromQueryString('BF4 Weapon Mechanics')
           break
         case 'bf4-general-info':
