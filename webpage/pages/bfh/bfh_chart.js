@@ -569,52 +569,30 @@ function bfhCreateDamageChart100Max(damageArr, distanceArr, ammoType){
            "</svg>"
 }
 
-
 function bfhShowHideClasses(){
-    if ($("#showAssaultCheck").is(":checked")){
-        $("#AssaultSection").show(0);
+    if ($("#showOperatorCheck").is(":checked")){
+        $("#OperatorSection").show(0);
     } else {
-        $("#AssaultSection").hide(0);
+        $("#OperatorSection").hide(0);
     }
-    if ($("#showEngineerCheck").is(":checked")){
-        $("#EngineerSection").show(0);
+    if ($("#showMechanicCheck").is(":checked")){
+        $("#MechanicSection").show(0);
     } else {
-        $("#EngineerSection").hide(0);
+        $("#MechanicSection").hide(0);
     }
-    if ($("#showSupportCheck").is(":checked")){
-        $("#SupportSection").show(0);
+    if ($("#showEnforcerCheck").is(":checked")){
+        $("#EnforcerSection").show(0);
     } else {
-        $("#SupportSection").hide(0);
+        $("#EnforcerSection").hide(0);
     }
-    if ($("#showReconCheck").is(":checked")){
-        $("#ReconSection").show(0);
+    if ($("#showProfessionalCheck").is(":checked")){
+        $("#ProfessionalSection").show(0);
     } else {
-        $("#ReconSection").hide(0);
+        $("#ProfessionalSection").hide(0);
     }
-	if ($("#showDMRsCheck").is(":checked")){
-        $("#DMRsSection").show(0);
+	if ($("#showAllKitCheck").is(":checked")){
+        $("#AllKitSection").show(0);
     } else {
-        $("#DMRsSection").hide(0);
+        $("#AllKitSection").hide(0);
     }
-    if ($("#showShotgunsCheck").is(":checked")){
-        $("#ShotgunsSection").show(0);
-    } else {
-        $("#ShotgunsSection").hide(0);
-    }
-    if ($("#showCarbinesCheck").is(":checked")){
-        $("#CarbinesSection").show(0);
-    } else {
-        $("#CarbinesSection").hide(0);
-    }
-	if ($("#showSidearmsCheck").is(":checked")){
-        $("#SidearmsSection").show(0);
-    } else {
-        $("#SidearmsSection").hide(0);
-    }
-    if ($("#showPickupsCheck").is(":checked")){
-        $("#PickupsSection").show(0);
-    } else {
-        $("#PickupsSection").hide(0);
-    }
-
 }
