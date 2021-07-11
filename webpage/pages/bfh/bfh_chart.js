@@ -1,5 +1,5 @@
 var gravityTooltip = "Gravity"
-var bfhWeaponClassTitles = ["","Operator","Mechanic","Enforcer","Professional","","","", "Sidearms", ];
+var bfhWeaponClassTitles = ["","Operator","Mechanic","Enforcer","Professional","Shotguns","","", "Sidearms", ];
 var firestormWeapons = [];
 var customizations = new Object();
 var addVariantCounter = 0;
@@ -49,39 +49,14 @@ function bfhPrintWeapons(){
     statsHtml += bfhPrintWeaponClass(2);
     statsHtml += bfhPrintWeaponClass(3);
     statsHtml += bfhPrintWeaponClass(4);
+    statsHtml += bfhPrintWeaponClass("sh");
 	statsHtml += bfhPrintWeaponClass(8);
 
     $("#pageBody").html(statsHtml);
-    bfhShowHideClasses();
-/*
-    $(".custButton").checkboxradio(
-        {icon:false}
-    );
+    //bfhShowHideClasses();
 
-    $(".variantButton").button();
-
-    $(".variantButton").click(function(){
-        addVariantCounter++;
-        var thisRow = $(this).parentsUntil("tbody", "tr");
-        var wearponName = $(thisRow).find(".lblWeaponName").text();
-
-        var newWeaponStats = bfhWeaponData.find(function(element){
-            return element.WeapAttachmentKey == wearponName;
-        });
-
-        var newWeaponRow = bfhPrintWeapon(newWeaponStats);
-        var newWeaponRowObj = $(newWeaponRow).insertAfter(thisRow);
-        $(newWeaponRowObj).find(".custButton").checkboxradio(
-            {icon:false}
-        );
-        initializeCustomizationsRow(newWeaponRowObj);
-
-        $(newWeaponRowObj).effect("highlight");
-    });
-*/
     $(document).tooltip({track: true});
 
-    initializeCustomizations();
     initializeSorts();
 
     $(".sortableTable").sortable({
@@ -95,11 +70,12 @@ function bfhPrintWeapons(){
 }
 
 function bfhPrintWeaponClass(weaponClass){
-    var classImgFileName = bfhWeaponClassTitles[weaponClass] + ".png";
+    var titleIndex = weaponClass == "sh" ? 5 : weaponClass;
+    var classImgFileName = bfhWeaponClassTitles[titleIndex] + ".png";
 
     var rtnStr = "";
-    rtnStr += "<div id='" + bfhWeaponClassTitles[weaponClass] + "Section'>" +
-              "<div class='classHeader'><img src='./pages/bfh/img/" + classImgFileName + "'>" + bfhWeaponClassTitles[weaponClass] + "</div>";
+    rtnStr += "<div id='" + bfhWeaponClassTitles[titleIndex] + "Section'>" +
+              "<div class='classHeader'><img src='./pages/bfh/img/" + classImgFileName + "'>" + bfhWeaponClassTitles[titleIndex] + "</div>";
     rtnStr += "<table class='table classTable'><tbody class='sortableTable'>";
 
     $.each(BFHWeaponData, function( key, value ) {
@@ -122,6 +98,7 @@ function bfhPrintWeapon(weaponStats){
                                                       weaponStats.HIPStandMoveMin,weaponStats.HIPCrouchMoveMin,weaponStats.HIPProneMoveMin,
                                                       weaponStats.ADSStandBaseSpreadInc, weaponStats.HIPStandBaseSpreadInc);
     var spreadIncDecTableGraphic = bfhCreateSpreadIncDecTableGraphic(weaponStats.ADSStandBaseSpreadInc, weaponStats.ADSStandBaseSpreadDec);
+    weaponStats.WeapShowName = weaponStats.WeapShowName.toString(); //handle weapon names that are numbers, i.e 1886
     var rtnStr = "<tr class='" + weaponStats.WeapShowName.replace(/ |\//g,"") + " sub_" + getWeaponsSubcat(weaponStats.WeapShowName) +"'>" +
                      "<td class='firstColumn'>" +
                          "<div class='lblWeaponName'>" +
@@ -178,7 +155,7 @@ function bfhPrintWeapon(weaponStats){
 function bfhGetWeaponImageFilename(weaponName){
     var weaponFilename = "";
 
-    weaponFilename =  weaponName.replace("Slug", "").replace("Buckshot", "").replace("Flechette", "").replace("Frag", "");
+    weaponFilename =  weaponName.replace("(Slug)", "").replace("(Buckshot)", "").replace("(Flechette)", "").replace("(Buckshot Semi)", "");
 
     return weaponFilename.trim();
 }
