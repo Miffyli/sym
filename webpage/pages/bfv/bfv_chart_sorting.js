@@ -1,9 +1,3 @@
-
-
-function getWeaponsSubcat(weaponName){
-    return weaponSubCats["_" + weaponName.replace(/ |\/|-/g,"")];
-}
-
 function initializeSorts(){
     $("#sortRPM").click(function(){
         $("#actionMenu").menu("collapse");
