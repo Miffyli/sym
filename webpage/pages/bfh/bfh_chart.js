@@ -1,5 +1,5 @@
 var gravityTooltip = "Gravity"
-var bfhWeaponClassTitles = ["","Operator","Mechanic","Enforcer","Professional","Shotguns","","", "Sidearms", ];
+var bfhWeaponClassTitles = ["","Operator","Mechanic","Enforcer","Professional","Shotguns","","All-Kit", "Sidearms", ];
 var firestormWeapons = [];
 var customizations = new Object();
 var addVariantCounter = 0;
@@ -50,6 +50,7 @@ function bfhPrintWeapons(){
     statsHtml += bfhPrintWeaponClass(3);
     statsHtml += bfhPrintWeaponClass(4);
     statsHtml += bfhPrintWeaponClass("sh");
+    statsHtml += bfhPrintWeaponClass(7);
 	statsHtml += bfhPrintWeaponClass(8);
 
     $("#pageBody").html(statsHtml);
@@ -64,9 +65,6 @@ function bfhPrintWeapons(){
        placeholder: "ui-state-highlight",
        handle: ".sortDragIcon"
     });
-
-    showHideSubCats();
-    bfvChartSortLetters("lblWeaponNameValue", compareNames)
 }
 
 function bfhPrintWeaponClass(weaponClass){
@@ -590,9 +588,19 @@ function bfhShowHideClasses(){
     } else {
         $("#ProfessionalSection").hide(0);
     }
-	if ($("#showAllKitCheck").is(":checked")){
-        $("#AllKitSection").show(0);
+	if ($("#showShotgunsCheck").is(":checked")){
+        $("#ShotgunsSection").show(0);
     } else {
-        $("#AllKitSection").hide(0);
+        $("#ShotgunsSection").hide(0);
+    }
+    if ($("#showAll-KitCheck").is(":checked")){
+        $("#All-KitSection").show(0);
+    } else {
+        $("#All-KitSection").hide(0);
+    }
+    if ($("#showSidearmsCheck").is(":checked")){
+        $("#SidearmsSection").show(0);
+    } else {
+        $("#SidearmsSection").hide(0);
     }
 }
