@@ -35,9 +35,8 @@
 rand2 = rand(0,2*PI)
 horizontal_dispersion = rand1^a * spread * cos(rand2)
 vertical_dispersion   = rand1^a * spread * sin(rand2)</pre></b>
-                <li>Where <b><pre style="display:inline">a = 0.5</pre></b> for all other weapons than shotguns. Shotguns use <b><pre style="display:inline;">a = 1.0</pre></b>.</li>
-                <ul><li> Due to this shotguns' spread focuses in the middle (less affected by spread) while other weapons have evenly spread out dispersion.</li>
-                <li><b>Note:</b> Shotgun pellets still have a = 1.0 and thus are evenly spread out. The center of the pellets will be closer to crosshair's center, but the pellets itself will spread out evenly.</li>
+                <li>Where <b><pre style="display:inline">a = 0.5</pre></b> for all weapons. Due to this the dispersion is evenly spread out.</li>
+                <li><b>Note:</b> Shotgun pellets have <b><pre style="display:inline">a = 1.0</pre></b>, and thus are more tightly spread out near the firing direction, which is first decided by the above shot dispersion.</li>
                 </ul>
             </ul>
 			<li>Each shot adds spreadIncrease to spread.</li>
