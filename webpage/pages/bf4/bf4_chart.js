@@ -126,7 +126,7 @@ function bf4PrintWeapon(weaponStats){
                                                       weaponStats.HIPStandMoveMin,weaponStats.HIPCrouchMoveMin,weaponStats.HIPProneMoveMin,
                                                       weaponStats.ADSStandBaseSpreadInc, weaponStats.HIPStandBaseSpreadInc);
     var spreadIncDecTableGraphic = bf4CreateSpreadIncDecTableGraphic(weaponStats.ADSStandBaseSpreadInc, weaponStats.ADSStandBaseSpreadDec);
-    var rtnStr = "<tr class='" + weaponStats.WeapShowName.replace(/ |\//g,"") + " sub_" + getWeaponsSubcat(weaponStats.WeapShowName) +"'>" +
+    var rtnStr = "<tr class='" + weaponStats.WeapShowName.replace(/ |\//g,"") + "'>" +
                      "<td class='firstColumn'>" +
                          "<div class='lblWeaponName'>" +
                             "<span class='lblWeaponNameValue'>" + weaponStats.WeapShowName + "</span>" + firestormIcon +

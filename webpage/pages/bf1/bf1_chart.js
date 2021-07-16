@@ -125,7 +125,7 @@ function bf1PrintWeapon(weaponStats){
     var spreadIncDecTableGraphic = bf1CreateSpreadIncDecTableGraphic(weaponStats.ADSStandBaseSpreadInc, weaponStats.HIPStandBaseSpreadInc,
                                                                   weaponStats.ADSStandBaseSpreadDec, weaponStats.HIPStandBaseSpreadDec,
                                                                   weaponStats.FirstShotADSSpreadMul, weaponStats.FirstShotHIPSpreadMul);
-    var rtnStr = "<tr class='" + weaponStats.WeapShowName.replace(/ |\//g,"") + " sub_" + getWeaponsSubcat(weaponStats.WeapShowName) +"'>" +
+    var rtnStr = "<tr class='" + weaponStats.WeapShowName.replace(/ |\//g,"") + "'>" +
                      "<td class='firstColumn'>" +
                          "<div class='lblWeaponName'>" +
                             "<span class='lblWeaponNameValue'>" + weaponStats.WeapShowName + "</span>" + firestormIcon +
