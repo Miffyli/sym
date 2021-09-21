@@ -53,7 +53,9 @@ const BFH_LOWER_IS_WORSE = new Set([
   'FirstShotHIPSpreadMul',
   'FirstShotADSSpreadMul',
   'ShotsPerShell',
-  'Pellets'
+  'Pellets',
+  'DOStart',
+  'DOEnd'
 ])
 
 // List of attachments allowed in the two separate losts
