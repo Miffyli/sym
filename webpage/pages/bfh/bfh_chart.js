@@ -49,7 +49,6 @@ function bfhPrintWeapons(){
     statsHtml += bfhPrintWeaponClass(2);
     statsHtml += bfhPrintWeaponClass(3);
     statsHtml += bfhPrintWeaponClass(4);
-    statsHtml += bfhPrintWeaponClass("sh");
     statsHtml += bfhPrintWeaponClass(7);
 	statsHtml += bfhPrintWeaponClass(8);
 
@@ -153,7 +152,7 @@ function bfhPrintWeapon(weaponStats){
 function bfhGetWeaponImageFilename(weaponName){
     var weaponFilename = "";
 
-    weaponFilename =  weaponName.replace("(Slug)", "").replace("(Buckshot)", "").replace("(Flechette)", "").replace("(Buckshot Semi)", "");
+    weaponFilename =  weaponName.replace("Slug", "").replace("Buckshot", "").replace("Breaching", "");
 
     return weaponFilename.trim();
 }
@@ -364,8 +363,9 @@ function bfhCreateDamageChart50Max(damageArr, distanceArr, numOfPellets, ammoTyp
     var minDamage = roundToDecimal(damageArr[damageArr.length - 1], "1");
 
     var maxDamageText = "";
-    maxDamageText = "<text x='" + (distanceArr[1] - 20) + "' y='" + (116 - (2 * maxDamage)).toString() + "' class='chartMinMaxLabel maxDamageText'>" + maxDamage + "</text>";
-
+    var xValue = distanceArr[0] > 0 ? distanceArr[0] : distanceArr[1];
+    maxDamageText = "<text x='" + xValue + "' y='" + (116 - (2 * maxDamage)).toString() + "' class='chartMinMaxLabel maxDamageText'>" + maxDamage + "</text>";
+    
     var minDamageText = "";
     if(distanceArr[distanceArr.length - 1] < 150){
         minDamageText = "<text x='" + (distanceArr[distanceArr.length - 1] * 2) + "' y='" + (114 - (2 * minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";
@@ -375,18 +375,17 @@ function bfhCreateDamageChart50Max(damageArr, distanceArr, numOfPellets, ammoTyp
 
     var pelletsLabel = "";
     if (numOfPellets > 1){
-        pelletsLabel = "<text x='230' y='85' class='chartMinMaxLabel'>" + numOfPellets + " pellets</text>";
+        pelletsLabel = "<text x='231' y='76' class='chartMinMaxLabel'>" + numOfPellets + " Pellets</text>";
     }
 
     var fragSplash = "";
-    if(ammoType == "12gFrag"){
-        fragSplash = "<polyline class='chartSplashDamageLine' style='stroke: orange;' points='0,70 100,70 125,120'></polyline>" +
+    if(ammoType == "12g Frag"){
+        fragSplash = "<polyline class='chartSplashDamageLine' style='stroke: orange;' points='0,100 18,100'></polyline>" +
                      fragLabels +
-                     "<text y='66' class='chartMinMaxSplashLabel' x='103'>25 (Splash Damage)</text>";
+                     "<text x='131' y='95' class='chartMinMaxSplashLabel'>10 Splash Damage / Pellet</text>";
         if (maxDamage == 20){
             maxDamageText = "<text x='" + (distanceArr[1] - 0) + "' y='" + (124 - (2 * maxDamage)).toString() + "' class='chartMinMaxLabel maxDamageText'>" + maxDamage + "</text>";
         }
-        minDamageText = "<text x='" + ((distanceArr[distanceArr.length - 1] * 2) - 15) + "' y='" + (134 - (2 * minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";
     }
 	
 	if (maxDamage == minDamage){
@@ -463,10 +462,11 @@ function bfhCreateDamageChart100Max(damageArr, distanceArr, ammoType){
 
 
     var maxDamageText = "";
-    if(damageArr[0] > 80){
-        maxDamageText = "<text x='" + (distanceArr[1] + 15) + "' y='" + (131 - (maxDamage)).toString() + "' class='chartMinMaxLabel maxDamageText'>" + maxDamage + "</text>";
+    var xValue = distanceArr[0] > 0 ? distanceArr[0] : distanceArr[1];
+    if(damageArr[0] > 80 || damageArr[1] > 80){
+        maxDamageText = "<text x='" + (xValue + 14) + "' y='" + (135 - (maxDamage)).toString() + "' class='chartMinMaxLabel maxDamageText'>" + maxDamage + "</text>";
     } else {
-        maxDamageText = "<text x='" + distanceArr[1] + "' y='" + (116 - (maxDamage)).toString() + "' class='chartMinMaxLabel maxDamageText'>" + maxDamage + "</text>";
+        maxDamageText = "<text x='" + xValue + "' y='" + (116 - (maxDamage)).toString() + "' class='chartMinMaxLabel maxDamageText'>" + maxDamage + "</text>";
     }
 
     var minDamageText = "";
@@ -496,7 +496,7 @@ function bfhCreateDamageChart100Max(damageArr, distanceArr, ammoType){
             fragLabels + "<text class='chartMinMaxSplashLabel' x='103' y='23'>112 (Splash Damage)</text>";
     }
 
-    if(ammoType == "HE Bolt"){
+    if(ammoType == "12g Frag"){
         fragSplash = "<polyline class='chartSplashDamageLine' style='stroke: orange;' points='0,67 15,67 100,120'></polyline>" +
                      fragLabels +
                      "<text y='72' class='chartMinMaxSplashLabel' x='30'>56 (Splash Damage)</text>";
@@ -587,11 +587,6 @@ function bfhShowHideClasses(){
         $("#ProfessionalSection").show(0);
     } else {
         $("#ProfessionalSection").hide(0);
-    }
-	if ($("#showShotgunsCheck").is(":checked")){
-        $("#ShotgunsSection").show(0);
-    } else {
-        $("#ShotgunsSection").hide(0);
     }
     if ($("#showAll-KitCheck").is(":checked")){
         $("#All-KitSection").show(0);
