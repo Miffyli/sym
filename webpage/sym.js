@@ -8,6 +8,7 @@ const SYM_GITHUB_URL = 'https://github.com/miffyli/sym'
 // misc/news_items/#.html . This value should be updated
 // when new entries for News are made
 const SYM_NUM_NEWS_ITEMS = 5
+const NUM_NEWS_ITEMS_SHOWN = 5
 
 /*
     This code runs after the page loads all resources.
@@ -36,7 +37,7 @@ window.onload = function () {
   // Handle click events for the header and footer menus
   addRoute('menuNews', generatePath('sym', 'news'), () => {
     // Only load three latest news for now
-    loadPageWithHeader('./pages/misc/news.html', 'News', function () { loadNewestNewsItems(1, 4) })
+    loadPageWithHeader('./pages/misc/news.html', 'News', function () { loadNewestNewsItems(SYM_NUM_NEWS_ITEMS - NUM_NEWS_ITEMS_SHOWN + 1, NUM_NEWS_ITEMS_SHOWN) })
   })
   addRoute('menuForums', SYM_FORUMS_URL, () => openNewTab(SYM_FORUMS_URL))
   addRoute('menuDiscord', SYM_DISCORD_URL, () => openNewTab(SYM_DISCORD_URL))
