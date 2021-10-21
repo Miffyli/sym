@@ -5,7 +5,7 @@ const BFH_DATA = './pages/bfh/data/bfh.json'
 // In format "[day] [month three letters] [year four digits]"
 // e.g. 2nd Jan 2019
 const BFH_DATA_DATE = 'BFH_6'
-const BFH_PAGE_DATE = '22nd April 2020'
+const BFH_PAGE_DATE = '21st October 2021'
 
 // Total version string displayed under title
 const BFH_VERSION_STRING = `Latest updates<br>Page: ${BFH_PAGE_DATE}<br>Data: ${BFH_DATA_DATE}`
@@ -52,7 +52,11 @@ const BFH_LOWER_IS_WORSE = new Set([
   'HeatClipSize',
   'FirstShotHIPSpreadMul',
   'FirstShotADSSpreadMul',
-  'ShotsPerShell'
+  'ShotsPerShell',
+  'Pellets',
+  'DOStart',
+  'DOEnd',
+  'BDrop'
 ])
 
 // List of attachments allowed in the two separate losts
@@ -211,6 +215,7 @@ function BFHGetTTKUpperBoundOverDistance (weapon) {
   var damages = [weapon['SDmg'], weapon['EDmg']]
   var distances = [weapon['DOStart'], weapon['DOEnd']]
   var bulletVelocity = weapon['InitialSpeed']
+  var numShots = weapon['Pellets'] || 1
   var msPerShot = 60000 / (weapon['RoF'])
   var TTKUBOverDistance = []
 
@@ -221,7 +226,7 @@ function BFHGetTTKUpperBoundOverDistance (weapon) {
   // Used to track how long bullet has been flying
   var bulletFlightSeconds = 0.0
   for (var dist = BFH_DAMAGE_RANGE_START; dist <= BFH_DAMAGE_RANGE_END; dist += BFH_DAMAGE_RANGE_STEP) {
-    damageAtDist = BFHInterpolateDamage(dist, damages, distances)
+    damageAtDist = BFHInterpolateDamage(dist, damages, distances) * numShots
     // Floor because we do not need the last bullet
     // Small epsilon is added to fix situation with 100 damage (100 / 100 = 1)
     bulletsToKill = Math.floor(100 / (damageAtDist * BFH_MIN_DAMAGE_MULTIPLIER + 0.00001))
@@ -243,6 +248,7 @@ function BFHGetTTKUpperBoundOverDistance (weapon) {
   arrays.
 */
 function BFHLoadSuccessCallback (data) {
+  loadBFHStylesheet()
   BFHWeaponData = data
   // Create name_to_data objects
   for (var i = 0; i < BFHWeaponData.length; i++) {
@@ -312,6 +318,7 @@ function openBFHChartPage () {
     BFHLoadWeaponData()
   } else {
     loadBFHChartPage()
+    loadBFHStylesheet()
   }
 }
 

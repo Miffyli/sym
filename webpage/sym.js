@@ -158,8 +158,7 @@ function loadBF4Stylesheet(){
 }
 
 function loadBFHStylesheet(){
-  // Commented out for now (charts not implemented yet)
-  //$('#chartCSS').attr('href', './pages/bfh/bfh_chart.css')
+  $('#chartCSS').attr('href', './pages/bfh/bfh_chart.css')
 }
 
 function loadBF3Stylesheet(){
@@ -265,6 +264,12 @@ function exceuteQueryStringParams(){
         case 'bf4-charts':
           openOtherTitlesSelectionPageFromQueryString('BF4 Weapon Charts')
           break
+        case 'bfh-comparison':
+          openOtherTitlesSelectionPageFromQueryString('BFH Comparison')
+          break
+        case 'bfh-charts':
+          openOtherTitlesSelectionPageFromQueryString('BFH Weapon Charts')
+            break
       }
       break
     case 'sym':
