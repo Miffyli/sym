@@ -166,6 +166,10 @@ function loadBF3Stylesheet(){
   $('#chartCSS').attr('href', './pages/bf3/bf3_chart.css')
 }
 
+function loadBF2042Stylesheet(){
+  $('#chartCSS').attr('href', './pages/bf2042/bf2042_chart.css')
+}
+
 function generatePath(gameValue, pageValue) {
   var params = {game: gameValue, 
     page: pageValue}
@@ -270,7 +274,10 @@ function exceuteQueryStringParams(){
           break
         case 'bfh-charts':
           openOtherTitlesSelectionPageFromQueryString('BFH Weapon Charts')
-            break
+          break
+        case 'bf2042-comparison':
+          openOtherTitlesSelectionPageFromQueryString('BF2042 Weapon Comparison')
+          break
       }
       break
     case 'sym':

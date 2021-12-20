@@ -61,6 +61,8 @@ function otherTitlesSetupPageHeader(){
       pageName = 'BFH Weapon Charts'
     } else if (clicked === 'bfh-comparisonPageSelector') {
       pageName = 'BFH Comparison'
+    } else if (clicked === 'bf2042-comparisonPageSelector') {
+      pageName = 'BF2042 Comparison'
     }
     otherTitlesOpenPageByName(pageName)
   })
@@ -120,6 +122,10 @@ function otherTitlesOpenPageByName(pageName) {
     $('#bfh-chartPageSelector').addClass('selected-selector')
     openBFHChartPage()
     updateQueryString("other", "bfh-charts")
+  } else if (pageName === 'BF2042 Comparison') {
+    $('#bf2042-comparisonPageSelector').addClass('selected-selector')
+    openBF2042ComparisonPage()
+    updateQueryString("other", "bf2042-comparison")
   }
 }
 
