@@ -66,10 +66,37 @@ window.onload = function () {
   // Handle click for 'LEARN MORE' button, loads about page
   const learnMoreRoute = '.sym-main-desc-learnMore-btn'
   addRoute(learnMoreRoute, generatePath('sym, about'), () => loadPageWithHeader('./pages/misc/about.html', 'About Sym'))
+
   $.each([bannerRoute, jumpInRoute, learnMoreRoute], (idx, selector) => {
     linkAnchor($(selector), selector)
   })
+  
+  $('.sym-game-datatype').click(function () {
+    var clicked = $(this).text();
+    var gameId = $(this).parent().attr('id')
+  
+    switch(clicked){
+      case 'General Information':
+        updateQueryString(gameId, "general-info")
+        break
+      case 'Weapon Mechanics':
+        updateQueryString(gameId, "weapon-mechanics")
+        break
+      case 'Weapon Charts':
+        updateQueryString(gameId, "charts")
+        break
+      case 'Weapon Comparison':
+        updateQueryString(gameId, "comparison")
+        break
+      case 'Equipment Data':
+        updateQueryString(gameId, "equipment")
+        break      
+    }
+    history.go(0)
+  })
 }
+
+
 
 /*
   Load given page file with header, and finish
@@ -80,7 +107,6 @@ window.onload = function () {
 */
 function loadPageWithHeader (file, header, callback = undefined, versionInfo = '') {
   // Set the header and version info if given
-  $('.sym-main-content-header').html(header)
   $('.sym-main-content-version').html(versionInfo)
   $('.sym-main-content').load(file, callback)
 
@@ -230,8 +256,50 @@ function exceuteQueryStringParams(){
         case 'charts':
           openBF1SelectionPageFromQueryString('Weapon Charts')
           break
-		case 'weapon-mechanics':
+		    case 'weapon-mechanics':
           openBF1SelectionPageFromQueryString('Weapon Mechanics')
+          break
+      }
+      break
+    case 'bfh':
+      switch(page){
+        case 'comparison':
+          openOtherTitlesSelectionPageFromQueryString('BFH Comparison')
+          break
+        case 'charts':
+          openOtherTitlesSelectionPageFromQueryString('BFH Weapon Charts')
+          break
+      }
+      break
+    case 'bf4':
+      switch(page){
+        case 'general-info':
+          openOtherTitlesSelectionPageFromQueryString('BF4 General Info')
+          break
+        case 'comparison':
+          openOtherTitlesSelectionPageFromQueryString('BF4 Comparison')
+          break
+        case 'charts':
+          openOtherTitlesSelectionPageFromQueryString('BF4 Weapon Charts')
+          break
+        case 'weapon-mechanics':
+          openOtherTitlesSelectionPageFromQueryString('BF4 Weapon Mechanics')
+          break
+      }
+      break
+    case 'bf3':
+      switch(page){
+        case 'general-info':
+          openOtherTitlesSelectionPageFromQueryString('BF3 General Info')
+          break
+        case 'comparison':
+          openOtherTitlesSelectionPageFromQueryString('BF3 Comparison')
+          break
+        case 'charts':
+          openOtherTitlesSelectionPageFromQueryString('BF3 Weapon Charts')
+          break
+        case 'weapon-mechanics':
+          openOtherTitlesSelectionPageFromQueryString('BF3 Weapon Mechanics')
           break
       }
       break
@@ -303,6 +371,37 @@ function exceuteQueryStringParams(){
       break
   }
 }
+
+/* When the user clicks on the button,
+toggle between hiding and showing the dropdown content */
+function myFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
+  if ($("#myDropdown").is(":visible")){
+    $(".dropdown-content > div").click(function () {
+      $(this).find(".sym-dropdown-sub-menu").toggle(200);
+    })
+  } else {
+    $(".dropdown-content > div").off("click");
+  }
+}
+
+// Close the dropdown menu if the user clicks outside of it
+/*
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+        $(".dropdown-content > div").off("click");
+      }
+    }
+  }
+}
+*/
+
 
 $(document).ready(function() {
   exceuteQueryStringParams()

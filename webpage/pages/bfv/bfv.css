@@ -48,10 +48,16 @@
 }
 
 .comp-pageTitle{
-    padding: 30px;
-    border-left: 5px solid #FF9000;
-    font-weight: unset;
-    margin-bottom: 60px;
+    padding: 14px;
+    text-align: center;
+    background: #ff9000;
+    color: #222;
+    font-size: 30px;
+    border-radius: 4px;
+    width: 900px;
+    margin: 50px auto;
+    text-shadow: 1px 1px #777;
+    border: 0px solid lightsalmon;
 }
 
 #selectors{

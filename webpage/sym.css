@@ -13,25 +13,24 @@
 /***************************/
 
 .sym-header {
-    width: 1000px;
+    width: 875px;
     margin: auto;
-    padding-top: 30px;
+    padding-top: 10px;
 }
 
 .sym-banner {
     display: inline-block;
-    width: 300px;
     cursor: pointer;
 }
 
 .sym-banner > img {
-    width: inherit;
+    width: 200px;
 }
 
 .sym-menu {
     display: inline-block;
-    padding: 48px 5px;
-    font-size: 14px;
+    padding: 32px 5px;
+    font-size: 18px;
     font-weight: bold;
     cursor: default;
 }
@@ -66,18 +65,58 @@
 }
 
 .sym-home-motto {
-    font-size: 60px;
+    width:750px;
+    font-size: 40px;
+    font-weight: bold;
+    text-align: center;
+    margin: auto !important;
+}
+
+.sym-home-motto > img{
+    width: inherit;
+    margin-top: 7px;
+}
+
+.sym-game{
+    height: 350px;
+    width: 380px;
+    display: inline-block;
+    vertical-align: top;
+    padding: 15px;
+    margin: 15px;
+    /*background: #444;*/
+    user-select: none;
+    border-radius: 10px;
+    /* border: 2px solid #aaa; */
+}
+
+.sym-game:hover{
+    box-shadow: 0px 0px 10px #eee
+}
+
+.sym-game-title {
+    text-align: center;
+}
+
+.sym-game-title img{
+    width: 250px;
+}
+
+.sym-game-datatype{
+    cursor: pointer;
+    padding: 5px 70px;
+    font-size: 20px;
     font-weight: bold;
 }
 
-a.sym-home-jumpin-btn {
-    border: 2px solid #B0B0B0;
-	display: inline-block;
-    background: #000000;
-    padding: 20px 30px;
-    cursor: pointer;
-    text-decoration: inherit;
-    color: inherit;
+.sym-game-datatype:hover{
+    text-decoration: underline;
+}
+
+.sym-game-datatype img{
+    width: 28px;
+    margin-right: 10px;
+    vertical-align: bottom;
 }
 
 .sym-separator {
@@ -139,7 +178,6 @@ a.sym-main-desc-learnMore-btn {
     margin: auto;
     font-weight: bold;
     text-align: center;
-    padding: 40px 0px 0px 0px;
 }
 
 .sym-main-content-version{
@@ -295,3 +333,77 @@ a.sym-main-desc-learnMore-btn {
 	border-top: 5px solid #999;
 	padding-top: 20px;
 }
+
+/**************************************/
+/*********** Dropdown menu ************/
+/**************************************/
+
+.dropbtn {
+    margin-left: 12px;
+    width: 24px;
+    vertical-align: text-top;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  /* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #222;
+    text-align: center;
+    min-width: 160px;
+    width: 250px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    right: 0;
+}
+  
+  /* Links inside the dropdown */
+.dropdown-content > div {
+    color: #f0f0f0;
+    padding: 12px 16px;
+    text-decoration: none;
+    border: 1px solid #333;
+}
+
+.dropdown-content img {
+    width: 125px;
+}
+
+.dropdown-content > div:hover {
+    background-color: #444;
+}
+
+.show {
+    display: block;
+}
+
+.sym-dropdown-sub-menu {
+    font-size: 16px;
+    width: 200px;
+    text-align: left;   
+}
+
+.sym-dropdown-sub-menu > a {
+    padding: 3px 1px;
+    cursor: pointer;
+    color: #f0f0f0;
+    text-decoration: unset;
+    line-height: 10px;
+}
+
+.sym-dropdown-sub-menu > a:hover {
+    text-decoration: underline;
+}
+
+.sym-dropdown-sub-menu img {
+    width: 16px;
+    margin-right: 12px;
+    vertical-align: middle;
+}
+
+

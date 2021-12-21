@@ -10,13 +10,8 @@ var otherTitlesPageToLoad = ""
 function openOtherTitlesSelectionPage () {
     loadPageWithHeader('./pages/otherTitles/otherTitles_header.html', 'Other Titles', initializeOtherTitlesSelection, "")
   }
-  
-  function openOtherTitlesSelectionPageFromQueryString (pageStr){
-    bf1PageToLoad = pageStr
-    loadPageWithHeader('./pages/otherTitles/otherTitles_header.html', 'Other Titles', initializeOtherTitlesSelection, "")
-  }
 
-  /*
+/*
   Add handlers for the click events for the bf1 selector page and open
   the entry page for BF1
 */
@@ -92,7 +87,7 @@ function otherTitlesOpenPageByName(pageName) {
     $('#bf3-comparisonPageSelector').addClass('selected-selector')
     openBF3ComparisonPage()
     updateQueryString("other", "bf3-comparison")
-  } else if (pageName === 'BF3 General Information') {
+  } else if (pageName === 'BF3 General Info') {
     $('#bf3-generalInfoPageSelector').addClass('selected-selector')
     openBF3GeneralInfoPage()
     updateQueryString("other", "bf3-general-info")
@@ -133,6 +128,6 @@ function openOtherTitlesSelectionPageFromQueryString (pageStr){
 }
 
 function OtherTitlesLoadPageFromQueryString(){
-  otherTitlesSetupPageHeader()
+  //otherTitlesSetupPageHeader()
   otherTitlesOpenPageByName(otherTitlesPageToLoad)
 }
