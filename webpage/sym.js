@@ -172,6 +172,10 @@ function roundToDecimal(num, decimalSpots){
    Load the stylesheets for each game dynamically because they share a lot of styles.
    Otherwise you would have to rename/de-conflict each entry in the css files and html.
 */
+function loadBF2042Stylesheet(){
+  $('#chartCSS').attr('href', './pages/bf2042/bf2042_chart.css')
+}
+
 function loadBFVStylesheet(){
   $('#chartCSS').attr('href', './pages/bfv/bfv_chart.css')
 }
@@ -216,6 +220,13 @@ function exceuteQueryStringParams(){
   console.log("game: " + game + ", page: " + page)
 
   switch(game){
+    case 'bf2042':
+      switch(page){
+        case 'comparison':
+          openOtherTitlesSelectionPageFromQueryString('BF2042 Comparison')
+          break
+      }
+      break
     case 'bfv':
       switch(page){
         case 'index':
