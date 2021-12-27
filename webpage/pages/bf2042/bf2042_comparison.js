@@ -474,7 +474,7 @@ function BF2042compPrintCustomizations (weaponName) {
       // TODO create this list of the name mappings
       //var humanName = BF2042_ATTACHMENT_NAME_MAPPING[allowedSlotAttachments[i][attachmentIndex]]
       var humanName = allowedAttachmentList[attachmentIndex]
-      if (allowedAttachmentList[attachmentIndex] === "none") {
+      if (allowedAttachmentList[attachmentIndex] === "None") {
         // make default
         custString += "<option selected value='" + allowedAttachmentList[attachmentIndex] + "'>" + allowedAttachmentList[attachmentIndex] + '</option>'
       } else {
