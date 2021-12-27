@@ -455,7 +455,7 @@ function BF2042compPrintCustomizations (weaponName) {
   var weapon = BF2042WeaponData[weaponIndex]
 
   // Check which attachments are allowed for this weapon
-  var allowedAttachments = [new Set(["none" ]), new Set(["none"]), new Set(["none"])]
+  var allowedAttachments = [new Set(["None" ]), new Set(["None"]), new Set(["None"])]
   var attachment_combos = weapon['Attachment-combinations']
   for (const [key, value] of Object.entries(attachment_combos)) {
     var attachment_parts = key.split('-')
