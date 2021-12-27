@@ -160,7 +160,11 @@ function BF2042InterpolateDamage (dist, damages, distances) {
       }
     }
     // Interpolate the two
-    var interpolated = prevDmg + ((dist - prevDist) / (nextDist - prevDist)) * (nextDmg - prevDmg)
+    // NOTE: BF2042 uses "step" interpolation for all non-portal weapons, so we hardcode it here.
+    //       However, data will tell the interpolation type so we can implement it later 
+    var interpolated = prevDmg
+    // Older linear interpolation
+    //var interpolated = prevDmg + ((dist - prevDist) / (nextDist - prevDist)) * (nextDmg - prevDmg)
     return interpolated
   }
 }
