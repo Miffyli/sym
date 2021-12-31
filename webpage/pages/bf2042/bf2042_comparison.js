@@ -39,7 +39,7 @@ function BF2042GetSelectedWeapons () {
       // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign#cloning_an_object
       var weaponStatsCopy = Object.assign({}, weaponStats);
       // Apply modifier stuff
-      for (var [key, value] of Object.entries(weaponStatsCopy["Attachment-combinations"][attachmentString])) {
+      for (var [key, value] of Object.entries(weaponStatsCopy["attachments"][attachmentString])) {
         weaponStatsCopy[key] = value
       }
       selectedWeapons.push(weaponStatsCopy)
@@ -456,7 +456,7 @@ function BF2042compPrintCustomizations (weaponName) {
 
   // Check which attachments are allowed for this weapon
   var allowedAttachments = [new Set(["None" ]), new Set(["None"]), new Set(["None"])]
-  var attachment_combos = weapon['Attachment-combinations']
+  var attachment_combos = weapon['attachments']
   for (const [key, value] of Object.entries(attachment_combos)) {
     var attachment_parts = key.split('-')
     allowedAttachments[0].add(attachment_parts[0])
