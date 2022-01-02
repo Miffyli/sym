@@ -54,7 +54,11 @@ const BF2042_LOWER_IS_WORSE = new Set([
   'FirstShotHIPSpreadMul',
   'FirstShotADSSpreadMul',
   'ShotsPerShell',
-  'Pellets'
+  'Pellets',
+  "MaxDamage",
+  "BurstRoF",
+  "MinDamage",
+  "InitialSpeedZ"
 ])
 
 // List of attachments allowed in the two separate losts
