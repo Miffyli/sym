@@ -60,7 +60,7 @@ const BF2042_LOWER_IS_WORSE = new Set([
   "MinDmg",
   "MinDmgStarts",
   "MaxDmgEnds",
-  "InitialSpeedZ","
+  "InitialSpeedZ",
 ])
 
 // List of attachments allowed in the two separate losts
