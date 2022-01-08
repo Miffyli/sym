@@ -93,7 +93,7 @@ function BF2042FilterTable (variableName, weaponValues, filters, includeOnlyDiff
 function BF2042ColorVariables (variableName, weaponValues) {
   var colorCodes
 
-  if ((weaponValues.length === 1 || weaponValues.some(weaponValue => isNaN(weaponValue))) && !BF2042_FORCE_COMPARISON_VALUES.has(variableName)) {
+  if (weaponValues.length === 1 || weaponValues.some(weaponValue => isNaN(weaponValue))) {
     // Only one item in the list or there are non-numeric values
     // -> Return neutral color
     colorCodes = weaponValues.map(weaponValue => BF2042_NEUTRAL_VALUE_COLOR)
