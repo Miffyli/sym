@@ -63,46 +63,12 @@ const BF2042_LOWER_IS_WORSE = new Set([
   "InitialSpeedZ",
 ])
 
-// List of attachments allowed in the two separate losts
-// (one attachment per slot)
-const BF2042_ALLOWED_ATTACHMENTS = [
-  [
-    'none',
-    'barrel_suppressor',
-    'barrel_heavy',
-    'barrel_flashhider',
-    'barrel_compensator',
-    'barrel_muzzlebrake'
-  ], [
-    'none',
-    'grip_firstshotrecoil',
-    'grip_movingdispersion',
-    'grip_sprintrecovery',
-    'bipod',
-    'bipod_lmg',
-    'bipod_sniper'
-  ], [
-    'none',
-    'accesory_targetpointer'
-  ]
-]
-
-// Map previous attachment names to something prettier
-// for human consumption
-var BF2042_ATTACHMENT_NAME_MAPPING = new Object();
-BF2042_ATTACHMENT_NAME_MAPPING.bipod = 'Bipod (Deployed)'
-BF2042_ATTACHMENT_NAME_MAPPING.bipod_lmg = 'Bipod LMG (Deployed)'
-BF2042_ATTACHMENT_NAME_MAPPING.bipod_sniper = 'Bipod Sniper (Deployed)'
-BF2042_ATTACHMENT_NAME_MAPPING.barrel_compensator = 'Compensator'
-BF2042_ATTACHMENT_NAME_MAPPING.barrel_heavy = 'Heavy barrel'
-BF2042_ATTACHMENT_NAME_MAPPING.barrel_flashhider = 'Flash hider'
-BF2042_ATTACHMENT_NAME_MAPPING.barrel_muzzlebrake = 'Muzzle brake'
-BF2042_ATTACHMENT_NAME_MAPPING.barrel_suppressor = 'Suppressor (Any)'
-BF2042_ATTACHMENT_NAME_MAPPING.grip_firstshotrecoil = 'Angled/Folding grip'
-BF2042_ATTACHMENT_NAME_MAPPING.grip_movingdispersion = 'Ergo/Vertical grip'
-BF2042_ATTACHMENT_NAME_MAPPING.grip_sprintrecovery = 'Potato/Stubby grip'
-BF2042_ATTACHMENT_NAME_MAPPING.accesory_targetpointer = 'Laser (Any, active)'
-BF2042_ATTACHMENT_NAME_MAPPING.none = 'None'
+const BF2042_FORCE_COMPARISON_VALUES = new Set([
+  'HIPVerticalRecoilSteps',
+  'ADSVerticalRecoilSteps',
+  'HIPHorizontalRecoilSteps',
+  'ADSHorizontalRecoilSteps'
+])
 
 // A flag to tell if we have loaded BF2042 data already
 var BF2042DataLoaded = false

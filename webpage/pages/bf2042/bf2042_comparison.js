@@ -66,7 +66,7 @@ function BF2042FilterTable (variableName, weaponValues, filters, includeOnlyDiff
 
   // Hardcoded: Only include numeric values in the table (including "N/A")
   // TODO this should be done before-hand
-  shouldInclude = weaponValues.every(weaponValue => (!isNaN(weaponValue) || weaponValue === 'N/A'))
+  shouldInclude = weaponValues.every(weaponValue => (!isNaN(weaponValue) || weaponValue === 'N/A' || BF2042_FORCE_COMPARISON_VALUES.has(variableName)))
 
   // If we have keywords, check if we match them
   if (filters.length > 0) {
@@ -90,10 +90,10 @@ function BF2042FilterTable (variableName, weaponValues, filters, includeOnlyDiff
   variableName: Name of the variable
   weaponValues: List of values for variableName from different weapons
 */
-function BF2042ColorVariables(variableName, weaponValues) {
+function BF2042ColorVariables (variableName, weaponValues) {
   var colorCodes
 
-  if (weaponValues.length == 1 || weaponValues.some(weaponValue => isNaN(weaponValue))) {
+  if ((weaponValues.length === 1 || weaponValues.some(weaponValue => isNaN(weaponValue))) && !BF2042_FORCE_COMPARISON_VALUES.has(variableName)) {
     // Only one item in the list or there are non-numeric values
     // -> Return neutral color
     colorCodes = weaponValues.map(weaponValue => BF2042_NEUTRAL_VALUE_COLOR)
