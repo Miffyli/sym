@@ -50,14 +50,11 @@
 .comp-pageTitle{
     padding: 14px;
     text-align: center;
-    background: #ff9000;
-    color: #222;
+    color: white;
     font-size: 30px;
-    border-radius: 4px;
     width: 900px;
     margin: 50px auto;
-    text-shadow: 1px 1px #777;
-    border: 0px solid lightsalmon;
+    border-bottom: 2px solid #ff9000;
 }
 
 #selectors{

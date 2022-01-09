@@ -222,6 +222,9 @@ function exceuteQueryStringParams(){
   switch(game){
     case 'bf2042':
       switch(page){
+        case 'charts':
+          openOtherTitlesSelectionPageFromQueryString('BF2042 Weapon Charts')
+          break
         case 'comparison':
           openOtherTitlesSelectionPageFromQueryString('BF2042 Comparison')
           break
