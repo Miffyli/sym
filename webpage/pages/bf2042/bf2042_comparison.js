@@ -39,7 +39,7 @@ function BF2042GetSelectedWeapons () {
       // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign#cloning_an_object
       var weaponStatsCopy = Object.assign({}, weaponStats);
       // Apply modifier stuff
-      for (var [key, value] of Object.entries(weaponStatsCopy["Attachment-combinations"][attachmentString])) {
+      for (var [key, value] of Object.entries(weaponStatsCopy["attachments"][attachmentString])) {
         weaponStatsCopy[key] = value
       }
       selectedWeapons.push(weaponStatsCopy)
@@ -66,7 +66,7 @@ function BF2042FilterTable (variableName, weaponValues, filters, includeOnlyDiff
 
   // Hardcoded: Only include numeric values in the table (including "N/A")
   // TODO this should be done before-hand
-  shouldInclude = weaponValues.every(weaponValue => (!isNaN(weaponValue) || weaponValue === 'N/A'))
+  shouldInclude = weaponValues.every(weaponValue => (!isNaN(weaponValue) || weaponValue === 'N/A' || BF2042_FORCE_COMPARISON_VALUES.has(variableName)))
 
   // If we have keywords, check if we match them
   if (filters.length > 0) {
@@ -90,10 +90,10 @@ function BF2042FilterTable (variableName, weaponValues, filters, includeOnlyDiff
   variableName: Name of the variable
   weaponValues: List of values for variableName from different weapons
 */
-function BF2042ColorVariables(variableName, weaponValues) {
+function BF2042ColorVariables (variableName, weaponValues) {
   var colorCodes
 
-  if (weaponValues.length == 1 || weaponValues.some(weaponValue => isNaN(weaponValue))) {
+  if (weaponValues.length === 1 || weaponValues.some(weaponValue => isNaN(weaponValue))) {
     // Only one item in the list or there are non-numeric values
     // -> Return neutral color
     colorCodes = weaponValues.map(weaponValue => BF2042_NEUTRAL_VALUE_COLOR)
@@ -455,8 +455,8 @@ function BF2042compPrintCustomizations (weaponName) {
   var weapon = BF2042WeaponData[weaponIndex]
 
   // Check which attachments are allowed for this weapon
-  var allowedAttachments = [new Set(["none" ]), new Set(["none"]), new Set(["none"])]
-  var attachment_combos = weapon['Attachment-combinations']
+  var allowedAttachments = [new Set(["None" ]), new Set(["None"]), new Set(["None"])]
+  var attachment_combos = weapon['attachments']
   for (const [key, value] of Object.entries(attachment_combos)) {
     var attachment_parts = key.split('-')
     allowedAttachments[0].add(attachment_parts[0])
@@ -474,7 +474,7 @@ function BF2042compPrintCustomizations (weaponName) {
       // TODO create this list of the name mappings
       //var humanName = BF2042_ATTACHMENT_NAME_MAPPING[allowedSlotAttachments[i][attachmentIndex]]
       var humanName = allowedAttachmentList[attachmentIndex]
-      if (allowedAttachmentList[attachmentIndex] === "none") {
+      if (allowedAttachmentList[attachmentIndex] === "None") {
         // make default
         custString += "<option selected value='" + allowedAttachmentList[attachmentIndex] + "'>" + allowedAttachmentList[attachmentIndex] + '</option>'
       } else {
