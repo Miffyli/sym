@@ -78,7 +78,7 @@
 }
 
 .sym-game{
-    height: 350px;
+    height: 380px;
     width: 380px;
     display: inline-block;
     vertical-align: top;
@@ -91,7 +91,7 @@
 }
 
 .sym-game:hover{
-    box-shadow: 0px 0px 10px #eee
+   /* box-shadow: 0px 0px 10px #eee */
 }
 
 .sym-game-title {
@@ -356,10 +356,11 @@ a.sym-main-desc-learnMore-btn {
     background-color: #222;
     text-align: center;
     min-width: 160px;
-    width: 250px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    width: 667px;
     z-index: 1;
     right: 0;
+    box-shadow: 0px 0px 6px #999;
+    top: 25px;
 }
   
   /* Links inside the dropdown */
@@ -374,17 +375,32 @@ a.sym-main-desc-learnMore-btn {
     width: 125px;
 }
 
-.dropdown-content > div:hover {
-    background-color: #444;
-}
-
 .show {
     display: block;
 }
 
+.sym-dropdown-games{
+    display: inline-block;
+}
+
+.sym-dropdown-games div{
+    display: inline-block;
+    vertical-align: top;
+}
+
+.sym-dropdown-games > div{
+    margin: 7px 7px;
+}
+
+
+.sym-dropdown-games h4{
+    text-align: left;
+    margin: 11px 0;
+}
+
 .sym-dropdown-sub-menu {
-    font-size: 16px;
-    width: 200px;
+    font-size: 14px;
+    width: 185px;
     text-align: left;   
 }
 
@@ -393,10 +409,11 @@ a.sym-main-desc-learnMore-btn {
     cursor: pointer;
     color: #f0f0f0;
     text-decoration: unset;
-    line-height: 10px;
+    line-height: 23px;
+    font-weight: lighter;
 }
 
-.sym-dropdown-sub-menu > a:hover {
+.sym-dropdown-sub-menu a:hover div{
     text-decoration: underline;
 }
 

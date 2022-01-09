@@ -260,7 +260,7 @@ function bf2042CreateRecoilGraphic(recoilLeft, recoilRight, recoilInitialUp, rec
         recoilHorLenth1Txt = recoilHorLenth1;
         if (recoilLeft > 1){
             recoilHorLenth1Txt = 39;
-            horTextY = "82";
+            horTextY = "84";
         } 
         var point5inc = (recoilInitialUp > .5) ? "<line x1='55' y1='75' x2='65' y2='75' style='stroke:white; stroke-width:1'/>" : "";
         var oneinc = (recoilInitialUp > 1.0) ? "<line x1='55' y1='60' x2='65' y2='60' style='stroke:white; stroke-width:1'/>" : "";

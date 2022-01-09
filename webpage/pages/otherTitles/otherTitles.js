@@ -117,6 +117,14 @@ function otherTitlesOpenPageByName(pageName) {
     $('#bfh-chartPageSelector').addClass('selected-selector')
     openBFHChartPage()
     updateQueryString("bfh", "charts")
+  } else if (pageName === 'BF2042 General Information') {
+    $('#bf2042-generalInfoPageSelector').addClass('selected-selector')
+    openBF2042GeneralInfoPage()
+    updateQueryString("bf2042", "general-info")
+  } else if (pageName === 'BF2042 Weapon Mechanics') {
+    $('#bf2042-weaponPageSelector').addClass('selected-selector')
+    openBF2042WeaponInfoPage()
+    updateQueryString("bf2042", "weapon-mechanics")
   } else if (pageName === 'BF2042 Comparison') {
     $('#bf2042-comparisonPageSelector').addClass('selected-selector')
     openBF2042ComparisonPage()

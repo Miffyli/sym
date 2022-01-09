@@ -222,6 +222,12 @@ function exceuteQueryStringParams(){
   switch(game){
     case 'bf2042':
       switch(page){
+        case 'general-info':
+          openOtherTitlesSelectionPageFromQueryString('BF2042 General Information')
+          break
+        case 'weapon-mechanics':
+          openOtherTitlesSelectionPageFromQueryString('BF2042 Weapon Mechanics')
+          break
         case 'charts':
           openOtherTitlesSelectionPageFromQueryString('BF2042 Weapon Charts')
           break
@@ -390,17 +396,9 @@ function exceuteQueryStringParams(){
 toggle between hiding and showing the dropdown content */
 function myFunction() {
   document.getElementById("myDropdown").classList.toggle("show");
-  if ($("#myDropdown").is(":visible")){
-    $(".dropdown-content > div").click(function () {
-      $(this).find(".sym-dropdown-sub-menu").toggle(200);
-    })
-  } else {
-    $(".dropdown-content > div").off("click");
-  }
 }
 
 // Close the dropdown menu if the user clicks outside of it
-/*
 window.onclick = function(event) {
   if (!event.target.matches('.dropbtn')) {
     var dropdowns = document.getElementsByClassName("dropdown-content");
@@ -414,8 +412,6 @@ window.onclick = function(event) {
     }
   }
 }
-*/
-
 
 $(document).ready(function() {
   exceuteQueryStringParams()

@@ -1,0 +1,151 @@
+<div class="bfv-content-comparison">
+    <h1 class="comp-pageTitle">Battlefield 2042 Weapon Mechanics</h1>
+    <div class="bfv-sym-info-page sym-static-content sym-about">
+
+		<div class="bfv-sym-info-section-header">
+			&nbsp; &nbsp; &nbsp; &nbsp; <img src="./pages/bfv/img/roster_icon_allies.svg"> &nbsp; &nbsp;
+			<span>Preface</span>
+		</div>
+			<p>This page contains information regarding the functioning of weapons in <i>Battlefield 4,</i> throughout which multiple abbreviations may be used for brevity. Their individual meanings are as follows:</p>
+			
+			<p>
+			<table class="bfv-genInfo-table">
+				<tr>
+					<td>ADS</td>
+					<td>Aim Down Sight</td>
+				</tr>
+				<tr>
+					<td>BTK</td>
+					<td>Bullets to Kill</td>
+				</tr>
+				<tr>
+					<td>EFTK</td>
+					<td>Estimated Frames to Kill</td>
+				</tr>
+				<tr>
+					<td>FSRM</td>
+					<td>First Shot Recoil Multiplier</td>
+				</tr>
+				<tr>
+					<td>FTK</td>
+					<td>Frames to Kill</td>
+				</tr>
+				<tr>
+					<td>hRec</td>
+					<td>Horizontal Recoil</td>
+				</tr>
+				<tr>
+					<td>SDEC</td>
+					<td>Spread Decrease</td>
+				</tr>
+				<tr>
+					<td>SIPS</td>
+					<td>Spread Increase per Shot</td>
+				</tr>
+				<tr>
+					<td>TTK</td>
+					<td>Time to Kill</td>
+				</tr>
+				<tr>
+					<td>vRec</td>
+					<td>Vertical Recoil</td>
+				</tr>
+			</table>
+			<table class="bfv-genInfo-table">
+				<tr>
+					<td>AR</td>
+					<td>Assault Rifle</td>
+				</tr>
+				<tr>
+					<td>BA</td>
+					<td>Bolt-Action Rifle</td>
+				</tr>
+				<tr>
+					<td>DMR</td>
+					<td>Designated Marksman Rifle</td>
+				</tr>
+				<tr>
+					<td>LMG</td>
+					<td>Light Machine Gun</td>
+				</tr>
+				<tr>
+					<td>PDW</td>
+					<td>Personal Defense Weapon</td>
+				</tr>
+			</table>
+		</p>
+	<div class="bfv-sym-info-section-header">
+			<img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_VRecoil.svg">
+			<span>Weapon Handling</span>
+			<p><i>Thanks to NoctyrneSAGA for writing this section.</i></p>
+		</div>
+		
+		<div class="bfv-sym-info-subheader">Spread Increase</div>
+			<ul>
+				<li>If spread > 0.0, shot will have random dispersion from the aimpoint. Spread = radius of the circle used for random selection.</li>
+				<li>Each shot adds spreadIncrease to spread.</li>
+				<li>Spread will start to decrease when the weapon is ready to fire the next shot at the rate of <b>spreadDecrease/second</b>.</li>
+				<li><a href="https://forum.sym.gg/t/moving-ads-spread-values-bf4/182">Check this topic for info on movement spread</a></li>
+			</ul>
+		
+		<div class="bfv-sym-info-subheader">Spread Decrease</div>
+			<p>Spread Decrease Per Second (SDEC) is applied whenever the weapon is in a ready to fire state. After firing a shot, a weapon has a set amount of time before it can be fired again. This time is dictated by the weapon’s Rate Of Fire. A simple example using <i>Battlefield 3's</i> M16A3 shows that its 800 RPM requires a 0.075 second gap between each shot. Therefore, 0.075s must pass from the previous shot fired and for no further fire inputs to be detected before SDEC activates. From there SDEC will reduce the weapon’s spread until it reaches the minimum spread value or until the weapon is fired again.</p>
+			<p>A more advanced breakdown can be performed by using frames. The 30Hz simulation rate of <i>Battlefield 3</i> means the M16A3’s 800 RPM will have 2.25 frames on average between each shot. This will mean the weapon’s frame distribution is 2-2-2-3. Therefore, SDEC will only activate on the third or fourth frame depending on when no further fire input is detected.</p>
+		
+		<div class="bfv-sym-info-subheader">Recoil</div>
+			<p>For every shot fired, the camera is rotated a certain amount in the following frame.</p>
+			<p>Vertical Recoil (vRec) rotates the camera around the x-axis in degrees. A positive value moves the camera upwards while a negative value would move the camera downwards.</p>
+			<p>The First Shot Recoil Multiplier (FSRM) is applied to the weapon’s vRec if the shot fired is determined to be from a new fire input. If the fire button continues to be held down afterward, only the standard vRec without FSRM will be applied. This will continue until the fire input is released or if the weapon reloads. Once either occurs, the next new fire input will apply FSRM again. Weapons set to burst mode will apply FSRM to the final shot in the burst instead of the first shot.</p>
+			<p>Horizontal Recoil (hRec) rotates the camera around the y-axis in degrees. It can be thought of as a number line with the two hRec values specifying the maximum bounds. Each time a shot is fired, the game will randomly pick a value between these two bounds with a uniform distribution to apply to the camera.</p>
+
+		<div class="bfv-sym-info-subheader">Suppression</div>
+		<p>Surrounding each soldier’s head is an invisible sphere. Projectiles passing through this sphere will deal Suppression to the soldier. The amount of Suppression imparted depends on how close to the head the projectile was and how far the soldier is from the shooter. Direct headshots yield the most Suppression.</p>
+		<p>When enough Suppression has been built up, the player will begin to experience Suppression penalties on their weapon. This threshold differs between games and is the “HighThreshold” in the game data. Once this threshold is cleared, the penalties will begin scaling up linearly until maximum Suppression is reached at which point the Suppression penalties are also at their maximum. Suppression penalties are applied before the effects of attachments take effect.</p>
+		<p>In Battlefield 4, the Suppression sphere radius is 1.5m and the HighThreshold is 0.1 or 10%. While the player’s Suppression is under 10%, they will not suffer from any Suppression penalties. Once they exceed 10%, the Suppression penalties begin to apply and scale up. At 55% Suppression, the player is experiencing half the amount of Suppression penalties specified in the game data. If the weapon has a +0.05 minSpread penalty in the data, then at this point the penalty is actually only +0.025. Only when Suppression has reached 100% will the full penalty of +0.05 be applied.</p>
+		<p>Suppression penalties in BF4 are generally:<p>
+			<table class="bfv-info-spec-table">
+			<tr>
+				<td>ARs, PDWs, LMGs, and Carbines</td>
+				<td>+0.5 degrees maxSpread<br>+100% SIPS<br>+100% SDEC<br>+33% vRec<br>+25% FSRM</td>
+			</tr>
+			<tr>
+				<td>Bolt-Action Rifles</td>
+				<td>+0.33 degrees minSpread</td>
+			</tr>
+			<tr>
+				<td>DMRs</td>
+				<td>+0.5 degrees maxSpread<br>+50% SIPS<br>+50% SDEC<br>+50% vRec</td>
+			</tr>
+			<tr>
+				<td>Shotguns</td>
+				<td>+0.5 degrees maxSpread<br>+0.115 degrees SIPS<br>+50% vRec</td>
+			</tr>
+			<tr>
+				<td>Sidearms</td>
+				<td>+0.5 degrees maxSpread<br>+50% SIPS<br>+50% SDEC<br>+50% vRec</td>
+			</tr>
+			</table>
+	<div class="bfv-sym-info-section-header">
+			&nbsp; &nbsp; &nbsp; <img src="./pages/bfv/img/CommoroseRootSocialHeader.svg"> &nbsp; &nbsp; &nbsp; 
+			<span>Additional Reading</span>
+	</div>
+			<p>For more information regarding the weapon mechanics of <i>Battlefield 4,</i> there are a variety of forum posts created by community members that may be insightful. Below is a listing of the more notable threads:</p>
+				<ul>
+					<li><a href="https://forum.sym.gg/t/algorithms-for-the-shooting-mechanics-in-bf4/81" target="_blank">Algorithms for the Shooting Mechanics in BF4</a> by 3VerstsNorth</li>
+					<li><a href="https://forum.sym.gg/t/analysis-of-bf4-gun-balance-and-niches/164" target="_blank">Analysis of BF4 Gun Balance and Niches</a> by 3VerstsNorth</li>
+					<li><a href="https://forum.sym.gg/t/bf4-shooting-mechanics/85" target="_blank">BF4 Shooting Mechanics [and Server Tick Simulation]</a> by 3VerstsNorth</li>
+					<li><a href="https://forum.sym.gg/t/bf4-ez-sniper-charts-v2-1/166" target="_blank">BF4 EZ Sniper Charts V2.1</a> by NoctyrneSAGA</li>
+					<li><a href="https://forum.sym.gg/t/brute-force-approach-to-bf4-gun-balance-optimal-attachments-burst-sizes-and-aim-targets-bf4/163" target="_blank">A brute-force approach to BF4 gun balance & optimal attachments, burst sizes, and aim targets</a> by 3VerstsNorth</li>
+					<li><a href="https://forum.sym.gg/t/an-integrated-index-of-lethality-for-full-auto-weapons-bf4/178" target="_blank">An integrated Index of Lethality for full auto weapons </a> by leptis</li>
+					<li><a href="https://forum.sym.gg/t/mouse-click-rates-for-optimal-rof-bf4/82" target="_blank">Mouse Click Rates for Optimal RoF</a> by 3VerstsNorth</li>
+					<li><a href="https://forum.sym.gg/t/moving-ads-spread-values-bf4/182" target="_blank">Moving ADS Spread Values</a> by WoopsyYaya</li>
+					<li><a href="https://forum.sym.gg/t/the-race-to-100-frames-to-kill-featuring-hitrater-and-3vns-shooting-mechanics-bf4/165" target="_blank">The Race to 100 - Frames-to-Kill Featuring Hitrater and 3VN’s Shooting Mechanics</a> by Veritable</li>
+					<li><a href="https://forum.sym.gg/t/recoil-control-a-pattern-of-control-1-bf4/87" target="_blank">Recoil Control: A pattern of control</a> by leptis</li>
+					<li><a href="https://forum.sym.gg/t/recoil-control-2-a-pattern-of-control-more-weapons-bf4/88" target="_blank">Recoil Control 2: A pattern of control, more weapons</a> by leptis</li>
+					<li><a href="https://forum.sym.gg/t/recoil-control-3-horizontal-recoil-bf4/89" target="_blank">Recoil Control 3: Horizontal Recoil</a> by leptis</li>
+					<li><a href="https://forum.sym.gg/t/recoil-control-4-conclusions-for-regular-players-bf4-bf1/180" target="_blank">Recoil Control 4: Conclusions for Regular Players</a> by leptis</li>
+					<li><a href="https://forum.sym.gg/t/shotgun-choke-cone-plots-bf4/173" target="_blank">Shotgun Choke Cone Plots</a> by Labby</li>
+					<li><a href="https://forum.sym.gg/t/tiered-reload-bf4/174" target="_blank">Tiered Reload</a> by NoctyrneSAGA</li>
+					<li><a href="https://forum.sym.gg/t/whether-hbar-whether-comp-a-hitrater-investigation-bf4/171" target="_blank">Whether HBar, Whether Comp? A Hitrater Investigation</a> by Veritable</li>
+				</ul>
+		</div>
