@@ -9,22 +9,23 @@ function BF2042initializeChartPage() {
     $("#actionMenu").menu({
         position: {my: "left bottom", at: "left top"}
     });
-
-    // Weapon select buttons
-    $("#showHideCheckboxes input").checkboxradio(
+    
+    $("#showHiResImg").checkboxradio(
         {icon:false}
     );
-    $("#showHideCheckboxes input").change(function(){
+    $("#showHiResImg").change(function(){
         this.blur();
-        bf2042ShowHideClasses();
-    });
-
-    $("#showHideSubCats input").checkboxradio(
-        {icon: false}
-    );
-    $("#showHideSubCats input").change(function(){
-        this.blur();
-        showHideSubCats();
+        if ($(this).is(":checked")){
+            $(".weaponImgContainer img").each(function( index ) {
+                var gunName = $(this).parent().siblings(".lblWeaponName").children(".lblWeaponNameValue").text();
+                $(this).attr("src", "./pages/bf2042/img/spoof/evelyn" + gunName + ".png")    
+            });
+        } else {
+            $(".weaponImgContainer img").each(function( index ) {
+                var gunName = $(this).parent().siblings(".lblWeaponName").children(".lblWeaponNameValue").text();
+                $(this).attr("src", "./pages/bf2042/img/" + gunName + ".png")    
+            });
+        }
     });
 
     $("#shortcutCombobox").combobox({
