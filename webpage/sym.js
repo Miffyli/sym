@@ -389,7 +389,10 @@ function exceuteQueryStringParams(){
           break
       }
       break
+    default:
+      $(".sym-main-content-home").show();
   }
+  $(".sym-footer").show();
 }
 
 /* When the user clicks on the button,
