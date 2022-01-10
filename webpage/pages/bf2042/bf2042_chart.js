@@ -18,12 +18,14 @@ function BF2042initializeChartPage() {
         if ($(this).is(":checked")){
             $(".weaponImgContainer img").each(function( index ) {
                 var gunName = $(this).parent().siblings(".lblWeaponName").children(".lblWeaponNameValue").text();
-                $(this).attr("src", "./pages/bf2042/img/spoof/evelyn" + gunName + ".png")    
+                $(this).attr("src", "./pages/bf2042/img/spoof/evelyn" + gunName + ".png"); 
+                $(this).parent().addClass("weaponImgBackground");
             });
         } else {
             $(".weaponImgContainer img").each(function( index ) {
                 var gunName = $(this).parent().siblings(".lblWeaponName").children(".lblWeaponNameValue").text();
-                $(this).attr("src", "./pages/bf2042/img/" + gunName + ".png")    
+                $(this).attr("src", "./pages/bf2042/img/" + gunName + ".png");
+                $(this).parent().removeClass("weaponImgBackground");
             });
         }
     });

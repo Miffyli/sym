@@ -272,6 +272,11 @@
     margin: 5px 0;
 }
 
+.weaponImgBackground{
+    background-image: url("./img/spoof/graphbackblue.png");
+    background-size: 220px;
+}
+
 .lblWeaponName {
     font-size: 15px;
     color: #A9D852;
