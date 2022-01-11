@@ -124,10 +124,10 @@ const BF2042_LOWER_IS_WORSE = new Set([
 ])
 
 const BF2042_FORCE_COMPARISON_VALUES = new Set([
-  'HIPVerticalRecoilSteps',
-  'ADSVerticalRecoilSteps',
-  'HIPHorizontalRecoilSteps',
-  'ADSHorizontalRecoilSteps'
+  'HIPVerticalRecoilMultipliers',
+  'ADSVerticalRecoilMultipliers',
+  'HIPHorizontalRecoilMultipliers',
+  'ADSHorizontalRecoilMultipliers'
 ])
 
 // A flag to tell if we have loaded BF2042 data already
