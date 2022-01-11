@@ -20,6 +20,7 @@ function BF2042initializeChartPage() {
                 var gunName = $(this).parent().siblings(".lblWeaponName").children(".lblWeaponNameValue").text();
                 $(this).attr("src", "./pages/bf2042/img/spoof/evelyn" + gunName + ".png"); 
                 $(this).parent().addClass("weaponImgBackground");
+                $(".art-credit").css("visibility","visible"); ;
             });
         } else {
             $(".weaponImgContainer img").each(function( index ) {

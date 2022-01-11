@@ -562,3 +562,10 @@ fiveMline {
     width: 300px;
 }
  /* End custom combobox */
+
+ .art-credit{
+    text-align: center;
+    font-style: italic;
+    color: #bbb;
+    font-size: 14px;
+ }
