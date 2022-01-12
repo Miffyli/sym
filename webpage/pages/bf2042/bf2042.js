@@ -245,18 +245,13 @@ function BF2042GetBTKUpperBoundOverDistance (weapon) {
 function BF2042GetTTKUpperBoundOverDistance (weapon) {
   var damages = weapon['Damages']
   var distances = weapon['Dmg_distances']
-  var bulletVelocity = weapon['InitialSpeed']
-  var bulletDrag = weapon['Drag']
   var numShots = weapon['ShotsPerShell']
   var msPerShot = 60000 / (weapon['RoF'])
   var TTKUBOverDistance = []
 
   // Loop over distance and store damages
   var damageAtDist = 0
-  var msToTarget = 0
   var bulletsToKill = 0
-  // Used to track how long bullet has been flying
-  var bulletFlightSeconds = 0.0
   for (var dist = BF2042_DAMAGE_RANGE_START; dist <= BF2042_DAMAGE_RANGE_END; dist += BF2042_DAMAGE_RANGE_STEP) {
     // Assumption: All shots hit from a weapon with multiple shots
     damageAtDist = BF2042InterpolateDamage(dist, damages, distances) * numShots
@@ -264,15 +259,9 @@ function BF2042GetTTKUpperBoundOverDistance (weapon) {
     // Small epsilon is added to fix situation with 100 damage (100 / 100 = 1)
     bulletsToKill = Math.floor(100 / (damageAtDist * BF2042_MIN_DAMAGE_MULTIPLIER + 0.00001))
 
-    msToTarget = bulletFlightSeconds * 1000
-    // Update bullet velocity and time we are flying
-    bulletFlightSeconds += BF2042_DAMAGE_RANGE_STEP / bulletVelocity
-    // Update according to drag
-    bulletVelocity -= (Math.pow(bulletVelocity, 2) * bulletDrag) * (BF2042_DAMAGE_RANGE_STEP / bulletVelocity)
-
     // The only time from bullet flight comes from the last bullet that lands on the enemy,
     // hence we only add msToTarget once
-    TTKUBOverDistance.push([dist, bulletsToKill * msPerShot + msToTarget])
+    TTKUBOverDistance.push([dist, bulletsToKill * msPerShot])
   }
   return TTKUBOverDistance
 }
