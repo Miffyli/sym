@@ -37,11 +37,14 @@ function BF2042GetSelectedWeapons () {
         )
       })
       // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign#cloning_an_object
-      var weaponStatsCopy = Object.assign({}, weaponStats);
+      var weaponStatsCopy = Object.assign({}, weaponStats)
       // Apply modifier stuff
       for (var [key, value] of Object.entries(weaponStatsCopy["attachments"][attachmentString])) {
         weaponStatsCopy[key] = value
       }
+      weaponStatsCopy["attachment-string"] = attachmentString
+      weaponStatsCopy["attachment-string-shorts"] = selectedAttachment1.slice(0, 5) + "<br>" + selectedAttachment2.slice(0, 5) + "<br>" + selectedAttachment3.slice(0, 5)
+
       selectedWeapons.push(weaponStatsCopy)
     }
   })
@@ -144,7 +147,7 @@ function BF2042UpdateTable (selectedWeapons, filters, includeOnlyDiffering) {
     var tableHtml = '<table><tr><th></th>'
     for (var i = 0; i < selectedWeapons.length; i++) {
       // Also add weapon name to table headers
-      tableHtml += '<th>' + selectedWeapons[i]['WeapShowName'] + '</th>'
+      tableHtml += `<th>${selectedWeapons[i]["WeapShowName"]}<br><span class="bf2042-comp-attachmentNames">${selectedWeapons[i]["attachment-string-shorts"]}</span></th>`
     }
     tableHtml += '</tr>'
 
@@ -161,7 +164,14 @@ function BF2042UpdateTable (selectedWeapons, filters, includeOnlyDiffering) {
         // Begin row and add variable name
         tableHtml += '<tr><td>' + variableKey + '</td>'
         for (var weaponIndex = 0; weaponIndex < weaponVariables.length; weaponIndex++) {
-          tableHtml += `<td style="color: ${variableColoring[weaponIndex]}"> ${weaponVariables[weaponIndex]} </td>`
+          if (Array.isArray(weaponVariables[weaponIndex])) {
+            // If the value is an array, replace commas with newlines
+            // and add a <br> tag at the end of each line
+            var value = weaponVariables[weaponIndex].join('<br>')
+            tableHtml += `<td style="color: ${variableColoring[weaponIndex]}"> ${value} </td>`
+          } else {
+            tableHtml += `<td style="color: ${variableColoring[weaponIndex]}"> ${weaponVariables[weaponIndex]} </td>`
+          }
         }
         tableHtml += '</tr>'
       }
@@ -182,7 +192,7 @@ function BF2042UpdateDamageGraph (selectedWeapons) {
   for (var i = 0; i < selectedWeapons.length; i++) {
     var weapon = selectedWeapons[i]
     serieses.push({
-      name: weapon['WeapShowName'],
+      name: weapon['WeapShowName'] + "<br>" + weapon['attachment-string-shorts'],
       data: BF2042GetDamageOverDistance(weapon)
     })
   }
@@ -231,11 +241,11 @@ function BF2042UpdateTTKAndBTKGraphs (selectedWeapons) {
   for (var i = 0; i < selectedWeapons.length; i++) {
     var weapon = selectedWeapons[i]
     btkSerieses.push({
-      name: weapon['WeapShowName'],
+      name: weapon['WeapShowName'] + "<br>" + weapon['attachment-string-shorts'],
       data: BF2042GetBTKUpperBoundOverDistance(weapon)
     })
     ttkSerieses.push({
-      name: weapon['WeapShowName'],
+      name: weapon['WeapShowName'] + "<br>" + weapon['attachment-string-shorts'],
       data: BF2042GetTTKUpperBoundOverDistance(weapon)
     })
   }

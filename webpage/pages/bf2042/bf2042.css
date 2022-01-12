@@ -53,6 +53,19 @@
     width: 100%;
 }
 
+.bf2042-comp-selectorContainer div:first-of-type {
+    text-align: center;
+    color: #AAA;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    width: 100%;
+}
+
+.bf2042-comp-attachmentNames {
+    font-size: 70%;
+}
+
 /* Do not color the first row */
 
 .bf2042-content-comparison-table tr:nth-child(odd):not(:first-child) {
