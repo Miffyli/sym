@@ -488,8 +488,8 @@ function bf2042CreateDamageChart100Max(damageArr, distanceArr, ammoType){
 
         // if damage is a step down make add a point directly below previous point
         if(i < damageArr.length - 1 && damageArr[i] != damageArr[i+1]){
-            damageCoord = 120 - damageArr[i+1];
-            distanceCoord = 2 * distanceArr[i];
+            damageCoord = 120 - damageArr[i];
+            distanceCoord = 2 * distanceArr[i+1];
             damageLineCoords += distanceCoord.toString() + "," + damageCoord.toString() + " ";
         }
     }
