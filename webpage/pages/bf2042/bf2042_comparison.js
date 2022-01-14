@@ -292,7 +292,7 @@ function BF2042UpdateTTKAndBTKGraphs (selectedWeapons) {
     },
 
     subtitle: {
-      text: 'Based on "RoF". Assumes all shots/pellets hit. Includes bullet velocity. Includes multipliers.'
+      text: 'Based on Rate of Fire and normal weapon damage against a player with standard health. Assumes all shots/pellets hit.'
     },
 
     yAxis: {
