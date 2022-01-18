@@ -31,7 +31,7 @@
 					<td>Frames to Kill</td>
 				</tr>
 				<tr>
-					<td>hRec</td>
+					<td>HRec</td>
 					<td>Horizontal Recoil</td>
 				</tr>
 				<tr>
@@ -47,7 +47,7 @@
 					<td>Time to Kill</td>
 				</tr>
 				<tr>
-					<td>vRec</td>
+					<td>VRec</td>
 					<td>Vertical Recoil</td>
 				</tr>
 			</table>
@@ -94,9 +94,9 @@
 		
 		<div class="bfv-sym-info-subheader">Recoil</div>
 			<p>For every shot fired, the camera is rotated a certain amount in the following frame.</p>
-			<p>Vertical Recoil (vRec) rotates the camera around the x-axis in degrees. A positive value moves the camera upwards while a negative value would move the camera downwards.</p>
-			<p>The First Shot Recoil Multiplier (FSRM) is applied to the weapon’s vRec if the shot fired is determined to be from a new fire input. If the fire button continues to be held down afterward, only the standard vRec without FSRM will be applied. This will continue until the fire input is released or if the weapon reloads. Once either occurs, the next new fire input will apply FSRM again. Weapons set to burst mode will apply FSRM to the final shot in the burst instead of the first shot.</p>
-			<p>Horizontal Recoil (hRec) rotates the camera around the y-axis in degrees. It can be thought of as a number line with the two hRec values specifying the maximum bounds. Each time a shot is fired, the game will randomly pick a value between these two bounds with a uniform distribution to apply to the camera.</p>
+			<p>Vertical Recoil (VRec) rotates the camera around the x-axis in degrees. A positive value moves the camera upwards while a negative value would move the camera downwards. As with <i>Battlefield 3,</i>, VRec values receive a random multiplier between 0.9 and 1.0 when recoil is generated, meaning the value stated for a given weapon may not always be exactly what is received by the player.</p>
+			<p>The First Shot Recoil Multiplier (FSRM) is applied to the weapon’s VRec if the shot fired is determined to be from a new fire input. If the fire button continues to be held down afterward, only the standard VRec without FSRM will be applied. This will continue until the fire input is released or if the weapon reloads. Once either occurs, the next new fire input will apply FSRM again. Weapons set to burst mode will apply FSRM to the final shot in the burst instead of the first shot.</p>
+			<p>Horizontal Recoil (HRec) rotates the camera around the y-axis in degrees. It can be thought of as a number line with the two HRec values specifying the maximum bounds. Each time a shot is fired, the game will randomly pick a value between these two bounds with a uniform distribution to apply to the camera.</p>
 
 		<div class="bfv-sym-info-subheader">Suppression</div>
 		<p>Surrounding each soldier’s head is an invisible sphere. Projectiles passing through this sphere will deal Suppression to the soldier. The amount of Suppression imparted depends on how close to the head the projectile was and how far the soldier is from the shooter. Direct headshots yield the most Suppression.</p>
@@ -106,7 +106,7 @@
 			<table class="bfv-info-spec-table">
 			<tr>
 				<td>ARs, PDWs, LMGs, and Carbines</td>
-				<td>+0.5 degrees maxSpread<br>+100% SIPS<br>+100% SDEC<br>+33% vRec<br>+25% FSRM</td>
+				<td>+0.5 degrees maxSpread<br>+100% SIPS<br>+100% SDEC<br>+33% VRec<br>+25% FSRM</td>
 			</tr>
 			<tr>
 				<td>Bolt-Action Rifles</td>
@@ -114,15 +114,15 @@
 			</tr>
 			<tr>
 				<td>DMRs</td>
-				<td>+0.5 degrees maxSpread<br>+50% SIPS<br>+50% SDEC<br>+50% vRec</td>
+				<td>+0.5 degrees maxSpread<br>+50% SIPS<br>+50% SDEC<br>+50% VRec</td>
 			</tr>
 			<tr>
 				<td>Shotguns</td>
-				<td>+0.5 degrees maxSpread<br>+0.115 degrees SIPS<br>+50% vRec</td>
+				<td>+0.5 degrees maxSpread<br>+0.115 degrees SIPS<br>+50% VRec</td>
 			</tr>
 			<tr>
 				<td>Sidearms</td>
-				<td>+0.5 degrees maxSpread<br>+50% SIPS<br>+50% SDEC<br>+50% vRec</td>
+				<td>+0.5 degrees maxSpread<br>+50% SIPS<br>+50% SDEC<br>+50% VRec</td>
 			</tr>
 			</table>
 	<div class="bfv-sym-info-section-header">
