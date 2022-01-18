@@ -7,8 +7,8 @@ const SYM_GITHUB_URL = 'https://github.com/miffyli/sym'
 // Number of news items available, stored under
 // misc/news_items/#.html . This value should be updated
 // when new entries for News are made
-const SYM_NUM_NEWS_ITEMS = 5
-const NUM_NEWS_ITEMS_SHOWN = 5
+const SYM_NUM_NEWS_ITEMS = 6
+const NUM_NEWS_ITEMS_SHOWN = 6
 
 /*
     This code runs after the page loads all resources.

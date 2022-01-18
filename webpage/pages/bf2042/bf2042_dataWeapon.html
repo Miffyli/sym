@@ -31,6 +31,10 @@
 					<td>First Shot Multiplier</td>
 				</tr>
 				<tr>
+					<td>FSSM</td>
+					<td>First Shot Spread Multiplier</td>
+				</tr>
+				<tr>
 					<td>HRec</td>
 					<td>Horizontal Recoil</td>
 				</tr>
@@ -119,16 +123,48 @@
 			<p>\[
 				\text{spread}_n \; = \; \text{spread}_{n-1} - \frac{1}{\text{simrate}} \cdot (\text{coef} \cdot (\text{spread}_{n-1} - \text{minspread})^\text{exp} + \text{offset})
 			\]</p>
-			<p><i>Note: "n" designates the current frame, of which current spread is calculated, simrate = Battlefield 2042's logic loop, most likely 45hz </i></p>
-			<p>This new system for spread decrease results in a spread curve that is vaguely logarithmic, with diminishing spread penalties for further sustained fire.  ADS (zoomed) spread uses uniform distribution over radius, which features an inner bias. Hipfire uses a uniform distribution over the area meaning that shots are distributed evenly throughout the area of the spread cone.</p>
+			<p><i>Note: "n" designates the current frame, of which current spread is calculated, simrate = Battlefield 2042's logic loop of 45hz</i></p>
+			<p>This new system for spread decrease results in a spread curve that is vaguely logarithmic, with diminishing spread penalties for further sustained fire. ADS (zoomed) spread uses uniform distribution over radius, which features an inner bias. Hipfire uses a uniform distribution over the area meaning that shots are distributed evenly throughout the area of the spread cone.</p>
 		
 		<div class="bfv-sym-info-subheader">Idle Spread Decrease</div>
-			<p>Idle spread decrease is linear (coefficient = 0.0, effectively rendering an exponent of 0.0, leading to no spread decrease acceleration) on all weapons but buckshot shotguns. This is a separate decrease rate that activates after a certain number of frames are surpassed following a shot being fired, and very rapidly decreases spread. Idle spread decrease is only in consideration for transitions in movement or firing state (ADS/zoomed to hipfire/unzoomed), or very slowly pacing/tapfiring shots.</p>
-			<p>The spread decrease offset effectively sets the number of degrees of spread decreased per frame. The idle time dictates the number of frames after a shot is figured that must be surpassed before the idle spread decrease rates are used. Idle spread decrease is effectively fast enough to bring spread down to the designated minimum angle in a single frame in the vast majority of cases.</p>
+			<p>In <i>Battlefield 2042,</i> idle spread decrease is non-linear due to spread decrease offset values of zero.	
+			The spread decrease offset effectively sets the number of degrees of spread decreased per frame, where the idle time dictates the number of frames after a shot is figured that must be surpassed before the idle spread decrease rates are used. 
+			Idle spread decrease is only in consideration for transitions in movement or firing state (ADS/zoomed to hipfire/unzoomed), or very slowly pacing/tapfiring shots.
+			</p>
+			<p> 
+			Compared to <i>Battlefield V,</i> spread decrease will not scale as aggressively thanks to having an exponent of 1 and an offset of 0. 
+			Instead, it is largely dependent on a given weapon's coefficient value.
+			</p>
 		<div class="bfv-sym-info-subheader">Vertical and Horizontal Recoil</div>
-			<p>As with all <i>Battlefield</i> games since <i>Battlefield 4</i>, vertical recoil is a fixed (non-randomized) value. While vertical recoil can accelerate, the increases and decreases are at discrete, known intervals. Horizontal recoil works as it always had in previous games, consisting of a number line (e.g. -0.3 to 0.3), where a randomly generated value is produced, with a uniform distribution.</p>
+			<p>As with all <i>Battlefield</i> games since <i>Battlefield 4</i>, vertical recoil is a fixed (non-randomized) value. 
+			While vertical recoil can accelerate, the increases and decreases are at discrete, known intervals. 
+			Horizontal recoil works as it always had in previous games, consisting of a number line (e.g. -0.3 to 0.3), where a randomly generated value is produced, with a uniform distribution.
+			</p>
 		<div class="bfv-sym-info-subheader">Initial Recoil Multipliers</div>	
-			<p><i>Battlefield 2042</i> has introduced an additional recoil system, to be called Initial Recoil Multipliers (IRM). IRM, when present, provides a set of numbers to be applied, in order, to an amount of rounds fired from a weapon equal to the amount of multipliers provided. IRM can be applied to both HRec and VRec separately. For example, if IRM gave the VRec multipliers of [1.8, 1.5, 1.3, 1.1, 1.0], and the HRec multipliers of [1.2, 1.2, 1.0, 1.1, 1.2], the first five bullets for this theoretical weapon would all have unique recoil compared to one another, and to the base stats of the weapon. Also note the fifth value of the IRM's HRec, 1.2. Because the IRM ends on a multiplier besides 1.0, this 1.2 modifier will persist on every subsequent shot after the fifth shot. It should lastly be stated that not all weapons have IRM. Those that do have IRM may differ in IRM severity and duration compared to other weapons, and may not have values for both VRec and HRec .
+			<p><i>Battlefield 2042</i> has introduced an additional recoil system, to be called Initial Recoil Multipliers (IRM). 
+			IRM, when present, provides a set of multipliers to be applied, in order, to an amount of rounds fired from a weapon equal to the amount of multipliers provided. 
+			IRM can be applied to both HRec and VRec separately. 
+			</p>
+			<hr style="width:50%;text-align:center">
+			<p><i>For example, say IRM provides a weapon, with recoil values of 0.5 up, 0.15 left, and 0.2 right, the multipliers of:</i></p>
+			<pre style="display:inline">VRec = [1.8, 1.5, 1.3, 1.1, 1.0]</pre>
+			<br>
+			<pre style="display:inline">HRec = [1.2, 1.2, 0.8, 0.8, 1.1]</pre>
+			<br>
+			<p><i>The resulting recoil for the first five shots of this weapon would be:</i></p>
+			<pre style="display:inline">Up:&nbsp; &nbsp; 0.90, 0.75, 0.65, 0.55, 0.5</pre>
+			<br>
+			<pre style="display:inline">Left:&nbsp; 0.18, 0.18, 0.12, 0.12, 0.165</pre>
+			<br>
+			<pre style="display:inline">Right: 0.24, 0.24, 0.16, 0.16, 0.22</pre>
+			<br>
+			<br>
+			<i>Not only is each of these five shots unique to one another, but all are different compared to the base values of the weapon.</i>
+			<hr style="width:50%;text-align:center">
+			<p>It should be stated that not all weapons have IRM. 
+			Those that do have IRM may differ in IRM severity and duration compared to other weapons. 
+			Even within the same weapon, IRM may not have the same amount of values (or values at all) for both VRec and HRec.
+			</p>
 		<div class="bfv-sym-info-subheader">Recoil Decrease</div>
 			<p>Recoil decrease works as it does since <i>Battlefield 1</i>, persisting even when the gun is not idle, and decelerates as time passes.</p> 
 	</div>
