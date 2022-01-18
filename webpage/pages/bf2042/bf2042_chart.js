@@ -127,7 +127,7 @@ function bf2042PrintWeapon(weaponStats){
                      "<td class='firstColumn'>" +
                          "<div class='lblWeaponName'>" +
                             "<span class='lblWeaponNameValue'>" + weaponStats.WeapShowName + "</span>" +
-                            bf2042CreateRPMGrpahic(weaponStats.RoF) +
+                            bf2042CreateRPMGrpahic(weaponStats.RoF, weaponStats.WeapShowName, weaponStats.BurstRoF) +
                          "</div>" +
                          "<div class='weaponImgContainer'>" +
                              "<img class='weaponImg' src='./pages/bf2042/img/" + bf2042GetWeaponImageFilename(weaponStats.WeapShowName.replace("/","")) + ".png' onerror='showBlank(this);'>" +
@@ -182,16 +182,17 @@ function bf2042GetWeaponImageFilename(weaponName){
     return weaponFilename.trim();
 }
 
-function bf2042CreateRPMGrpahic(RoF){
+function bf2042CreateRPMGrpahic(RoF, weaponName, burstRof){
     var rpmGrpahic = "";
-    if (RoF > 0){
+    if (weaponName != "AC-42"){
         rpmGrpahic = "<span class='lblRPM'>" +
                          "<span class='lblRPMValue' " + rpmTooltip + ">" + RoF + "</span>" +
                          "<span class='lblSuffixText'> rpm</span>" +
                      "</span>";
     } else {
-        rpmGrpahic = "<span class='lblRPMSingle'>" +
-                         "<span class='lblRPMValue' " + rpmTooltip + ">Single-Fire</span>" +
+        rpmGrpahic = "<span class='lblRPM'>" +
+                         "<span class='lblRPMValue' " + rpmTooltip + ">" + burstRof + "</span>" +
+                         "<span class='lblSuffixText'> rpm</span>" +
                      "</span>";        
     }
     return rpmGrpahic;
