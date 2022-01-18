@@ -339,6 +339,7 @@ a.sym-main-desc-learnMore-btn {
 /**************************************/
 
 .dropbtn {
+    cursor: pointer;
     margin-left: 12px;
     width: 24px;
     vertical-align: text-top;
