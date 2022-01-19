@@ -127,7 +127,7 @@ function bf2042PrintWeapon(weaponStats){
                      "<td class='firstColumn'>" +
                          "<div class='lblWeaponName'>" +
                             "<span class='lblWeaponNameValue'>" + weaponStats.WeapShowName + "</span>" +
-                            bf2042CreateRPMGrpahic(weaponStats.RoF, weaponStats.WeapShowName, weaponStats.BurstRoF) +
+                            bf2042CreateRPMGrpahic(weaponStats.RoF, weaponStats.WeapShowName, weaponStats.BurstRoF, weaponStats.SingleRoF) +
                          "</div>" +
                          "<div class='weaponImgContainer'>" +
                              "<img class='weaponImg' src='./pages/bf2042/img/" + bf2042GetWeaponImageFilename(weaponStats.WeapShowName.replace("/","")) + ".png' onerror='showBlank(this);'>" +
@@ -182,18 +182,24 @@ function bf2042GetWeaponImageFilename(weaponName){
     return weaponFilename.trim();
 }
 
-function bf2042CreateRPMGrpahic(RoF, weaponName, burstRof){
+function bf2042CreateRPMGrpahic(RoF, weaponName, burstRof, singleRoF){
     var rpmGrpahic = "";
-    if (weaponName != "AC-42"){
-        rpmGrpahic = "<span class='lblRPM'>" +
-                         "<span class='lblRPMValue' " + rpmTooltip + ">" + RoF + "</span>" +
-                         "<span class='lblSuffixText'> rpm</span>" +
-                     "</span>";
-    } else {
+    if (weaponName == "AC-42"){
         rpmGrpahic = "<span class='lblRPM'>" +
                          "<span class='lblRPMValue' " + rpmTooltip + ">" + burstRof + "</span>" +
                          "<span class='lblSuffixText'> rpm</span>" +
                      "</span>";        
+    } else if (weaponName == "MP28"){
+        rpmGrpahic = "<span class='lblRPM'>" +
+                         "<span class='lblRPMValue' " + rpmTooltip + ">" + singleRoF + "</span>" +
+                         "<span class='lblSuffixText'> rpm</span>" +
+                     "</span>";   
+        
+    } else {
+        rpmGrpahic = "<span class='lblRPM'>" +
+                         "<span class='lblRPMValue' " + rpmTooltip + ">" + RoF + "</span>" +
+                         "<span class='lblSuffixText'> rpm</span>" +
+                     "</span>";  
     }
     return rpmGrpahic;
 }
