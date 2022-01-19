@@ -25,6 +25,7 @@ const BF2042_LOWER_IS_WORSE = new Set([
   'SDmg',
   'EDmg',
   'RoF',
+  'SingleRoF',
   'BRoF',
   'MagSize',
   'InitialSpeed',
