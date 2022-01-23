@@ -107,8 +107,8 @@ function BF2042ColorVariables (variableName, weaponValues) {
     if (uniqueValues.length === 1) {
       colorCodes = weaponValues.map(weaponValue => BF2042_NEUTRAL_VALUE_COLOR)
     } else {
-      // Sort by value so that "lower is worse".
-      uniqueValues.sort((a, b) => a - b)
+      // Sort by value so that "lower (of abs) is worse".
+      uniqueValues.sort((a, b) => Math.abs(a) - Math.abs(b))
 
       // Values are now "higher is better".
       // If variable is not in BF2042_LOWER_IS_WORSE, then
