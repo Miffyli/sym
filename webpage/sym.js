@@ -196,6 +196,10 @@ function loadBF3Stylesheet(){
   $('#chartCSS').attr('href', './pages/bf3/bf3_chart.css')
 }
 
+function loadWarzoneWBStylesheet(){
+  $('#chartCSS').attr('href', './pages/warzone/warzone_wb.css')
+}
+
 function generatePath(gameValue, pageValue) {
   var params = {game: gameValue, 
     page: pageValue}
@@ -220,6 +224,13 @@ function exceuteQueryStringParams(){
   console.log("game: " + game + ", page: " + page)
 
   switch(game){
+    case 'warzone':
+      switch(page){
+        case 'weapon-builder':
+          openWarzoneWeaponBuilderPageFromQueryString()
+          break
+      }
+      break
     case 'bf2042':
       switch(page){
         case 'general-info':

@@ -7,6 +7,7 @@
     <link rel="icon shortcut" href="./android-chrome-512x512.png" type="image/png"/>
     <link rel="manifest" href="./site.webmanifest">
     <link rel="stylesheet" href="./sym.css" type="text/css">
+    <link rel="stylesheet" href="./pages/warzone/warzone.css" type="text/css">
     <link rel="stylesheet" href="./pages/bf2042/bf2042.css" type="text/css">
     <link rel="stylesheet" href="./pages/bfv/bfv.css" type="text/css">
     <link rel="stylesheet" href="./pages/bf1/bf1.css" type="text/css">
@@ -29,11 +30,15 @@
     </script>
 
     <!-- Custom Sym code/libraries -->
+    <!-- Warzone-->
+    <script type="text/javascript" src="./pages/warzone/warzone.js"></script>
+    <script type="text/javascript" src="./pages/warzone/warzone_wb.js"></script>
+    <script type="text/javascript" src="./pages/warzone/warzone_wb_stats.js"></script>
+    <script type="text/javascript" src="./pages/warzone/warzone_consts.js"></script>
     <!-- BF2042 -->
     <script type="text/javascript" src="./pages/bf2042/bf2042.js"></script>
     <script type="text/javascript" src="./pages/bf2042/bf2042_comparison.js"></script>
     <script type="text/javascript" src="./pages/bf2042/bf2042_chart.js"></script>
-    <script type="text/javascript" src="./pages/bf2042/bf2042_chart_comparison.js"></script>
     <!-- BFV -->
     <script type="text/javascript" src="./pages/bfv/bfv.js"></script>
     <script type="text/javascript" src="./pages/bfv/bfv_comparison.js"></script>
@@ -89,17 +94,12 @@
                                 <a href="index.html?game=bf2042&page=comparison"><div class=""><img src="./img/symComparisonIconAlt.png">Weapon Comparison</div></a>
                             </div>
                         </div>
-                        <!--
                         <div >
                             <h4>CoD: Warzone</h4>
                             <div class="sym-dropdown-sub-menu">
-                                <a href="index.html?game=wz&page=general-info"><div class=""><img src="./img/symInfoIcon-Lobster.png">General Information</div></a>
-                                <a href="index.html?game=wzpage=weapon-mechanics"><div class=""><img src="./img/SymWeaponMechanicsIconAlt.svg">Weapon Mechanics</div></a>
-                                <a href="index.html?game=wz&page=charts"><div class=""><img src="./img/symChartIconAlt.png">Weapon Charts</div></a>
-                                <a href="index.html?game=wz&page=comparison"><div class=""><img src="./img/symComparisonIconAlt.png">Weapon Comparison</div></a>
+                                <a href="index.html?game=warzone&page=weapon-builder"><div class=""><img src="./img/SymWeaponMechanicsIconAlt.svg">Weapon Builder</div></a>
                             </div>
                         </div>
-                        -->
                         <div >
                             <h4>Battlefield V</h4>
                             <div class="sym-dropdown-sub-menu">
@@ -143,6 +143,7 @@
                                 <a href="index.html?game=bf3&page=comparison"><div class=""><img src="./img/symComparisonIconAlt.png">Weapon Comparison</div></a>
                             </div>
                         </div>
+                        <div style="width:185px"></div>
                     </div>
                 </div>
               </div>
@@ -173,17 +174,12 @@
                     <div class="sym-game-datatype"><img src="./img/symChartIconAlt.png">Weapon Charts</div>
                     <div class="sym-game-datatype"><img src="./img/symComparisonIconAlt.png">Weapon Comparison</div>
                 </div>
-                <!--
                 <div id="wz"  class="sym-game">
                     <div class="sym-game-title">
                         <img src="img/CODWZ_logo.png" />
                     </div>
-                    <div class="sym-game-datatype"><img src="./img/symInfoIcon-Lobster.png">General Information</div>
-                    <div class="sym-game-datatype"><img src="./img/SymWeaponMechanicsIconAlt.svg">Weapon Mechanics</div>
-                    <div class="sym-game-datatype"><img src="./img/symChartIconAlt.png">Weapon Charts</div>
-                    <div class="sym-game-datatype"><img src="./img/symComparisonIconAlt.png">Weapon Comparison</div>
+                    <div class="sym-game-datatype"><img src="./img/SymWeaponMechanicsIconAlt.svg">Weapon Builder</div>
                 </div>
-                -->
                 <div id="bfv" class="sym-game">
                     <div class="sym-game-title">
                         <img src="img/BFV_logo.png" />
