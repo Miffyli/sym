@@ -58,6 +58,7 @@ const BF2042_LOWER_IS_WORSE = new Set([
   'Pellets',
   "MaxDmg",
   "BurstRoF",
+  "BurstsPerMinute",
   "MinDmg",
   "MinDmgStarts",
   "MaxDmgEnds",
