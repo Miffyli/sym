@@ -90,6 +90,9 @@ window.onload = function () {
         break
       case 'Equipment Data':
         updateQueryString(gameId, "equipment")
+        break
+      case 'Weapon Builder':
+        updateQueryString(gameId, "weapon-builder")
         break      
     }
     history.go(0)
@@ -219,190 +222,196 @@ function updateQueryString(gameValue, pageValue){
 
 function exceuteQueryStringParams(){
   const urlParams = new URLSearchParams(window.location.search)
-  const game = urlParams.get('game')
-  const page = urlParams.get('page')
-  console.log("game: " + game + ", page: " + page)
+ 
+  if(urlParams.has("wz-loadout")){
+    openWarzoneWeaponBuilderPageFromQueryString()
+  } else {
+    const game = urlParams.get('game')
+    const page = urlParams.get('page')
+    console.debug("game: " + game + ", page: " + page)
 
-  switch(game){
-    case 'warzone':
-      switch(page){
-        case 'weapon-builder':
-          openWarzoneWeaponBuilderPageFromQueryString()
-          break
-      }
-      break
-    case 'bf2042':
-      switch(page){
-        case 'general-info':
-          openOtherTitlesSelectionPageFromQueryString('BF2042 General Information')
-          break
-        case 'weapon-mechanics':
-          openOtherTitlesSelectionPageFromQueryString('BF2042 Weapon Mechanics')
-          break
-        case 'charts':
-          openOtherTitlesSelectionPageFromQueryString('BF2042 Weapon Charts')
-          break
-        case 'comparison':
-          openOtherTitlesSelectionPageFromQueryString('BF2042 Comparison')
-          break
-      }
-      break
-    case 'bfv':
-      switch(page){
-        case 'index':
-          openBFVSelectionPage()
-          break
-        case 'general-info':
-          openBFVSelectionPageFromQueryString('General Information')
-          break
-        case 'weapon-mechanics':
-          openBFVSelectionPageFromQueryString('Weapon Mechanics')
-          break
-        case 'charts':
-            openBFVSelectionPageFromQueryString('Weapon Charts')
-          break
-        case 'comparison':
-          openBFVSelectionPageFromQueryString('Weapon Comparison')
-          break
-        case 'equipment':
-          openBFVSelectionPageFromQueryString('Equipment Data')
-          break
-        case 'vehicles':
-          openBFVSelectionPageFromQueryString('Vehicle Data')
-          break
-      }
-      break
-    case 'bf1':
-      switch(page){
-        case 'index':
-          openBF1SelectionPage()
-          updateQueryString("bf1", "index")
-        break
-        case 'general-info':
-          openBF1SelectionPageFromQueryString('General Information')
-          break
-        case 'comparison':
-          openBF1SelectionPageFromQueryString('Weapon Comparison')
-          break
-        case 'charts':
-          openBF1SelectionPageFromQueryString('Weapon Charts')
-          break
-		    case 'weapon-mechanics':
-          openBF1SelectionPageFromQueryString('Weapon Mechanics')
-          break
-      }
-      break
-    case 'bfh':
-      switch(page){
-        case 'comparison':
-          openOtherTitlesSelectionPageFromQueryString('BFH Comparison')
-          break
-        case 'charts':
-          openOtherTitlesSelectionPageFromQueryString('BFH Weapon Charts')
-          break
-      }
-      break
-    case 'bf4':
-      switch(page){
-        case 'general-info':
-          openOtherTitlesSelectionPageFromQueryString('BF4 General Info')
-          break
-        case 'comparison':
-          openOtherTitlesSelectionPageFromQueryString('BF4 Comparison')
-          break
-        case 'charts':
-          openOtherTitlesSelectionPageFromQueryString('BF4 Weapon Charts')
-          break
-        case 'weapon-mechanics':
-          openOtherTitlesSelectionPageFromQueryString('BF4 Weapon Mechanics')
-          break
-      }
-      break
-    case 'bf3':
-      switch(page){
-        case 'general-info':
-          openOtherTitlesSelectionPageFromQueryString('BF3 General Info')
-          break
-        case 'comparison':
-          openOtherTitlesSelectionPageFromQueryString('BF3 Comparison')
-          break
-        case 'charts':
-          openOtherTitlesSelectionPageFromQueryString('BF3 Weapon Charts')
-          break
-        case 'weapon-mechanics':
-          openOtherTitlesSelectionPageFromQueryString('BF3 Weapon Mechanics')
-          break
-      }
-      break
-    case 'other':
-      switch(page){
-        case 'index':
-          openOtherTitlesSelectionPage()
-          updateQueryString("other", "index")
-        break
-        case 'bf3-charts':
-          openOtherTitlesSelectionPageFromQueryString('BF3 Weapon Charts')
-          break
-        case 'bf3-comparison':
-          openOtherTitlesSelectionPageFromQueryString('BF3 Comparison')
-          break
-        case 'bf3-general-info':
-          openOtherTitlesSelectionPageFromQueryString('BF3 General Info')
-          break
-		    case 'bf3-weapon-mechanics':
-          openOtherTitlesSelectionPageFromQueryString('BF3 Weapon Mechanics')
-          break
-		    case 'bf4-weapon-mechanics':
-          openOtherTitlesSelectionPageFromQueryString('BF4 Weapon Mechanics')
-          break
-        case 'bf4-general-info':
-          openOtherTitlesSelectionPageFromQueryString('BF4 General Info')
-          break
-        case 'bf4-comparison':
-          openOtherTitlesSelectionPageFromQueryString('BF4 Comparison')
-          break
-        case 'bf4-charts':
-          openOtherTitlesSelectionPageFromQueryString('BF4 Weapon Charts')
-          break
-        case 'bfh-comparison':
-          openOtherTitlesSelectionPageFromQueryString('BFH Comparison')
-          break
-        case 'bfh-charts':
-          openOtherTitlesSelectionPageFromQueryString('BFH Weapon Charts')
+    switch(game){
+      case 'warzone':
+        switch(page){
+          case 'weapon-builder':
+            openWarzoneWeaponBuilderPageFromQueryString()
             break
-      }
-      break
-    case 'sym':
-      switch(page){
-        case 'news':
-          loadPageWithHeader('./pages/misc/news.html', 'News', function() { loadNewestNewsItems(1, 3) })
-          updateQueryString("sym", "news")
+        }
+        break
+      case 'bf2042':
+        switch(page){
+          case 'general-info':
+            openOtherTitlesSelectionPageFromQueryString('BF2042 General Information')
+            break
+          case 'weapon-mechanics':
+            openOtherTitlesSelectionPageFromQueryString('BF2042 Weapon Mechanics')
+            break
+          case 'charts':
+            openOtherTitlesSelectionPageFromQueryString('BF2042 Weapon Charts')
+            break
+          case 'comparison':
+            openOtherTitlesSelectionPageFromQueryString('BF2042 Comparison')
+            break
+        }
+        break
+      case 'bfv':
+        switch(page){
+          case 'index':
+            openBFVSelectionPage()
+            break
+          case 'general-info':
+            openBFVSelectionPageFromQueryString('General Information')
+            break
+          case 'weapon-mechanics':
+            openBFVSelectionPageFromQueryString('Weapon Mechanics')
+            break
+          case 'charts':
+              openBFVSelectionPageFromQueryString('Weapon Charts')
+            break
+          case 'comparison':
+            openBFVSelectionPageFromQueryString('Weapon Comparison')
+            break
+          case 'equipment':
+            openBFVSelectionPageFromQueryString('Equipment Data')
+            break
+          case 'vehicles':
+            openBFVSelectionPageFromQueryString('Vehicle Data')
+            break
+        }
+        break
+      case 'bf1':
+        switch(page){
+          case 'index':
+            openBF1SelectionPage()
+            updateQueryString("bf1", "index")
           break
-        case 'about':
-          loadPageWithHeader('./pages/misc/about.html', 'About Sym')
-          updateQueryString("sym", "about")
+          case 'general-info':
+            openBF1SelectionPageFromQueryString('General Information')
+            break
+          case 'comparison':
+            openBF1SelectionPageFromQueryString('Weapon Comparison')
+            break
+          case 'charts':
+            openBF1SelectionPageFromQueryString('Weapon Charts')
+            break
+          case 'weapon-mechanics':
+            openBF1SelectionPageFromQueryString('Weapon Mechanics')
+            break
+        }
+        break
+      case 'bfh':
+        switch(page){
+          case 'comparison':
+            openOtherTitlesSelectionPageFromQueryString('BFH Comparison')
+            break
+          case 'charts':
+            openOtherTitlesSelectionPageFromQueryString('BFH Weapon Charts')
+            break
+        }
+        break
+      case 'bf4':
+        switch(page){
+          case 'general-info':
+            openOtherTitlesSelectionPageFromQueryString('BF4 General Info')
+            break
+          case 'comparison':
+            openOtherTitlesSelectionPageFromQueryString('BF4 Comparison')
+            break
+          case 'charts':
+            openOtherTitlesSelectionPageFromQueryString('BF4 Weapon Charts')
+            break
+          case 'weapon-mechanics':
+            openOtherTitlesSelectionPageFromQueryString('BF4 Weapon Mechanics')
+            break
+        }
+        break
+      case 'bf3':
+        switch(page){
+          case 'general-info':
+            openOtherTitlesSelectionPageFromQueryString('BF3 General Info')
+            break
+          case 'comparison':
+            openOtherTitlesSelectionPageFromQueryString('BF3 Comparison')
+            break
+          case 'charts':
+            openOtherTitlesSelectionPageFromQueryString('BF3 Weapon Charts')
+            break
+          case 'weapon-mechanics':
+            openOtherTitlesSelectionPageFromQueryString('BF3 Weapon Mechanics')
+            break
+        }
+        break
+      case 'other':
+        switch(page){
+          case 'index':
+            openOtherTitlesSelectionPage()
+            updateQueryString("other", "index")
           break
-        case 'faq':
-          loadPageWithHeader('./pages/misc/faq.html', 'Frequently Asked Questions')
-          updateQueryString("sym", "faq")
-          break
-        case 'contact-us':
-          loadPageWithHeader('./pages/misc/contact.html', 'Contact Us')
-          updateQueryString("sym", "contact-us")
-          break
-        case 'staff':
-          loadPageWithHeader('./pages/misc/staff.html', 'Site Staff')
-          updateQueryString("sym", "staff")
-          break
-        case 'partners':
-          loadPageWithHeader('./pages/misc/partners.html', 'Our Partners')
-          updateQueryString("sym", "partners")
-          break
-      }
-      break
-    default:
-      $(".sym-main-content-home").show();
+          case 'bf3-charts':
+            openOtherTitlesSelectionPageFromQueryString('BF3 Weapon Charts')
+            break
+          case 'bf3-comparison':
+            openOtherTitlesSelectionPageFromQueryString('BF3 Comparison')
+            break
+          case 'bf3-general-info':
+            openOtherTitlesSelectionPageFromQueryString('BF3 General Info')
+            break
+          case 'bf3-weapon-mechanics':
+            openOtherTitlesSelectionPageFromQueryString('BF3 Weapon Mechanics')
+            break
+          case 'bf4-weapon-mechanics':
+            openOtherTitlesSelectionPageFromQueryString('BF4 Weapon Mechanics')
+            break
+          case 'bf4-general-info':
+            openOtherTitlesSelectionPageFromQueryString('BF4 General Info')
+            break
+          case 'bf4-comparison':
+            openOtherTitlesSelectionPageFromQueryString('BF4 Comparison')
+            break
+          case 'bf4-charts':
+            openOtherTitlesSelectionPageFromQueryString('BF4 Weapon Charts')
+            break
+          case 'bfh-comparison':
+            openOtherTitlesSelectionPageFromQueryString('BFH Comparison')
+            break
+          case 'bfh-charts':
+            openOtherTitlesSelectionPageFromQueryString('BFH Weapon Charts')
+              break
+        }
+        break
+      case 'sym':
+        switch(page){
+          case 'news':
+            loadPageWithHeader('./pages/misc/news.html', 'News', function() { loadNewestNewsItems(1, 3) })
+            updateQueryString("sym", "news")
+            break
+          case 'about':
+            loadPageWithHeader('./pages/misc/about.html', 'About Sym')
+            updateQueryString("sym", "about")
+            break
+          case 'faq':
+            loadPageWithHeader('./pages/misc/faq.html', 'Frequently Asked Questions')
+            updateQueryString("sym", "faq")
+            break
+          case 'contact-us':
+            loadPageWithHeader('./pages/misc/contact.html', 'Contact Us')
+            updateQueryString("sym", "contact-us")
+            break
+          case 'staff':
+            loadPageWithHeader('./pages/misc/staff.html', 'Site Staff')
+            updateQueryString("sym", "staff")
+            break
+          case 'partners':
+            loadPageWithHeader('./pages/misc/partners.html', 'Our Partners')
+            updateQueryString("sym", "partners")
+            break
+        }
+        break
+      default:
+        $(".sym-main-content-home").show();
+    }
   }
+  
   $(".sym-footer").show();
 }
 
