@@ -91,8 +91,8 @@ window.onload = function () {
       case 'Equipment Data':
         updateQueryString(gameId, "equipment")
         break
-      case 'Weapon Builder':
-        updateQueryString(gameId, "weapon-builder")
+      case 'Gunsmith':
+        updateQueryString(gameId, "gunsmith")
         break      
     }
     history.go(0)
@@ -233,7 +233,7 @@ function exceuteQueryStringParams(){
     switch(game){
       case 'warzone':
         switch(page){
-          case 'weapon-builder':
+          case 'gunsmith':
             openWarzoneWeaponBuilderPageFromQueryString()
             break
         }
