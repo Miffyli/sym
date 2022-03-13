@@ -93,7 +93,10 @@ window.onload = function () {
         break
       case 'Gunsmith':
         updateQueryString(gameId, "gunsmith")
-        break      
+        break
+      case 'Gameplay Mechanics':
+        updateQueryString(gameId, "gameplay-mechanics")
+        break 
     }
     history.go(0)
   })
@@ -235,6 +238,9 @@ function exceuteQueryStringParams(){
         switch(page){
           case 'gunsmith':
             openWarzoneWeaponBuilderPageFromQueryString()
+            break
+          case 'gameplay-mechanics':
+            openWarzoneGameplaMechanicsPageFromQueryString()
             break
         }
         break
