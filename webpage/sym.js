@@ -96,7 +96,10 @@ window.onload = function () {
         break
       case 'Gameplay Mechanics':
         updateQueryString(gameId, "gameplay-mechanics")
-        break 
+        break
+      case 'Patch Notes - Sym Style':
+        updateQueryString(gameId, "patch-notes")
+        break
     }
     history.go(0)
   })
@@ -241,6 +244,9 @@ function exceuteQueryStringParams(){
             break
           case 'gameplay-mechanics':
             openWarzoneGameplaMechanicsPageFromQueryString()
+            break
+          case 'patch-notes':
+            openWarzonePatchNotesPageFromQueryString()
             break
         }
         break
