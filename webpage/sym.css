@@ -424,4 +424,13 @@ a.sym-main-desc-learnMore-btn {
     vertical-align: middle;
 }
 
-
+.sym-notice{
+    padding: 10px !important;
+    border: 10px solid #ff9000;
+    color: white;
+    font-weight: bold;
+    width: 796px;
+    margin: 0px auto 30px;
+    font-size: 24px;
+    text-align: center;
+}

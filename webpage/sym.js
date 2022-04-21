@@ -242,6 +242,9 @@ function exceuteQueryStringParams(){
           case 'gunsmith':
             openWarzoneWeaponBuilderPageFromQueryString()
             break
+          case 'spot-checker':
+            openWarzoneWeaponBuilderPageFromQueryString()
+            break
           case 'gameplay-mechanics':
             openWarzoneGameplaMechanicsPageFromQueryString()
             break
