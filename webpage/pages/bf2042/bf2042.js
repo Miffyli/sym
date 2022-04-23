@@ -13,7 +13,7 @@ const BF2042_VERSION_STRING = `Latest updates<br>Page: ${BF2042_PAGE_DATE}<br>Da
 // Constants for BF2042
 // Constants for plotting damage/ttk/etc
 const BF2042_DAMAGE_RANGE_START = 0
-const BF2042_DAMAGE_RANGE_END = 120
+const BF2042_DAMAGE_RANGE_END = 175
 const BF2042_DAMAGE_RANGE_STEP = 1
 
 // Minimum damage multiplier (9.1.2018)
