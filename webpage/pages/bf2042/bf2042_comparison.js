@@ -465,7 +465,7 @@ function BF2042compPrintCustomizations (weaponName) {
   var weapon = BF2042WeaponData[weaponIndex]
 
   // Check which attachments are allowed for this weapon
-  var allowedAttachments = [new Set(["None" ]), new Set(["None"]), new Set(["None"])]
+  var allowedAttachments = [new Set(["Default" ]), new Set(["Default"]), new Set(["Default"])]
   var attachment_combos = weapon['attachments']
   for (const [key, value] of Object.entries(attachment_combos)) {
     var attachment_parts = key.split('-')
@@ -484,7 +484,7 @@ function BF2042compPrintCustomizations (weaponName) {
       // TODO create this list of the name mappings
       //var humanName = BF2042_ATTACHMENT_NAME_MAPPING[allowedSlotAttachments[i][attachmentIndex]]
       var humanName = allowedAttachmentList[attachmentIndex]
-      if (allowedAttachmentList[attachmentIndex] === "None") {
+      if (allowedAttachmentList[attachmentIndex] === "Default") {
         // make default
         custString += "<option selected value='" + allowedAttachmentList[attachmentIndex] + "'>" + allowedAttachmentList[attachmentIndex] + '</option>'
       } else {
