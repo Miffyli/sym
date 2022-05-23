@@ -173,8 +173,17 @@ function roundToThree(num) {
   return +(Math.round(num + 'e+3')  + 'e-3')
 }
 
-function roundToDecimal(num, decimalSpots){
-  return +(Math.round(num + 'e+' + decimalSpots)  + 'e-' + decimalSpots)
+function roundToDecimal(num, decimalSpots) {
+  if (!("" + num).includes("e")) {
+    return +(Math.round(num + "e+" + decimalSpots) + "e-" + decimalSpots);
+  } else {
+    var arr = ("" + num).split("e");
+    var sig = ""
+    if (+arr[1] + decimalSpots > 0) {
+        sig = "+";
+  }
+    return +(Math.round(+arr[0] + "e" + sig + (+arr[1] + decimalSpots)) + "e-" + decimalSpots);
+  }
 }
 
 /*
