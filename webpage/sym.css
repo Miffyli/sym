@@ -426,8 +426,8 @@ a.sym-main-desc-learnMore-btn {
 
 .sym-notice{
     padding: 10px !important;
-    border: 10px solid #ff9000;
-    color: white;
+    border: #ff9000;
+    color: black;
     font-weight: bold;
     width: 796px;
     margin: 0px auto 30px;
