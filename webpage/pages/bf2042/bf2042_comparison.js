@@ -256,7 +256,7 @@ function BF2042UpdateTTKAndBTKGraphs (selectedWeapons) {
     },
 
     subtitle: {
-      text: 'Maximum number of bullets required for a kill. Includes multipliers.'
+      text: 'Maximum number of bullets required for a bodyshot kill versus a player with 100hp.'
     },
 
     yAxis: {
@@ -292,7 +292,7 @@ function BF2042UpdateTTKAndBTKGraphs (selectedWeapons) {
     },
 
     subtitle: {
-      text: 'Based on Rate of Fire and normal weapon damage against a player with standard health. Assumes all shots/pellets hit.'
+      text: 'Based on Rate of Fire and bodyshot damage versus a player with 100hp. Assumes all shots/pellets hit.'
     },
 
     yAxis: {
