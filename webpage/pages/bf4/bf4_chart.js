@@ -417,6 +417,13 @@ function bf4CreateDamageChart50Max(damageArr, distanceArr, numOfPellets, ammoTyp
         }
         minDamageText = "<text x='" + ((distanceArr[distanceArr.length - 1] * 2) - 15) + "' y='" + (134 - (2 * minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";
     }
+
+    var ULTSplash = "";
+    if(ammoType == "7.62x51mmIncendiary"){
+        ULTSplash = "<polyline class='chartSplashDamageLine' style='stroke: orange;' points='0,96 50,96 250,120'></polyline>" +
+                     fragLabels +
+                     "<text y='95' class='chartMinMaxSplashLabel' x='103'>10 (Splash Damage)</text>";
+    }
 	
 	if (maxDamage == minDamage){
         minDamageText = "<text x='2000' y='" + (114 - (minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";//This is a hackjob fix but it hides duplicate damage values
@@ -470,6 +477,7 @@ function bf4CreateDamageChart50Max(damageArr, distanceArr, numOfPellets, ammoTyp
                "<text x='251' y='119' class='chartLabel'>125m</text>" +
 
                fragSplash +
+               ULTSplash +
 			   "<polyline class='chartDamageLine' points='" + damageLineCoords + "'/>" +
                maxDamageText +
                minDamageText +
@@ -508,13 +516,15 @@ function bf4CreateDamageChart100Max(damageArr, distanceArr, ammoType){
 	if (maxDamage == minDamage){
         minDamageText = "<text x='2000' y='" + (114 - (minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";//This is a hackjob fix but it hides duplicate damage values
     }
-    
+  
     if (minDamage > 115){
         var oneHitKillText = "<text x='63' y='40' class='chartMinMaxLabel'>1 Hit Impact Kill at All Ranges</text>";
     }
 
     
     var fragSplash = "";
+    var ULTSplash = "";
+    var RailSplash = "";
     var noImpactDamageText = "";
     if (maxDamage == 0){
         maxDamageText = "";
@@ -535,6 +545,13 @@ function bf4CreateDamageChart100Max(damageArr, distanceArr, ammoType){
                      "<text y='63' class='chartMinMaxSplashLabel' x='115'>56 (Splash Damage)</text>";
     }
 	
+    var RailSplash = "";
+    if(ammoType == "Railgun_Projectile"){
+        RailSplash = "<polyline class='chartSplashDamageLine' style='stroke: orange;' points='0,70 50,70 150,120'></polyline>" +
+                     fragLabels +
+                     "<text y='66' class='chartMinMaxSplashLabel' x='60'>50 (Splash Damage)</text>";
+    }
+
 	var smokeRadius = "";
     if(ammoType == "40mm Smoke"){
         smokeRadius = "<polyline class='smokeRadiusLine' style='stroke: #C5CED2;' points='14,0 14,150'></polyline>" +
@@ -591,6 +608,8 @@ function bf4CreateDamageChart100Max(damageArr, distanceArr, ammoType){
                minDamageText +
                oneHitKillText +
                fragSplash +
+               ULTSplash +
+               RailSplash +
                smokeRadius +
 			   noImpactDamageText +
            "</svg>"
