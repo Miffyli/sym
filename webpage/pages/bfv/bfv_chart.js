@@ -5,9 +5,9 @@ var customizations = new Object();
 var addVariantCounter = 0;
 
 const firestormTooltip = "title = 'Included in Firestorm'";
-const rpmTooltip = "title = 'Rounds per Minute'";
+const rpmTooltip = "title = 'Rate of Fire'";
 const bulletSpeedTooltip = "title = 'Bullet Speed and Drag Coefficient'";
-const damageTooltip = "title = 'Damage'";
+const damageTooltip = "title = 'Damage over range'";
 const magTooltip = "title = 'Ammo Capacity'";
 const reloadTooltip = "title = 'Reload Time (Tactical/Empty)'";
 const recoilTooltip = "title = 'Recoil while Standing'";
