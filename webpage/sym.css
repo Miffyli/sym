@@ -2,6 +2,7 @@
     background: #191919;
     color: #F0F0F0;
     font-family: "Arial", sans-serif;
+    min-width: max-content;
 }
 
 .sym-body a {
