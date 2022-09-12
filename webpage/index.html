@@ -28,7 +28,7 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    
+
     <!-- Custom Sym code/libraries -->
     <!-- Warzone-->
     <script type="text/javascript" src="./pages/warzone/warzone_consts.js"></script>
@@ -86,69 +86,7 @@
             <div class="dropdown">
                 <img src="img/hamburger.png" onclick="myFunction()" class="dropbtn">
                 <div id="myDropdown" class="dropdown-content">
-                    <div class="sym-dropdown-games">   
-                        <div >
-                            <h4>Battlefield 2042</h4>
-                            <div class="sym-dropdown-sub-menu">
-                                <a href="index.html?game=bf2042&page=general-info"><div class=""><img src="./img/symInfoIcon-Lobster.png">General Information</div></a>
-                                <a href="index.html?game=bf2042&page=weapon-mechanics"><div class=""><img src="./img/SymWeaponMechanicsIconAlt.svg">Weapon Mechanics</div></a>
-                                <a href="index.html?game=bf2042&page=charts"><div class=""><img src="./img/symChartIconAlt.png">Weapon Charts</div></a>
-                                <a href="index.html?game=bf2042&page=comparison"><div class=""><img src="./img/symComparisonIconAlt.png">Weapon Comparison</div></a>
-                            </div>
-                        </div>
-                        <div >
-                            <h4>CoD: Warzone</h4>
-                            <div class="sym-dropdown-sub-menu">
-                                <a href="index.html?game=warzone&page=gunsmith"><div class=""><img src="./img/SymWeaponMechanicsIconAlt.svg">Gunsmith</div></a>
-                                <a href="index.html?game=warzone&page=gameplay-mechanics"><div class=""><img src="./img/symInfoIcon-Lobster.png">Gameplay Mechanics</div></a>
-                                <a href="index.html?game=warzone&page=patch-notes"><div class=""><img src="./img/symInfoIcon-Lobster.png">Patch Notes - Sym Style</div></a>
-                            </div>
-                        </div>
-                        <div >
-                            <h4>Battlefield V</h4>
-                            <div class="sym-dropdown-sub-menu">
-                                <a href="index.html?game=bfv&page=general-info"><div class=""><img src="./img/symInfoIcon-Lobster.png">General Information</div></a>
-                                <a href="index.html?game=bfv&page=weapon-mechanics"><div class=""><img src="./img/SymWeaponMechanicsIconAlt.svg">Weapon Mechanics</div></a>
-                                <a href="index.html?game=bfv&page=charts"><div class=""><img src="./img/symChartIconAlt.png">Weapon Charts</div></a>
-                                <a href="index.html?game=bfv&page=comparison"><div class=""><img src="./img/symComparisonIconAlt.png">Weapon Comparison</div></a>
-                            </div>
-                        </div>
-                        <div >
-                            <h4>Battlefield 1</h4>
-                            <div class="sym-dropdown-sub-menu">
-                                <a href="index.html?game=bf1&page=general-info"><div class=""><img src="./img/symInfoIcon-Lobster.png">General Information</div></a>
-                                <a href="index.html?game=bf1&page=weapon-mechanics"><div class=""><img src="./img/SymWeaponMechanicsIconAlt.svg">Weapon Mechanics</div></a>
-                                <a href="index.html?game=bf1&page=charts"><div class=""><img src="./img/symChartIconAlt.png">Weapon Charts</div></a>
-                                <a href="index.html?game=bf1&page=comparison"><div class=""><img src="./img/symComparisonIconAlt.png">Weapon Comparison</div></a>
-                            </div>
-                        </div>
-                        <div >
-                            <h4>Battlefield Hardline</h4>
-                            <div class="sym-dropdown-sub-menu">
-                                <a href="index.html?game=bfh&page=charts"><div class=""><img src="./img/symChartIconAlt.png">Weapon Charts</div></a>
-                                <a href="index.html?game=bfh&page=comparison"><div class=""><img src="./img/symComparisonIconAlt.png">Weapon Comparison</div></a>
-                            </div>
-                        </div>
-                        <div >
-                            <h4>Battlefield 4</h4>
-                            <div class="sym-dropdown-sub-menu">
-                                <a href="index.html?game=bf4&page=general-info"><div class=""><img src="./img/symInfoIcon-Lobster.png">General Information</div></a>
-                                <a href="index.html?game=bf4&page=weapon-mechanics"><div class=""><img src="./img/SymWeaponMechanicsIconAlt.svg">Weapon Mechanics</div></a>
-                                <a href="index.html?game=bf4&page=charts"><div class=""><img src="./img/symChartIconAlt.png">Weapon Charts</div></a>
-                                <a href="index.html?game=bf4&page=comparison"><div class=""><img src="./img/symComparisonIconAlt.png">Weapon Comparison</div></a>
-                            </div>
-                        </div>
-                        <div >
-                            <h4>Battlefield 3</h4>
-                            <div class="sym-dropdown-sub-menu">
-                                <a href="index.html?game=bf3&page=general-info"><div class=""><img src="./img/symInfoIcon-Lobster.png">General Information</div></a>
-                                <a href="index.html?game=bf3&page=weapon-mechanics"><div class=""><img src="./img/SymWeaponMechanicsIconAlt.svg">Weapon Mechanics</div></a>
-                                <a href="index.html?game=bf3&page=charts"><div class=""><img src="./img/symChartIconAlt.png">Weapon Charts</div></a>
-                                <a href="index.html?game=bf3&page=comparison"><div class=""><img src="./img/symComparisonIconAlt.png">Weapon Comparison</div></a>
-                            </div>
-                        </div>
-                        <div style="width:185px"></div>
-                    </div>
+                    <div class="sym-dropdown-games" id="sym-dropdown-games"></div>
                 </div>
               </div>
         </nav>
@@ -168,68 +106,7 @@
             <div class="sym-separator"></div>
             -->
             
-            <div class="sym-games">
-                <div id="bf2042"  class="sym-game">
-                    <div class="sym-game-title">
-                        <img src="img/BF2042_logo.png" />
-                    </div>
-                    <div class="sym-game-datatype"><img src="./img/symInfoIcon-Lobster.png">General Information</div>
-                    <div class="sym-game-datatype"><img src="./img/SymWeaponMechanicsIconAlt.svg">Weapon Mechanics</div>
-                    <div class="sym-game-datatype"><img src="./img/symChartIconAlt.png">Weapon Charts</div>
-                    <div class="sym-game-datatype"><img src="./img/symComparisonIconAlt.png">Weapon Comparison</div>
-                </div>
-                <div id="warzone"  class="sym-game">
-                    <div class="sym-game-title">
-                        <img src="img/CODWZ_logo.png" />
-                    </div>
-                    <div class="sym-game-datatype"><img src="./img/SymWeaponMechanicsIconAlt.svg">Gunsmith</div>
-                    <div class="sym-game-datatype"><img src="./img/symInfoIcon-Lobster.png">Gameplay Mechanics</div>
-                    <div class="sym-game-datatype"><img src="./img/symInfoIcon-Lobster.png">Patch Notes - Sym Style</div>
-                </div>
-                <div id="bfv" class="sym-game">
-                    <div class="sym-game-title">
-                        <img src="img/BFV_logo.png" />
-                    </div>
-                    <div class="sym-game-datatype"><img src="./img/symInfoIcon-Lobster.png">General Information</div>
-                    <div class="sym-game-datatype"><img src="./img/SymWeaponMechanicsIconAlt.svg">Weapon Mechanics</div>
-                    <div class="sym-game-datatype"><img src="./img/symChartIconAlt.png">Weapon Charts</div>
-                    <div class="sym-game-datatype"><img src="./img/symComparisonIconAlt.png">Weapon Comparison</div>
-                </div>
-                <div id="bf1" class="sym-game">
-                    <div class="sym-game-title">
-                        <img src="img/BF1_logo.png" />
-                    </div>
-                    <div class="sym-game-datatype"><img src="./img/symInfoIcon-Lobster.png">General Information</div>
-                    <div class="sym-game-datatype"><img src="./img/SymWeaponMechanicsIconAlt.svg">Weapon Mechanics</div>
-                    <div class="sym-game-datatype"><img src="./img/symChartIconAlt.png">Weapon Charts</div>
-                    <div class="sym-game-datatype"><img src="./img/symComparisonIconAlt.png">Weapon Comparison</div>
-                </div>
-                <div id="bfh" class="sym-game">
-                    <div class="sym-game-title">
-                        <img src="img/BFH_logo.png" />
-                    </div>
-                    <div class="sym-game-datatype"><img src="./img/symChartIconAlt.png">Weapon Charts</div>
-                    <div class="sym-game-datatype"><img src="./img/symComparisonIconAlt.png">Weapon Comparison</div>
-                </div>
-                <div id="bf4" class="sym-game">
-                    <div class="sym-game-title">
-                        <img src="img/BF4_logo.png" />
-                    </div>
-                    <div class="sym-game-datatype"><img src="./img/symInfoIcon-Lobster.png">General Information</div>
-                    <div class="sym-game-datatype"><img src="./img/SymWeaponMechanicsIconAlt.svg">Weapon Mechanics</div>
-                    <div class="sym-game-datatype"><img src="./img/symChartIconAlt.png">Weapon Charts</div>
-                    <div class="sym-game-datatype"><img src="./img/symComparisonIconAlt.png">Weapon Comparison</div>
-                </div>
-                <div id="bf3" class="sym-game">
-                    <div class="sym-game-title">
-                        <img src="img/BF3_logo.png" />
-                    </div>
-                    <div class="sym-game-datatype"><img src="./img/symInfoIcon-Lobster.png">General Information</div>
-                    <div class="sym-game-datatype"><img src="./img/SymWeaponMechanicsIconAlt.svg">Weapon Mechanics</div>
-                    <div class="sym-game-datatype"><img src="./img/symChartIconAlt.png">Weapon Charts</div>
-                    <div class="sym-game-datatype"><img src="./img/symComparisonIconAlt.png">Weapon Comparison</div>
-                </div>
-            </div>
+            <div class="sym-games" id="sym-games"></div>
             
             <div class="sym-separator"></div>
 

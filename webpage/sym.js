@@ -10,6 +10,88 @@ const SYM_GITHUB_URL = 'https://github.com/miffyli/sym'
 const SYM_NUM_NEWS_ITEMS = 7
 const NUM_NEWS_ITEMS_SHOWN = 7
 
+const GAMES = {
+  'bf2042': {
+    label: 'Battlefield 2042',
+    shortLabel: 'BF2042',
+    logo: 'img/BF2042_logo.png',
+    pages: ['general-info', 'weapon-mechanics', 'charts', 'comparison']
+  },
+  'warzone': {
+    label: 'CoD: Warzone',
+    shortLabel: 'Warzone',
+    logo: 'img/CODWZ_logo.png',
+    pages: ['gunsmith', 'gameplay-mechanics', 'patch-notes']
+  },
+  'bfv': {
+    label: 'Battlefield V',
+    shortLabel: 'BFV',
+    logo: 'img/BFV_logo.png',
+    pages: ['general-info', 'weapon-mechanics', 'charts', 'comparison']
+  },
+  'bf1': {
+    label: 'Battlefield 1',
+    shortLabel: 'BF1',
+    logo: 'img/BF1_logo.png',
+    pages: ['general-info', 'weapon-mechanics', 'charts', 'comparison']
+  },
+  'bfh': {
+    label: 'Battlefield Hardline',
+    shortLabel: 'BFH',
+    logo: 'img/BFH_logo.png',
+    pages: ['charts', 'comparison']
+  },
+  'bf4': {
+    label: 'Battlefield 4',
+    shortLabel: 'BF4',
+    logo: 'img/BF4_logo.png',
+    pages: ['general-info', 'weapon-mechanics', 'charts', 'comparison']
+  },
+  'bf3': {
+    label: 'Battlefield 3',
+    shortLabel: 'BF3',
+    logo: 'img/BF3_logo.png',
+    pages: ['general-info', 'weapon-mechanics', 'charts', 'comparison']
+  }
+};
+
+const PAGE_TYPES = {
+  'general-info': {
+    label: 'General Information',
+    img: './img/symInfoIcon-Lobster.png'
+  },
+  'weapon-mechanics': {
+    label: 'Weapon Mechanics',
+    img: './img/SymWeaponMechanicsIconAlt.svg'
+  },
+  'charts': {
+    label: 'Weapon Charts',
+    img: './img/symChartIconAlt.png'
+  },
+  'comparison': {
+    label: 'Weapon Comparison',
+    img: './img/symComparisonIconAlt.png'
+  },
+  'equipment': {
+    label: 'Equipment Data',
+    img: ''
+  },
+  'gunsmith': {
+    label: 'Gunsmith',
+    img: './img/SymWeaponMechanicsIconAlt.svg'
+  },
+  'gameplay-mechanics': {
+    label: 'Gameplay Mechanics',
+    img: './img/symInfoIcon-Lobster.png'
+  },
+  'patch-notes': {
+    label: 'Patch Notes - Sym Style',
+    img: './img/symInfoIcon-Lobster.png'
+  }
+};
+
+
+
 /*
     This code runs after the page loads all resources.
     Used to set up events and widgets and any other code that needs
@@ -70,41 +152,64 @@ window.onload = function () {
   $.each([bannerRoute, jumpInRoute, learnMoreRoute], (idx, selector) => {
     linkAnchor($(selector), selector)
   })
-  
-  $('.sym-game-datatype').click(function () {
-    var clicked = $(this).text();
-    var gameId = $(this).parent().attr('id')
-  
-    switch(clicked){
-      case 'General Information':
-        updateQueryString(gameId, "general-info")
-        break
-      case 'Weapon Mechanics':
-        updateQueryString(gameId, "weapon-mechanics")
-        break
-      case 'Weapon Charts':
-        updateQueryString(gameId, "charts")
-        break
-      case 'Weapon Comparison':
-        updateQueryString(gameId, "comparison")
-        break
-      case 'Equipment Data':
-        updateQueryString(gameId, "equipment")
-        break
-      case 'Gunsmith':
-        updateQueryString(gameId, "gunsmith")
-        break
-      case 'Gameplay Mechanics':
-        updateQueryString(gameId, "gameplay-mechanics")
-        break
-      case 'Patch Notes - Sym Style':
-        updateQueryString(gameId, "patch-notes")
-        break
-    }
-  })
+
+  setupDropdownLinks();
+  setupGameLinks();
 }
 
 
+
+const gamePageRef = (gameId, pageName) => `index.html?game=${gameId}&page=${pageName}`;
+
+const append = (parent, type) => {
+  return parent.appendChild(document.createElement(type));
+}
+
+const setupDropdownLinks = () => {
+  const rootNode = document.getElementById('sym-dropdown-games');
+  if (rootNode === null) return;
+  for (const [gameId, game] of Object.entries(GAMES)) {
+    const gameDiv = append(rootNode, 'div');
+    const gameTitle = append(gameDiv, 'h4');
+    gameTitle.textContent = game.label;
+    const linkHolder = append(gameDiv, 'div');
+    linkHolder.className = 'sym-dropdown-sub-menu';
+    for (const page of game.pages) {
+      const pageData = PAGE_TYPES[page];
+      const linkNode = append(linkHolder, 'a');
+      linkNode.href = gamePageRef(gameId, page);
+      const labelNode = append(linkNode, 'div');
+      const img = append(labelNode, 'img');
+      img.src = pageData.img;
+      labelNode.append(pageData.label);
+    }
+  }
+  let widthDiv = append(rootNode, 'div');
+  widthDiv.style.width = '185px';
+};
+
+const setupGameLinks = () => {
+  const rootNode = document.getElementById('sym-games');
+  if (rootNode === null) return;
+  for (const [gameId, game] of Object.entries(GAMES)) {
+    const gameNode = append(rootNode, 'div');
+    gameNode.id = gameId;
+    gameNode.className = 'sym-game';
+    const titleNode = append(gameNode, 'div');
+    titleNode.className = 'sym-game-title';
+    const titleImgNode = append(titleNode, 'img');
+    titleImgNode.src = game.logo;
+    for (let page of game.pages) {
+      const pageData = PAGE_TYPES[page];
+      const linkNode = append(gameNode, 'a');
+      linkNode.className = 'sym-game-datatype';
+      linkNode.href = gamePageRef(gameId, page);
+      const linkImgNode = append(linkNode, 'img');
+      linkImgNode.src = pageData.img;
+      linkNode.append(pageData.label);
+    }
+  }
+};
 
 /*
   Load given page file with header, and finish
@@ -218,10 +323,11 @@ function loadWarzoneWBStylesheet(){
 }
 
 function generatePath(gameValue, pageValue) {
-  return $.param({
+  const params = $.param({
     game: gameValue,
     page: pageValue
   });
+  return `?${params}`;
 }
 
 /*
@@ -229,7 +335,7 @@ function generatePath(gameValue, pageValue) {
   2 or more word values use '-' as in 'weapon-mechanics
 */
 function updateQueryString(gameValue, pageValue){
-  const params = `?${generatePath(gameValue, pageValue)}`;
+  const params = generatePath(gameValue, pageValue);
   if (window.location.search === params) {
     // already have the right parameters, don't need to push a new state
   } else {
@@ -266,21 +372,17 @@ function exceuteQueryStringParams(){
             break
         }
         break
+      case 'bfh':
+      case 'bf3':
+      case 'bf4':
       case 'bf2042':
-        switch(page){
-          case 'general-info':
-            openOtherTitlesSelectionPageFromQueryString('BF2042 General Information')
-            break
-          case 'weapon-mechanics':
-            openOtherTitlesSelectionPageFromQueryString('BF2042 Weapon Mechanics')
-            break
-          case 'charts':
-            openOtherTitlesSelectionPageFromQueryString('BF2042 Weapon Charts')
-            break
-          case 'comparison':
-            openOtherTitlesSelectionPageFromQueryString('BF2042 Comparison')
-            break
+        const gameData = GAMES[game];
+        const pageData = PAGE_TYPES[page];
+        let pageLabel = pageData.label;
+        if (pageLabel === 'Weapon Comparison') {
+          pageLabel = 'Comparison';
         }
+        openOtherTitlesSelectionPageFromQueryString(`${gameData.shortLabel} ${pageLabel}`)
         break
       case 'bfv':
         switch(page){
@@ -324,48 +426,6 @@ function exceuteQueryStringParams(){
             break
           case 'weapon-mechanics':
             openBF1SelectionPageFromQueryString('Weapon Mechanics')
-            break
-        }
-        break
-      case 'bfh':
-        switch(page){
-          case 'comparison':
-            openOtherTitlesSelectionPageFromQueryString('BFH Comparison')
-            break
-          case 'charts':
-            openOtherTitlesSelectionPageFromQueryString('BFH Weapon Charts')
-            break
-        }
-        break
-      case 'bf4':
-        switch(page){
-          case 'general-info':
-            openOtherTitlesSelectionPageFromQueryString('BF4 General Info')
-            break
-          case 'comparison':
-            openOtherTitlesSelectionPageFromQueryString('BF4 Comparison')
-            break
-          case 'charts':
-            openOtherTitlesSelectionPageFromQueryString('BF4 Weapon Charts')
-            break
-          case 'weapon-mechanics':
-            openOtherTitlesSelectionPageFromQueryString('BF4 Weapon Mechanics')
-            break
-        }
-        break
-      case 'bf3':
-        switch(page){
-          case 'general-info':
-            openOtherTitlesSelectionPageFromQueryString('BF3 General Info')
-            break
-          case 'comparison':
-            openOtherTitlesSelectionPageFromQueryString('BF3 Comparison')
-            break
-          case 'charts':
-            openOtherTitlesSelectionPageFromQueryString('BF3 Weapon Charts')
-            break
-          case 'weapon-mechanics':
-            openOtherTitlesSelectionPageFromQueryString('BF3 Weapon Mechanics')
             break
         }
         break
@@ -433,6 +493,9 @@ function exceuteQueryStringParams(){
             loadPageWithHeader('./pages/misc/partners.html', 'Our Partners')
             updateQueryString("sym", "partners")
             break
+          case 'home':
+            $(".sym-main-content-home").show();
+            break;
         }
         break
       default:
