@@ -101,7 +101,6 @@ window.onload = function () {
         updateQueryString(gameId, "patch-notes")
         break
     }
-    history.go(0)
   })
 }
 
@@ -219,10 +218,10 @@ function loadWarzoneWBStylesheet(){
 }
 
 function generatePath(gameValue, pageValue) {
-  var params = {game: gameValue, 
-    page: pageValue}
-  var queryString = $.param(params)
-  return window.location.pathname + '?' + queryString;
+  return $.param({
+    game: gameValue,
+    page: pageValue
+  });
 }
 
 /*
@@ -230,8 +229,13 @@ function generatePath(gameValue, pageValue) {
   2 or more word values use '-' as in 'weapon-mechanics
 */
 function updateQueryString(gameValue, pageValue){
-  var newURL = window.location.protocol + "//" + window.location.host + generatePath(gameValue, pageValue)
-  window.history.pushState({path:newURL},'',newURL)
+  const params = `?${generatePath(gameValue, pageValue)}`;
+  if (window.location.search === params) {
+    // already have the right parameters, don't need to push a new state
+  } else {
+    // set new parameters and force a refresh
+    window.location.search = params;
+  }
 }
 
 
