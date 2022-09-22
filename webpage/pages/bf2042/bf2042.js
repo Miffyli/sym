@@ -4,8 +4,8 @@ const BF2042_DATA = './pages/bf2042/data/bf2042.json'
 // Manual dates when the data or pages have been modified.
 // In format "[day] [month three letters] [year four digits]"
 // e.g. 2nd Jan 2019
-const BF2042_DATA_DATE = '23 July 2022'
-const BF2042_PAGE_DATE = '23 July 2022'
+const BF2042_DATA_DATE = '05 Sept 2022'
+const BF2042_PAGE_DATE = '22 Sept 2022'
 
 // Total version string displayed under title
 const BF2042_VERSION_STRING = `Latest updates<br>Page: ${BF2042_PAGE_DATE}<br>Data: ${BF2042_DATA_DATE}`
