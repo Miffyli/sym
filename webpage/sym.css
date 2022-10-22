@@ -104,6 +104,9 @@
 }
 
 .sym-game-datatype{
+    color: inherit !important;
+    text-decoration: none !important;
+    display: block;
     cursor: pointer;
     padding: 5px 20px 5px 65px;
     font-size: 20px;
@@ -111,7 +114,7 @@
 }
 
 .sym-game-datatype:hover{
-    text-decoration: underline;
+    text-decoration: underline !important;
 }
 
 .sym-game-datatype img{
