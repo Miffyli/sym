@@ -21,6 +21,7 @@
     <link rel="icon shortcut" href="./android-chrome-512x512.png" type="image/png"/>
     <link rel="manifest" href="./site.webmanifest">
     <link rel="stylesheet" href="./sym.css" type="text/css">
+    <link rel="stylesheet" href="./pages/mw2/mw2.css" type="text/css">
     <link rel="stylesheet" href="./pages/warzone/warzone.css" type="text/css">
     <link rel="stylesheet" href="./pages/bf2042/bf2042.css" type="text/css">
     <link rel="stylesheet" href="./pages/bfv/bfv.css" type="text/css">
@@ -44,6 +45,14 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     
     <!-- Custom Sym code/libraries -->
+    <!-- Warzone-->
+    <script type="text/javascript" src="./pages/mw2/mw2_consts.js"></script>
+    <script type="text/javascript" src="./pages/mw2/mw2.js"></script>
+    <script type="text/javascript" src="./pages/mw2/mw2_wb.js"></script>
+    <script type="text/javascript" src="./pages/mw2/mw2_wb_stats.js"></script>
+    <script type="text/javascript" src="./pages/mw2/drawing.js"></script>
+    <script type="text/javascript" src="./pages/mw2/probabilityCache.js"></script>
+	<script type="text/javascript" src="./pages/mw2/data/autofill_builds.js"></script>
     <!-- Warzone-->
     <script type="text/javascript" src="./pages/warzone/warzone_consts.js"></script>
     <script type="text/javascript" src="./pages/warzone/warzone.js"></script>
@@ -111,7 +120,13 @@
                             </div>
                         </div>
                         <div >
-                            <h4>CoD: Warzone</h4>
+                            <h4>Modern Warfare 2</h4>
+                            <div class="sym-dropdown-sub-menu">
+                                <a href="index.html?game=mw2&page=gunsmith"><div class=""><img src="./img/SymWeaponMechanicsIconAlt.svg">Gunsmith</div></a>
+                            </div>
+                        </div>
+                        <div >
+                            <h4>Warzone</h4>
                             <div class="sym-dropdown-sub-menu">
                                 <a href="index.html?game=warzone&page=gunsmith"><div class=""><img src="./img/SymWeaponMechanicsIconAlt.svg">Gunsmith</div></a>
                                 <a href="index.html?game=warzone&page=gameplay-mechanics"><div class=""><img src="./img/symInfoIcon-Lobster.png">Gameplay Mechanics</div></a>
@@ -192,13 +207,11 @@
                     <div class="sym-game-datatype"><img src="./img/symChartIconAlt.png">Weapon Charts</div>
                     <div class="sym-game-datatype"><img src="./img/symComparisonIconAlt.png">Weapon Comparison</div>
                 </div>
-                <div id="warzone"  class="sym-game">
+                <div id="mw2"  class="sym-game">
                     <div class="sym-game-title">
-                        <img src="img/CODWZ_logo.png" />
+                        <img src="img/MW2_logo.png" />
                     </div>
                     <div class="sym-game-datatype"><img src="./img/SymWeaponMechanicsIconAlt.svg">Gunsmith</div>
-                    <div class="sym-game-datatype"><img src="./img/symInfoIcon-Lobster.png">Gameplay Mechanics</div>
-                    <div class="sym-game-datatype"><img src="./img/symInfoIcon-Lobster.png">Patch Notes - Sym Style</div>
                 </div>
                 <div id="bfv" class="sym-game">
                     <div class="sym-game-title">
@@ -208,6 +221,14 @@
                     <div class="sym-game-datatype"><img src="./img/SymWeaponMechanicsIconAlt.svg">Weapon Mechanics</div>
                     <div class="sym-game-datatype"><img src="./img/symChartIconAlt.png">Weapon Charts</div>
                     <div class="sym-game-datatype"><img src="./img/symComparisonIconAlt.png">Weapon Comparison</div>
+                </div>
+                <div id="warzone"  class="sym-game">
+                    <div class="sym-game-title">
+                        <img src="img/CODWZ_logo.png" />
+                    </div>
+                    <div class="sym-game-datatype"><img src="./img/SymWeaponMechanicsIconAlt.svg">Gunsmith</div>
+                    <div class="sym-game-datatype"><img src="./img/symInfoIcon-Lobster.png">Gameplay Mechanics</div>
+                    <div class="sym-game-datatype"><img src="./img/symInfoIcon-Lobster.png">Patch Notes - Sym Style</div>
                 </div>
                 <div id="bf1" class="sym-game">
                     <div class="sym-game-title">

@@ -240,12 +240,21 @@ function exceuteQueryStringParams(){
  
   if(urlParams.has("wz-loadout")){
     openWarzoneWeaponBuilderPageFromQueryString()
+  } else if(urlParams.has("mw2-loadout")) {
+    openMW2WeaponBuilderPageFromQueryString()
   } else {
     const game = urlParams.get('game')
     const page = urlParams.get('page')
     console.debug("game: " + game + ", page: " + page)
 
     switch(game){
+      case 'mw2':
+        switch(page){
+          case 'gunsmith':
+            openMW2WeaponBuilderPageFromQueryString()
+            break
+        }
+        break
       case 'warzone':
         switch(page){
           case 'gunsmith':
