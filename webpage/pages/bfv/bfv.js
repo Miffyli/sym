@@ -281,9 +281,8 @@ function BFVGetTTKUpperBoundOverDistance (weapon) {
     // Update according to drag
     bulletVelocity -= (Math.pow(bulletVelocity, 2) * bulletDrag) * (BFV_DAMAGE_RANGE_STEP / bulletVelocity)
 
-    // The only time from bullet flight comes from the last bullet that lands on the enemy,
-    // hence we only add msToTarget once
-    TTKUBOverDistance.push([dist, bulletsToKill * msPerShot + msToTarget])
+    // Removed bullet velocity from equation, add back with "+ msToTarget"
+    TTKUBOverDistance.push([dist, bulletsToKill * msPerShot])
   }
   return TTKUBOverDistance
 }

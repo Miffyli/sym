@@ -277,7 +277,7 @@ function BF4UpdateTTKAndBTKGraphs (selectedWeapons) {
     },
 
     subtitle: {
-      text: 'Based on "RoF". Assumes all shots/pellets hit. Includes bullet velocity. Includes multipliers.'
+      text: 'Based on Rate of Fire and bodyshot damage versus a player with 100HP. Assumes all shots/pellets hit.'
     },
 
     yAxis: {
