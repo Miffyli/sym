@@ -1,4 +1,7 @@
 # Sym
+
+## Note: This version of the website is no longer being developed, but can be found at [sym.gg](https://sym.gg/legacy).
+
 Hosted at [sym.gg](https://sym.gg).
 
 Your one-place-stop for insight on game mechanics. Successor to [symthic.com](https://symthic.com).
