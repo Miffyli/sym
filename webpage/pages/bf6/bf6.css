@@ -1,0 +1,126 @@
+.bf2042-header-content {
+  text-align: center;
+  padding: 100px;
+  margin: auto;
+  width: 400px;
+}
+
+.bf2042-content-comparison {
+    width: 1200px;
+    margin: auto;
+}
+
+/* Remove unnecessary paddings */
+.bf2042-content-comparison > div {
+    padding: 0px 0px;
+}
+
+.bf2042-content-comparison-table table {
+    border-spacing: 0px;
+}
+
+.bf2042-content-comparison-table tr:nth-child(even) {
+    background-color: #222;
+}
+
+.bf2042-comp-selectorContainer{
+    display: inline-block;
+    vertical-align: top;
+    padding: 19px;
+    background: #222;
+    margin: 4px;
+    border: 1px solid #444;
+    width: 345px;
+    height: 125px;
+}
+
+/* Attachment dropdown boxes */
+.bf2042-comp-selectorContainerAttachments select {
+    color: #444;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    width: 100%;
+}
+
+/* "Attachments" text */
+.bf2042-comp-selectorContainer div:first-of-type {
+    text-align: center;
+    color: #AAA;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    width: 100%;
+}
+
+.bf2042-comp-selectorContainer div:first-of-type {
+    text-align: center;
+    color: #AAA;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    width: 100%;
+}
+
+.bf2042-comp-attachmentNames {
+    font-size: 70%;
+}
+
+/* Do not color the first row */
+
+.bf2042-content-comparison-table tr:nth-child(odd):not(:first-child) {
+    background-color: #333;
+}
+
+.bf2042-content-comparison-table th {
+    height: 30pt;
+}
+
+.bf2042-content-comparison-table td:first-child {
+    padding-right: 30pt
+}
+
+
+/* Center values in the table, but on the first column (names) */
+
+.bf2042-content-comparison-table td:not(:first-child) {
+    text-align: center;
+    width: 100pt;
+}
+
+
+.bf2042-sym-info-subheader{
+    font-size: 24px;
+    font-weight: bold;
+    padding: 20px 0px 0px;
+    border-top: 1px solid #444;
+}
+
+.bf2042-genInfo-table {
+    margin-bottom: 20px;
+    background: #333;
+    border-spacing: 0;
+}
+
+.bf2042-genInfo-table caption{
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.bf2042-genInfo-table tr:nth-child(even){
+    background: #222;
+}
+
+.bf2042-genInfo-table td{
+    padding: 2px 12px;
+    font-size: 16px;
+}
+
+.bf2042-genInfo-table tr td:nth-child(1){
+    text-align: right;
+    font-style: italic;
+}
+
+.bf2042-genInfo-table tr td:nth-child(2){
+    font-weight: bold;
+}

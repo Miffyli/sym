@@ -55,6 +55,9 @@
     <script type="text/javascript" src="./pages/warzone/drawing.js"></script>
     <script type="text/javascript" src="./pages/warzone/probabilityCache.js"></script>
 	<script type="text/javascript" src="./pages/warzone/data/autofill_builds.js"></script>
+    <!-- BF6-->
+    <script type="text/javascript" src="./pages/bf6/bf6.js"></script>
+    <script type="text/javascript" src="./pages/bf6/bf6_chart.js"></script>
     <!-- BF2042 -->
     <script type="text/javascript" src="./pages/bf2042/bf2042.js"></script>
     <script type="text/javascript" src="./pages/bf2042/bf2042_comparison.js"></script>
@@ -103,7 +106,13 @@
             <div class="dropdown">
                 <img src="img/hamburger.png" onclick="myFunction()" class="dropbtn">
                 <div id="myDropdown" class="dropdown-content">
-                    <div class="sym-dropdown-games">   
+                    <div class="sym-dropdown-games">
+                        <div >
+                            <h4>Battlefield 6</h4>
+                            <div class="sym-dropdown-sub-menu">
+                                <a href="index.html?game=bf6&page=charts"><div class=""><img src="./img/symChartIconAlt.png">Weapon Charts</div></a>
+                            </div>
+                        </div>
                         <div >
                             <h4>Battlefield 2042</h4>
                             <div class="sym-dropdown-sub-menu">
@@ -192,6 +201,12 @@
             -->
             
             <div class="sym-games">
+                <div id="bf6"  class="sym-game">
+                    <div class="sym-game-title">
+                        <img src="img/BF6_logo.png" />
+                    </div>
+                    <div class="sym-game-datatype"><img src="./img/symChartIconAlt.png">Weapon Charts</div>
+                </div>
                 <div id="bf2042"  class="sym-game">
                     <div class="sym-game-title">
                         <img src="img/BF2042_logo.png" />

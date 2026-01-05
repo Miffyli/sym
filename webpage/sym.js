@@ -190,6 +190,10 @@ function roundToDecimal(num, decimalSpots) {
    Load the stylesheets for each game dynamically because they share a lot of styles.
    Otherwise you would have to rename/de-conflict each entry in the css files and html.
 */
+function loadBF6Stylesheet(){
+  $('#chartCSS').attr('href', './pages/bf6/bf6_chart.css')
+}
+
 function loadBF2042Stylesheet(){
   $('#chartCSS').attr('href', './pages/bf2042/bf2042_chart.css')
 }
@@ -268,6 +272,13 @@ function exceuteQueryStringParams(){
             break
           case 'patch-notes':
             openWarzonePatchNotesPageFromQueryString()
+            break
+        }
+        break
+      case 'bf6':
+        switch(page){
+          case 'charts':
+            openOtherTitlesSelectionPageFromQueryString('BF6 Weapon Charts')
             break
         }
         break

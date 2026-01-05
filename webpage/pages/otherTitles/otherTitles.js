@@ -34,7 +34,9 @@ function otherTitlesSetupPageHeader(){
   $('.sym-pageSelections > div').click(function () {
     var clicked = $(this).attr('id')
     var pageName
-    if (clicked === 'otherTitles-mainPageSelector') {
+    if (clicked === 'bf6-chartPageSelector') {
+      pageName = 'Index'
+    } else if (clicked === 'otherTitles-mainPageSelector') {
       pageName = 'Index'
     } else if (clicked === 'bf3-chartPageSelector') {
       pageName = 'BF3 Weapon Charts'
@@ -133,6 +135,10 @@ function otherTitlesOpenPageByName(pageName) {
     $('#bf2042-chartPageSelector').addClass('selected-selector')
     openBF2042ChartPage()
     updateQueryString("bf2042", "charts")
+  } else if (pageName === 'BF6 Weapon Charts') {
+    $('#bf6-chartPageSelector').addClass('selected-selector')
+    openBF6ChartPage()
+    updateQueryString("bf6", "charts")
   }
 }
 
