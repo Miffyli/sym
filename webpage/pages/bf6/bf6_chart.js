@@ -45,6 +45,8 @@ function bf6PrintWeapons(){
     statsHtml += bf6PrintWeaponClass("shotgun");
     statsHtml += bf6PrintWeaponClass("secondary");
 
+    statsHtml += "<div class='bf6Notes'>* Currently displaying sweet spot damage only (upper chest and above).</div>";
+
     $("#pageBody").html(statsHtml);
 
     $('#shotgunSection table tr').each(function() {
@@ -69,7 +71,7 @@ function bf6PrintWeapons(){
 function bf6PrintWeaponClass(weaponClass){
     var rtnStr = "";
     rtnStr += "<div id='" + weaponClass + "Section'>" +
-              "<div class='classHeader'>" + bf6WeaponClasses[weaponClass] + "</div>" +
+              "<div class='classHeader'>" + bf6WeaponClasses[weaponClass] + (weaponClass == "boltaction" ? " *" : "") + "</div>" +
               "<table class='table classTable'><tbody class='sortableTable'>";
 
     $.each(BF6WeaponData, function( key, value ) {
@@ -572,6 +574,7 @@ function bf6CreateDamageChart100Max200Dist(damageArr, distanceArr){
         damageLineCoords += distanceCoord.toString() + "," + damageCoord.toString() + " ";
     }
     damageLineCoords += "300," + (100 - damageArr[damageArr.length - 1]).toString();
+    damageLineCoords = damageLineCoords.replaceAll(",0",",1"); //hackjob fix to extend line to 300 if 200m is not a damage drop point
 
     var maxDamage = roundToDecimal(damageArr[0], "1");
     var minDamage = roundToDecimal(damageArr[damageArr.length - 1], "1");

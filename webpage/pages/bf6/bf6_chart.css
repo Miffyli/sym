@@ -15,6 +15,12 @@
     border: 2px solid #ff9000;
 }
 
+.bf6Notes{
+    width: 1280px;
+    margin: 20px auto;
+    font-size: 14px;
+}
+
 .symGreen{
     color: #A9D852;
 }
