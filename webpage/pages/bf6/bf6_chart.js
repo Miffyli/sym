@@ -45,7 +45,8 @@ function bf6PrintWeapons(){
     statsHtml += bf6PrintWeaponClass("shotgun");
     statsHtml += bf6PrintWeaponClass("secondary");
 
-    statsHtml += "<div class='bf6Notes'>* Currently displaying sweet spot damage only (upper chest and above).</div>";
+    statsHtml += "<div class='bf6Notes'>* The value show here for Mini Scount is overriden using the value displayed in-game and not calculated from Sym.gg data.</div>" +
+                 "<div class='bf6Notes'>** Currently displaying sweet spot damage only (upper chest and above) for sniper rifles.</div>";
 
     $("#pageBody").html(statsHtml);
 
@@ -71,7 +72,7 @@ function bf6PrintWeapons(){
 function bf6PrintWeaponClass(weaponClass){
     var rtnStr = "";
     rtnStr += "<div id='" + weaponClass + "Section'>" +
-              "<div class='classHeader'>" + bf6WeaponClasses[weaponClass] + (weaponClass == "boltaction" ? " *" : "") + "</div>" +
+              "<div class='classHeader'>" + bf6WeaponClasses[weaponClass] + (weaponClass == "boltaction" ? " **" : "") + "</div>" +
               "<table class='table classTable'><tbody class='sortableTable'>";
 
     $.each(BF6WeaponData, function( key, value ) {
@@ -98,7 +99,7 @@ function bf6PrintWeapon(weaponStats){
                      "<td class='firstColumn'>" +
                          "<div class='lblWeaponName'>" +
                             "<span class='lblWeaponNameValue'>" + weaponStats.displayname + "</span>" +
-                            bf6CreateRPMGrpahic(weaponStats.rof.RoF) +
+                            bf6CreateRPMGrpahic(weaponStats.rof.RoF, weaponStats.codename) +
                          "</div>" +
                          "<div class='weaponImgContainer'>" +
                               weaponImage +
@@ -165,9 +166,9 @@ function bf6GetWeaponImage(weaponName){
 
 }
 
-function bf6CreateRPMGrpahic(RoF){
+function bf6CreateRPMGrpahic(RoF, codename){
     return "<span class='lblRPM'>" +
-               "<span class='lblRPMValue' " + rpmTooltip + ">" + RoF.toFixed(0) + "</span>" +
+               "<span class='lblRPMValue' " + rpmTooltip + ">" + RoF.toFixed(0) + (codename == "minifix" ? "*" : "") + "</span>" +
                "<span class='lblSuffixText'> rpm</span>" +
            "</span>";  
 }
