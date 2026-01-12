@@ -147,12 +147,6 @@ function bf6PrintWeapon(weaponStats){
 }
 
 function bf6GetWeaponImage(weaponName){
-   // var weaponFilename = "";
-
-   // weaponFilename =  weaponName.replace("Slug", "").replace("Buckshot", "").replace("Flechette", "").replace("Frag", "");
-
-   // return weaponFilename.trim();
-
     let imgTag = "" + 
     "<picture class='weaponImg'>" +
         "<source srcset='./pages/bf6/img/" + weaponName + ".avif' type='image/avif'/>" +
@@ -161,9 +155,6 @@ function bf6GetWeaponImage(weaponName){
     "</picture>";
 
     return imgTag;
-
-//"<img class='weaponImg' src='./pages/bf6/img/" + bf6GetWeaponImageFilename(weaponStats.codename) + ".avif' onerror='showBlank(this);'>" +
-
 }
 
 function bf6CreateRPMGrpahic(RoF, codename){
