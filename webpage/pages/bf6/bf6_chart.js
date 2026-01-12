@@ -45,7 +45,7 @@ function bf6PrintWeapons(){
     statsHtml += bf6PrintWeaponClass("shotgun");
     statsHtml += bf6PrintWeaponClass("secondary");
 
-    statsHtml += "<div class='bf6Notes'>* The value show here for Mini Scount is overriden using the value displayed in-game and not calculated from Sym.gg data.</div>" +
+    statsHtml += "<div class='bf6Notes'>* The value shown here for Mini Scount is overriden using the value displayed in-game and is not calculated from Sym.gg data.</div>" +
                  "<div class='bf6Notes'>** Currently displaying sweet spot damage only (upper chest and above) for sniper rifles.</div>";
 
     $("#pageBody").html(statsHtml);
@@ -210,6 +210,7 @@ function bf2042FormatAmmoType(ammo){
 }
 
 function bf6CreateRecoilGraphic(direction, variation, amount){
+    direction = -direction //Invert direction for calculations
     let useBigScale = (amount >= 1.0);
 
     const CX = useBigScale ? 150 : 50;
@@ -277,7 +278,7 @@ function bf6CreateRecoilGraphic(direction, variation, amount){
                     "</svg>";
     }
 
-
+    direction = -direction; //Invert direction for display
     return "<div class='bf6RecoilValues'>" + 
                 "<div class='symGreen'>&#8593; " + amount.toFixed(2) + "°</div>" +
             "</div>" +
