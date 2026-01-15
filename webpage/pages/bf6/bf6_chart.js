@@ -106,8 +106,8 @@ function bf6PrintWeapon(weaponStats){
                          "</div>" +
                          "<div style='line-height: 20px;'>" +
                              "<span class='lblMagText'>" +
-                                "<span class='lblMag'>" + weaponStats.mags.MagSize + 
-                                    "<span class='lblTimes'>x</span><img class='roundImg' src='./pages/bf6/img/round.png'>" + 
+                                "<span class='lblMag'>" + weaponStats.mags.MagSize +
+                                    "<span class='lblTimes'>x " + weaponStats.ammo + "</span>" + 
                                 "</span>" +
                                 //"<span class='lblSuffixText'> x " + bf2042FormatAmmoType(weaponStats.Ammo) + "</span>" +
                              "</span>" +
@@ -158,6 +158,12 @@ function bf6GetWeaponImage(weaponName){
 }
 
 function bf6CreateRPMGrpahic(RoF, codename){
+    if (parseFloat((RoF % 1).toFixed(3)) === 0.999) {
+        RoF = Math.ceil(RoF);
+    } else {
+        RoF = Math.floor(RoF);
+    }
+
     return "<span class='lblRPM'>" +
                "<span class='lblRPMValue' " + rpmTooltip + ">" + RoF.toFixed(0) + (codename == "minifix" ? "*" : "") + "</span>" +
                "<span class='lblSuffixText'> rpm</span>" +
