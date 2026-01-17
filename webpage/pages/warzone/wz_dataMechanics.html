@@ -1,0 +1,112 @@
+<div class="bfv-content-comparison">
+    <h1 class="comp-pageTitle">Call of Duty: Warzone Weapon and Player Mechanics</h1>
+	<div class="bfv-sym-info-page sym-static-content sym-about">
+
+		<div class="bfv-sym-info-section-header">
+			&nbsp; &nbsp; &nbsp; &nbsp; <img src="./pages/bfv/img/roster_icon_allies.svg"> &nbsp; &nbsp;
+			<span>Preface</span>
+		</div>
+		<p>This page contains information regarding the functioning of weapons in <i>Call of Duty: Warzone.</i> Listed here is also a list of common abbreviations which may be used for brevity throughout the site. Their individual meanings are as follows:</p>
+
+		<p>
+			<table class="bfv-genInfo-table">
+				<tr>
+					<td>ADS</td>
+					<td>Aim Down Sight</td>
+				</tr>
+				<tr>
+					<td>BTK</td>
+					<td>Bullets to Kill</td>
+				</tr>
+				<tr>
+					<td>EFTK</td>
+					<td>Estimated Frames to Kill</td>
+				</tr>
+				<tr>
+					<td>FTK</td>
+					<td>Frames to Kill</td>
+				</tr>
+				<tr>
+					<td>HRec</td>
+					<td>Horizontal Recoil</td>
+				</tr>
+				<tr>
+					<td>IRM</td>
+					<td>Initial Recoil Multipliers</td>
+				</tr>
+				<tr>
+					<td>SRM</td>
+					<td>Sustained Recoil Multipliers</td>
+				</tr>
+				<tr>
+					<td>TTK</td>
+					<td>Time to Kill</td>
+				</tr>
+				<tr>
+					<td>VRec</td>
+					<td>Vertical Recoil</td>
+				</tr>
+			</table>
+		</p>
+		<div class="bfv-sym-info-section-header">
+			<img src="./pages/bfv/img/WeaponSpecs/SpecTree_Primary_VRecoil.svg">
+			<span>Weapon and Player Mechanics</span>
+			<p><i>Thanks to ExaltedVangaurd for contributing to this section.</i></p>
+		</div>
+
+		<div class="bfv-sym-info-subheader">Recoil</div>
+		<p>Viewkick is the most common type of recoil, which moves the camera, moving the point of aim with it. 
+		<b><i>Viewkick should not be confused with visual recoil.</b></i></p>
+		<p>Gunkick moves the gun off center within the screen, changing the point of aim. Gun kick is usually subtle, as large amounts of gunkick will make a gun feel "weird" to use. 
+		<i>Modern Warfare's</i> RAM-7 is a great example of a gun with high gunkick.<p>
+		<p>Visual recoil is a generic term for animation that does not change the point of aim. Factors affecting visual recoil are not listed.</p>
+		<P>Certain weapons have, or weapon attachments create, initial recoil multipliers (IRM) and sustained recoil multipliers (SRM). 
+		These attachments, as the names imply, affect the first few shots fired from a weapon, or later shots under continuous fire. 
+		The timing of these values can vary greatly depending on the weapon and attachments applied.</p> 
+		<p>IRM takes priority, and usually affects the first several shots from a weapon.
+		After IRM reaches the specified amount of rounds, the weapon's standard recoil values are then applied. 
+		If the weapon is still firing, SRM will then begin at the specified round until the weapon ceases to fire. 
+		<p><i>For example,</i> say IRM provides a weapon the gunkick multipliers of 1.2 for the first 4 shots. The weapon has standard gunkick values of 0.6 vertical, and 0.8 horizontal. 
+		The resulting gunkick for the first four shots of this weapon would be 0.72 vertical and 0.96 horizontal.</p>
+		<p>Using this same example weapon, say SRM provides a weapon the gunkick multipliers of 0.9, starting with the seventh shot. 
+		The resulting gunkick for the seventh shot, and every shot after, would be 0.54 vertical and 0.72 horizontal.</p>
+		<p>It is possible to attach multiple IRM or SRM attachements with themselves for greater effects, but impossible to add both IRM and SRM attachments to get the effects of both. 
+		Depending on the attachments equipped, one recoil multiplier can negate the other.</p>
+
+		<div class="bfv-sym-info-subheader">Hipfire</div>
+		<p>Hipfire is a simple cone that is `x` degrees across, size varying on the individual firearm. Hipfire is dependent on where the camera (reticle) is pointed, and is therefore affected by viewkick. 
+		It is not affected by gunkick.</p>
+		<p>The maximum and minimum sizes of your hipfire cone is determined by your stance. 
+		Standing will have the largest size while being crouched or prone will reduce it. 
+		Moving will cause the hipfire cone to increase, and firing will cause it to increase further. 
+		The primary hipfire stat listed on the gunsmith, Strafing Hipfire Spread, represents the size of the hipfire cone you will have while standing and moving but not firing.</p>
+
+		<div class="bfv-sym-info-subheader">Aim-down-sight (ADS) Time</div>
+		<p>ADS time is the amount of time it takes the player to transition from a hipfire stance to an aimed weapon position. 
+		The time listed is how long is required to become fully accurate, however some animation may continue after this time.</p>
+
+		<div class="bfv-sym-info-subheader">Idle Sway and Jitter</div>
+		<p>Idle sway is the figure-8-like sway of the gun when aiming. Unlike older Call of Duty titles, idle sway is always active - even when firing. This means that a reduction to idle sway may help create more consistent recoil patterns. 
+		Idle jitter is a smaller sway pattern layered on top of existing idle sway.</p>
+		
+
+		<div class="bfv-sym-info-subheader">Viewbob and gunbob</div>
+		<p>Viewbob is the bouncing of the camera while walking.	
+		Gunbob is the bouncing of the gun (relative to the screen) while walking. 
+		Viewbob and gunbob are both active while firing and will affect point of aim.</p>
+
+		<div class="bfv-sym-info-subheader">Velocity</div>
+		<p>Projectiles are simulated using real world physics calculations. Things like the size and weight of the (simulated) bullet will impact its velocity over time, meaning bullets will slow down at different rates. 
+		Though a gun may have higher velocity at the muzzle, its bullets may lose speed quicker and end up taking longer to reach a distant target than a gun with a lower muzzle velocity but a more aerodynamic bullet.</p>
+
+		<div class="bfv-sym-info-subheader">Movement Speed</div>
+		<p>Player movement receives multipliers based on the direction and type of movement, resulting in the feeling of different speeds for different player states. 
+		Base movement speed modifiers affect any type of movement that isn't ADS movement. Sprint speed modifiers only affect regular sprint, therefore not affecting tactical sprint. 
+		Directional modifiers (strafe speed) affect speed regardless of ADS. Backpedaling cannot be greater than forward movement.</p>
+
+		<div class="bfv-sym-info-subheader">Reload Speed</div>
+		<p>Reload add time is the amount of time it takes the amount of time for ammo to be added to the weapon after the player begins reloading - after which the animation could be cancelled. Reload time is the amount of time it takes for the full animation to complete.</p>
+
+	</div>
+	
+</div>

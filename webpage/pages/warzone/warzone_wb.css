@@ -1,0 +1,863 @@
+.wz-gunsmith select,
+.wz-gunsmith .select2,
+.wz-gunsmith input {
+    padding: 3px;
+    font-size: 14px;
+    border: 1px solid #777;
+    border-left: none;
+    border-right: none;
+    height: 34px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: #444;
+    color: #ddd;
+    text-align: left;
+}
+
+.wz-gunsmith .select2-selection,
+.wz-gunsmith .select2-selection__rendered {
+    border: none !important;
+    background: #444;
+    color: #ddd !important;
+    font-weight: bold;
+}
+
+.wz-gunsmith .select2-results {
+    background: #444;
+}
+
+.wz-gunsmith .select2-results__option--selected {
+    background-color: #5e4d39 !important;
+}
+
+.wz-gunsmith .select2-container--default .select2-results__option--highlighted.select2-results__option--selectable {
+    color: #444 !important;
+    background-color: #ff9000 !important;
+}
+
+.wz-gunsmith .select2-container--disabled,
+.wz-disabled-select {
+    opacity: .4;
+}
+
+.wz-gunsmith {
+    width: 1250px;
+    margin: auto;
+    text-size-adjust: none;
+    -webkit-text-size-adjust: none;
+    -moz-text-size-adjust: none;
+}
+
+.wz-section {
+    background: #272727;
+    border: 2px solid #444;
+    padding: 11px;
+    border-top: none;
+}
+
+.wz-section:nth-child(2) {
+    border-top: 2px solid #444;
+}
+
+.wz-row>div {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.wz-stat-block {
+    background: #1f1f20;
+    padding: 11px;
+    border: 1px solid #151515;
+}
+
+.wz-inline-block {
+    display: inline-block
+}
+
+.wz-hidden {
+    visibility: hidden;
+}
+
+.disabledElement,
+.disabledButton,
+.disabledInput {
+    pointer-events: none;
+    opacity: 0.4;
+}
+
+.wz-section-title {
+    display: block !important;
+    text-align: center;
+    font-weight: bold;
+}
+
+.wz-section-title span {
+    border-bottom: 1px solid #ff9000;
+    width: 400px;
+    display: inline-block;
+    text-align: center;
+    margin-bottom: 20px;
+    padding-bottom: 5px;
+    font-size: 24px;
+}
+
+.wz-sortDragIcon {
+    width: 35px;
+    float: right;
+}
+
+.wz-flexbox-with-centered-content {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+}
+
+.wz-chart {
+    width: 100%;
+    padding-top: 56.25%; /* 16:9 */
+    position: relative;
+}
+
+.wz-chart__chart {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.wz-chart__chart image {
+    opacity: 0.135;
+}
+
+.wz-labelled-selector {
+    margin: auto;
+    text-align: center;
+}
+
+.wz-labelled-selector__label {
+    display: block;
+    margin: 6px;
+    font-size: 16px;
+}
+
+select.wz-labelled-selector__dropdown {
+    border: 2px solid #ff9000;
+    font-size: 16px;
+    appearance: auto;
+    -webkit-appearance: auto;
+    -moz-appearance: auto;
+    background: #1f1f1f;
+    min-width: 165px;
+}
+
+
+/*************************/
+/** Weapon Tabs         **/
+/*************************/
+
+.wz-weapon-tabs {
+    position: sticky;
+    top: 0px;
+    z-index: 1000;
+    pointer-events: none;
+    display: flex;
+}
+
+#wz-add-new-tab {
+    max-width: 2em;
+}
+
+.wz-weapon-tab {
+    background: #444;
+    padding: 0.5em;
+    font-weight: bold;
+    font-size: 19px;
+    width: 100%;
+    max-width: 200px;
+    min-width: 2em;
+    height: 22px;
+    text-align: center;
+    border: 2px solid #444;
+    border-bottom: none;
+    cursor: pointer;
+    pointer-events: auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.wz-weapon-tab+.wz-weapon-tab {
+    margin-left: 5px;
+}
+
+.wz-weapon-tab--selected {
+    background: #ff9000;
+    color: #222
+}
+
+
+/*************************/
+/** Weapon Selector row **/
+/*************************/
+
+.wz-weapon-selector {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.wz-weapon-selector select {
+    font-size: 18px;
+    min-width: 285px;
+}
+
+.wz-weapon-selector img {
+    width: 22px;
+    vertical-align: middle;
+    padding: 4px;
+}
+
+#wz-delete-gun-button,
+#wz-clone-gun-button {
+    cursor: pointer;
+}
+
+/**************************/
+/** Attachment Selection **/
+/**************************/
+
+.wz-gunbench {
+    display: flex;
+    justify-content: stretch;
+    gap: 11px;
+}
+
+.wz-gunbench__left {
+    flex: 1 1 0%;
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+}
+
+.wz-gunbench__right {
+    flex: 1 100%;
+}
+
+/**************************/
+/** Build Selector row   **/
+/**************************/
+
+.wz-build-selector {
+    display: flex;
+    justify-content: center;
+    gap: 35px;
+}
+
+.wz-build-selector select {
+    font-size: 18px;
+    min-width: 285px;
+}
+
+/**************************/
+/** Attachment Selectors **/
+/**************************/
+
+table.wz-attachment-selector {
+    border-collapse: collapse;
+}
+
+.wz-attachment-selector td {
+    height: 36px;
+    width: 175px;
+}
+
+.wz-attachment-selector td+td {
+    padding-left: 5px;
+}
+
+.wz-attachment-selector tr+tr td {
+    padding-top: 5px;
+}
+
+.wz-attachment-selector select {
+    width: 175px;
+}
+
+.wz-attachment--equipped {
+    border-color: #ff9000 !important;
+    background-color: #5e4d39 !important;
+}
+
+.wz-attachment--equipped * {
+    background-color: #5e4d39 !important;
+}
+
+.wz-build-details {
+    color: #999;
+    padding: 3px 5px;
+    font-size: 12px;
+}
+
+#wz-gun-and-build-name {
+    color: #ddd;
+    font-size: 18px;
+}
+
+#wz-weapon-img {
+    height: 316px;
+    display: block;
+    margin: auto;
+}
+
+.wz-equipped-count {
+    text-align: center;
+    vertical-align: top;
+}
+
+#wz-equipped-count__label {
+    font-size: 14px;
+    margin-bottom: 3px;
+}
+
+.wz-equipped-count__dots>div {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border: 3px solid #ff9000;
+    border-radius: 50%;
+    margin: 3px 3px;
+}
+
+.wz-equipped-count__dots--equipped {
+    background: #ff9000;
+}
+
+/**************************/
+/** Hovered Attachment   **/
+/**************************/
+
+#wz-gun-name-input {
+    font-size: 18px;
+    width: 100%;
+    min-width: 170px;
+}
+
+.wz-attachment-details-box {
+    margin-top: 25px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 500px;
+}
+
+.wz-attachment-details-box table {
+    font-size: 16px;
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 175px;
+}
+
+.wz-attachment-details-box th {
+    font-size: 18px;
+    padding-bottom: 5px;
+    height: 36px;
+}
+
+.wz-attachment-details-box tr td:first-child {
+    text-align: right;
+    border-right: 2px solid #ff9000;
+    padding: 4px 6px 4px 0;
+}
+
+.wz-attachment-details-box tr td:last-child {
+    text-align: left;
+    vertical-align: middle;
+    padding: 4px 0 4px 6px;
+    width: 65px;
+}
+
+.wz-attachment-details-box tbody tr:nth-child(odd) {
+    background-color: #333;
+}
+
+/**************************/
+/** URL Box              **/
+/**************************/
+
+.wz-loadout-url-box {
+    margin-top: 10px;
+    opacity: .8;
+    text-align: center;
+}
+
+.wz-loadout-url-box label {
+    color: #999;
+    font-size: 14px;
+    font-weight: bold;
+    font-style: italic;
+}
+
+.wz-loadout-url-box img {
+    vertical-align: middle;
+    padding: 0 4px;
+    width: 20px;
+    cursor: pointer;
+}
+
+#wz-loadout-url-box__url-preview {
+    font-size: 14px;
+    background: #1f1f1f;
+    width: 660px;
+    color: #bbb;
+    border-color: #333;
+    border-style: solid;
+}
+
+.wz-loadout-url-box__copy-confirmation {
+    color: #999;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/**************************/
+/** Curr Weap Stats Row  **/
+/**************************/
+
+.wz-greenText {
+    color: #32CD32;
+}
+
+.wz-redText {
+    color: #FF6347;
+}
+
+.wz-yellowText {
+    color: #dad462;
+}
+
+/**************************/
+/** CWeapon Stats Tables **/
+/**************************/
+
+.wz-current-weapon-stats {
+    display: flex;
+    gap: 11px;
+    justify-content: stretch;
+}
+
+.wz-current-weapon-stats__tables-container {
+    flex: 1;
+    display: flex;
+    gap: 11px;
+    justify-content: stretch;
+}
+
+.wz-current-weapon-stats__table {
+    flex: 1;
+    border-collapse: collapse;
+    font-size: 16px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.wz-current-weapon-stats__table td {
+    height: 29px;
+    padding: 4px 6px;
+}
+
+.wz-current-weapon-stats__table tr:nth-child(odd) {
+    background-color: #333;
+}
+
+.wz-current-weapon-stats__table tr:nth-child(even) {
+    background-color: #272727;
+}
+
+.wz-current-weapon-stats__table tr td:first-child {
+    text-align: right;
+    padding-left: 0;
+    border-right: 2px solid #ff9000;
+    color: #bbb;
+}
+
+.wz-current-weapon-stats__table tr td:nth-child(3) {
+    color: #999;
+    padding: 0;
+}
+
+/**************************/
+/** CWeapon Damage Guy   **/
+/**************************/
+
+.wz-damageLabels svg {
+    height: 310px;
+    font: bold 20px sans-serif;
+}
+
+.wz-damageLabels path {
+    stroke: #ff9000;
+    stroke-width: 1px;
+}
+
+/**************************/
+/** General Sections     **/
+/**************************/
+
+.wz-controlled-section {
+    display: flex;
+    justify-content: stretch;
+    gap: 11px;
+}
+
+.wz-controlled-section__controls {
+    text-align: center;
+    width: 290px;
+    padding-top: 50px;
+}
+
+.wz-controlled-section__vertical-items {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 11px;
+}
+
+.wz-controlled-section__controls-prompt {
+    margin-bottom: 30px;
+    font-style: italic;
+    font-size: 14px;
+}
+
+.wz-controlled-section__results-label {
+    border-bottom: 1px solid #ff9000;
+    padding: 22px 0 5px;
+    width: 215px;
+    margin: auto;
+}
+
+.wz-controlled-section__results {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    padding-top: 5px;
+    margin-bottom: 30px;
+}
+
+/**************************/
+/** Toggle Switches      **/
+/**************************/
+
+.wz-toggle-switch {
+    margin: auto;
+    font-size: 20px;
+}
+
+.wz-toggle-switch tr+tr td {
+    padding-top: 30px;
+}
+
+.wz-toggle-switch__box {
+    cursor: pointer;
+    border: 2px solid #ff9000;
+    padding: 2px;
+    width: 48px;
+    border-radius: 4px;
+}
+
+.wz-toggle-switch__switch {
+    width: 24px;
+    height: 24px;
+    background-color: #ff9000;
+    border-radius: 4px;
+    -moz-transition: .4s;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.wz-toggle-switch__switch--active {
+    transform: translateX(24px);
+    -webkit-transform: translateX(24px);
+    -moz-transform: translateX(24px);
+}
+
+/**************************/
+/** Location TTK row     **/
+/**************************/
+
+.wz-locational-damage-guy svg {
+    height: 400px;
+}
+
+.wz-locational-damage-guy path {
+    stroke: #ff9000;
+    stroke-width: 1px;
+}
+
+.wz-locational-damage-guy .wz-bodyPart {
+    cursor: pointer;
+}
+
+.wz-bodyPart--selected {
+    fill: #ff9000 !important;
+    fill-opacity: .75 !important;
+}
+
+.wz-health-selector-table {
+    margin: auto;
+    font-size: 20px;
+    text-align: right;
+    font-weight: bold;
+}
+
+.wz-health-selector-table tr td:nth-child(n+2) {
+    height: 60px;
+    width: 60px;
+    cursor: pointer;
+    padding: 8px 0px;
+    text-align: center;
+    border-radius: 4px;
+    border: 2px solid #1f1f20;
+}
+
+.wz-health-selector-table--selected-hp {
+    background: #e68200;
+}
+
+.wz-health-selector-table--inactive-hp {
+    color: #444;
+}
+
+.wz-health-selector-table__hp-sum {
+    height: 60px;
+    border-top: 2px solid white;
+    padding-top: 6px;
+    color: white !important;
+    text-align: center;
+}
+
+/*****************************/
+/** Movement/BulletDrop row **/
+/*****************************/
+
+.wz-movement-chart-toggles {
+    margin: auto;
+    text-align: right;
+    font-size: 20px;
+    margin-bottom: 45px;
+}
+
+.wz-movement-chart-toggles td {
+    padding: 8px 12px;
+}
+
+.wz-movement-chart-toggles__toggle {
+    width: 24px;
+    height: 24px;
+    border: 2px solid #ff9000;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.wz-movement-chart-toggles__toggle--selected {
+    background: #ff9000;
+}
+
+/*****************************/
+/** Aiming row              **/
+/*****************************/
+
+.wz-viewport {
+    width: 100%;
+    padding-top: 56.25%; /* 16:9 */
+    position: relative;
+    border: 2px solid #111;
+}
+
+.wz-viewport__canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.wz-slider {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.wz-slider__extreme-value{
+    width: 45px;
+    font-size: 14px;
+}
+
+.wz-slider__result-value {
+    font-size: 24px;
+}
+
+input.wz-slider__slider {
+    -webkit-appearance: none;
+    height: 13px;
+    background: none;
+    outline: none;
+    opacity: 0.8;
+    border: 4px solid #ff9000;
+    border-radius: 3px;
+    cursor: pointer;
+    width: 85%;
+    touch-action: none;
+}
+
+input.wz-slider__slider:hover {
+    opacity: 1;
+}
+
+input.wz-slider__slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    background: #ff9000;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+input.wz-slider__slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    background: #ff9000;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+}
+
+
+/*****************************/
+/** Probability row         **/
+/*****************************/
+
+#wz-probability-weight-input {
+    border-color: #A9D852;
+}
+
+.wz-probabilitiesGuy text {
+    font: bold 20px sans-serif;
+    cursor: pointer;
+}
+
+.wz-probabilitiesGuy .wz-bodyPart {
+    cursor: pointer;
+}
+
+.wz-labelled-number-input {
+    margin: 0 auto 25px auto;
+    text-align: center;
+}
+
+.wz-labelled-number-input__label {
+    display: block;
+    margin: 6px;
+    font-size: 16px;
+}
+
+input.wz-labelled-number-input__input {
+    margin-top: 5px;
+    border: 2px solid #ff9000;
+    font-size: 24px;
+    background: #1f1f1f;
+    min-width: unset;
+    width: 123px;
+}
+
+
+/*****************************/
+/** Stats Comparison row    **/
+/*****************************/
+
+.wz-stat-comparison-table {
+    width: 100%;
+    /* height: 80vh; */
+    overflow-x: auto;
+}
+
+.wz-stat-comparison-table__table {
+    text-align: left;
+    border-spacing: 0;
+    min-width: 100%;
+    font-size: 16px;
+}
+
+.wz-stat-comparison-table__table th {
+    position: sticky;
+    top: 0;
+}
+
+.wz-stat-comparison-table__table th {
+    font-size: 20px;
+    background: #ff9000;
+    color: #222;
+}
+
+.wz-stat-comparison-table__table th:first-child {
+    background: #1f1f20;
+}
+
+.wz-stat-comparison-table__table th:first-child img {
+    height: 60px;
+    margin-top: 15px;
+    margin-right: 20px;
+}
+
+.wz-stat-comparison-table__reset {
+    height: 24px;
+    cursor: pointer;
+}
+
+.wz-stat-comparison-table__table>tbody>tr {
+    cursor: move;
+}
+
+.wz-stat-comparison-table__table>tbody tr:nth-child(odd) td {
+    background-color: #333;
+}
+
+.wz-stat-comparison-table__table>tbody tr:nth-child(even) td {
+    background-color: #272727;
+}
+
+.wz-stat-comparison-table__table tr td:first-child,
+.wz-stat-comparison-table__table tr th:first-child {
+    border-right: 2px solid #ff9000;
+    text-align: right;
+    padding-right: 11px;
+    color: #bbb;
+    position: sticky;
+    left: 0;
+    width: 190px;
+}
+
+.wz-stat-comparison-table__table td:last-child,
+.wz-stat-comparison-table__table th:last-child {
+    padding: 0 6px;
+    min-width: 24px;
+    text-align: right;
+    position: sticky;
+    right: 0;
+}
+
+.wz-stat-comparison-table__table tr th:not(:first-child):not(:last-child),
+.wz-stat-comparison-table__table tr td:not(:first-child):not(:last-child) {
+    width: 160px;
+    max-width: 160px;
+    text-overflow: ellipsis;
+    overflow: clip;
+    padding: 5px 11px;
+}
+
+.wz-stat-comparison-table__delete-row {
+    height: 16px;
+    margin-right: 4px;
+    cursor: pointer;
+}
