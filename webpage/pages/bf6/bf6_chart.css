@@ -357,7 +357,7 @@
 /* Damage Chart */
 /* ************ */
 .secondColumn{
-    width: 252px;
+    width: 222px;
 }
 
 .damageChartContainer{
@@ -479,7 +479,7 @@ fiveMline {
 
 .spreadLabels {
     display: inline-block;
-    font-size: 16px;
+    font-size: 14px;
     text-align: right;
     margin-right: 5px !important;
     line-height: 25px;
@@ -548,7 +548,7 @@ fiveMline {
 
 .spreadInc{
     padding-top: 6px;
-    font-size: 14px;
+    font-size: 16px;
 }
 
 .spreadInc img {

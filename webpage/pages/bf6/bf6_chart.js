@@ -87,9 +87,10 @@ function bf6PrintWeaponClass(weaponClass){
 
 function bf6PrintWeapon(weaponStats){
     let reloadData = bf6CreateReloadGraphic(weaponStats.reload.ReloadEmpty, weaponStats.reload.ReloadLeft);
+    let deployData = bf6CreateDeployTimeGraphic(weaponStats.deploy.DeployTime, weaponStats.deploy.UnDeployTime);
     let standRecoilData = bf6CreateRecoilGraphic(weaponStats.spread.ADSStandRecoilDirection, 
-                                                 weaponStats.spread.ADSStandRecoilDirectionVariation, 
-                                                 weaponStats.spread.ADSStandRecoilAmount);
+                                                 weaponStats.spread.ADSStandRecoilDirectionVariation, weaponStats.spread.ADSStandRecoilDirectionVariationMultiplier, weaponStats.spread.ADSStandRecoilDirectionVariationMultiplierExponent,
+                                                 weaponStats.spread.ADSStandRecoilAmount, weaponStats.spread.ADSStandRecoilAmountMultiplier, weaponStats.spread.ADSStandRecoilAmountMultiplierExponent);
     let spreadTableGraphic = bf6CreateSpreadTableGraphic(weaponStats.spread.ADSStandBaseMin,weaponStats.spread.ADSCrouchBaseMin,weaponStats.spread.ADSProneBaseMin,
                                                       weaponStats.spread.ADSStandMoveMin,weaponStats.spread.ADSCrouchMoveMin,weaponStats.spread.ADSProneMoveMin,
                                                       weaponStats.spread.HIPStandBaseMin,weaponStats.spread.HIPCrouchBaseMin,weaponStats.spread.HIPProneBaseMin,
@@ -109,7 +110,6 @@ function bf6PrintWeapon(weaponStats){
                                 "<span class='lblMag'>" + weaponStats.mags.MagSize +
                                     "<span class='lblTimes'>x " + weaponStats.ammo + "</span>" + 
                                 "</span>" +
-                                //"<span class='lblSuffixText'> x " + bf2042FormatAmmoType(weaponStats.Ammo) + "</span>" +
                              "</span>" +
                          "</div>" +
                      "</td>" +
@@ -120,7 +120,7 @@ function bf6PrintWeapon(weaponStats){
 
               "<td>" +
               "<td>" +
-                  "<div class='reloadDataAndMagCount'>" + bf6CreateBulletSpeedGraphic(weaponStats.velocity, weaponStats.Drag) + reloadData  + "</div>" +
+                  "<div class='reloadDataAndMagCount'>" + bf6CreateBulletSpeedGraphic(weaponStats.velocity, weaponStats.Drag) + reloadData + deployData + "</div>" +
               "</td><td>" +
                   "<div class='recoilGraphicBox' " + recoilTooltip + ">" + standRecoilData + "</div>" +
               "</td><td>" +
@@ -209,15 +209,30 @@ function bf6CreateReloadGraphic(reloadEmpty, reloadLeft){
     return reloadData +  "</div>";
 }
 
+function bf6CreateDeployTimeGraphic(deployTime, undeployTime){
+    return "<div class='symGreen'>" +
+                "<div class='lblReloadLeft'>" +
+                    "<span class='ui-icon ui-icon-transferthick-e-w'></span>" +
+                    "<span>" + deployTime.toFixed(2) + "</span>" +
+                    "<span class='lblSuffixText'>s</span>" +
+                "</div>" +
+                "<div class='lblReloadEmpty'>" + undeployTime.toFixed(2) +
+                    "<span class='lblSuffixText'>s</span>" +
+                "</div>" +
+            "</div>";
+}
+
 function bf2042FormatAmmoType(ammo){
     var newAmmo = ammo.replace("fillertext", " ")
     
     return newAmmo;
 }
 
-function bf6CreateRecoilGraphic(direction, variation, amount){
+function bf6CreateRecoilGraphic(direction, variation, variationMul, variationEx, amount, amountMul, amountEx){
+    variation = variation * Math.pow(variationMul, variationEx);
+    amount = amount * Math.pow(amountMul, amountEx);
     direction = -direction //Invert direction for calculations
-    let useBigScale = (amount >= 1.0);
+    let useBigScale = (amount >= 1.07);
 
     const CX = useBigScale ? 150 : 50;
     const CY = useBigScale ? 150 : 50;
@@ -405,22 +420,22 @@ function bf6CreateDamageChart50Max(damageArr, distanceArr, numOfPellets){
 
     var minDamageText = "";
     if(distanceArr[distanceArr.length - 1] < 150){
-        minDamageText = "<text x='" + (distanceArr[distanceArr.length - 1] * 2) + "' y='" + (114 - (2 * minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";
+        minDamageText = "<text x='" + ((distanceArr[distanceArr.length - 1] * 2) + 2) + "' y='" + (114 - (2 * minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";
     } else {
         minDamageText = "<text x='225' y='" + (111 - (2 * minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";
     }
 
     var pelletsLabel = "";
     if (numOfPellets > 1){
-        pelletsLabel = "<text x='230' y='85' class='chartMinMaxLabel'>" + numOfPellets + " pellets</text>";
+        pelletsLabel = "<text x='130' y='100' class='chartMinMaxLabel'>" + numOfPellets + " pellets</text>";
     }
 	
 	if (maxDamage == minDamage){
         minDamageText = "<text x='2000' y='" + (114 - (minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";//This is a hackjob fix but it hides duplicate damage values
     }
 
-    return "<svg viewbox='0 0 300 120' class='damageChart'>" +
-               "<rect width='300' height='120' style='stroke:rgb(0,0,100);stroke-width:0' fill='rgb(25,25,25)' />" +
+    return "<svg viewbox='0 0 200 120' class='damageChart'>" +
+               "<rect width='200' height='120' style='stroke:rgb(0,0,100);stroke-width:0' fill='rgb(25,25,25)' />" +
 
                "<line x1='10' y1='0' x2='10' y2='120' class='gridLineThin'/>" +
                "<line x1='20' y1='0' x2='20' y2='120' class='gridLineThin'/>" +
@@ -453,11 +468,11 @@ function bf6CreateDamageChart50Max(damageArr, distanceArr, numOfPellets){
                "<line x1='200' y1='0' x2='200' y2='120' class='gridLineFat'/>" +
                "<line x1='250' y1='0' x2='250' y2='120' class='gridLineFat'/>" +
 
-               "<line x1='0' y1='70' x2='300' y2='70' style='stroke:rgb(175,175,175); stroke-width:.5'/>" +
+               "<line x1='0' y1='70' x2='200' y2='70' style='stroke:rgb(175,175,175); stroke-width:.5'/>" +
                "<text x='0' y='78' class='chartLabel'>25</text>" +
-               "<line x1='0' y1='53' x2='300' y2='53' style='stroke:rgb(175,175,175); stroke-width:.25'/>" +
+               "<line x1='0' y1='53' x2='200' y2='53' style='stroke:rgb(175,175,175); stroke-width:.25'/>" +
                "<text x='0' y='61' class='chartLabel'>33</text>" +
-               "<line x1='0' y1='20' x2='300' y2='20' style='stroke:rgb(175,175,175); stroke-width:.5'/>" +
+               "<line x1='0' y1='20' x2='200' y2='20' style='stroke:rgb(175,175,175); stroke-width:.5'/>" +
                "<text x='0' y='28' class='chartLabel'>50</text>" +
 
                "<text x='51' y='119' class='chartLabel'>25m</text>" +
@@ -513,8 +528,8 @@ function bf6CreateDamageChart100Max(damageArr, distanceArr){
         minDamageText = "<text x='2000' y='" + (114 - (minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";//This is a hackjob fix but it hides duplicate damage values
     }
 	
-    return "<svg viewbox='0 0 300 120' class='damageChart'>" +
-               "<rect width='300' height='120' style='stroke:rgb(0,0,100);stroke-width:0' fill='rgb(25,25,25)' />" +
+    return "<svg viewbox='0 0 200 120' class='damageChart'>" +
+               "<rect width='200' height='120' style='stroke:rgb(0,0,100);stroke-width:0' fill='rgb(25,25,25)' />" +
 
                "<line x1='10' y1='0' x2='10' y2='120' class='gridLineThin'/>" +
                "<line x1='20' y1='0' x2='20' y2='120' class='gridLineThin'/>" +
@@ -547,9 +562,9 @@ function bf6CreateDamageChart100Max(damageArr, distanceArr){
                "<line x1='200' y1='0' x2='200' y2='120' class='gridLineFat'/>" +
                "<line x1='250' y1='0' x2='250' y2='120' class='gridLineFat'/>" +
 
-               "<line x1='0' y1='20' x2='300' y2='20' style='stroke:rgb(175,175,175); stroke-width:.5'/>" +
+               "<line x1='0' y1='20' x2='200' y2='20' style='stroke:rgb(175,175,175); stroke-width:.5'/>" +
                "<text x='0' y='28' class='chartLabel'>100</text>" +
-               "<line x1='0' y1='70' x2='300' y2='70' style='stroke:rgb(175,175,175); stroke-width:.5'/>" +
+               "<line x1='0' y1='70' x2='200' y2='70' style='stroke:rgb(175,175,175); stroke-width:.5'/>" +
                "<text x='0' y='78' class='chartLabel'>50</text>" +
                
                "<text x='51' y='119' class='chartLabel'>25m</text>" +
