@@ -45,7 +45,7 @@ function bf6PrintWeapons(){
     statsHtml += bf6PrintWeaponClass("shotgun");
     statsHtml += bf6PrintWeaponClass("secondary");
 
-    statsHtml += "<div class='bf6Notes'>* The value shown here for Mini Scount is overriden using the value displayed in-game and is not calculated from Sym.gg data.</div>" +
+    statsHtml += "<div class='bf6Notes'>* The value shown here for Mini Scout is overriden using the value displayed in-game and is not calculated from Sym.gg data.</div>" +
                  "<div class='bf6Notes'>** Currently displaying sweet spot damage only (upper chest and above) for sniper rifles.</div>";
 
     $("#pageBody").html(statsHtml);
@@ -212,7 +212,7 @@ function bf6CreateReloadGraphic(reloadEmpty, reloadLeft){
 function bf6CreateDeployTimeGraphic(deployTime, undeployTime){
     return "<div class='symGreen'>" +
                 "<div class='lblReloadLeft'>" +
-                    "<span class='ui-icon ui-icon-transferthick-e-w'></span>" +
+                    "<span class='ui-icon ui-icon-transferthick-e-w deployIcon'></span>" +
                     "<span>" + deployTime.toFixed(2) + "</span>" +
                     "<span class='lblSuffixText'>s</span>" +
                 "</div>" +
