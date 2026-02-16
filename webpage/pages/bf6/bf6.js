@@ -209,8 +209,8 @@ function BF6InterpolateDamage (dist, damages, distances) {
   defined above
 */
 function BF6GetDamageOverDistance (weapon) {
-  var damages = weapon['Damages']
-  var distances = weapon['Dmg_distances']
+  var damages = weapon.damage.dmgs
+  var distances = weapon.damage.dists
   var damageOverDistance = []
 
   // Loop over distance and store damages
@@ -226,8 +226,8 @@ function BF6GetDamageOverDistance (weapon) {
   defined above
 */
 function BF6GetBTKUpperBoundOverDistance (weapon) {
-  var damages = weapon['Damages']
-  var distances = weapon['Dmg_distances']
+  var damages = weapon.damage.dmgs
+  var distances = weapon.damage.dists
   var BTKUBOverDistance = []
 
   // Loop over distance and store damages
@@ -245,10 +245,10 @@ function BF6GetBTKUpperBoundOverDistance (weapon) {
   defined above
 */
 function BF6GetTTKUpperBoundOverDistance (weapon) {
-  var damages = weapon['Damages']
-  var distances = weapon['Dmg_distances']
-  var numShots = weapon['ShotsPerShell']
-  var msPerShot = 60000 / (weapon['RoF'])
+  var damages = weapon.damage.dmgs
+  var distances = weapon.damage.dists
+  var numShots = weapon.pellets
+  var msPerShot = 60000 / (weapon.rof.RoF)
   var TTKUBOverDistance = []
 
   // Loop over distance and store damages
@@ -366,3 +366,23 @@ function openBF6GeneralInfoPage () {
 function openBF6WeaponInfoPage () {
   $('.otherTitles-main-content').load('./pages/bf6/bf6_dataWeapon.html', function(){MathJax.typeset()})
 }
+
+const flattenWeapons = (obj) => {
+  const result = {};
+
+  for (const category in obj) {
+    // Initialize the first level branch
+    result[category] = {};
+
+    for (const weapon in obj[category]) {
+      // If the second level is an object, merge its properties into the category
+      if (typeof obj[category][weapon] === 'object' && obj[category][weapon] !== null) {
+        Object.assign(result[category], obj[category][weapon]);
+      } else {
+        // If it's just a value, keep it as is
+        result[category][weapon] = obj[category][weapon];
+      }
+    }
+  }
+  return result;
+};

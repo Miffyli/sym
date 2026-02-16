@@ -3,43 +3,79 @@
 
     
     <div class="bf6SymNotice">
-        <h3>Welcome to the initial release of Battlefield 6 on Sym.gg!</h3>
+        <h3>Welcome to Battlefield 6 on Sym.gg!</h3>
         <br>
         <div> Please be aware that we are continuing to work on the following:</div>
         <ul style="text-align: left;">
+            <li>Attachments</li>
             <li>Complete Shotgun Stats</li>
             <li>More Stats For Each Weapon (Movement, ADS, etc..)</li>
-            <li>Attachments</li>
-            <li>Weapon Comparison Page</li>
             <li>Spread/Recoil Visualizations</li>
-            <li>And more...</li>
+            <li><s>Weapon Comparison Page</s> &#x2705;</li>
         </ul>
     </div>
     
     
     <div style='text-align: center;'><img class='imgKey' src='./pages/bf6/img/key.avif'></div>
 
-    <div id="weaponsToolbar">
-        <div class="toolboxRow bfvChart-dropdownRow">
-            <div>
-                <ul id="actionMenu">
-                    <li><div>Sort By                                  </div>
-                        <ul>
-                            <li><div id="sortRPM">RPM</div></li>
-                            <li><div id="sortName">Name</div></li>
-                            <li><div id="sortBulletSpeed">Bullet Speed</div></li>
-                            <li><div id="sortMagSize">Magazine Size</div></li>
-                            <li><div id="sortMaxDamage">Max Damage</div></li>
-                        </ul>
-                    </li>
-                </ul>
+    <div id="weaponsToolbar" class="theme-color-normal">
+        <div class="toolbarDiv">
+            <div class="btkColors">
+                <div>Bullets To Kill</div>
+
+                <span>
+                    <div style="padding-bottom: 5px;">Colors</div>
+                    <select id="btkColorsSelect" class="sym-select">
+                        <option value="normal">Standard</option>
+                        <option value="none">None</option>
+                        <option value="triton">Tritonopia</option>
+                        <option value="deuteran">Deuteranopia</option>
+                        <option value="protan">Protanopia</option>
+                    </select>
+                </span>
+
+                <div class="colorBox">
+                    <span>2</span>
+                    <div style="background-color: var(--color-1);"></div>
+                </div>
+                <div class="colorBox">
+                    <span>3</span>
+                    <div style="background-color: var(--color-2);"></div>
+                </div>
+                <div class="colorBox">
+                    <span>4</span>
+                    <div style="background-color: var(--color-3);"></div>
+                </div>
+                <div class="colorBox">
+                    <span>5</span>
+                    <div style="background-color: var(--color-4);"></div>
+                </div>
+                <div class="colorBox">
+                    <span>6</span>
+                    <div style="background-color: var(--color-5);"></div>
+                </div>
+                <div class="colorBox">
+                    <span>7</span>
+                    <div style="background-color: var(--color-6);"></div>
+                </div>
+                <div class="colorBox">
+                    <span>8</span>
+                    <div style="background-color: var(--color-7);"></div>
+                </div>
             </div>
 
-            
+            <select id="bf6SortMenu" class="sym-select" style="float:right;">
+                <option disabled selected>-- Sort By --</option>
+                <option value="sortRPM">RPM</option>
+                <option value="sortName">Name</option>
+                <option value="sortBulletSpeed">Bullet Speed</option>
+                <option value="sortMagSize">Magazine Size</option>
+                <option value="sortMaxDamage">Max Damage</option>
+            </select>
         </div>
     </div>
 
-    <div id="pageBody">
+    <div id="pageBody" class="theme-color-normal">
 
     </div>
 </div>

@@ -139,6 +139,10 @@ function otherTitlesOpenPageByName(pageName) {
     $('#bf6-chartPageSelector').addClass('selected-selector')
     openBF6ChartPage()
     updateQueryString("bf6", "charts")
+  } else if (pageName === 'BF6 Comparison') {
+    $('#bf6-comparisonPageSelector').addClass('selected-selector')
+    openBF6ComparisonPage()
+    updateQueryString("bf6", "comparison")
   }
 }
 

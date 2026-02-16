@@ -280,6 +280,9 @@ function exceuteQueryStringParams(){
           case 'charts':
             openOtherTitlesSelectionPageFromQueryString('BF6 Weapon Charts')
             break
+          case 'comparison':
+            openOtherTitlesSelectionPageFromQueryString('BF6 Comparison')
+            break
         }
         break
       case 'bf2042':

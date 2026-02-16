@@ -256,6 +256,16 @@
     text-align: center;
 }
 
+.toolbarDiv{
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    background-color: #272727;
+    padding: 18px 22px;
+    margin: 10px 0px 37px;
+    border: 1px solid #aaa;
+}
+
 .bfvChart-dropdownRow > div{
     display: inline-block;
 }
@@ -622,3 +632,122 @@ fiveMline {
     color: #bbb;
     font-size: 14px;
  }
+
+ .theme-color-normal {
+  --color-1: #3d263d; /* Muted Deep Purple */
+  --color-2: #7a4d7a; /* Muted Magenta */
+  --color-3: #833d3d; /* Muted Brick Red */
+  --color-4: #7a613d; /* Muted Ochre/Bronze */
+  --color-5: #7a7a3d; /* Muted Olive Gold */
+  --color-6: #263d26; /* Muted Forest Green */
+  --color-7: #3d3d7a; /* Muted Cobalt Blue */
+  --color-8: #454545; /* Neutral Dark Grey */
+ }
+
+ .theme-color-none {
+    --color-1: #191919;
+    --color-2: #191919;
+    --color-3: #191919;
+    --color-4: #191919;
+    --color-5: #191919;
+    --color-6: #191919;
+    --color-7: #191919;
+    --color-8: #191919;
+ }
+
+ /* Original Triton Palette*/
+.theme-color-triton {
+    --color-1: #ca6702; /* Coral */
+    --color-2: #ee9b00; /* Gold */
+    --color-3: #e9d8a6; /* Sand */
+    --color-4: #94d2bd; /* Seafoam */
+    --color-5: #0a9396; /* Tidepool */
+    --color-6: #005f73; /* Med. Blue */
+    --color-7: #003049; /* Deep Sea */
+    --color-8: #001219; /* Abyss */
+}
+
+/* Deuteranopia Friendly */
+.theme-color-deuteran {
+    --color-1: #8b4513; /* Driftwood */
+    --color-2: #ffcc00; /* Gold */
+    --color-3: #f1e3b0; /* Sand */
+    --color-4: #aec6cf; /* Pale Sky */
+    --color-5: #5271ff; /* Wave Blue */
+    --color-6: #005477; /* Ocean */
+    --color-7: #003049; /* Midnight */
+    --color-8: #001219; /* Abyss */
+}
+
+/* Protanopia Friendly */
+.theme-color-protan {
+    --color-1: #5e3a12; /* Dark Wood */
+    --color-2: #f9d423; /* Bright Gold */
+    --color-3: #ece2c6; /* Parchment */
+    --color-4: #b0c4de; /* Steel Blue */
+    --color-5: #7b9acc; /* Sky Blue */
+    --color-6: #2f5a8a; /* Deep Water */
+    --color-7: #12263a; /* Navy */
+    --color-8: #00050a; /* True Abyss */
+}
+
+.btkColors{
+    display:inline-block;
+}
+
+.btkColors > div:first-child{
+    margin-bottom: 7px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* Sym Select Dropdown */
+.sym-select {
+  --sym-bg: #121212;
+  --sym-border: #FF9000;
+  --sym-text: #e0e0e0;
+  --sym-accent: #ca6702;
+
+  appearance: none;
+  background-color: var(--sym-bg);
+  color: var(--sym-text);
+  border: 1px solid var(--sym-border);
+  border-radius: 4px;
+  padding: 8px 32px 8px 12px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+  
+  /* Custom Arrow (Sym style) */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23e0e0e0' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: calc(100% - 12px) center;
+  transition: border-color 0.2s ease;
+}
+
+.sym-select:focus {
+  outline: none;
+  border-color: var(--sym-accent);
+  box-shadow: 0 0 0 1px var(--sym-accent);
+}
+
+.sym-select option {
+  background-color: #1a1a1a;
+  color: var(--sym-text);
+}
+
+.colorBox{
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 16px;
+    margin: 5px;
+}
+
+.colorBox > div {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    margin-right: 5px;
+    border-radius: 3px;
+    vertical-align: text-bottom;
+}

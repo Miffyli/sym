@@ -13,8 +13,32 @@ var addVariantCounter = 0;
 function BF6initializeChartPage() {
     bf6PrintWeapons();
 
-    $("#actionMenu").menu({
-        position: {my: "left bottom", at: "left top"}
+    // Color scheme selector
+    $("#btkColorsSelect").click(function() {
+        var selectedValue = $(this).val();
+        $("#pageBody, #weaponsToolbar").removeClass().addClass("theme-color-" + selectedValue);
+    });
+
+    // Sort selector
+    $("#bf6SortMenu").click(function(){
+        var selectedValue = $(this).val();
+        switch(selectedValue){
+            case "sortRPM":                
+                bfvChartSortNumbers("lblRPMValue", compareRPMs);
+                break;
+            case "sortName":
+                bfvChartSortLetters("lblWeaponNameValue", compareNames);
+                break;
+            case "sortBulletSpeed":
+                bfvChartSortNumbers("lblSpeedValue", compareBulletSpeeds);
+                break;
+            case "sortMagSize":
+                bfvChartSortNumbers("lblMag", compareMagSizes);
+                break;
+            case "sortMaxDamage":
+                bfvChartSortNumbers("maxDamageText", compareMaxDamages);
+                break;
+        }
     });
 
     $("#shortcutCombobox").combobox({
@@ -115,7 +139,7 @@ function bf6PrintWeapon(weaponStats){
                      "</td>" +
 
               "<td class='secondColumn'>" +
-                  "<div class='damageChartContainer' " + damageTooltip + ">" + bf6createDamageChart(weaponStats.damage.dmgs, weaponStats.damage.dists, weaponStats.pellets) + "</div>" +
+                  "<div class='damageChartContainer' " + damageTooltip + ">" + bf6createDamageChart(weaponStats.damage.dmgs, weaponStats.damage.dists, weaponStats.pellets, weaponStats.class) + "</div>" +
               "</td>" +
 
               "<td>" +
@@ -128,7 +152,7 @@ function bf6PrintWeapon(weaponStats){
                       "<div class='spreadLabels' " + adsTooltip + ">" +
                           bf6CreateSpreadLabels(weaponStats.spread.ADSStandMoveMin, weaponStats.spread.ADSStandBaseMin) +
                       "</div>" +
-                      "<div class='spreadCircles' " + adsTooltip + ">" + bf6CreateSpreadGraphic(weaponStats.spread.ADSStandBaseMin, weaponStats.spread.ADSStandMoveMin) + "</div>" +
+                      "<div class='spreadCircles' " + adsTooltip + ">" + bf6CreateSpreadGraphic(weaponStats.spread.ADSStandBaseMin, weaponStats.spread.ADSStandMoveMin, weaponStats.spread.ADSStandBaseSpreadInc) + "</div>" +
                   "</div>" +
                   "<div class='spreadInc'><img src='./img/increase.png'>" + weaponStats.spread.ADSStandBaseSpreadInc + "°</div>" +
               "</td><td style='vertical-align: top;'>" +
@@ -320,12 +344,15 @@ function bf6CreateSpreadLabels(ADSStandMoveMin, ADSStandBaseMin){
     return rtnStr;
 }
 
-function bf6CreateSpreadGraphic(ADSBase, ADSMove){
+function bf6CreateSpreadGraphic(ADSBase, ADSMove, ADSInc){
     const SPREAD_RADIUS_MUL = 400;
     var spreadGraphic = "<svg viewBox='0 0 215 215' style='width: 80px;'>" +
                     "<circle cx='0' cy='215' class='spreadMoveCicleBG' r='214'></circle>" +
+                    //"<circle cx='0' cy='215' r='" + (ADSInc * SPREAD_RADIUS_MUL).toString() + "' class='spreadBaseCicle' style='stroke:white;fill:#515151'></circle>" +
                     "<circle cx='0' cy='215' r='" + (ADSMove * SPREAD_RADIUS_MUL).toString() + "' class='spreadMoveCicle'></circle>" +
-                    "<circle cx='0' cy='215' r='" + (ADSBase * SPREAD_RADIUS_MUL).toString() + "' class='spreadBaseCicle'></circle>"; +
+                    "<circle cx='0' cy='215' r='" + (ADSBase * SPREAD_RADIUS_MUL).toString() + "' class='spreadBaseCicle'></circle>" +
+                    //"<circle cx='0' cy='215' r='" + ((ADSBase + ADSInc) * SPREAD_RADIUS_MUL).toString() + "' class='spreadBaseCicle' style='stroke:white;'></circle>" +
+                    
                     "</svg>";
     return spreadGraphic;
 }
@@ -376,7 +403,7 @@ function bf2042CreateSpreadIncDecTableGraphic(spreadIncrease, spreadDecrease){
 return tableGraphic;
 }
 
-function bf6createDamageChart(damageArr, distanceArr, numOfPellets){
+function bf6createDamageChart(damageArr, distanceArr, numOfPellets, weaponClass){
     var damageChart;
     if (damageArr[0] > 50 || damageArr[0] == 0){
         if (damageArr[0] >= 80){
@@ -385,7 +412,7 @@ function bf6createDamageChart(damageArr, distanceArr, numOfPellets){
             damageChart = bf6CreateDamageChart100Max(damageArr, distanceArr);
         }
     } else {
-        damageChart = bf6CreateDamageChart50Max(damageArr, distanceArr, numOfPellets)
+        damageChart = bf6CreateDamageChart50Max(damageArr, distanceArr, numOfPellets, weaponClass)
     }
     return damageChart;
 }
@@ -396,21 +423,16 @@ var fragLabels = "<text x='51' class='chartSplashLabel' y='9'>1m</text>" +
                  "<text x='201' class='chartSplashLabel' y='9'>4m</text>" +
                  "<text x='251' class='chartSplashLabel' y='9'>5m</text>";
 
-function bf6CreateDamageChart50Max(damageArr, distanceArr, numOfPellets){
+function bf6CreateDamageChart50Max(damageArr, distanceArr, numOfPellets, weaponClass){
     var damageLineCoords = "";
     for (var i = 0; i < damageArr.length; i++){
         var damageCoord = 120 - (2 * damageArr[i]);
         var distanceCoord = 2 * distanceArr[i];
         damageLineCoords += distanceCoord.toString() + "," + damageCoord.toString() + " ";
-
-        // if damage is a step down make add a point directly below previous point
-        if(i < damageArr.length - 1 && damageArr[i] != damageArr[i+1]){
-            damageCoord = 120 - (2 * damageArr[i]);
-            distanceCoord = 2 * distanceArr[i+1];
-            damageLineCoords += distanceCoord.toString() + "," + damageCoord.toString() + " ";
-        }
     }
-    damageLineCoords += "300," + (120 - (2 * damageArr[damageArr.length - 1])).toString();
+    damageLineCoords += "200," + (120 - (2 * damageArr[damageArr.length - 1])).toString();
+
+    btkSquaress = bf6CreateBTKBoxes(damageLineCoords, damageArr, 120);
 
     var maxDamage = roundToDecimal(damageArr[0], "1");
     var minDamage = roundToDecimal(damageArr[damageArr.length - 1], "1");
@@ -425,6 +447,35 @@ function bf6CreateDamageChart50Max(damageArr, distanceArr, numOfPellets){
         minDamageText = "<text x='225' y='" + (111 - (2 * minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";
     }
 
+    ////////
+    /*
+    let hsDamageArr = damageArr.map(val => val * 1.34);
+
+    var hsDamageLineCoords = "";
+    for (var i = 0; i < hsDamageArr.length; i++){
+        var damageCoord = 120 - (2 * hsDamageArr[i]);
+        var distanceCoord = 2 * distanceArr[i];
+        hsDamageLineCoords += distanceCoord.toString() + "," + damageCoord.toString() + " ";
+    }
+    hsDamageLineCoords += "200," + (120 - (2 * hsDamageArr[hsDamageArr.length - 1])).toString();
+
+    btkSquaress = bf6CreateBTKBoxes(hsDamageLineCoords, hsDamageArr, 120);
+
+    var maxDamage = roundToDecimal(hsDamageArr[0], "1");
+    var minDamage = roundToDecimal(hsDamageArr[hsDamageArr.length - 1], "1");
+
+    let hsMaxDamageText = "";
+    hsMaxDamageText = "<text x='" + (distanceArr[1]) + "' y='" + (116 - (2 * maxDamage)).toString() + "' class='chartMinMaxLabel maxDamageText'>" + maxDamage + "</text>";
+
+    let hsMinDamageText = "";
+    if(distanceArr[distanceArr.length - 1] < 150){
+        hsMinDamageText = "<text x='" + ((distanceArr[distanceArr.length - 1] * 2) + 2) + "' y='" + (114 - (2 * minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";
+    } else {
+        hsMinDamageText = "<text x='225' y='" + (111 - (2 * minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";
+    }
+*/
+    ////////
+
     var pelletsLabel = "";
     if (numOfPellets > 1){
         pelletsLabel = "<text x='130' y='100' class='chartMinMaxLabel'>" + numOfPellets + " pellets</text>";
@@ -436,7 +487,7 @@ function bf6CreateDamageChart50Max(damageArr, distanceArr, numOfPellets){
 
     return "<svg viewbox='0 0 200 120' class='damageChart'>" +
                "<rect width='200' height='120' style='stroke:rgb(0,0,100);stroke-width:0' fill='rgb(25,25,25)' />" +
-
+                btkSquaress +
                "<line x1='10' y1='0' x2='10' y2='120' class='gridLineThin'/>" +
                "<line x1='20' y1='0' x2='20' y2='120' class='gridLineThin'/>" +
                "<line x1='30' y1='0' x2='30' y2='120' class='gridLineThin'/>" +
@@ -480,7 +531,11 @@ function bf6CreateDamageChart50Max(damageArr, distanceArr, numOfPellets){
                "<text x='151' y='119' class='chartLabel'>75m</text>" +
                "<text x='201' y='119' class='chartLabel'>100m</text>" +
                "<text x='251' y='119' class='chartLabel'>125m</text>" +
-
+/*
+               "<polyline class='chartDamageLine' points='" + hsDamageLineCoords + "'/>" +
+               hsMaxDamageText +
+               hsMinDamageText +
+*/
               
 			   "<polyline class='chartDamageLine' points='" + damageLineCoords + "'/>" +
                maxDamageText +
@@ -496,19 +551,13 @@ function bf6CreateDamageChart100Max(damageArr, distanceArr){
         var damageCoord = 120 - damageArr[i];
         var distanceCoord = 2 * distanceArr[i];
         damageLineCoords += distanceCoord.toString() + "," + damageCoord.toString() + " ";
-
-        // if damage is a step down make add a point directly below previous point
-        if(i < damageArr.length - 1 && damageArr[i] != damageArr[i+1]){
-            damageCoord = 120 - damageArr[i];
-            distanceCoord = 2 * distanceArr[i+1];
-            damageLineCoords += distanceCoord.toString() + "," + damageCoord.toString() + " ";
-        }
     }
-    damageLineCoords += "300," + (120 - damageArr[damageArr.length - 1]).toString();
+    damageLineCoords += "200," + (120 - damageArr[damageArr.length - 1]).toString();
+
+    btkSquaress = bf6CreateBTKBoxes(damageLineCoords, damageArr, 120);
 
     var maxDamage = roundToDecimal(damageArr[0], "1");
     var minDamage = roundToDecimal(damageArr[damageArr.length - 1], "1");
-
 
     var maxDamageText = "";
     if(damageArr[0] > 80){
@@ -530,7 +579,7 @@ function bf6CreateDamageChart100Max(damageArr, distanceArr){
 	
     return "<svg viewbox='0 0 200 120' class='damageChart'>" +
                "<rect width='200' height='120' style='stroke:rgb(0,0,100);stroke-width:0' fill='rgb(25,25,25)' />" +
-
+               btkSquaress +
                "<line x1='10' y1='0' x2='10' y2='120' class='gridLineThin'/>" +
                "<line x1='20' y1='0' x2='20' y2='120' class='gridLineThin'/>" +
                "<line x1='30' y1='0' x2='30' y2='120' class='gridLineThin'/>" +
@@ -659,4 +708,35 @@ function bf6CreateDamageChart100Max200Dist(damageArr, distanceArr){
                maxDamageText +
                minDamageText +
            "</svg>";
+}
+
+function bf6CreateBTKBoxes(damageLineCoords, damageArr, boxHeight){
+    btkSquaress = "";
+    const pointsArray = damageLineCoords.split(" ").map(point => {return point.split(",").map(Number);});
+    if (pointsArray.length % 2 !== 0){
+        pointsArray.splice(1,1);
+    }
+    for(let i = 0; i < pointsArray.length; i=i+2){
+        let colorIndex = "";
+        if(damageArr[i] >= 50) {
+            colorIndex = "1";
+        } else if (damageArr[i] > 33.3){
+            colorIndex = "2";
+        } else if (damageArr[i] >= 25){
+            colorIndex = "3";
+        } else if (damageArr[i] >= 20){
+            colorIndex = "4";
+        } else if (damageArr[i] > 16.6){
+            colorIndex = "5";
+        } else if (damageArr[i] > 14.2){
+            colorIndex = "6";
+        } else if (damageArr[i] > 12.4){
+            colorIndex = "7";
+        } else{
+            colorIndex = "8";
+        }
+        const boxColor = "var(--color-" + colorIndex + ")";
+        btkSquaress += "<rect x='" + pointsArray[i][0] + "' y='" + (pointsArray[i][1]) + "' width='" + (pointsArray[i+1][0] - pointsArray[i][0]) + "' height='" + (boxHeight -pointsArray[i][1]) + "' style='fill:" + boxColor + ";'/>";
+    }
+    return btkSquaress;
 }
