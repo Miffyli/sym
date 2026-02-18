@@ -261,9 +261,9 @@ function bf6CreateRecoilGraphic(direction, variation, variationMul, variationEx,
     const CX = useBigScale ? 150 : 50;
     const CY = useBigScale ? 150 : 50;
     const R = 50 * amount;
-    const START_ANGLE_DEG = 360 + direction - (variation/2);
-    const END_ANGLE_DEG = START_ANGLE_DEG + variation; 
-    const ANGLE_DIFF = variation; // 24 degrees
+    const START_ANGLE_DEG = 360 + direction - (variation);
+    const END_ANGLE_DEG = START_ANGLE_DEG + variation*2; 
+    const ANGLE_DIFF = variation;
     
     // Function to convert degrees to point coordinates (X, Y)
     function polarToCartesian(centerX, centerY, radius, angleInDegrees) {
