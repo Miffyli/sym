@@ -24,11 +24,6 @@ function BF6GetSelectedWeapons () {
     if ($(this).find('select')[0].selectedIndex !== 0) {
       var selectedData = $(this).find('select option:selected')
       var selectedWeapName = selectedData[0].text.trim()
-      //var selectedAttachment1 = selectedData[1].value.trim()
-      //var selectedAttachment2 = selectedData[2].value.trim()
-      //var selectedAttachment3 = selectedData[3].value.trim()
-
-      //var attachmentString = selectedAttachment1 + "-" + selectedAttachment2 + "-" + selectedAttachment3
 
       // Find right weapon and apply attachments combination
       var weaponStats = Object.values(BF6WeaponData).find(function (weapon) {
@@ -36,16 +31,9 @@ function BF6GetSelectedWeapons () {
           weapon.displayname === selectedWeapName
         )
       })
-      // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign#cloning_an_object
+      
       var weaponStatsCopy = Object.assign({}, weaponStats)
-      // Apply modifier stuff
-      /*
-      for (var [key, value] of Object.entries(weaponStatsCopy["attachments"][attachmentString])) {
-        weaponStatsCopy[key] = value
-      }
-      weaponStatsCopy["attachment-string"] = attachmentString
-      weaponStatsCopy["attachment-string-shorts"] = selectedAttachment1.slice(0, 5) + "<br>" + selectedAttachment2.slice(0, 5) + "<br>" + selectedAttachment3.slice(0, 5)
-*/
+      
       selectedWeapons.push(weaponStatsCopy)
     }
   })
@@ -397,6 +385,10 @@ function BF6updateSelectors () {
 */
 function initializeBF6Comparison () {
   var selectorParent = $('#selectors')[0]
+
+  $('#version').text(BF6WeaponData.info.version)
+  $('#versionDate').text(BF6WeaponData.info.versionDate)
+  delete BF6WeaponData.info
 
   // Create different options (i.e. weapons)
   // and add them to first selector

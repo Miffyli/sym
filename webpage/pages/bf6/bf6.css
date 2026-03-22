@@ -123,3 +123,47 @@
 .bf6-genInfo-table tr td:nth-child(2){
     font-weight: bold;
 }
+
+/* Version info table */
+.bf6-version-info{
+    display: flex;
+    justify-content: center;
+    width: 910px;
+    margin: 10px auto 40px;
+}
+
+.bf6-version-info tr td:first-child {
+    text-align: right;
+    font-style: italic;
+    font-size: 10px;
+}
+
+.bf6-version-info tr td:nth-child(2) {
+    font-weight: bold;
+    font-size: 12px;
+}
+
+/* Toggle switch */
+.bf6-toggle-switch__box {
+    cursor: pointer;
+    border: 2px solid #ff9000;
+    padding: 2px;
+    width: 48px;
+    border-radius: 4px;
+}
+
+.bf6-toggle-switch__switch {
+    width: 24px;
+    height: 24px;
+    background-color: #ff9000;
+    border-radius: 4px;
+    -moz-transition: .4s;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.bf6-toggle-switch__switch--active {
+    transform: translateX(24px);
+    -webkit-transform: translateX(24px);
+    -moz-transform: translateX(24px);
+}

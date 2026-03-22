@@ -6,11 +6,15 @@ let bf6WeaponClasses = {"assaultrifle":"ASSAULT RIFLE",
                         "dmr":"DMR", 
                         "boltaction":"SNIPER RIFLE",
                         "secondary":"SECONDARY",
-                        "shotgun":"SHOTGUN (WORK IN PROGRESS)"};
+                        "shotgun":"SHOTGUN"};
 var customizations = new Object();
 var addVariantCounter = 0;
 
 function BF6initializeChartPage() {
+    $('#version').text(BF6WeaponData.info.version)
+    $('#versionDate').text(BF6WeaponData.info.versionDate)
+    delete BF6WeaponData.info;
+
     bf6PrintWeapons();
 
     // Color scheme selector
@@ -18,6 +22,8 @@ function BF6initializeChartPage() {
         var selectedValue = $(this).val();
         $("#pageBody, #weaponsToolbar").removeClass().addClass("theme-color-" + selectedValue);
     });
+
+   // initializeDamageToggle();
 
     // Sort selector
     $("#bf6SortMenu").click(function(){
@@ -48,11 +54,6 @@ function BF6initializeChartPage() {
             });
         }
     });
-}
-
-function showBlank(obj){
-    obj.onerror=null;
-    obj.src="./pages/bfv/img/blankWeapon.png";
 }
 
 function bf6PrintWeapons(){
@@ -110,7 +111,7 @@ function bf6PrintWeaponClass(weaponClass){
 }
 
 function bf6PrintWeapon(weaponStats){
-    let reloadData = bf6CreateReloadGraphic(weaponStats.reload.ReloadEmpty, weaponStats.reload.ReloadLeft);
+    let reloadData = bf6CreateReloadGraphic(weaponStats.reload.ReloadEmpty, weaponStats.reload.ReloadLeft, weaponStats.reload.ReloadSpeed);
     let deployData = bf6CreateDeployTimeGraphic(weaponStats.deploy.DeployTime, weaponStats.deploy.UnDeployTime);
     let standRecoilData = bf6CreateRecoilGraphic(weaponStats.spread.ADSStandRecoilDirection, 
                                                  weaponStats.spread.ADSStandRecoilDirectionVariation, weaponStats.spread.ADSStandRecoilDirectionVariationMultiplier, weaponStats.spread.ADSStandRecoilDirectionVariationMultiplierExponent,
@@ -120,7 +121,7 @@ function bf6PrintWeapon(weaponStats){
                                                       weaponStats.spread.HIPStandBaseMin,weaponStats.spread.HIPCrouchBaseMin,weaponStats.spread.HIPProneBaseMin,
                                                       weaponStats.spread.HIPStandMoveMin,weaponStats.spread.HIPCrouchMoveMin,weaponStats.spread.HIPProneMoveMin);
     let weaponImage = bf6GetWeaponImage(weaponStats.codename);
-    let rtnStr = "<tr class='" + weaponStats.displayname.replace(/ |\//g,"") + "'>" +
+    let rtnStr = "<tr class='" + weaponStats.displayname.replace(/ |\//g,"") + " " + weaponStats.codename + "'>" +
                      "<td class='firstColumn'>" +
                          "<div class='lblWeaponName'>" +
                             "<span class='lblWeaponNameValue'>" + weaponStats.displayname + "</span>" +
@@ -175,11 +176,23 @@ function bf6GetWeaponImage(weaponName){
     "<picture class='weaponImg'>" +
         "<source srcset='./pages/bf6/img/" + weaponName + ".avif' type='image/avif'/>" +
         "<source srcset='./pages/bf6/img/" + weaponName + ".webp' type='image/webp'/>" +
-        "<img src='./pages/bf6/img/" + weaponName + ".png' onerror='showBlank(this);' />" +
+        "<img src='./pages/bf6/img/" + weaponName + ".png' />" +
     "</picture>";
 
     return imgTag;
 }
+
+// Global error listener for weapon images to replace with blank image if the specific weapon image is not found
+document.addEventListener('error', function (event) {
+    if (event.target.closest('.weaponImg')) {
+        const img = event.target.parentElement.querySelector('img');
+        if (img && !img.dataset.failed) {
+            img.src = './pages/bf6/img/blankWeapon.png';
+            const sources = event.target.parentElement.querySelectorAll('source');
+            sources.forEach(s => s.srcset = '');
+        }
+    }
+}, true);
 
 function bf6CreateRPMGrpahic(RoF, codename){
     if (parseFloat((RoF % 1).toFixed(3)) === 0.999) {
@@ -204,9 +217,9 @@ function bf6CreateBulletSpeedGraphic(initialSpeed, drag){
            "</div>"
 }
 
-function bf6CreateReloadGraphic(reloadEmpty, reloadLeft){
-    reloadEmpty = (reloadEmpty == "N/A") ? "" : reloadEmpty.toFixed(2);
-    reloadLeft = (reloadLeft == "N/A") ? "" : reloadLeft.toFixed(2);
+function bf6CreateReloadGraphic(reloadEmpty, reloadLeft, reloadSpeed){
+    reloadEmpty = (reloadEmpty == "N/A") ? "" : (reloadEmpty/reloadSpeed).toFixed(2);
+    reloadLeft = (reloadLeft == "N/A") ? "" : (reloadLeft/reloadSpeed).toFixed(2);
 
     let reloadData = "<div>" +
                          "<div class='sectionReload' " + reloadTooltip + ">";
@@ -364,6 +377,8 @@ function bf6CreateHipSpreadGraphic(HIPSpread, HorDispersion){
    // if (HorDispersion == 0 || HorDispersion == .5) { //Villa Perosa hordispersion = .5
     if (true) {
         spreadGraphic = "<svg viewBox='0 0 100 100' style='width: 100px;'>" +
+                        "<circle cx='50' cy='50' r='15' fill='none' stroke='#555' stroke-width='.5'></circle>" +
+                       // "<circle cx='50' cy='50' r='20' fill='none' stroke='#555' stroke-width='.5'></circle>" +
                         "<line x1='50' y1='" + (lineOffset + 52) + "' x2='50' y2='" + (lineOffset + 65) + "' class='hipSpreadLine'></line>" +
                         "<line x1='50' y1='" + (48 - lineOffset) + "' x2='50' y2='" + (35 - lineOffset) + "' class='hipSpreadLine'></line>" +
 
@@ -739,4 +754,36 @@ function bf6CreateBTKBoxes(damageLineCoords, damageArr, boxHeight){
         btkSquaress += "<rect x='" + pointsArray[i][0] + "' y='" + (pointsArray[i][1]) + "' width='" + (pointsArray[i+1][0] - pointsArray[i][0]) + "' height='" + (boxHeight -pointsArray[i][1]) + "' style='fill:" + boxColor + ";'/>";
     }
     return btkSquaress;
+}
+
+function initializeDamageToggle(){
+    $(".bf6DamageSwitch").click(function(){
+        $(".bf6DamageSwitch .bf6-toggle-switch__switch").toggleClass("bf6-toggle-switch__switch--active");
+        
+        const isHeadshotActive = $(".bf6DamageSwitch .bf6-toggle-switch__switch").hasClass("bf6-toggle-switch__switch--active");
+
+        $.each(BF6WeaponData, function( key, value ) {
+            let damageMul = 1;
+            if (isHeadshotActive){
+                switch (value.class){
+                    case "dmr":
+                        damageMul = 1.50;
+                        break;
+                    case "secondary":
+                        damageMul = 1.25;
+                        break;
+                    default:
+                        damageMul = 1.34;
+                        break;
+                }
+            }
+
+            const damageArr = value.damage.dmgs.map(dmg => dmg * damageMul);
+            const distanceArr = value.damage.dists;
+            const pellets = value.pellets
+            const weaponClass = value.class
+            const damageChart = bf6createDamageChart(damageArr, distanceArr, pellets, weaponClass);
+            $("." + value.codename + " .damageChartContainer").html(damageChart);
+        }); 
+    });   
 }

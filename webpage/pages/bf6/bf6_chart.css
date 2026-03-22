@@ -1,18 +1,18 @@
-/*body{
-    font-family: Arial;
-    background: #333;
-    color: white;
-    cursor: default;
-} */
 
 .bf6SymNotice{
     background: none;
     color: #A9D852;
     width: 900px;
-    margin: 0px auto 30px;
-    font-size: 20px;
+    margin: 0px auto;
+    font-size: 18px;
     text-align: center;
+}
+
+.bf6SymNotice td{
+    padding: 20px;
     border: 2px solid #ff9000;
+    vertical-align: top;
+    min-width: 350px;
 }
 
 .bf6Notes{

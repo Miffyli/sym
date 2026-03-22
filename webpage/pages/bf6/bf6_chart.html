@@ -1,7 +1,45 @@
 <div>
-    <h1 class="comp-pageTitle">Battlefield 6 Weapon Charts</h1>
+    <h1 class="comp-pageTitle" style="margin-bottom: 25px;">Battlefield 6 Weapon Charts</h1>
 
+    <div class="bf6-version-info">
+        <table class="">
+            <tr>
+                <td>Data Version:</td>
+                <td id="version"></td>
+            </tr>
+            <tr>
+                <td>Data Version Date:</td>
+                <td id="versionDate"></td>
+            </tr>
+        </table>
+    </div>
+
+    <div>
+        <table class="bf6SymNotice">
+            <tr>
+                <td>
+                    <h3>Sym Corrections</h3>
+                    <ul style="margin-bottom: 0; text-align: left;">
+                        <li>Some reload values were off by up to 0.09s</li>
+                        <li>Recoil graphs were displaying Recoil Variation incorrectly. Variation was wrongly centered on the Recoil Direction line. This image shows the corrected version</li>
+                    </ul>
+                    <img src="./pages/bf6/img/variation.png">
+                </td>
+                <td>
+                    <h3>Sym BF6 Roadmap</h3>
+                    <ul style="text-align: left;">
+                        <li>Attachments</li>
+                        <li>Complete Shotgun Stats</li>
+                        <li>More Stats For Each Weapon (Movement, ADS, etc..)</li>
+                        <li>Spread/Recoil Visualizations</li>
+                        <li>&#x2705; <s>Weapon Comparison Page</s> </li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+    </div>
     
+    <!--
     <div class="bf6SymNotice">
         <h3>Welcome to Battlefield 6 on Sym.gg!</h3>
         <br>
@@ -14,6 +52,7 @@
             <li><s>Weapon Comparison Page</s> &#x2705;</li>
         </ul>
     </div>
+    -->
     
     
     <div style='text-align: center;'><img class='imgKey' src='./pages/bf6/img/key.avif'></div>
@@ -62,7 +101,30 @@
                     <span>8</span>
                     <div style="background-color: var(--color-7);"></div>
                 </div>
+                <div class="colorBox">
+                    <span>9+</span>
+                    <div style="background-color: var(--color-8);"></div>
+                </div>
             </div>
+
+            <!--
+            <div>
+                <div>Damage Graph</div>
+                <table class="bf6DamageSwitch">
+                    <tbody>
+                        <tr>
+                            <td>Body</td>
+                            <td>
+                                <div class="bf6DamageViewSwitch bf6-toggle-switch__box">
+                                    <div class="bf6-toggle-switch__switch"></div>
+                                </div>
+                            </td>
+                            <td>Head</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            -->
 
             <select id="bf6SortMenu" class="sym-select" style="float:right;">
                 <option disabled selected>-- Sort By --</option>
