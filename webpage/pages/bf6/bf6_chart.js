@@ -113,9 +113,9 @@ function bf6PrintWeaponClass(weaponClass){
 function bf6PrintWeapon(weaponStats){
     let reloadData = bf6CreateReloadGraphic(weaponStats.reload.ReloadEmpty, weaponStats.reload.ReloadLeft, weaponStats.reload.ReloadSpeed);
     let deployData = bf6CreateDeployTimeGraphic(weaponStats.deploy.DeployTime, weaponStats.deploy.UnDeployTime);
-    let standRecoilData = bf6CreateRecoilGraphic(weaponStats.spread.ADSStandRecoilDirection, 
-                                                 weaponStats.spread.ADSStandRecoilDirectionVariation, weaponStats.spread.ADSStandRecoilDirectionVariationMultiplier, weaponStats.spread.ADSStandRecoilDirectionVariationMultiplierExponent,
-                                                 weaponStats.spread.ADSStandRecoilAmount, weaponStats.spread.ADSStandRecoilAmountMultiplier, weaponStats.spread.ADSStandRecoilAmountMultiplierExponent);
+    let standRecoilData = bf6CreateRecoilGraphic(weaponStats.spread.ADSRecoilDirection, 
+                                                 weaponStats.spread.ADSRecoilDirectionVariation, weaponStats.spread.ADSRecoilDirectionVariationMultiplier, weaponStats.spread.ADSRecoilDirectionVariationMultiplierExponent,
+                                                 weaponStats.spread.ADSRecoilAmount, weaponStats.spread.ADSRecoilAmountMultiplier, weaponStats.spread.ADSRecoilAmountMultiplierExponent);
     let spreadTableGraphic = bf6CreateSpreadTableGraphic(weaponStats.spread.ADSStandBaseMin,weaponStats.spread.ADSCrouchBaseMin,weaponStats.spread.ADSProneBaseMin,
                                                       weaponStats.spread.ADSStandMoveMin,weaponStats.spread.ADSCrouchMoveMin,weaponStats.spread.ADSProneMoveMin,
                                                       weaponStats.spread.HIPStandBaseMin,weaponStats.spread.HIPCrouchBaseMin,weaponStats.spread.HIPProneBaseMin,
@@ -155,10 +155,10 @@ function bf6PrintWeapon(weaponStats){
                       "</div>" +
                       "<div class='spreadCircles' " + adsTooltip + ">" + bf6CreateSpreadGraphic(weaponStats.spread.ADSStandBaseMin, weaponStats.spread.ADSStandMoveMin, weaponStats.spread.ADSStandBaseSpreadInc) + "</div>" +
                   "</div>" +
-                  "<div class='spreadInc'><img src='./img/increase.png'>" + weaponStats.spread.ADSStandBaseSpreadInc + "°</div>" +
+                  "<div class='spreadInc'><img src='./img/increase.png'>" + weaponStats.spread.ADSBaseSpreadInc + "°</div>" +
               "</td><td style='vertical-align: top;'>" +
                   "<div class='hipSpreadContainer' " + hipfireTooltip + ">" + bf6CreateHipSpreadGraphic(weaponStats.spread.HIPStandMoveMin, weaponStats.spread.HorDispersion) + "</div>" +
-                  "<div class='spreadInc'><img src='./img/increase.png'>" + weaponStats.spread.HIPStandBaseSpreadInc + "°</div>" +
+                  "<div class='spreadInc'><img src='./img/increase.png'>" + weaponStats.spread.HIPBaseSpreadInc + "°</div>" +
               "</td><td>" +
                   spreadTableGraphic +
               "</td><td>" +
