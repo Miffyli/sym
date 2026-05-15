@@ -22,6 +22,7 @@ const BF6_MIN_DAMAGE_MULTIPLIER = 1.0
 // Set of variables that should be considered worse
 // if the number is lower
 const BF6_LOWER_IS_WORSE = new Set([
+  'velocity',
   'SDmg',
   'EDmg',
   'RoF',
