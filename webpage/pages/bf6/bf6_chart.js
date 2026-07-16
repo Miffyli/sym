@@ -54,6 +54,12 @@ function BF6initializeChartPage() {
             });
         }
     });
+
+    $('.classTable').each(function() {
+        let $rows = $(this).children('tbody').children('tr');
+        let randomIndex = Math.floor(Math.random() * $rows.length);
+        $rows.eq(randomIndex).find('span.lblRPM').after('<span style="padding-left: 7px;">&#128992;</span>');
+    });
 }
 
 function bf6PrintWeapons(){
