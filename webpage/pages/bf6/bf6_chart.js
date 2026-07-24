@@ -55,11 +55,7 @@ function BF6initializeChartPage() {
         }
     });
 
-    $('.classTable').each(function() {
-        let $rows = $(this).children('tbody').children('tr');
-        let randomIndex = Math.floor(Math.random() * $rows.length);
-        $rows.eq(randomIndex).find('span.lblRPM').after('<span style="padding-left: 7px;">&#128992;</span>');
-    });
+    $('span.lblRPM').after('<span style="padding-left: 7px;font-size: 15px;">&#128992;</span>');    
 }
 
 function bf6PrintWeapons(){
@@ -427,7 +423,7 @@ return tableGraphic;
 function bf6createDamageChart(damageArr, distanceArr, numOfPellets, weaponClass){
     var damageChart;
     if (damageArr[0] > 50 || damageArr[0] == 0){
-        if (damageArr[0] >= 80){
+        if (damageArr[0] >= 80 || weaponClass == "boltaction"){
             damageChart = bf6CreateDamageChart100Max200Dist(damageArr, distanceArr);
         } else {
             damageChart = bf6CreateDamageChart100Max(damageArr, distanceArr);
