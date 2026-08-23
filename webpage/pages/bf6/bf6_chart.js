@@ -55,7 +55,7 @@ function BF6initializeChartPage() {
         }
     });
 
-    $('span.lblRPM').after('<span style="padding-left: 7px;font-size: 15px;">&#128992;</span>');    
+    //$('span.lblRPM').after('<span style="padding-left: 7px;font-size: 15px;">&#128992;</span>');    
 }
 
 function bf6PrintWeapons(){
@@ -213,7 +213,7 @@ function bf6CreateBulletSpeedGraphic(initialSpeed, drag){
     return "<div class='bulletSpeedContainer'>" +
              "<span class='pr-3 lblSpeed' title='Bullet Speed'>" +
                "<img src='./pages/bfv/img/speed.png'>" +
-               "<span class='lblSpeedValue'>" + initialSpeed + "</span>" +
+               "<span class='lblSpeedValue'>" + initialSpeed.toFixed(0) + "</span>" +
                "<span class='lblSuffixText'> m/s</span>" +
              "</span>" +
            "</div>"
@@ -677,6 +677,8 @@ function bf6CreateDamageChart100Max200Dist(damageArr, distanceArr){
         minDamageText = "<text x='175' y='" + (94 - (minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";
     }
 
+    const interdictorTxt = damageArr.some(num => num === 150) ? '<text x="70" y="70" class="symOrange" style="font-size: 12px;">150 Damage at 120m - 150m</text>' : '';
+
     return "<svg viewbox='0 0 300 100' class='damageChart'>" +
                "<rect width='200' height='100' style='stroke:rgb(0,0,100);stroke-width:0' fill='rgb(25,25,25)' />" +
 
@@ -724,6 +726,7 @@ function bf6CreateDamageChart100Max200Dist(damageArr, distanceArr){
                "<polyline class='chartDamageLine' points='" + damageLineCoords + "'/>" +
                maxDamageText +
                minDamageText +
+               interdictorTxt +
            "</svg>";
 }
 
