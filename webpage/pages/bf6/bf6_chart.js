@@ -447,7 +447,7 @@ function bf6CreateDamageChart50Max(damageArr, distanceArr, numOfPellets, weaponC
         var distanceCoord = 2 * distanceArr[i];
         damageLineCoords += distanceCoord.toString() + "," + damageCoord.toString() + " ";
     }
-    damageLineCoords += "200," + (120 - (2 * damageArr[damageArr.length - 1])).toString();
+    damageLineCoords += "250," + (120 - (2 * damageArr[damageArr.length - 1])).toString();
 
     btkSquaress = bf6CreateBTKBoxes(damageLineCoords, damageArr, 120);
 
@@ -502,7 +502,7 @@ function bf6CreateDamageChart50Max(damageArr, distanceArr, numOfPellets, weaponC
         minDamageText = "<text x='2000' y='" + (114 - (minDamage)).toString() + "' class='chartMinMaxLabel'>" + minDamage + "</text>";//This is a hackjob fix but it hides duplicate damage values
     }
 
-    return "<svg viewbox='0 0 200 120' class='damageChart'>" +
+    return "<svg viewbox='0 0 250 120' class='damageChart'>" +
                "<rect width='200' height='120' style='stroke:rgb(0,0,100);stroke-width:0' fill='rgb(25,25,25)' />" +
                 btkSquaress +
                "<line x1='10' y1='0' x2='10' y2='120' class='gridLineThin'/>" +
@@ -536,11 +536,11 @@ function bf6CreateDamageChart50Max(damageArr, distanceArr, numOfPellets, weaponC
                "<line x1='200' y1='0' x2='200' y2='120' class='gridLineFat'/>" +
                "<line x1='250' y1='0' x2='250' y2='120' class='gridLineFat'/>" +
 
-               "<line x1='0' y1='70' x2='200' y2='70' style='stroke:rgb(175,175,175); stroke-width:.5'/>" +
+               "<line x1='0' y1='70' x2='250' y2='70' style='stroke:rgb(175,175,175); stroke-width:.5'/>" +
                "<text x='0' y='78' class='chartLabel'>25</text>" +
-               "<line x1='0' y1='53' x2='200' y2='53' style='stroke:rgb(175,175,175); stroke-width:.25'/>" +
+               "<line x1='0' y1='53' x2='250' y2='53' style='stroke:rgb(175,175,175); stroke-width:.25'/>" +
                "<text x='0' y='61' class='chartLabel'>33</text>" +
-               "<line x1='0' y1='20' x2='200' y2='20' style='stroke:rgb(175,175,175); stroke-width:.5'/>" +
+               "<line x1='0' y1='20' x2='250' y2='20' style='stroke:rgb(175,175,175); stroke-width:.5'/>" +
                "<text x='0' y='28' class='chartLabel'>50</text>" +
 
                "<text x='51' y='119' class='chartLabel'>25m</text>" +
